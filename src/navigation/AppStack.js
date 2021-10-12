@@ -10,42 +10,18 @@ import {
 } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import OrderScreen from "../screens/ClientScreens/OrdersScreen";
 import { Dimensions } from "react-native";
-import OrderDetailScreen from "../screens/ClientScreens/OrderDetailScreen";
-import NoticesScreen from "../screens/ClientScreens/NoticeScreen";
-import LocationScreen from "../screens/ClientScreens/LocationScreen";
-import SettingsScreen from "../screens/ClientScreens/SettingsScreen";
+import AdminMenuScreen from "../screens/AdminMenuScreen";
 
-const ClientTab = createBottomTabNavigator();
+const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const StaffTab = createBottomTabNavigator()
-
-const OrdersStack = ({ navigation, route }) => {
+const MenuStack = ({ navigation, route }) => {
     return (
         <Stack.Navigator screenOptions={{}}>
             <Stack.Screen
-                name="OrdersScreen"
-                component={OrderScreen}
-                options={{
-                    headerTitle: "ID: #3493843",
-                    headerTitleAlign: "center",
-                    headerTitleStyle: {
-                        fontSize: 18,
-                        top: 25,
-                        textAlign: "center",
-                    },
-                    headerStyle: {
-                        shadowColor: "#fff",
-                        elevation: 0,
-                        height: Dimensions.get("window").height / 5.8,
-                    },
-                }}
-            />
-            <Stack.Screen
-                name="OrderDetailScreen"
-                component={OrderDetailScreen}
+                name="AdminMenuScreen"
+                component={AdminMenuScreen}
                 options={({ route }) => ({
                     headerTitleAlign: "center",
                     headerTitleStyle: {
@@ -58,7 +34,6 @@ const OrdersStack = ({ navigation, route }) => {
                         elevation: 0,
                         height: Dimensions.get("window").height / 5.8,
                     },
-                    title: route.params.id,
                     headerRight: () => (
                         <TouchableOpacity style={{ marginRight: 20 }}>
                             <Feather name="phone" size={24} color="#007AFF" />
@@ -102,12 +77,43 @@ const NoticesStack = ({ navigation, route }) => {
     );
 };
 
-const LocationStack = ({ navigation, route }) => {
+const SearchStack = ({ navigation, route }) => {
     return (
         <Stack.Navigator screenOptions={{}}>
             <Stack.Screen
                 name="LocationScreen"
                 component={LocationScreen}
+                options={({ route }) => ({
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        height: Dimensions.get("window").height / 5.8,
+                    },
+                    // title: route.params.id,
+                    headerRight: () => (
+                        <TouchableOpacity style={{ marginRight: 20 }}>
+                            <Feather name="phone" size={24} color="#007AFF" />
+                        </TouchableOpacity>
+                    ),
+                    headerLeft: () => null,
+                })}
+            />
+        </Stack.Navigator>
+    );
+};
+
+const QRCodeStack = ({ navigation, route }) => {
+    return (
+        <Stack.Navigator screenOptions={{}}>
+            <Stack.Screen
+                name="SettingsScreen"
+                component={SettingsScreen}
                 options={({ route }) => ({
                     headerTitleAlign: "center",
                     headerTitleStyle: {
@@ -206,8 +212,8 @@ const SettingsStack = ({ navigation, route }) => {
 
 const AppStack = () => {
     return (
-        <ClientTab.Navigator
-            initialRouteName="Orders"
+        <StaffTab.Navigator
+            initialRouteName="Menu"
             screenOptions={{
                 tabBarShowLabel: true,
                 tabBarActiveTintColor: "#007AFF",
@@ -218,34 +224,44 @@ const AppStack = () => {
                 },
             }}
         >
-            <ClientTab.Screen
-                name="Orders"
-                component={OrdersStack}
+            <StaffTab.Screen
+                name="Notice"
+                component={NoticesStack}
                 options={({ route }) => ({
                     tabBarIcon: ({ color, size }) => (
                         <Feather name="menu" size={24} color={color} />
                     ),
                 })}
             />
-            <ClientTab.Screen
-                name="Notices"
-                component={NoticesStack}
+            <StaffTab.Screen
+                name="Search"
+                component={SearchStack}
                 options={({ route }) => ({
                     tabBarIcon: ({ color, size }) => (
                         <Feather name="bell" size={24} color={color} />
                     ),
                 })}
             />
-            <ClientTab.Screen
-                name="Location"
-                component={LocationStack}
+            <StaffTab.Screen
+                name="Menu"
+                component={MenuStack}
                 options={({ route }) => ({
                     tabBarIcon: ({ color, size }) => (
                         <Feather name="map" size={24} color={color} />
                     ),
                 })}
             />
-            <ClientTab.Screen
+            <StaffTab.Screen
+                name="QRCode"
+                component={QRCodeStack}
+                options={{
+                    // tabBarLabel: 'Home',
+                    tabBarIcon: ({ color, size }) => (
+                        <Feather name="user" size={24} color={color} />
+                    ),
+                }}
+            />
+             <StaffTab.Screen
                 name="Settings"
                 component={SettingsStack}
                 options={{
@@ -255,7 +271,7 @@ const AppStack = () => {
                     ),
                 }}
             />
-        </ClientTab.Navigator>
+        </StaffTab.Navigator>
     );
 };
 
