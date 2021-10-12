@@ -16,45 +16,45 @@ const AdminMenuScreen = () => {
             <View style={styles.firstBox}>
                 <TouchableOpacity style={styles.menuBox}>
                     <Text style={styles.menuText}>Contacts</Text>
-                    <AntDesign name="contacts" size={28} color="black" />
+                    <AntDesign name="contacts" size={24} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.menuBox}>
                     <Text style={styles.menuText}>Moderators</Text>
                     <MaterialIcons
                         name="person-outline"
-                        size={28}
+                        size={24}
                         color="black"
                     />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.menuBox}>
                     <Text style={styles.menuText}>Orders</Text>
-                    <AntDesign name="menuunfold" size={28} color="black" />
+                    <AntDesign name="menuunfold" size={24} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.menuBox}>
                     <Text style={styles.menuText}>Transports</Text>
-                    <Ionicons name="ios-car-outline" size={28} color="black" />
+                    <Ionicons name="ios-car-outline" size={24} color="black" />
                 </TouchableOpacity>
             </View>
 
             <View style={styles.secondBox}>
                 <TouchableOpacity style={styles.menuBox}>
                     <Text style={styles.menuText}>Finance</Text>
-                    <Ionicons name="ios-car-outline" size={28} color="black" />
+                    <Ionicons name="ios-car-outline" size={24} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.menuBox}>
                     <Text style={styles.menuText}>Statistics</Text>
-                    <Feather name="trending-up" size={28} color="black" />
+                    <Feather name="trending-up" size={24} color="black" />
                 </TouchableOpacity>
             </View>
 
             <View style={styles.secondBox}>
                 <TouchableOpacity style={styles.menuBox}>
                     <Text style={styles.menuText}>Staffs</Text>
-                    <Feather name="users" size={28} color="black" />
+                    <Feather name="users" size={24} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.menuBox}>
                     <Text style={styles.menuText}>History</Text>
-                    <MaterialIcons name="history" size={28} color="black" />
+                    <MaterialIcons name="history" size={24} color="black" />
                 </TouchableOpacity>
             </View>
         </View>
