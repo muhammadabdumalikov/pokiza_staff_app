@@ -25,20 +25,14 @@ const MenuStack = ({ navigation, route }) => {
                 options={({ route }) => ({
                     headerTitleAlign: "center",
                     headerTitleStyle: {
-                        fontSize: 18,
-                        top: 25,
+                        fontSize: 24,
                         textAlign: "center",
                     },
                     headerStyle: {
-                        shadowColor: "#fff",
                         elevation: 0,
-                        height: Dimensions.get("window").height / 5.8,
+                        height: Dimensions.get("window").height / 5.17,
                     },
-                    headerRight: () => (
-                        <TouchableOpacity style={{ marginRight: 20 }}>
-                            <Feather name="phone" size={24} color="#007AFF" />
-                        </TouchableOpacity>
-                    ),
+                    title: "Super Admin's Menu",
                     headerLeft: () => null,
                 })}
             />
@@ -64,12 +58,7 @@ const NoticesStack = ({ navigation, route }) => {
                         elevation: 0,
                         height: Dimensions.get("window").height / 5.8,
                     },
-                    // title: route.params.id,
-                    headerRight: () => (
-                        <TouchableOpacity style={{ marginRight: 20 }}>
-                            <Feather name="phone" size={24} color="#007AFF" />
-                        </TouchableOpacity>
-                    ),
+                    title: "Super Admin's Menu",
                     headerLeft: () => null,
                 })}
             />
@@ -229,7 +218,7 @@ const AppStack = () => {
                 component={NoticesStack}
                 options={({ route }) => ({
                     tabBarIcon: ({ color, size }) => (
-                        <Feather name="menu" size={24} color={color} />
+                        <Feather name="bell" size={24} color={color} />
                     ),
                 })}
             />
@@ -238,7 +227,7 @@ const AppStack = () => {
                 component={SearchStack}
                 options={({ route }) => ({
                     tabBarIcon: ({ color, size }) => (
-                        <Feather name="bell" size={24} color={color} />
+                        <Feather name="search" size={24} color={color} />
                     ),
                 })}
             />
@@ -247,27 +236,25 @@ const AppStack = () => {
                 component={MenuStack}
                 options={({ route }) => ({
                     tabBarIcon: ({ color, size }) => (
-                        <Feather name="map" size={24} color={color} />
+                        <Feather name="menu" size={24} color={color} />
                     ),
                 })}
             />
             <StaffTab.Screen
                 name="QRCode"
                 component={QRCodeStack}
-                options={{
-                    // tabBarLabel: 'Home',
+                options={({route})=> ({
                     tabBarIcon: ({ color, size }) => (
-                        <Feather name="user" size={24} color={color} />
+                        <MaterialIcons name="qr-code-2" size={24} color={color} />
                     ),
-                }}
+                })}
             />
              <StaffTab.Screen
                 name="Settings"
                 component={SettingsStack}
                 options={{
-                    // tabBarLabel: 'Home',
                     tabBarIcon: ({ color, size }) => (
-                        <Feather name="user" size={24} color={color} />
+                        <Feather name="settings" size={24} color={color} />
                     ),
                 }}
             />
