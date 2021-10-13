@@ -63,7 +63,7 @@ const Slider = () => {
                         sliderLength={280}
                         onValuesChange={multiSliderValuesChange}
                         min={16}
-                        max={99}
+                        max={72}
                         allowOverlap={false}
                         minMarkerOverlapDistance={10}
                     />

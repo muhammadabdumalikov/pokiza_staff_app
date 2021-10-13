@@ -24,6 +24,9 @@ const height = Dimensions.get("window").height;
 const ContactsScreen = () => {
     const [collapsed, setCollapsed] = useState(true);
     let [selectedAge, setSelectedAge] = useState("");
+    let [selectedStatus, setSelectedStatus] = useState("");
+    let [selectedAddress, setSelectedAddress] = useState("");
+    let [selectedGender, setSelectedGender] = useState("");
     let firstname;
     let age;
 
@@ -44,16 +47,21 @@ const ContactsScreen = () => {
                 align="center"
             >
                 <View style={styles.content}>
-                    <Picker
-                        style={styles.picker}
-                        selectedValue={selectedAge}
-                        onValueChange={(itemValue, itemIndex) => {
-                            setSelectedAge(itemValue);
-                        }}
-                    >
-                        <Picker.Item label="18" value="18" />
-                        <Picker.Item label="20" value="20" />
-                    </Picker>
+                    <View style={styles.pickerWrapper}>
+                        <View style={styles.preTextWrapperStyle}>
+                            <Text style={styles.preText}>Status</Text>
+                        </View>
+                        <Picker
+                            style={styles.picker}
+                            selectedValue={selectedStatus}
+                            onValueChange={(itemValue, itemIndex) => {
+                                setSelectedStatus(itemValue);
+                            }}
+                        >
+                            <Picker.Item label="18" value="18" />
+                            <Picker.Item label="20" value="20" />
+                        </Picker>
+                    </View>
                     {/* Name input --------------------------------------------------------------- */}
                     <View
                         style={{ ...styles.inputContainer, marginBottom: 16 }}
@@ -93,17 +101,42 @@ const ContactsScreen = () => {
                         />
                     </View>
                     <Slider />
-                    <View style={styles.addressWrapper}>
+                    {/* Address input ----------------------------------------------------------- */}
+                    <View style={styles.pickerWrapper}>
+                        <View style={styles.preTextWrapperStyle}>
+                            <Text style={styles.preText}>Address</Text>
+                        </View>
                         <Picker
                             style={styles.picker}
-                            selectedValue={selectedAge}
+                            selectedValue={selectedAddress}
                             onValueChange={(itemValue, itemIndex) => {
-                                setSelectedAge(itemValue);
+                                setSelectedAddress(itemValue);
                             }}
                         >
                             <Picker.Item label="18" value="18" />
                             <Picker.Item label="20" value="20" />
                         </Picker>
+                    </View>
+                    {/* Gender input -------------------------------------------------------------- */}
+                    <View style={{ ...styles.pickerWrapper, marginBottom: 24 }}>
+                        <View style={styles.preTextWrapperStyle}>
+                            <Text style={styles.preText}>Gender</Text>
+                        </View>
+                        <Picker
+                            style={styles.picker}
+                            selectedValue={selectedGender}
+                            onValueChange={(itemValue, itemIndex) => {
+                                setSelectedGender(itemValue);
+                            }}
+                        >
+                            <Picker.Item label="18" value="18" />
+                            <Picker.Item label="20" value="20" />
+                        </Picker>
+                    </View>
+                    <View style={styles.resetWrapper}>
+                        <TouchableOpacity>
+                            <Text style={styles.resetText}>Reset Filter</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Collapsible>

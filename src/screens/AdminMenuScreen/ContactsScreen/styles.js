@@ -24,11 +24,15 @@ export const styles = StyleSheet.create({
         height: height / 1.57,
         backgroundColor: "#F5F5F5",
     },
+    content: {
+        paddingVertical: 16,
+    },
     picker: {
-        height: height /15,
+        flex: 1,
+        height: "100%",
         width: "100%",
-        marginBottom: 16,
         backgroundColor: "#fff",
+        color: "#B8B8BB",
     },
     inputContainer: {
         width: "100%",
@@ -40,6 +44,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     preTextWrapperStyle: {
+        flex: 1,
         height: "100%",
         justifyContent: "center",
         width: width * 0.3,
@@ -54,8 +59,27 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         color: "#666",
     },
-    addressWrapper: {
-        height: height / 13.53
+    pickerWrapper: {
+        height: height / 15,
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        backgroundColor: "#fff",
+        paddingHorizontal: 16,
+        marginBottom: 16,
+    },
+    resetWrapper: {
+        height: height / 15,
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#fff",
+        paddingHorizontal: 16,
+    },
+    resetText: {
+        fontSize: 16,
+        color: "#E50000"
     },
     active: {
         backgroundColor: "rgba(255,255,255,1)",
