@@ -24,9 +24,7 @@ export const styles = StyleSheet.create({
         height: height / 1.57,
         backgroundColor: "#F5F5F5",
     },
-    content: {
-        paddingVertical: 16,
-    },
+    content: {},
     picker: {
         flex: 1,
         height: "100%",
@@ -79,12 +77,70 @@ export const styles = StyleSheet.create({
     },
     resetText: {
         fontSize: 16,
-        color: "#E50000"
+        color: "#E50000",
     },
-    active: {
-        backgroundColor: "rgba(255,255,255,1)",
+    hideButtonWrapper: {
+        height: height / 15,
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        paddingHorizontal: 16,
     },
-    inactive: {
-        backgroundColor: "rgba(245,252,255,1)",
+    hideButtonText: {
+        fontSize: 16,
+        color: "#E50000",
     },
+    divider: {
+        borderBottomColor: "black",
+        borderBottomWidth: 0.9,
+        marginHorizontal: 16,
+        marginVertical: 24,
+    },
+    resultBox: {
+        height: height / 3.98,
+        backgroundColor: "gray",
+        borderRadius: 15,
+        marginHorizontal: 16,
+        borderColor: "#EDEDED",
+        borderWidth: 1,
+        overflow: "hidden",
+    },
+    resultLineBox: {
+        width: "100%",
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingHorizontal: 16,
+        backgroundColor: "white",
+        borderBottomWidth: 0.5,
+        borderBottomColor: "#EDEDED",
+    },
+    resultId: {
+        flexDirection: "row",
+        width: "30%",
+        justifyContent: "space-between"
+    },
+    resultIdText: {
+        fontSize: 16,
+        fontWeight: "bold"
+    },
+    resultFullName: {
+        flex: 1,
+        textAlign: "center",
+        fontSize: 16,
+        fontWeight: "bold"
+    },
+    resultPhoneNumbers: {
+        flex: 1,
+        textAlign: "center",
+        fontSize: 16,
+    },
+    // active: {
+    //     backgroundColor: "rgba(255,255,255,1)",
+    // },
+    // inactive: {
+    //     backgroundColor: "rgba(245,252,255,1)",
+    // },
 });

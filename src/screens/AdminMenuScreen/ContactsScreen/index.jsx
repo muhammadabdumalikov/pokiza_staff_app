@@ -15,8 +15,9 @@ import * as Animatable from "react-native-animatable";
 import Collapsible from "react-native-collapsible";
 import Accordion from "react-native-collapsible/Accordion";
 import { Picker } from "@react-native-picker/picker";
-import Slider from "../../../components/Slider";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 
+import Slider from "../../../components/Slider";
 import { styles } from "./styles";
 
 const height = Dimensions.get("window").height;
@@ -129,18 +130,53 @@ const ContactsScreen = () => {
                                 setSelectedGender(itemValue);
                             }}
                         >
-                            <Picker.Item label="18" value="18" />
+                            <Picker.Item label="Yakkasaroy tumani" value="18" />
                             <Picker.Item label="20" value="20" />
                         </Picker>
                     </View>
+                    {/* Reset Filter Button ------------------------------------------------ */}
                     <View style={styles.resetWrapper}>
                         <TouchableOpacity>
                             <Text style={styles.resetText}>Reset Filter</Text>
                         </TouchableOpacity>
                     </View>
+                    {/* Hide Filter Button ------------------------------------------------------ */}
+                    <View style={styles.hideButtonWrapper}>
+                        <TouchableOpacity onPress={toggleExpanded}>
+                            <Text style={styles.hideButtonText}>
+                                Hide Filter
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </Collapsible>
-            <Text>Text</Text>
+            {/* Divider --------------------------------------------------------------- */}
+            <View style={styles.divider} />
+            {/* Result box of staffs ------------------------------------------------------- */}
+            <View style={styles.resultBox}>
+                <View style={styles.resultLineBox}>
+                    <View style={styles.resultId}>
+                        <Ionicons name="md-heart" size={24} color="#E50000" />
+                        <Text style={styles.resultIdText}>{"001523"}</Text>
+                    </View>
+                    <Entypo name="location-pin" size={24} color="black" />
+                </View>
+                <View style={styles.resultLineBox}>
+                    <Text style={styles.resultFullName}>
+                        Hamdamboyev Hudoyberdi
+                    </Text>
+                </View>
+                <View style={styles.resultLineBox}>
+                    <Text style={styles.resultPhoneNumbers}>+998911000000</Text>
+                    <Text style={styles.resultPhoneNumbers}>+998901111111</Text>
+                </View>
+                <View style={styles.resultLineBox}>
+                    <Text style={styles.resultPhoneNumbers}>Age: {"28"}</Text>
+                    <Text style={styles.resultPhoneNumbers}>
+                        Gender: {"Male"}
+                    </Text>
+                </View>
+            </View>
         </ScrollView>
     );
 };
