@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import {
     MaterialIcons,
@@ -10,11 +10,11 @@ import {
 
 import { styles } from "./styles";
 
-const AdminMenuScreen = () => {
+const AdminMenuScreen = ({navigation}) => {
     return (
         <View style={styles.container}>
             <View style={styles.firstBox}>
-                <TouchableOpacity style={styles.menuBox}>
+                <TouchableOpacity style={styles.menuBox} onPress={()=> navigation.navigate("ContactsScreen")}>
                     <Text style={styles.menuText}>Contacts</Text>
                     <AntDesign name="contacts" size={24} color="black" />
                 </TouchableOpacity>
@@ -28,7 +28,8 @@ const AdminMenuScreen = () => {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.menuBox}>
                     <Text style={styles.menuText}>Orders</Text>
-                    <AntDesign name="menuunfold" size={24} color="black" />
+                    {/* <AntDesign name="menuunfold" size={24} color="black" /> */}
+                    <MaterialCommunityIcons name="clipboard-list-outline" size={24} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.menuBox}>
                     <Text style={styles.menuText}>Transports</Text>

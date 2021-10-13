@@ -1,3 +1,4 @@
+import { useRoute } from "@react-navigation/core";
 import React, { createContext, useState } from "react";
 import { Text } from "react-native";
 

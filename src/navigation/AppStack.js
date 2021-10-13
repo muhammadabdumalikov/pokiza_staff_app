@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
@@ -7,11 +7,32 @@ import {
     MaterialCommunityIcons,
     FontAwesome,
     Feather,
+    AntDesign,
 } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { Dimensions } from "react-native";
 import AdminMenuScreen from "../screens/AdminMenuScreen";
+import ContactsScreen from "../screens/AdminMenuScreen/ContactsScreen";
+import { AuthContext } from "./AuthProvider";
+
+const RoutesNames = {
+    Menu: <Feather name="menu" size={24} color="black" />,
+    Contacts: <AntDesign name="contacts" size={24} color="black" />,
+    Moderators: <MaterialIcons name="person-outline" size={24} color="black" />,
+    Orders: (
+        <MaterialCommunityIcons
+            name="clipboard-list-outline"
+            size={24}
+            color="black"
+        />
+    ),
+    Transports: <Ionicons name="ios-car-outline" size={24} color="black" />,
+    Finance: <Feather name="trending-up" size={24} color="black" />,
+    Statistics: <Feather name="trending-up" size={24} color="black" />,
+    Staffs: <Feather name="users" size={24} color="black" />,
+    History: <MaterialIcons name="history" size={24} color="black" />,
+};
 
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -33,6 +54,30 @@ const MenuStack = ({ navigation, route }) => {
                         height: Dimensions.get("window").height / 5.17,
                     },
                     title: "Super Admin's Menu",
+                    headerLeft: () => null,
+                })}
+            />
+            <Stack.Screen
+                name="ContactsScreen"
+                component={ContactsScreen}
+                options={({ route }) => ({
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        height: Dimensions.get("window").height / 5.8,
+                    },
+                    // title: route.params.id,
+                    headerRight: () => (
+                        <TouchableOpacity style={{ marginRight: 20, marginTop : 40 }}>
+                            <Feather name="phone" size={24} color="#007AFF" />
+                        </TouchableOpacity>
+                    ),
                     headerLeft: () => null,
                 })}
             />
@@ -199,7 +244,7 @@ const SettingsStack = ({ navigation, route }) => {
 //     </Stack.Navigator>
 // );
 
-const AppStack = () => {
+const AppStack = (route) => {
     return (
         <StaffTab.Navigator
             initialRouteName="Menu"
@@ -243,13 +288,17 @@ const AppStack = () => {
             <StaffTab.Screen
                 name="QRCode"
                 component={QRCodeStack}
-                options={({route})=> ({
+                options={({ route }) => ({
                     tabBarIcon: ({ color, size }) => (
-                        <MaterialIcons name="qr-code-2" size={24} color={color} />
+                        <MaterialIcons
+                            name="qr-code-2"
+                            size={24}
+                            color={color}
+                        />
                     ),
                 })}
             />
-             <StaffTab.Screen
+            <StaffTab.Screen
                 name="Settings"
                 component={SettingsStack}
                 options={{

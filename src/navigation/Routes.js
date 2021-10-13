@@ -4,18 +4,16 @@ import { AuthContext } from "./AuthProvider";
 
 import AppStack from "./AppStack";
 
-export default Routes = () => {
+export const Routes = () => {
     const { user, setUser } = useContext(AuthContext);
     const [initializing, setInitializing] = useState(true);
 
-    useEffect(() => {
-      
-    }, []);
+    useEffect(() => {}, []);
 
     return (
         <NavigationContainer>
-             {/* <SignInScreen /> */}
-             <AppStack/>
+            {/* <SignInScreen /> */}
+            <AppStack />
         </NavigationContainer>
     );
 };
