@@ -19,12 +19,18 @@ const height = Dimensions.get("window").height;
 
 const OrderListScreen = ({ navigation, route }) => {
     const [collapsed, setCollapsed] = useState(true);
-    let [selectedFromDate, setSelectedFromDate] = useState(new Date().toLocaleDateString());
-    let [selectedToDate, setSelectedToDate] = useState(new Date().toLocaleDateString());
+    let [selectedFromDate, setSelectedFromDate] = useState(
+        new Date().toLocaleDateString()
+    );
+    let [selectedToDate, setSelectedToDate] = useState(
+        new Date().toLocaleDateString()
+    );
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-    const [isDatePickerVisibleTwo, setDatePickerVisibilityTwo] = useState(false);
-    let [selectedAlphabet, setSelectedAlphabet] = useState("");
-
+    const [isDatePickerVisibleTwo, setDatePickerVisibilityTwo] =
+        useState(false);
+    let [selectedType, setSelectedType] = useState("");
+    let [selectedStatus, setSelectedStatus] = useState("");
+    let [selectedTimeRemaining, setSelectedTimeRemaining] = useState("");
 
     let firstname;
     let age;
@@ -84,17 +90,13 @@ const OrderListScreen = ({ navigation, route }) => {
                         </View>
                         <TouchableOpacity
                             style={styles.datePicker}
-                            onPress={() =>
-                                setDatePickerVisibility(true)
-                            }
+                            onPress={() => setDatePickerVisibility(true)}
                         >
                             <Text>From</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.datePicker}
-                            onPress={() =>
-                                setDatePickerVisibilityTwo(true)
-                            }
+                            onPress={() => setDatePickerVisibilityTwo(true)}
                         >
                             <Text>To</Text>
                         </TouchableOpacity>
@@ -103,9 +105,7 @@ const OrderListScreen = ({ navigation, route }) => {
                         <DateTimePickerModal
                             isVisible={isDatePickerVisible}
                             mode="date"
-                            onCancel={() =>
-                                setDatePickerVisibility(false)
-                            }
+                            onCancel={() => setDatePickerVisibility(false)}
                             onConfirm={(date) => {
                                 setSelectedFromDate(date.toLocaleDateString());
                                 setDatePickerVisibility(false);
@@ -114,9 +114,7 @@ const OrderListScreen = ({ navigation, route }) => {
                         <DateTimePickerModal
                             isVisible={isDatePickerVisibleTwo}
                             mode="date"
-                            onCancel={() =>
-                                setDatePickerVisibilityTwo(false)
-                            }
+                            onCancel={() => setDatePickerVisibilityTwo(false)}
                             onConfirm={(date) => {
                                 setSelectedToDate(date.toLocaleDateString());
                                 setDatePickerVisibilityTwo(false);
@@ -124,9 +122,7 @@ const OrderListScreen = ({ navigation, route }) => {
                         />
                     </View>
 
-                    {/* Address input ----------------------------------------------------------- */}
-
-                    {/* Alphabet input -------------------------------------------------------------- */}
+                    {/* Type input ----------------------------------------------------------- */}
                     <View
                         style={{
                             ...styles.pickerWrapper,
@@ -134,7 +130,7 @@ const OrderListScreen = ({ navigation, route }) => {
                         }}
                     >
                         <View style={styles.preTextWrapperStyle}>
-                            <Text style={styles.preText}>Alphabet</Text>
+                            <Text style={styles.preText}>Type</Text>
                         </View>
                         <ModalSelector
                             data={genderData}
@@ -154,7 +150,7 @@ const OrderListScreen = ({ navigation, route }) => {
                             scrollViewAccessibilityLabel={"Scrollable options"}
                             cancelButtonAccessibilityLabel={"Cancel Button"}
                             onChange={(option) => {
-                                setSelectedAlphabet(option.label);
+                                setSelectedType(option.label);
                             }}
                         >
                             <TextInput
@@ -165,18 +161,116 @@ const OrderListScreen = ({ navigation, route }) => {
                                 }}
                                 editable={true}
                                 placeholder={
-                                    selectedAlphabet ? selectedAlphabet : "A-Z"
+                                    selectedType ? selectedType : "A-Z"
                                 }
-                                value={selectedAlphabet}
+                                value={selectedType}
                             />
                         </ModalSelector>
                     </View>
+
+                    {/* Alphabet input -------------------------------------------------------------- */}
+                    <View
+                        style={{
+                            ...styles.pickerWrapper,
+                            marginBottom: 24,
+                        }}
+                    >
+                        <View style={styles.preTextWrapperStyle}>
+                            <Text style={styles.preText}>Status</Text>
+                        </View>
+                        <ModalSelector
+                            data={genderData}
+                            initValue="Select something yummy!"
+                            supportedOrientations={["portrait"]}
+                            overlayStyle={{
+                                flex: 1,
+                                padding: "5%",
+                                justifyContent: "center",
+                                backgroundColor: "rgba(0,0,0,0.5)",
+                            }}
+                            selectTextStyle={{
+                                color: "#fff",
+                            }}
+                            touchableActiveOpacity={0.5}
+                            accessible={true}
+                            scrollViewAccessibilityLabel={"Scrollable options"}
+                            cancelButtonAccessibilityLabel={"Cancel Button"}
+                            onChange={(option) => {
+                                setSelectedStatus(option.label);
+                            }}
+                        >
+                            <TextInput
+                                style={{
+                                    color: "#A5A5A8",
+                                    padding: 10,
+                                    height: "100%",
+                                }}
+                                editable={true}
+                                placeholder={
+                                    selectedStatus ? selectedStatus : "A-Z"
+                                }
+                                value={selectedStatus}
+                            />
+                        </ModalSelector>
+                    </View>
+
+                    {/* Time Remaining input ----------------------------------------------- */}
+                    <View
+                        style={{
+                            ...styles.pickerWrapper,
+                            marginBottom: 24,
+                        }}
+                    >
+                        <View style={styles.preTextWrapperStyle}>
+                            <Text style={styles.preText}>Time Remaining</Text>
+                        </View>
+                        <ModalSelector
+                            data={genderData}
+                            initValue="Select something yummy!"
+                            supportedOrientations={["portrait"]}
+                            overlayStyle={{
+                                flex: 1,
+                                padding: "5%",
+                                justifyContent: "center",
+                                backgroundColor: "rgba(0,0,0,0.5)",
+                            }}
+                            selectTextStyle={{
+                                color: "#fff",
+                            }}
+                            touchableActiveOpacity={0.5}
+                            accessible={true}
+                            scrollViewAccessibilityLabel={"Scrollable options"}
+                            cancelButtonAccessibilityLabel={"Cancel Button"}
+                            onChange={(option) => {
+                                setSelectedTimeRemaining(option.label);
+                            }}
+                        >
+                            <TextInput
+                                style={{
+                                    color: "#A5A5A8",
+                                    padding: 10,
+                                    height: "100%",
+                                }}
+                                editable={true}
+                                placeholder={
+                                    selectedTimeRemaining
+                                        ? selectedTimeRemaining
+                                        : "A-Z"
+                                }
+                                value={selectedTimeRemaining}
+                            />
+                        </ModalSelector>
+                    </View>
+
                     {/* Reset Filter Button ------------------------------------------------ */}
                     <View style={styles.resetWrapper}>
                         <TouchableOpacity
                             onPress={() => {
-                                setSelectedAddress("");
-                                setSelectedAlphabet("");
+                                setSelectedFromDate(new Date().toLocaleDateString());
+                                setSelectedToDate(new Date().toLocaleDateString());
+                                setSelectedType("");
+                                setSelectedStatus("");
+                                setSelectedTimeRemaining("");
                             }}
                         >
                             <Text style={styles.resetText}>Reset Filter</Text>
