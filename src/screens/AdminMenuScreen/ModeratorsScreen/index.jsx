@@ -228,11 +228,6 @@ const ModeratorsScreen = ({ navigation, route }) => {
                 <View style={styles.resultBox}>
                     <View style={styles.resultLineBox}>
                         <View style={styles.resultId}>
-                            <Ionicons
-                                name="md-heart"
-                                size={24}
-                                color="#E50000"
-                            />
                             <Text style={styles.resultIdText}>{"001523"}</Text>
                         </View>
                         <Entypo name="location-pin" size={24} color="black" />
@@ -252,7 +247,15 @@ const ModeratorsScreen = ({ navigation, route }) => {
                     </View>
                     <View style={styles.resultLineBox}>
                         <Text style={styles.tariffText}>
-                            Tarif:    <Text style={styles.tariffDynamicText}>{"Navbatsiz".toUpperCase()}</Text>
+                            Tariff:{"    "}
+                            <Text
+                                style={{
+                                    ...styles.tariffDynamicText,
+                                    color: "#E50000",
+                                }}
+                            >
+                                {"Navbatsiz".toUpperCase()}
+                            </Text>
                         </Text>
                         <Text style={styles.resultPhoneNumbers}></Text>
                     </View>
@@ -262,7 +265,54 @@ const ModeratorsScreen = ({ navigation, route }) => {
                             <Text style={styles.acceptText}>Accept</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.deleteBox}>
-                            <AntDesign name="delete" size={24} color="E50000" />
+                            <AntDesign name="delete" size={24} color="black" />
+                            <Text style={styles.deleteText}>Delete</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                {/* Fake Data ---------------------------------------------------- */}
+                <View style={styles.resultBox}>
+                    <View style={styles.resultLineBox}>
+                        <View style={styles.resultId}>
+                            <Text style={styles.resultIdText}>{"001523"}</Text>
+                        </View>
+                        <Entypo name="location-pin" size={24} color="black" />
+                    </View>
+                    <View style={styles.resultLineBox}>
+                        <Text style={styles.resultFullName}>
+                            Hamdamboyev Hudoyberdi
+                        </Text>
+                    </View>
+                    <View style={styles.resultLineBox}>
+                        <Text style={styles.resultPhoneNumbers}>
+                            +998911000000
+                        </Text>
+                        <Text style={styles.resultPhoneNumbers}>
+                            +998901111111
+                        </Text>
+                    </View>
+                    <View style={styles.resultLineBox}>
+                        <Text style={styles.tariffText}>
+                            Tariff:{"    "}
+                            <Text
+                                style={{
+                                    ...styles.tariffDynamicText,
+                                    color: "#007AFF",
+                                }}
+                            >
+                                {"Oddiy".toUpperCase()}
+                            </Text>
+                        </Text>
+                        <Text style={styles.resultPhoneNumbers}></Text>
+                    </View>
+                    <View style={styles.resultLineBox}>
+                        <TouchableOpacity style={styles.acceptBox}>
+                            <Feather name="check" size={24} color="#4BCE00" />
+                            <Text style={styles.acceptText}>Accept</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.deleteBox}>
+                            <AntDesign name="delete" size={24} color="black" />
                             <Text style={styles.deleteText}>Delete</Text>
                         </TouchableOpacity>
                     </View>

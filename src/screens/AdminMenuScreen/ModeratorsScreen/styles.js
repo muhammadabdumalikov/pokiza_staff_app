@@ -149,7 +149,6 @@ export const styles = StyleSheet.create({
         fontSize: 16,
     },
     tariffDynamicText: {
-        color: "#E50000",
         fontSize: 16,
         fontWeight: "bold"
     },
@@ -169,7 +168,7 @@ export const styles = StyleSheet.create({
         alignItems: "center",
     },
     deleteText: { 
-        color: "#E50000"
+        // color: "#E50000"
     },
     fab: {
         width: 64,
