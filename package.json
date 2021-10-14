@@ -27,9 +27,10 @@
     "react-native-confirmation-code-field": "^7.1.0",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-modal": "^13.0.0",
+    "react-native-modal-selector": "^2.1.0",
     "react-native-picker-select": "^8.0.4",
     "react-native-safe-area-context": "3.2.0",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "^0.17.5"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

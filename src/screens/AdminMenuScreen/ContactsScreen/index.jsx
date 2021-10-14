@@ -11,18 +11,17 @@ import {
     Dimensions,
     Platform,
 } from "react-native";
-import * as Animatable from "react-native-animatable";
 import Collapsible from "react-native-collapsible";
-import Accordion from "react-native-collapsible/Accordion";
 import { Picker } from "@react-native-picker/picker";
-import { Entypo, Ionicons } from "@expo/vector-icons";
+import ModalSelector from "react-native-modal-selector";
+import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 import Slider from "../../../components/Slider";
 import { styles } from "./styles";
 
 const height = Dimensions.get("window").height;
 
-const ContactsScreen = () => {
+const ContactsScreen = ({navigation, route}) => {
     const [collapsed, setCollapsed] = useState(true);
     let [selectedAge, setSelectedAge] = useState("");
     let [selectedStatus, setSelectedStatus] = useState("");
@@ -33,6 +32,25 @@ const ContactsScreen = () => {
 
     const toggleExpanded = () => {
         setCollapsed(!collapsed);
+    };
+
+    let index = 0;
+    const data = [
+        { key: index++, section: true, label: "Fruits" },
+        { key: index++, label: "Red Apples" },
+        { key: index++, label: "Cherries" },
+        {
+            key: index++,
+            label: "Cranberries",
+            accessibilityLabel: "Tap here for cranberries",
+        },
+        // etc...
+        // Can also add additional custom keys which are passed to the onChange callback
+        { key: index++, label: "Vegetable", customKey: "Not a fruit" },
+    ];
+
+    let state = {
+        textInputValue: "",
     };
 
     return (
@@ -101,22 +119,51 @@ const ContactsScreen = () => {
                             maxLength={9}
                         />
                     </View>
+                    <View
+                        style={{
+                            borderBottomColor: "black",
+                            borderBottomWidth: 0.9,
+                            marginHorizontal: 16,
+                        }}
+                    ></View>
                     <Slider />
                     {/* Address input ----------------------------------------------------------- */}
                     <View style={styles.pickerWrapper}>
                         <View style={styles.preTextWrapperStyle}>
                             <Text style={styles.preText}>Address</Text>
                         </View>
-                        <Picker
-                            style={styles.picker}
-                            selectedValue={selectedAddress}
-                            onValueChange={(itemValue, itemIndex) => {
-                                setSelectedAddress(itemValue);
+                        <ModalSelector
+                            data={data}
+                            initValue="Select something yummy!"
+                            supportedOrientations={["portrait"]}
+                            overlayStyle={{
+                                flex: 1,
+                                padding: "5%",
+                                justifyContent: "center",
+                                backgroundColor: "rgba(0,0,0,0.5)",
+                            }}
+                            selectTextStyle={{
+                                color: "#fff",
+                            }}
+                            touchableActiveOpacity={0.5}
+                            accessible={true}
+                            scrollViewAccessibilityLabel={"Scrollable options"}
+                            cancelButtonAccessibilityLabel={"Cancel Button"}
+                            onChange={(option) => {
+                                state.textInputValue = option.label;
                             }}
                         >
-                            <Picker.Item label="18" value="18" />
-                            <Picker.Item label="20" value="20" />
-                        </Picker>
+                            <TextInput
+                                style={{
+                                    borderColor: "#ccc",
+                                    padding: 10,
+                                    height: "100%",
+                                }}
+                                editable={false}
+                                placeholder="Select something yummy!"
+                                value={state.textInputValue}
+                            />
+                        </ModalSelector>
                     </View>
                     {/* Gender input -------------------------------------------------------------- */}
                     <View style={{ ...styles.pickerWrapper, marginBottom: 24 }}>
@@ -177,6 +224,34 @@ const ContactsScreen = () => {
                     </Text>
                 </View>
             </View>
+            <View
+                style={{ flex: 1, justifyContent: "space-around", padding: 50 }}
+            >
+                {/* // Default mode */}
+                {/* <ModalSelector
+                    style={{ width: 100}}
+                    data={data}
+                    initValue="Select something yummy!"
+                    onChange={(option) => {
+                        alert(`${option.label} (${option.key}) nom nom nom`);
+                    }}
+                /> */}
+                {/* // Wrapper */}
+
+                {/* // Custom component */}
+                {/* <ModalSelector
+                    data={data}
+                    ref={(selector) => {
+                        this.selector = selector;
+                    }}
+                    customSelector={
+                        <Switch onValueChange={() => this.selector.open()} />
+                    }
+                /> */}
+            </View>
+            <TouchableOpacity style={styles.fab} onPress={() => navigation.goBack()}>
+                <Ionicons name="ios-arrow-back" size={28} color="white" />
+            </TouchableOpacity>
         </ScrollView>
     );
 };

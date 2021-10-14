@@ -28,8 +28,7 @@ export const styles = StyleSheet.create({
     picker: {
         flex: 1,
         height: "100%",
-        width: "100%",
-        backgroundColor: "#fff",
+        backgroundColor: "#eee",
         color: "#B8B8BB",
     },
     inputContainer: {
@@ -120,22 +119,33 @@ export const styles = StyleSheet.create({
     resultId: {
         flexDirection: "row",
         width: "30%",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
     },
     resultIdText: {
         fontSize: 16,
-        fontWeight: "bold"
+        fontWeight: "bold",
     },
     resultFullName: {
         flex: 1,
         textAlign: "center",
         fontSize: 16,
-        fontWeight: "bold"
+        fontWeight: "bold",
     },
     resultPhoneNumbers: {
         flex: 1,
         textAlign: "center",
         fontSize: 16,
+    },
+    fab: {
+        width: 64,
+        height: 64,
+        borderRadius: 32,
+        justifyContent: "center",
+        alignItems: "center",
+        position: "absolute",
+        bottom: 28,
+        left: 24,
+        backgroundColor: "#007AFF",
     },
     // active: {
     //     backgroundColor: "rgba(255,255,255,1)",
