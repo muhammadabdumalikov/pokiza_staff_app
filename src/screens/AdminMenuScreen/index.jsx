@@ -40,7 +40,7 @@ const AdminMenuScreen = ({navigation}) => {
             <View style={styles.secondBox}>
                 <TouchableOpacity style={styles.menuBox}>
                     <Text style={styles.menuText}>Finance</Text>
-                    <Ionicons name="ios-car-outline" size={24} color="black" />
+                    <Feather name="pie-chart" size={24} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.menuBox}>
                     <Text style={styles.menuText}>Statistics</Text>
