@@ -1,9 +1,6 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState } from "react";
 import {
-    SafeAreaView,
-    Switch,
     ScrollView,
-    StyleSheet,
     Text,
     View,
     TouchableOpacity,
@@ -12,12 +9,11 @@ import {
     Platform,
 } from "react-native";
 import Collapsible from "react-native-collapsible";
-import { Picker } from "@react-native-picker/picker";
 import ModalSelector from "react-native-modal-selector";
+import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 
-import Slider from "../../../components/Slider";
-import { styles } from "./styles";
+import { sliderStyles, styles } from "./styles";
 
 const height = Dimensions.get("window").height;
 
@@ -27,20 +23,24 @@ const ContactsScreen = ({ navigation, route }) => {
     let [selectedStatus, setSelectedStatus] = useState("");
     let [selectedAddress, setSelectedAddress] = useState("");
     let [selectedGender, setSelectedGender] = useState("");
+    const [multiSliderValue, setMultiSliderValue] = useState([16, 99]);
+
     let firstname;
     let age;
+    let index = 0;
+    let genderIndex = 0;
+
 
     const toggleExpanded = () => {
         setCollapsed(!collapsed);
     };
+    const multiSliderValuesChange = (values) => setMultiSliderValue(values);
 
-    let genderIndex = 0;
     const genderData = [
         { key: genderIndex++, label: "Male" },
         { key: genderIndex++, label: "Female" },
-    ]
+    ];
 
-    let index = 0;
     const data = [
         { key: index++, section: true, label: "Fruits" },
         { key: index++, label: "Red Apples" },
@@ -54,10 +54,6 @@ const ContactsScreen = ({ navigation, route }) => {
         // Can also add additional custom keys which are passed to the onChange callback
         { key: index++, label: "Vegetable", customKey: "Not a fruit" },
     ];
-
-    let state = {
-        textInputValue: "",
-    };
 
     return (
         <View style={{ height: "100%" }}>
@@ -108,7 +104,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                         ? selectedStatus
                                         : "Add status"
                                 }
-                                value={state.textInputValue}
+                                value={selectedStatus}
                             />
                         </ModalSelector>
                     </View>
@@ -145,16 +141,83 @@ const ContactsScreen = ({ navigation, route }) => {
                         <TextInput
                             style={styles.input}
                             numberOfLines={1}
-                            placeholder="24-62"
+                            placeholder={`${multiSliderValue[0]}-${multiSliderValue[1]}`}
                             placeholderTextColor="#B8B8BB"
-                            onChangeText={(value) => (age = value)}
                             keyboardType="default"
                             // autoFocus={true}
                             maxLength={9}
                         />
                     </View>
 
-                    <Slider />
+                    {/* Slider ----------------------------------------------------------- */}
+                    <View style={sliderStyles.viewContainer}>
+                        <View style={sliderStyles.sliderWrapper}>
+                            <View style={sliderStyles.labelWrapper}>
+                                <Text style={sliderStyles.labelText}>
+                                    {multiSliderValue[0]}
+                                </Text>
+                                <MultiSlider
+                                    markerStyle={{
+                                        ...Platform.select({
+                                            ios: {
+                                                height: 20,
+                                                width: 20,
+                                                shadowColor: "#000000",
+                                                shadowOffset: {
+                                                    width: 0,
+                                                    height: 3,
+                                                },
+                                                shadowRadius: 1,
+                                                shadowOpacity: 0.1,
+                                            },
+                                            android: {
+                                                height: 20,
+                                                width: 20,
+                                                borderRadius: 50,
+                                                backgroundColor: "#1792E8",
+                                            },
+                                        }),
+                                    }}
+                                    pressedMarkerStyle={{
+                                        ...Platform.select({
+                                            android: {
+                                                height: 30,
+                                                width: 30,
+                                                borderRadius: 20,
+                                                backgroundColor: "#148ADC",
+                                            },
+                                        }),
+                                    }}
+                                    selectedStyle={{
+                                        backgroundColor: "#1792E8",
+                                    }}
+                                    trackStyle={{
+                                        backgroundColor: "#CECECE",
+                                    }}
+                                    touchDimensions={{
+                                        height: 20,
+                                        width: 20,
+                                        borderRadius: 10,
+                                        slipDisplacement: 40,
+                                    }}
+                                    values={[
+                                        multiSliderValue[0],
+                                        multiSliderValue[1],
+                                    ]}
+                                    sliderLength={280}
+                                    onValuesChange={multiSliderValuesChange}
+                                    min={16}
+                                    max={72}
+                                    allowOverlap={false}
+                                    minMarkerOverlapDistance={10}
+                                />
+                                <Text style={sliderStyles.labelText}>
+                                    {multiSliderValue[1]}
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+
                     {/* Address input ----------------------------------------------------------- */}
                     <View style={styles.pickerWrapper}>
                         <View style={styles.preTextWrapperStyle}>
@@ -193,7 +256,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                         ? selectedAddress
                                         : "Add adress"
                                 }
-                                value={state.textInputValue}
+                                value={selectedAddress}
                             />
                         </ModalSelector>
                     </View>
@@ -240,7 +303,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                         ? selectedGender
                                         : "Add gender"
                                 }
-                                value={state.textInputValue}
+                                value={selectedGender}
                             />
                         </ModalSelector>
                     </View>

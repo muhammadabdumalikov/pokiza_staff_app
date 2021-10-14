@@ -3,6 +3,29 @@ import { StyleSheet, Dimensions } from "react-native";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
+export const sliderStyles = StyleSheet.create({
+    sliderWrapper: {
+        width: "100%",
+        height: height / 18.45,
+        justifyContent: "center",
+        backgroundColor: "#fff",
+        marginBottom: 16,
+    },
+    viewContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    labelWrapper: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingHorizontal: 16,
+    },
+    labelText: {
+        fontSize: 18,
+    },
+});
+
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
