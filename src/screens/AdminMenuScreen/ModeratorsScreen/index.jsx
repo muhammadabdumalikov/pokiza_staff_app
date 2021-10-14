@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import Collapsible from "react-native-collapsible";
 import ModalSelector from "react-native-modal-selector";
-import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Entypo, Ionicons, AntDesign, Feather } from "@expo/vector-icons";
 
 import { styles } from "./styles";
 
@@ -200,11 +200,13 @@ const ModeratorsScreen = ({ navigation, route }) => {
                     </View>
                     {/* Reset Filter Button ------------------------------------------------ */}
                     <View style={styles.resetWrapper}>
-                        <TouchableOpacity onPress={()=> {
-                            setSelectedTariffs("")
-                            setSelectedAddress("")
-                            setSelectedAlphabet("")
-                        }}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                setSelectedTariffs("");
+                                setSelectedAddress("");
+                                setSelectedAlphabet("");
+                            }}
+                        >
                             <Text style={styles.resetText}>Reset Filter</Text>
                         </TouchableOpacity>
                     </View>
@@ -247,6 +249,22 @@ const ModeratorsScreen = ({ navigation, route }) => {
                         <Text style={styles.resultPhoneNumbers}>
                             +998901111111
                         </Text>
+                    </View>
+                    <View style={styles.resultLineBox}>
+                        <Text style={styles.tariffText}>
+                            Tarif:    <Text style={styles.tariffDynamicText}>{"Navbatsiz".toUpperCase()}</Text>
+                        </Text>
+                        <Text style={styles.resultPhoneNumbers}></Text>
+                    </View>
+                    <View style={styles.resultLineBox}>
+                        <TouchableOpacity style={styles.acceptBox}>
+                            <Feather name="check" size={24} color="#4BCE00" />
+                            <Text style={styles.acceptText}>Accept</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.deleteBox}>
+                            <AntDesign name="delete" size={24} color="E50000" />
+                            <Text style={styles.deleteText}>Delete</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </ScrollView>

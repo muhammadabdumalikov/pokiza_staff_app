@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
         height: "100%",
     },
     contentStyle: {
-        // height: "100%"
+        paddingVertical: 16,
     },
     filterBox: {
         height: height / 20,
@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
         fontWeight: "500",
     },
     hiddenContent: {
-        height: height / 2.30,
+        height: height / 2.3,
         backgroundColor: "#F5F5F5",
     },
     content: {},
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     },
     addressPlaceholder: {
         fontSize: 14,
-        color: "#A5A5A8"
+        color: "#A5A5A8",
     },
     input: {
         width: "100%",
@@ -104,7 +104,7 @@ export const styles = StyleSheet.create({
         marginVertical: 24,
     },
     resultBox: {
-        height: height / 3.98,
+        height: height / 3.18,
         backgroundColor: "gray",
         borderRadius: 15,
         marginHorizontal: 16,
@@ -134,7 +134,7 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     resultFullName: {
-        flex: 1,
+        // flex: 1,
         textAlign: "center",
         fontSize: 16,
         fontWeight: "bold",
@@ -143,6 +143,33 @@ export const styles = StyleSheet.create({
         flex: 1,
         textAlign: "center",
         fontSize: 16,
+    },
+    tariffText: {
+        flex: 1,
+        fontSize: 16,
+    },
+    tariffDynamicText: {
+        color: "#E50000",
+        fontSize: 16,
+        fontWeight: "bold"
+    },
+    acceptBox: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+    },
+    acceptText: {
+        color: "rgb(75,206,0)",
+    },
+    deleteBox: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+    },
+    deleteText: { 
+        color: "#E50000"
     },
     fab: {
         width: 64,
