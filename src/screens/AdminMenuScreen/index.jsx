@@ -26,7 +26,7 @@ const AdminMenuScreen = ({navigation}) => {
                         color="black"
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuBox}>
+                <TouchableOpacity style={styles.menuBox} onPress={()=> navigation.navigate("OrdersScreen")}>
                     <Text style={styles.menuText}>Orders</Text>
                     {/* <AntDesign name="menuunfold" size={24} color="black" /> */}
                     <MaterialCommunityIcons name="clipboard-list-outline" size={24} color="black" />

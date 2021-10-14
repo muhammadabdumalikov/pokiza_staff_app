@@ -16,6 +16,7 @@ import AdminMenuScreen from "../screens/AdminMenuScreen";
 import ContactsScreen from "../screens/AdminMenuScreen/ContactsScreen";
 import { AuthContext } from "./AuthProvider";
 import ModeratorsScreen from "../screens/AdminMenuScreen/ModeratorsScreen";
+import OrdersScreen from "../screens/AdminMenuScreen/OrdersScreen";
 
 const RoutesNames = {
     Menu: <Feather name="menu" size={24} color="black" />,
@@ -75,14 +76,16 @@ const MenuStack = ({ navigation, route }) => {
                     },
                     // title: route.params.id,
                     headerRight: () => (
-                        <TouchableOpacity style={{ marginRight: 20, marginTop : 40 }}>
+                        <TouchableOpacity
+                            style={{ marginRight: 20, marginTop: 40 }}
+                        >
                             <Feather name="phone" size={24} color="#007AFF" />
                         </TouchableOpacity>
                     ),
                     headerLeft: () => null,
                 })}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="ModeratorsScreen"
                 component={ModeratorsScreen}
                 options={({ route }) => ({
@@ -99,7 +102,35 @@ const MenuStack = ({ navigation, route }) => {
                     },
                     // title: route.params.id,
                     headerRight: () => (
-                        <TouchableOpacity style={{ marginRight: 20, marginTop : 40 }}>
+                        <TouchableOpacity
+                            style={{ marginRight: 20, marginTop: 40 }}
+                        >
+                            <Feather name="phone" size={24} color="#007AFF" />
+                        </TouchableOpacity>
+                    ),
+                    headerLeft: () => null,
+                })}
+            />
+            <Stack.Screen
+                name="OrdersScreen"
+                component={OrdersScreen}
+                options={({ route }) => ({
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        height: Dimensions.get("window").height / 5.8,
+                    },
+                    // title: route.params.id,
+                    headerRight: () => (
+                        <TouchableOpacity
+                            style={{ marginRight: 20, marginTop: 40 }}
+                        >
                             <Feather name="phone" size={24} color="#007AFF" />
                         </TouchableOpacity>
                     ),
