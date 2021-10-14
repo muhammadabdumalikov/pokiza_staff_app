@@ -52,6 +52,10 @@ export const styles = StyleSheet.create({
     preText: {
         fontSize: 16,
     },
+    addressPlaceholder: {
+        fontSize: 14,
+        color: "#A5A5A8"
+    },
     input: {
         width: "100%",
         height: "100%",

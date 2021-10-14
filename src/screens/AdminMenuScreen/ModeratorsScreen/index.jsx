@@ -14,18 +14,18 @@ import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 import { styles } from "./styles";
 
+const height = Dimensions.get("window").height;
+
 const ModeratorsScreen = ({ navigation, route }) => {
     const [collapsed, setCollapsed] = useState(true);
-    let [selectedAge, setSelectedAge] = useState("");
-    let [selectedStatus, setSelectedStatus] = useState("");
+    let [selectedTariffs, setSelectedTariffs] = useState("");
     let [selectedAddress, setSelectedAddress] = useState("");
-    let [selectedGender, setSelectedGender] = useState("");
+    let [selectedAlphabet, setSelectedAlphabet] = useState("");
 
     let firstname;
     let age;
     let index = 0;
     let genderIndex = 0;
-
 
     const toggleExpanded = () => {
         setCollapsed(!collapsed);
@@ -39,7 +39,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
     const data = [
         { key: index++, section: true, label: "Fruits" },
         { key: index++, label: "Red Apples" },
-        { key: index++, label: "Cherries" },
+        { key: index++, label: "Yakkasaroy tumani, 4-1" },
         {
             key: index++,
             label: "Cranberries",
@@ -64,7 +64,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                 <View style={styles.content}>
                     <View style={styles.pickerWrapper}>
                         <View style={styles.preTextWrapperStyle}>
-                            <Text style={styles.preText}>Status</Text>
+                            <Text style={styles.preText}>Tariffs</Text>
                         </View>
                         <ModalSelector
                             data={data}
@@ -84,30 +84,40 @@ const ModeratorsScreen = ({ navigation, route }) => {
                             scrollViewAccessibilityLabel={"Scrollable options"}
                             cancelButtonAccessibilityLabel={"Cancel Button"}
                             onChange={(option) => {
-                                setSelectedStatus(option.label);
+                                setSelectedTariffs(option.label);
                             }}
                         >
                             <TextInput
                                 style={{
-                                    borderColor: "#ccc",
+                                    color: "#A5A5A8",
                                     padding: 10,
                                     height: "100%",
                                 }}
                                 editable={true}
                                 placeholder={
-                                    selectedStatus
-                                        ? selectedStatus
-                                        : "Add status"
+                                    selectedTariffs
+                                        ? selectedTariffs
+                                        : "Add tariffs"
                                 }
-                                value={selectedStatus}
+                                value={selectedTariffs}
                             />
                         </ModalSelector>
                     </View>
-                  
+
                     {/* Address input ----------------------------------------------------------- */}
-                    <View style={styles.pickerWrapper}>
-                        <View style={styles.preTextWrapperStyle}>
+                    <View
+                        style={{ ...styles.pickerWrapper, height: height / 11 }}
+                    >
+                        <View
+                            style={{
+                                ...styles.preTextWrapperStyle,
+                                width: "66%",
+                            }}
+                        >
                             <Text style={styles.preText}>Address</Text>
+                            <Text style={styles.addressPlaceholder}>
+                                {selectedAddress}
+                            </Text>
                         </View>
                         <ModalSelector
                             data={data}
@@ -132,21 +142,17 @@ const ModeratorsScreen = ({ navigation, route }) => {
                         >
                             <TextInput
                                 style={{
-                                    borderColor: "#ccc",
+                                    color: "#A5A5A8",
                                     padding: 10,
                                     height: "100%",
                                 }}
                                 editable={true}
-                                placeholder={
-                                    selectedAddress
-                                        ? selectedAddress
-                                        : "Add adress"
-                                }
-                                value={selectedAddress}
+                                placeholder="Detail"
+                                value="Detail"
                             />
                         </ModalSelector>
                     </View>
-                    {/* Gender input -------------------------------------------------------------- */}
+                    {/* Alphabet input -------------------------------------------------------------- */}
                     <View
                         style={{
                             ...styles.pickerWrapper,
@@ -174,22 +180,20 @@ const ModeratorsScreen = ({ navigation, route }) => {
                             scrollViewAccessibilityLabel={"Scrollable options"}
                             cancelButtonAccessibilityLabel={"Cancel Button"}
                             onChange={(option) => {
-                                setSelectedGender(option.label);
+                                setSelectedAlphabet(option.label);
                             }}
                         >
                             <TextInput
                                 style={{
-                                    borderColor: "#ccc",
+                                    color: "#A5A5A8",
                                     padding: 10,
                                     height: "100%",
                                 }}
                                 editable={true}
                                 placeholder={
-                                    selectedGender
-                                        ? selectedGender
-                                        : "Add gender"
+                                    selectedAlphabet ? selectedAlphabet : "A-Z"
                                 }
-                                value={selectedGender}
+                                value={selectedAlphabet}
                             />
                         </ModalSelector>
                     </View>
@@ -213,8 +217,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                 style={styles.container}
                 contentContainerStyle={styles.contentStyle}
                 showsVerticalScrollIndicator={false}
-            >
-            </ScrollView>
+            ></ScrollView>
             <TouchableOpacity
                 style={styles.fab}
                 onPress={() => navigation.goBack()}
