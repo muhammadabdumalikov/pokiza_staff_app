@@ -62,6 +62,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                 align="center"
             >
                 <View style={styles.content}>
+                    {/* Tariffs input ------------------------------------------------------- */}
                     <View style={styles.pickerWrapper}>
                         <View style={styles.preTextWrapperStyle}>
                             <Text style={styles.preText}>Tariffs</Text>
@@ -199,7 +200,11 @@ const ModeratorsScreen = ({ navigation, route }) => {
                     </View>
                     {/* Reset Filter Button ------------------------------------------------ */}
                     <View style={styles.resetWrapper}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=> {
+                            setSelectedTariffs("")
+                            setSelectedAddress("")
+                            setSelectedAlphabet("")
+                        }}>
                             <Text style={styles.resetText}>Reset Filter</Text>
                         </TouchableOpacity>
                     </View>
@@ -217,7 +222,34 @@ const ModeratorsScreen = ({ navigation, route }) => {
                 style={styles.container}
                 contentContainerStyle={styles.contentStyle}
                 showsVerticalScrollIndicator={false}
-            ></ScrollView>
+            >
+                <View style={styles.resultBox}>
+                    <View style={styles.resultLineBox}>
+                        <View style={styles.resultId}>
+                            <Ionicons
+                                name="md-heart"
+                                size={24}
+                                color="#E50000"
+                            />
+                            <Text style={styles.resultIdText}>{"001523"}</Text>
+                        </View>
+                        <Entypo name="location-pin" size={24} color="black" />
+                    </View>
+                    <View style={styles.resultLineBox}>
+                        <Text style={styles.resultFullName}>
+                            Hamdamboyev Hudoyberdi
+                        </Text>
+                    </View>
+                    <View style={styles.resultLineBox}>
+                        <Text style={styles.resultPhoneNumbers}>
+                            +998911000000
+                        </Text>
+                        <Text style={styles.resultPhoneNumbers}>
+                            +998901111111
+                        </Text>
+                    </View>
+                </View>
+            </ScrollView>
             <TouchableOpacity
                 style={styles.fab}
                 onPress={() => navigation.goBack()}

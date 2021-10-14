@@ -309,7 +309,12 @@ const ContactsScreen = ({ navigation, route }) => {
                     </View>
                     {/* Reset Filter Button ------------------------------------------------ */}
                     <View style={styles.resetWrapper}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => {
+                            setSelectedStatus("")
+                            setSelectedAddress("")
+                            setSelectedGender("")
+                            setMultiSliderValue([16,99])
+                        } }>
                             <Text style={styles.resetText}>Reset Filter</Text>
                         </TouchableOpacity>
                     </View>
