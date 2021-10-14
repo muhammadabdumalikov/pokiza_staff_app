@@ -18,7 +18,7 @@ const AdminMenuScreen = ({navigation}) => {
                     <Text style={styles.menuText}>Contacts</Text>
                     <AntDesign name="contacts" size={24} color="black" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuBox}>
+                <TouchableOpacity style={styles.menuBox} onPress={()=> navigation.navigate("ModeratorsScreen")}>
                     <Text style={styles.menuText}>Moderators</Text>
                     <MaterialIcons
                         name="person-outline"
