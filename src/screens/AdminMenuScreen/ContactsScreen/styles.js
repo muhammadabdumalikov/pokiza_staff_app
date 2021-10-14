@@ -5,12 +5,15 @@ const height = Dimensions.get("window").height;
 
 export const styles = StyleSheet.create({
     container: {
+        flex: 1,
         backgroundColor: "#fff",
         height: "100%",
     },
+    contentStyle: {
+        // height: "100%"
+    },
     filterBox: {
         height: height / 20,
-        right: 0,
         width: width / 5,
         justifyContent: "center",
         alignItems: "center",
@@ -101,6 +104,7 @@ export const styles = StyleSheet.create({
         backgroundColor: "gray",
         borderRadius: 15,
         marginHorizontal: 16,
+        marginBottom: 16,
         borderColor: "#EDEDED",
         borderWidth: 1,
         overflow: "hidden",
