@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Collapsible from "react-native-collapsible";
 import ModalSelector from "react-native-modal-selector";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Entypo, Ionicons, AntDesign, Feather } from "@expo/vector-icons";
 
 import { styles } from "./styles";
@@ -18,9 +19,12 @@ const height = Dimensions.get("window").height;
 
 const OrderListScreen = ({ navigation, route }) => {
     const [collapsed, setCollapsed] = useState(true);
-    let [selectedTariffs, setSelectedTariffs] = useState("");
-    let [selectedAddress, setSelectedAddress] = useState("");
+    let [selectedFromDate, setSelectedFromDate] = useState(new Date().toLocaleDateString());
+    let [selectedToDate, setSelectedToDate] = useState(new Date().toLocaleDateString());
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [isDatePickerVisibleTwo, setDatePickerVisibilityTwo] = useState(false);
     let [selectedAlphabet, setSelectedAlphabet] = useState("");
+
 
     let firstname;
     let age;
@@ -62,50 +66,7 @@ const OrderListScreen = ({ navigation, route }) => {
                 align="center"
             >
                 <View style={styles.content}>
-                    {/* Tariffs input ------------------------------------------------------- */}
-                    <View style={styles.pickerWrapper}>
-                        <View style={styles.preTextWrapperStyle}>
-                            <Text style={styles.preText}>Tariffs</Text>
-                        </View>
-                        <ModalSelector
-                            data={data}
-                            initValue="Select something yummy!"
-                            supportedOrientations={["portrait"]}
-                            overlayStyle={{
-                                flex: 1,
-                                padding: "5%",
-                                justifyContent: "center",
-                                backgroundColor: "rgba(0,0,0,0.5)",
-                            }}
-                            selectTextStyle={{
-                                color: "#fff",
-                            }}
-                            touchableActiveOpacity={0.5}
-                            accessible={true}
-                            scrollViewAccessibilityLabel={"Scrollable options"}
-                            cancelButtonAccessibilityLabel={"Cancel Button"}
-                            onChange={(option) => {
-                                setSelectedTariffs(option.label);
-                            }}
-                        >
-                            <TextInput
-                                style={{
-                                    color: "#A5A5A8",
-                                    padding: 10,
-                                    height: "100%",
-                                }}
-                                editable={true}
-                                placeholder={
-                                    selectedTariffs
-                                        ? selectedTariffs
-                                        : "Add tariffs"
-                                }
-                                value={selectedTariffs}
-                            />
-                        </ModalSelector>
-                    </View>
-
-                    {/* Address input ----------------------------------------------------------- */}
+                    {/* Date input ------------------------------------------------------- */}
                     <View
                         style={{ ...styles.pickerWrapper, height: height / 11 }}
                     >
@@ -113,46 +74,58 @@ const OrderListScreen = ({ navigation, route }) => {
                             style={{
                                 ...styles.preTextWrapperStyle,
                                 width: "66%",
+                                flex: 3,
                             }}
                         >
-                            <Text style={styles.preText}>Address</Text>
+                            <Text style={styles.preText}>Date</Text>
                             <Text style={styles.addressPlaceholder}>
-                                {selectedAddress}
+                                {selectedFromDate}-{selectedToDate}
                             </Text>
                         </View>
-                        <ModalSelector
-                            data={data}
-                            initValue="Select something yummy!"
-                            supportedOrientations={["portrait"]}
-                            overlayStyle={{
-                                flex: 1,
-                                padding: "5%",
-                                justifyContent: "center",
-                                backgroundColor: "rgba(0,0,0,0.5)",
-                            }}
-                            selectTextStyle={{
-                                color: "#fff",
-                            }}
-                            touchableActiveOpacity={0.5}
-                            accessible={true}
-                            scrollViewAccessibilityLabel={"Scrollable options"}
-                            cancelButtonAccessibilityLabel={"Cancel Button"}
-                            onChange={(option) => {
-                                setSelectedAddress(option.label);
-                            }}
+                        <TouchableOpacity
+                            style={styles.datePicker}
+                            onPress={() =>
+                                setDatePickerVisibility(true)
+                            }
                         >
-                            <TextInput
-                                style={{
-                                    color: "#A5A5A8",
-                                    padding: 10,
-                                    height: "100%",
-                                }}
-                                editable={true}
-                                placeholder="Detail"
-                                value="Detail"
-                            />
-                        </ModalSelector>
+                            <Text>From</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.datePicker}
+                            onPress={() =>
+                                setDatePickerVisibilityTwo(true)
+                            }
+                        >
+                            <Text>To</Text>
+                        </TouchableOpacity>
+
+                        {/* Modal DatePickers -------------------------------------------- */}
+                        <DateTimePickerModal
+                            isVisible={isDatePickerVisible}
+                            mode="date"
+                            onCancel={() =>
+                                setDatePickerVisibility(false)
+                            }
+                            onConfirm={(date) => {
+                                setSelectedFromDate(date.toLocaleDateString());
+                                setDatePickerVisibility(false);
+                            }}
+                        />
+                        <DateTimePickerModal
+                            isVisible={isDatePickerVisibleTwo}
+                            mode="date"
+                            onCancel={() =>
+                                setDatePickerVisibilityTwo(false)
+                            }
+                            onConfirm={(date) => {
+                                setSelectedToDate(date.toLocaleDateString());
+                                setDatePickerVisibilityTwo(false);
+                            }}
+                        />
                     </View>
+
+                    {/* Address input ----------------------------------------------------------- */}
+
                     {/* Alphabet input -------------------------------------------------------------- */}
                     <View
                         style={{
@@ -202,7 +175,6 @@ const OrderListScreen = ({ navigation, route }) => {
                     <View style={styles.resetWrapper}>
                         <TouchableOpacity
                             onPress={() => {
-                                setSelectedTariffs("");
                                 setSelectedAddress("");
                                 setSelectedAlphabet("");
                             }}

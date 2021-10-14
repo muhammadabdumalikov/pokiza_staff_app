@@ -69,9 +69,13 @@ export const styles = StyleSheet.create({
         width: "100%",
         flexDirection: "row",
         justifyContent: "space-between",
+        alignItems: "center",
         backgroundColor: "#fff",
         paddingHorizontal: 16,
         marginBottom: 16,
+    },
+    datePicker: {
+        flex: 1
     },
     resetWrapper: {
         height: height / 15,

@@ -101,13 +101,7 @@ const MenuStack = ({ navigation, route }) => {
                         height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
-                    headerRight: () => (
-                        <TouchableOpacity
-                            style={{ marginRight: 20, marginTop: 40 }}
-                        >
-                            <Feather name="phone" size={24} color="#007AFF" />
-                        </TouchableOpacity>
-                    ),
+                    headerRight: () => null,
                     headerLeft: () => null,
                 })}
             />
@@ -127,13 +121,7 @@ const MenuStack = ({ navigation, route }) => {
                         height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
-                    headerRight: () => (
-                        <TouchableOpacity
-                            style={{ marginRight: 20, marginTop: 40 }}
-                        >
-                            <Feather name="phone" size={24} color="#007AFF" />
-                        </TouchableOpacity>
-                    ),
+                    headerRight: () => null,
                     headerLeft: () => null,
                 })}
             />
