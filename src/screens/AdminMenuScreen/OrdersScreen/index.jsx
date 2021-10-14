@@ -1,8 +1,13 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import ModeratorsScreen from "../ModeratorsScreen";
+import { Dimensions } from "react-native";
+
+import ProductListScreen from "./ProductsList";
+import OrderListScreen from "./OrdersList";
 
 const Tab = createMaterialTopTabNavigator();
+
+const height = Dimensions.get("window").height;
 
 const OrdersScreen = () => {
     return (
@@ -28,9 +33,12 @@ const OrdersScreen = () => {
                     fontSize: 16
                 },
                 tabBarPressColor: "white",
+                tabBarContentContainerStyle: {
+                    alignItems: "center",
+                },
                 tabBarStyle: {
                     marginVertical: 16,
-                    height: 50,
+                    height: height/18.45,
                     alignSelf: "center",
                     justifyContent: "center",
                     width: "90%",
@@ -40,8 +48,8 @@ const OrdersScreen = () => {
                 },
             }}
         >
-            <Tab.Screen name="Order List" component={ModeratorsScreen} />
-            <Tab.Screen name="Product List" component={ModeratorsScreen} />
+            <Tab.Screen name="Order List" component={OrderListScreen} />
+            <Tab.Screen name="Product List" component={ProductListScreen} />
         </Tab.Navigator>
     );
 };
