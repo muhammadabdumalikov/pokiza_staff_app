@@ -6,7 +6,7 @@ const height = Dimensions.get("window").height;
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: "#F5F5F5",
         height: "100%",
     },
     contentStyle: {
@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderColor: "#EDEDED",
+        backgroundColor: "#fff",
         overflow: "hidden",
         marginBottom: 16
     },
