@@ -133,6 +133,7 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         width: "30%",
         justifyContent: "space-between",
+        alignItems: "center"
     },
     resultIdText: {
         fontSize: 16,
@@ -169,6 +170,10 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
         color: "gray",
         backgroundColor: "#F5F5F5"
+    },
+    productNameText: {
+        color: "#007AFF",
+        fontWeight: "bold"
     },
     acceptBox: {
         flex: 1,

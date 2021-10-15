@@ -304,7 +304,8 @@ const OrderListScreen = ({ navigation, route }) => {
                 <View style={styles.resultBox}>
                     <View style={styles.resultLineBox}>
                         <View style={styles.resultId}>
-                            <Text style={styles.resultIdText}>{"001523"}</Text>
+                            <Text>Order ID: </Text>
+                            <Text style={styles.resultIdText}>{"#001523"}</Text>
                         </View>
                         <Entypo name="location-pin" size={24} color="black" />
                     </View>
@@ -331,7 +332,7 @@ const OrderListScreen = ({ navigation, route }) => {
                             <MaterialIcons
                                 name="comment"
                                 size={24}
-                                color="black"
+                                color="#007AFF"
                             />
                             <Text style={styles.deleteText}>Comment</Text>
                         </TouchableOpacity>
@@ -346,7 +347,8 @@ const OrderListScreen = ({ navigation, route }) => {
                 <View style={styles.resultBox}>
                     <View style={styles.resultLineBox}>
                         <View style={styles.resultId}>
-                            <Text style={styles.resultIdText}>{"001523"}</Text>
+                            <Text>Order ID: </Text>
+                            <Text style={styles.resultIdText}>{"#001523"}</Text>
                         </View>
                         <Entypo name="location-pin" size={24} color="black" />
                     </View>
@@ -363,7 +365,13 @@ const OrderListScreen = ({ navigation, route }) => {
                             </Text>
                         </Text>
                         <View style={styles.timeText}>
-                            <Text style={{...styles.timeStatus, backgroundColor: "#FFECB3", color: "#FFA000"}}>
+                            <Text
+                                style={{
+                                    ...styles.timeStatus,
+                                    backgroundColor: "#FFECB3",
+                                    color: "#FFA000",
+                                }}
+                            >
                                 {"Drying"}
                             </Text>
                         </View>
@@ -373,7 +381,7 @@ const OrderListScreen = ({ navigation, route }) => {
                             <MaterialIcons
                                 name="comment"
                                 size={24}
-                                color="black"
+                                color="#007AFF"
                             />
                             <Text style={styles.deleteText}>Comment</Text>
                         </TouchableOpacity>

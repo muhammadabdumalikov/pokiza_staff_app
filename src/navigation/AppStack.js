@@ -112,13 +112,13 @@ const MenuStack = ({ navigation, route }) => {
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 18,
-                        top: 25,
+                        // top: 25,
                         textAlign: "center",
                     },
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        height: Dimensions.get("window").height / 5.8,
+                        // height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
                     headerRight: () => null,

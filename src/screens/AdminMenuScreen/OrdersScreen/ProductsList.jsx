@@ -10,17 +10,33 @@ import {
 } from "react-native";
 import Collapsible from "react-native-collapsible";
 import ModalSelector from "react-native-modal-selector";
-import { Entypo, Ionicons, AntDesign, Feather } from "@expo/vector-icons";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import {
+    Entypo,
+    Ionicons,
+    AntDesign,
+    Feather,
+    MaterialIcons,
+} from "@expo/vector-icons";
 
 import { styles } from "./styles";
 
 const height = Dimensions.get("window").height;
 
-const ProductListScreen = ({ navigation, route }) => {
+const OrderListScreen = ({ navigation, route }) => {
     const [collapsed, setCollapsed] = useState(true);
-    let [selectedTariffs, setSelectedTariffs] = useState("");
-    let [selectedAddress, setSelectedAddress] = useState("");
-    let [selectedAlphabet, setSelectedAlphabet] = useState("");
+    let [selectedFromDate, setSelectedFromDate] = useState(
+        new Date().toLocaleDateString()
+    );
+    let [selectedToDate, setSelectedToDate] = useState(
+        new Date().toLocaleDateString()
+    );
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [isDatePickerVisibleTwo, setDatePickerVisibilityTwo] =
+        useState(false);
+    let [selectedType, setSelectedType] = useState("");
+    let [selectedStatus, setSelectedStatus] = useState("");
+    let [selectedTimeRemaining, setSelectedTimeRemaining] = useState("");
 
     let firstname;
     let age;
@@ -62,50 +78,7 @@ const ProductListScreen = ({ navigation, route }) => {
                 align="center"
             >
                 <View style={styles.content}>
-                    {/* Tariffs input ------------------------------------------------------- */}
-                    <View style={styles.pickerWrapper}>
-                        <View style={styles.preTextWrapperStyle}>
-                            <Text style={styles.preText}>Tariffs</Text>
-                        </View>
-                        <ModalSelector
-                            data={data}
-                            initValue="Select something yummy!"
-                            supportedOrientations={["portrait"]}
-                            overlayStyle={{
-                                flex: 1,
-                                padding: "5%",
-                                justifyContent: "center",
-                                backgroundColor: "rgba(0,0,0,0.5)",
-                            }}
-                            selectTextStyle={{
-                                color: "#fff",
-                            }}
-                            touchableActiveOpacity={0.5}
-                            accessible={true}
-                            scrollViewAccessibilityLabel={"Scrollable options"}
-                            cancelButtonAccessibilityLabel={"Cancel Button"}
-                            onChange={(option) => {
-                                setSelectedTariffs(option.label);
-                            }}
-                        >
-                            <TextInput
-                                style={{
-                                    color: "#A5A5A8",
-                                    padding: 10,
-                                    height: "100%",
-                                }}
-                                editable={true}
-                                placeholder={
-                                    selectedTariffs
-                                        ? selectedTariffs
-                                        : "Add tariffs"
-                                }
-                                value={selectedTariffs}
-                            />
-                        </ModalSelector>
-                    </View>
-
-                    {/* Address input ----------------------------------------------------------- */}
+                    {/* Date input ------------------------------------------------------- */}
                     <View
                         style={{ ...styles.pickerWrapper, height: height / 11 }}
                     >
@@ -113,47 +86,49 @@ const ProductListScreen = ({ navigation, route }) => {
                             style={{
                                 ...styles.preTextWrapperStyle,
                                 width: "66%",
+                                flex: 3,
                             }}
                         >
-                            <Text style={styles.preText}>Address</Text>
+                            <Text style={styles.preText}>Date</Text>
                             <Text style={styles.addressPlaceholder}>
-                                {selectedAddress}
+                                {selectedFromDate}-{selectedToDate}
                             </Text>
                         </View>
-                        <ModalSelector
-                            data={data}
-                            initValue="Select something yummy!"
-                            supportedOrientations={["portrait"]}
-                            overlayStyle={{
-                                flex: 1,
-                                padding: "5%",
-                                justifyContent: "center",
-                                backgroundColor: "rgba(0,0,0,0.5)",
-                            }}
-                            selectTextStyle={{
-                                color: "#fff",
-                            }}
-                            touchableActiveOpacity={0.5}
-                            accessible={true}
-                            scrollViewAccessibilityLabel={"Scrollable options"}
-                            cancelButtonAccessibilityLabel={"Cancel Button"}
-                            onChange={(option) => {
-                                setSelectedAddress(option.label);
-                            }}
+                        <TouchableOpacity
+                            style={styles.datePicker}
+                            onPress={() => setDatePickerVisibility(true)}
                         >
-                            <TextInput
-                                style={{
-                                    color: "#A5A5A8",
-                                    padding: 10,
-                                    height: "100%",
-                                }}
-                                editable={true}
-                                placeholder="Detail"
-                                value="Detail"
-                            />
-                        </ModalSelector>
+                            <Text>From</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.datePicker}
+                            onPress={() => setDatePickerVisibilityTwo(true)}
+                        >
+                            <Text>To</Text>
+                        </TouchableOpacity>
+
+                        {/* Modal DatePickers -------------------------------------------- */}
+                        <DateTimePickerModal
+                            isVisible={isDatePickerVisible}
+                            mode="date"
+                            onCancel={() => setDatePickerVisibility(false)}
+                            onConfirm={(date) => {
+                                setSelectedFromDate(date.toLocaleDateString());
+                                setDatePickerVisibility(false);
+                            }}
+                        />
+                        <DateTimePickerModal
+                            isVisible={isDatePickerVisibleTwo}
+                            mode="date"
+                            onCancel={() => setDatePickerVisibilityTwo(false)}
+                            onConfirm={(date) => {
+                                setSelectedToDate(date.toLocaleDateString());
+                                setDatePickerVisibilityTwo(false);
+                            }}
+                        />
                     </View>
-                    {/* Alphabet input -------------------------------------------------------------- */}
+
+                    {/* Type input ----------------------------------------------------------- */}
                     <View
                         style={{
                             ...styles.pickerWrapper,
@@ -161,7 +136,7 @@ const ProductListScreen = ({ navigation, route }) => {
                         }}
                     >
                         <View style={styles.preTextWrapperStyle}>
-                            <Text style={styles.preText}>Alphabet</Text>
+                            <Text style={styles.preText}>Type</Text>
                         </View>
                         <ModalSelector
                             data={genderData}
@@ -181,7 +156,7 @@ const ProductListScreen = ({ navigation, route }) => {
                             scrollViewAccessibilityLabel={"Scrollable options"}
                             cancelButtonAccessibilityLabel={"Cancel Button"}
                             onChange={(option) => {
-                                setSelectedAlphabet(option.label);
+                                setSelectedType(option.label);
                             }}
                         >
                             <TextInput
@@ -192,19 +167,120 @@ const ProductListScreen = ({ navigation, route }) => {
                                 }}
                                 editable={true}
                                 placeholder={
-                                    selectedAlphabet ? selectedAlphabet : "A-Z"
+                                    selectedType ? selectedType : "A-Z"
                                 }
-                                value={selectedAlphabet}
+                                value={selectedType}
                             />
                         </ModalSelector>
                     </View>
+
+                    {/* Alphabet input -------------------------------------------------------------- */}
+                    <View
+                        style={{
+                            ...styles.pickerWrapper,
+                            marginBottom: 24,
+                        }}
+                    >
+                        <View style={styles.preTextWrapperStyle}>
+                            <Text style={styles.preText}>Status</Text>
+                        </View>
+                        <ModalSelector
+                            data={genderData}
+                            initValue="Select something yummy!"
+                            supportedOrientations={["portrait"]}
+                            overlayStyle={{
+                                flex: 1,
+                                padding: "5%",
+                                justifyContent: "center",
+                                backgroundColor: "rgba(0,0,0,0.5)",
+                            }}
+                            selectTextStyle={{
+                                color: "#fff",
+                            }}
+                            touchableActiveOpacity={0.5}
+                            accessible={true}
+                            scrollViewAccessibilityLabel={"Scrollable options"}
+                            cancelButtonAccessibilityLabel={"Cancel Button"}
+                            onChange={(option) => {
+                                setSelectedStatus(option.label);
+                            }}
+                        >
+                            <TextInput
+                                style={{
+                                    color: "#A5A5A8",
+                                    padding: 10,
+                                    height: "100%",
+                                }}
+                                editable={true}
+                                placeholder={
+                                    selectedStatus ? selectedStatus : "A-Z"
+                                }
+                                value={selectedStatus}
+                            />
+                        </ModalSelector>
+                    </View>
+
+                    {/* Time Remaining input ----------------------------------------------- */}
+                    <View
+                        style={{
+                            ...styles.pickerWrapper,
+                            marginBottom: 24,
+                        }}
+                    >
+                        <View style={styles.preTextWrapperStyle}>
+                            <Text style={styles.preText}>Time Remaining</Text>
+                        </View>
+                        <ModalSelector
+                            data={genderData}
+                            initValue="Select something yummy!"
+                            supportedOrientations={["portrait"]}
+                            overlayStyle={{
+                                flex: 1,
+                                padding: "5%",
+                                justifyContent: "center",
+                                backgroundColor: "rgba(0,0,0,0.5)",
+                            }}
+                            selectTextStyle={{
+                                color: "#fff",
+                            }}
+                            touchableActiveOpacity={0.5}
+                            accessible={true}
+                            scrollViewAccessibilityLabel={"Scrollable options"}
+                            cancelButtonAccessibilityLabel={"Cancel Button"}
+                            onChange={(option) => {
+                                setSelectedTimeRemaining(option.label);
+                            }}
+                        >
+                            <TextInput
+                                style={{
+                                    color: "#A5A5A8",
+                                    padding: 10,
+                                    height: "100%",
+                                }}
+                                editable={true}
+                                placeholder={
+                                    selectedTimeRemaining
+                                        ? selectedTimeRemaining
+                                        : "A-Z"
+                                }
+                                value={selectedTimeRemaining}
+                            />
+                        </ModalSelector>
+                    </View>
+
                     {/* Reset Filter Button ------------------------------------------------ */}
                     <View style={styles.resetWrapper}>
                         <TouchableOpacity
                             onPress={() => {
-                                setSelectedTariffs("");
-                                setSelectedAddress("");
-                                setSelectedAlphabet("");
+                                setSelectedFromDate(
+                                    new Date().toLocaleDateString()
+                                );
+                                setSelectedToDate(
+                                    new Date().toLocaleDateString()
+                                );
+                                setSelectedType("");
+                                setSelectedStatus("");
+                                setSelectedTimeRemaining("");
                             }}
                         >
                             <Text style={styles.resetText}>Reset Filter</Text>
@@ -225,10 +301,11 @@ const ProductListScreen = ({ navigation, route }) => {
                 contentContainerStyle={styles.contentStyle}
                 showsVerticalScrollIndicator={false}
             >
-                <View style={styles.resultBox}>
+                <View style={{...styles.resultBox, height: height/3.18}}>
                     <View style={styles.resultLineBox}>
                         <View style={styles.resultId}>
-                            <Text style={styles.resultIdText}>{"001523"}</Text>
+                            <Text>Order ID: </Text>
+                            <Text style={styles.resultIdText}>{"#001523"}</Text>
                         </View>
                         <Entypo name="location-pin" size={24} color="black" />
                     </View>
@@ -238,44 +315,47 @@ const ProductListScreen = ({ navigation, route }) => {
                         </Text>
                     </View>
                     <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998911000000
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998901111111
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.tariffText}>
-                            Tariff:{"    "}
-                            <Text
-                                style={{
-                                    ...styles.tariffDynamicText,
-                                    color: "#E50000",
-                                }}
-                            >
-                                {"Navbatsiz".toUpperCase()}
+                        <Text style={styles.timeText}>
+                            Time:{" "}
+                            <Text style={styles.timeDynamicText}>
+                                1d 23h 51m
                             </Text>
                         </Text>
-                        <Text style={styles.resultPhoneNumbers}></Text>
+                        <View style={styles.timeText}>
+                            <Text style={styles.timeStatus}>
+                                {"In the Drive"}
+                            </Text>
+                        </View>
                     </View>
                     <View style={styles.resultLineBox}>
+                        <View style={styles.resultId}>
+                            <Text>Product ID: </Text>
+                            <Text style={styles.resultIdText}>{"#001523"}</Text>
+                        </View>
+                        <Text style={styles.productNameText}>{"Gilam"}</Text>
+                    </View>
+                    <View style={styles.resultLineBox}>
+                        <TouchableOpacity style={styles.deleteBox}>
+                            <MaterialIcons
+                                name="comment"
+                                size={24}
+                                color="#007AFF"
+                            />
+                            <Text style={styles.deleteText}>Comment</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity style={styles.acceptBox}>
                             <Feather name="check" size={24} color="#4BCE00" />
                             <Text style={styles.acceptText}>Accept</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.deleteBox}>
-                            <AntDesign name="delete" size={24} color="black" />
-                            <Text style={styles.deleteText}>Delete</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
 
                 {/* Fake Data ---------------------------------------------------- */}
-                <View style={styles.resultBox}>
+                <View style={{...styles.resultBox, height: height/3.18}}>
                     <View style={styles.resultLineBox}>
                         <View style={styles.resultId}>
-                            <Text style={styles.resultIdText}>{"001523"}</Text>
+                            <Text>Order ID: </Text>
+                            <Text style={styles.resultIdText}>{"#001523"}</Text>
                         </View>
                         <Entypo name="location-pin" size={24} color="black" />
                     </View>
@@ -285,35 +365,43 @@ const ProductListScreen = ({ navigation, route }) => {
                         </Text>
                     </View>
                     <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998911000000
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998901111111
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.tariffText}>
-                            Tariff:{"    "}
-                            <Text
-                                style={{
-                                    ...styles.tariffDynamicText,
-                                    color: "#007AFF",
-                                }}
-                            >
-                                {"Oddiy".toUpperCase()}
+                        <Text style={styles.timeText}>
+                            Time:{" "}
+                            <Text style={styles.timeDynamicText}>
+                                1d 23h 51m
                             </Text>
                         </Text>
-                        <Text style={styles.resultPhoneNumbers}></Text>
+                        <View style={styles.timeText}>
+                            <Text
+                                style={{
+                                    ...styles.timeStatus,
+                                    backgroundColor: "#FFECB3",
+                                    color: "#FFA000",
+                                }}
+                            >
+                                {"Drying"}
+                            </Text>
+                        </View>
                     </View>
                     <View style={styles.resultLineBox}>
+                        <View style={styles.resultId}>
+                            <Text>Product ID: </Text>
+                            <Text style={styles.resultIdText}>{"#001523"}</Text>
+                        </View>
+                        <Text style={styles.productNameText}>{"Adyol"}</Text>
+                    </View>
+                    <View style={styles.resultLineBox}>
+                        <TouchableOpacity style={styles.deleteBox}>
+                            <MaterialIcons
+                                name="comment"
+                                size={24}
+                                color="#007AFF"
+                            />
+                            <Text style={styles.deleteText}>Comment</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity style={styles.acceptBox}>
                             <Feather name="check" size={24} color="#4BCE00" />
                             <Text style={styles.acceptText}>Accept</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.deleteBox}>
-                            <AntDesign name="delete" size={24} color="black" />
-                            <Text style={styles.deleteText}>Delete</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -328,4 +416,4 @@ const ProductListScreen = ({ navigation, route }) => {
     );
 };
 
-export default ProductListScreen;
+export default OrderListScreen;
