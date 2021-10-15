@@ -31,7 +31,7 @@ const AdminMenuScreen = ({navigation}) => {
                     {/* <AntDesign name="menuunfold" size={24} color="black" /> */}
                     <MaterialCommunityIcons name="clipboard-list-outline" size={24} color="black" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuBox}>
+                <TouchableOpacity style={styles.menuBox} onPress={()=> navigation.navigate("TransportScreen")}>
                     <Text style={styles.menuText}>Transports</Text>
                     <Ionicons name="ios-car-outline" size={24} color="black" />
                 </TouchableOpacity>
