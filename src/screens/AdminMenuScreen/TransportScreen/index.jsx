@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { styles } from "./styles";
+import DamasSvg from "../../../../assets/svg/damas";
 
 const TransportScreen = ({ navigation }) => {
     return (
@@ -17,7 +18,168 @@ const TransportScreen = ({ navigation }) => {
             >
                 <View style={styles.resultBox}>
                     <View style={styles.resultImageBox}>
+                        <Image
+                            style={styles.image}
+                            source={require("../../../../assets/damas.png")}
+                        />
+                        {/* <DamasSvg/> */}
+                    </View>
+                    <View style={styles.resultDetailBox}>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.carModelText}>{"Damas"}</Text>
+                            <Text style={styles.carNumberText}>
+                                {"01 A 714 PA"}
+                            </Text>
+                        </View>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.waitingText}>Waiting: </Text>
+                            <Text>{"10"} orders</Text>
+                        </View>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.readyText}>Ready: </Text>
+                            <Text>{"5"} orders</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.resultBox}>
+                    <View style={styles.resultImageBox}>
+                        <Image
+                            style={styles.image}
+                            source={require("../../../../assets/damas.png")}
+                        />
+                        {/* <DamasSvg/> */}
+                    </View>
+                    <View style={styles.resultDetailBox}>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.carModelText}>{"Damas"}</Text>
+                            <Text style={styles.carNumberText}>
+                                {"01 A 714 PA"}
+                            </Text>
+                        </View>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.waitingText}>Waiting: </Text>
+                            <Text>{"10"} orders</Text>
+                        </View>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.readyText}>Ready: </Text>
+                            <Text>{"5"} orders</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.resultBox}>
+                    <View style={styles.resultImageBox}>
+                        <Image
+                            style={styles.image}
+                            source={require("../../../../assets/damas.png")}
+                        />
+                        {/* <DamasSvg/> */}
+                    </View>
+                    <View style={styles.resultDetailBox}>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.carModelText}>{"Damas"}</Text>
+                            <Text style={styles.carNumberText}>
+                                {"01 A 714 PA"}
+                            </Text>
+                        </View>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.waitingText}>Waiting: </Text>
+                            <Text>{"10"} orders</Text>
+                        </View>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.readyText}>Ready: </Text>
+                            <Text>{"5"} orders</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.resultBox}>
+                    <View style={styles.resultImageBox}>
+                        <Image
+                            style={styles.image}
+                            source={require("../../../../assets/damas.png")}
+                        />
+                        {/* <DamasSvg/> */}
+                    </View>
+                    <View style={styles.resultDetailBox}>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.carModelText}>{"Damas"}</Text>
+                            <Text style={styles.carNumberText}>
+                                {"01 A 714 PA"}
+                            </Text>
+                        </View>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.waitingText}>Waiting: </Text>
+                            <Text>{"10"} orders</Text>
+                        </View>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.readyText}>Ready: </Text>
+                            <Text>{"5"} orders</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.resultBox}>
+                    <View style={styles.resultImageBox}>
                         <Image style={styles.image} source={require('../../../../assets/damas.png')} />
+                        {/* <DamasSvg/> */}
+                    </View>
+                    <View style={styles.resultDetailBox}>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.carModelText}>{"Damas"}</Text>
+                            <Text style={styles.carNumberText}>{"01 A 714 PA"}</Text>
+                        </View>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.waitingText}>Waiting: </Text>
+                            <Text>{"10"} orders</Text>
+                        </View>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.readyText}>Ready: </Text>
+                            <Text>{"5"} orders</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.resultBox}>
+                    <View style={styles.resultImageBox}>
+                        <Image style={styles.image} source={require('../../../../assets/damas.png')} />
+                        {/* <DamasSvg/> */}
+                    </View>
+                    <View style={styles.resultDetailBox}>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.carModelText}>{"Damas"}</Text>
+                            <Text style={styles.carNumberText}>{"01 A 714 PA"}</Text>
+                        </View>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.waitingText}>Waiting: </Text>
+                            <Text>{"10"} orders</Text>
+                        </View>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.readyText}>Ready: </Text>
+                            <Text>{"5"} orders</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.resultBox}>
+                    <View style={styles.resultImageBox}>
+                        <Image style={styles.image} source={require('../../../../assets/damas.png')} />
+                        {/* <DamasSvg/> */}
+                    </View>
+                    <View style={styles.resultDetailBox}>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.carModelText}>{"Damas"}</Text>
+                            <Text style={styles.carNumberText}>{"01 A 714 PA"}</Text>
+                        </View>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.waitingText}>Waiting: </Text>
+                            <Text>{"10"} orders</Text>
+                        </View>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.readyText}>Ready: </Text>
+                            <Text>{"5"} orders</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.resultBox}>
+                    <View style={styles.resultImageBox}>
+                        <Image style={styles.image} source={require('../../../../assets/damas.png')} />
+                        {/* <DamasSvg/> */}
                     </View>
                     <View style={styles.resultDetailBox}>
                         <View style={styles.resultDetailLine}>
