@@ -11,7 +11,13 @@ import {
 import Collapsible from "react-native-collapsible";
 import ModalSelector from "react-native-modal-selector";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Entypo, Ionicons, AntDesign, Feather } from "@expo/vector-icons";
+import {
+    Entypo,
+    Ionicons,
+    AntDesign,
+    Feather,
+    MaterialIcons,
+} from "@expo/vector-icons";
 
 import { styles } from "./styles";
 
@@ -266,8 +272,12 @@ const OrderListScreen = ({ navigation, route }) => {
                     <View style={styles.resetWrapper}>
                         <TouchableOpacity
                             onPress={() => {
-                                setSelectedFromDate(new Date().toLocaleDateString());
-                                setSelectedToDate(new Date().toLocaleDateString());
+                                setSelectedFromDate(
+                                    new Date().toLocaleDateString()
+                                );
+                                setSelectedToDate(
+                                    new Date().toLocaleDateString()
+                                );
                                 setSelectedType("");
                                 setSelectedStatus("");
                                 setSelectedTimeRemaining("");
@@ -304,35 +314,30 @@ const OrderListScreen = ({ navigation, route }) => {
                         </Text>
                     </View>
                     <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998911000000
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998901111111
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.tariffText}>
-                            Tariff:{"    "}
-                            <Text
-                                style={{
-                                    ...styles.tariffDynamicText,
-                                    color: "#E50000",
-                                }}
-                            >
-                                {"Navbatsiz".toUpperCase()}
+                        <Text style={styles.timeText}>
+                            Time:{" "}
+                            <Text style={styles.timeDynamicText}>
+                                1d 23h 51m
                             </Text>
                         </Text>
-                        <Text style={styles.resultPhoneNumbers}></Text>
+                        <View style={styles.timeText}>
+                            <Text style={styles.timeStatus}>
+                                {"In the Drive"}
+                            </Text>
+                        </View>
                     </View>
                     <View style={styles.resultLineBox}>
+                        <TouchableOpacity style={styles.deleteBox}>
+                            <MaterialIcons
+                                name="comment"
+                                size={24}
+                                color="black"
+                            />
+                            <Text style={styles.deleteText}>Comment</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity style={styles.acceptBox}>
                             <Feather name="check" size={24} color="#4BCE00" />
                             <Text style={styles.acceptText}>Accept</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.deleteBox}>
-                            <AntDesign name="delete" size={24} color="black" />
-                            <Text style={styles.deleteText}>Delete</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -351,35 +356,30 @@ const OrderListScreen = ({ navigation, route }) => {
                         </Text>
                     </View>
                     <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998911000000
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998901111111
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.tariffText}>
-                            Tariff:{"    "}
-                            <Text
-                                style={{
-                                    ...styles.tariffDynamicText,
-                                    color: "#007AFF",
-                                }}
-                            >
-                                {"Oddiy".toUpperCase()}
+                        <Text style={styles.timeText}>
+                            Time:{" "}
+                            <Text style={styles.timeDynamicText}>
+                                1d 23h 51m
                             </Text>
                         </Text>
-                        <Text style={styles.resultPhoneNumbers}></Text>
+                        <View style={styles.timeText}>
+                            <Text style={{...styles.timeStatus, backgroundColor: "#FFECB3", color: "#FFA000"}}>
+                                {"Drying"}
+                            </Text>
+                        </View>
                     </View>
                     <View style={styles.resultLineBox}>
+                        <TouchableOpacity style={styles.deleteBox}>
+                            <MaterialIcons
+                                name="comment"
+                                size={24}
+                                color="black"
+                            />
+                            <Text style={styles.deleteText}>Comment</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity style={styles.acceptBox}>
                             <Feather name="check" size={24} color="#4BCE00" />
                             <Text style={styles.acceptText}>Accept</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.deleteBox}>
-                            <AntDesign name="delete" size={24} color="black" />
-                            <Text style={styles.deleteText}>Delete</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

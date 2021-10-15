@@ -109,7 +109,7 @@ export const styles = StyleSheet.create({
         marginVertical: 24,
     },
     resultBox: {
-        height: height / 3.18,
+        height: height / 3.98,
         backgroundColor: "gray",
         borderRadius: 15,
         marginHorizontal: 16,
@@ -149,13 +149,26 @@ export const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 16,
     },
-    tariffText: {
+    timeText: {
         flex: 1,
         fontSize: 16,
+        justifyContent: "center",
+        alignItems: "center"
     },
-    tariffDynamicText: {
+    timeDynamicText: {
         fontSize: 16,
         fontWeight: "bold",
+    },
+    timeStatus: {
+        width: width/3.4,
+        height: height/25.37,
+        textAlign: "center",
+        textAlignVertical: "center",
+        borderRadius: 5,
+        fontSize: 12,
+        fontWeight: "bold",
+        color: "gray",
+        backgroundColor: "#F5F5F5"
     },
     acceptBox: {
         flex: 1,
