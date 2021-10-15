@@ -139,6 +139,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
+                        backgroundColor: "#F5F5F5"
                         // height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
