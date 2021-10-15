@@ -1,9 +1,8 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Dimensions } from "react-native";
-import ReadyScreen from "./ReadyScreen.js";
-import WaitingScreen from "./WaitingScreen/index.jsx";
-
+import WaitingScreen from "./WaitingScreen";
+import ReadyScreen from "./ReadyScreen";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -49,8 +48,8 @@ const TransportDetailScreen = () => {
                 },
             }}
         >
-            <Tab.Screen name="ReadyScreen" component={ReadyScreen} />
-            <Tab.Screen name="WaitingScreen" component={WaitingScreen} />
+            <Tab.Screen name="Waiting" component={WaitingScreen} />
+            <Tab.Screen name="Ready" component={ReadyScreen} />
         </Tab.Navigator>
     );
 };
