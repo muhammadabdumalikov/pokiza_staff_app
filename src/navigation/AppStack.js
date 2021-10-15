@@ -18,6 +18,7 @@ import { AuthContext } from "./AuthProvider";
 import ModeratorsScreen from "../screens/AdminMenuScreen/ModeratorsScreen";
 import OrdersScreen from "../screens/AdminMenuScreen/OrdersScreen";
 import TransportScreen from "../screens/AdminMenuScreen/TransportScreen";
+import TransportDetailScreen from "../screens/AdminMenuScreen/TransportScreen/TransportDetailScreen";
 
 const RoutesNames = {
     Menu: <Feather name="menu" size={24} color="black" />,
@@ -129,6 +130,27 @@ const MenuStack = ({ navigation, route }) => {
              <Stack.Screen
                 name="TransportScreen"
                 component={TransportScreen}
+                options={({ route }) => ({
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        // top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        backgroundColor: "#F5F5F5"
+                        // height: Dimensions.get("window").height / 5.8,
+                    },
+                    // title: route.params.id,
+                    headerRight: () => null,
+                    headerLeft: () => null,
+                })}
+            />
+             <Stack.Screen
+                name="TransportDetailScreen"
+                component={TransportDetailScreen}
                 options={({ route }) => ({
                     headerTitleAlign: "center",
                     headerTitleStyle: {

@@ -17,8 +17,8 @@ const OrdersScreen = () => {
                 tabBarInactiveTintColor: "gray",
                 tabBarIndicatorStyle: {
                     height: null,
-                    top: "10%",
-                    bottom: "10%",
+                    top: "5%",
+                    bottom: "5%",
                     width: "45%",
                     left: "2.5%",
                     borderRadius: 10,
@@ -32,7 +32,7 @@ const OrdersScreen = () => {
                     fontWeight: "bold",
                     fontSize: 16
                 },
-                tabBarPressColor: "white",
+                tabBarPressColor: "#E5E5E7",
                 tabBarContentContainerStyle: {
                     alignItems: "center",
                 },

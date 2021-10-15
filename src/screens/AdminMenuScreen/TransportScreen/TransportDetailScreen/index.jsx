@@ -1,6 +1,8 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Dimensions } from "react-native";
+import ReadyScreen from "./ReadyScreen.js";
+import WaitingScreen from "./WaitingScreen/index.jsx";
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -15,22 +17,23 @@ const TransportDetailScreen = () => {
                 tabBarInactiveTintColor: "gray",
                 tabBarIndicatorStyle: {
                     height: null,
-                    top: "10%",
-                    bottom: "10%",
+                    top: "5%",
+                    bottom: "5%",
                     width: "45%",
                     left: "2.5%",
                     borderRadius: 10,
                     backgroundColor: "white",
-                    elevation: 15, // shadow on Android
+                    elevation: 5, // shadow on Android
                     shadowRadius: 4, // shadow blur on iOS
                     shadowOpacity: 0.1, // shadow on iOS,
                 },
                 tabBarLabelStyle: {
                     textTransform: "capitalize",
                     fontWeight: "bold",
-                    fontSize: 16
+                    fontSize: 16,
+
                 },
-                tabBarPressColor: "white",
+                tabBarPressColor: "#E5E5E7",
                 tabBarContentContainerStyle: {
                     alignItems: "center",
                 },
@@ -46,8 +49,8 @@ const TransportDetailScreen = () => {
                 },
             }}
         >
-            <Tab.Screen name="Order List" component={OrderListScreen} />
-            <Tab.Screen name="Product List" component={ProductListScreen} />
+            <Tab.Screen name="ReadyScreen" component={ReadyScreen} />
+            <Tab.Screen name="WaitingScreen" component={WaitingScreen} />
         </Tab.Navigator>
     );
 };
