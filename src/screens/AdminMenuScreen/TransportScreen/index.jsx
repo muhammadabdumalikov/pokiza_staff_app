@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { styles } from "./styles";
@@ -17,20 +17,20 @@ const TransportScreen = ({ navigation }) => {
             >
                 <View style={styles.resultBox}>
                     <View style={styles.resultImageBox}>
-                       
+                        <Image style={styles.image} source={require('../../../../assets/damas.png')} />
                     </View>
                     <View style={styles.resultDetailBox}>
-                    <View>
-                            <Text></Text>
-                            <Text></Text>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.carModelText}>{"Damas"}</Text>
+                            <Text style={styles.carNumberText}>{"01 A 714 PA"}</Text>
                         </View>
-                        <View>
-                            <Text></Text>
-                            <Text></Text>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.waitingText}>Waiting: </Text>
+                            <Text>{"10"} orders</Text>
                         </View>
-                        <View>
-                            <Text></Text>
-                            <Text></Text>
+                        <View style={styles.resultDetailLine}>
+                            <Text style={styles.readyText}>Ready: </Text>
+                            <Text>{"5"} orders</Text>
                         </View>
                     </View>
                 </View>

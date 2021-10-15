@@ -40,8 +40,34 @@ export const styles = StyleSheet.create({
         flex: 2,
         backgroundColor: "#F5F5F5"
     },
+    image: {
+        width: "100%",
+        height: "100%",
+        resizeMode: "contain"
+    },
     resultDetailBox: {
-        flex: 3
+        flex: 3,
+        padding: 14
+    },
+    resultDetailLine: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-around",
+        fontSize: 14
+    },
+    carModelText: {
+        fontSize: 18,
+        fontWeight: "bold"
+    },
+    carNumberText: {
+        fontSize: 14,
+        color: "#E50000"
+    },
+    waitingText: {
+        color: "#007AFF"
+    },
+    readyText: {
+        color: "#4BCE00"
     },
     fab: {
         width: 64,
