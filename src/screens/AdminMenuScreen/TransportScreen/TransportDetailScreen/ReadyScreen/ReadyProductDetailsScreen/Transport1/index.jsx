@@ -73,6 +73,16 @@ const Transport1 = ({ navigation, route }) => {
                             </View>
                         </View>
                     </View>
+                    <View style={styles.bottomBox}>
+                        <View style={styles.totalSumTextWrapper}>
+                            <Text style={styles.totalSumText}>Total: <Text style={styles.totalSumDynamicText}>{"269.00"}</Text> sum</Text>
+                        </View>
+                        <View style={styles.productDetailsWrapper}>
+                            <Text style={styles.productText}>{"3"} pcs. <Text style={styles.productDynamicText}>{"carpet"}</Text></Text>
+                            <Text style={styles.productText}>{"1"} pcs. <Text style={styles.productDynamicText}>{"veil"}</Text></Text>
+                            <Text style={styles.productText}>{"3"} pcs. <Text style={styles.productDynamicText}>{"carpet"}</Text></Text>
+                        </View>
+                    </View>
                 </View>
             </ScrollView>
             <TouchableOpacity

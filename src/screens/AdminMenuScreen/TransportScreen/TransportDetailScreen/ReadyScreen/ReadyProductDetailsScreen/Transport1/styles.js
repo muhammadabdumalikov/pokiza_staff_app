@@ -23,8 +23,8 @@ export const styles = StyleSheet.create({
         color: "#007AFF"
     },
     resultBox: {
-        height: height / 2.4,
-        padding: 14,
+        minHeight: height / 2.4,
+        padding: 24,
         borderRadius: 10,
         borderWidth: 1,
         borderColor: "#EDEDED",
@@ -33,10 +33,11 @@ export const styles = StyleSheet.create({
         marginBottom: 16
     },
     topBox: {
-        height: "66%"
+        height: height/3.62
     },
     bottomBox: {
-        
+        borderTopColor: "gray",
+        borderTopWidth: 1,
     },
     resultName: {
         flex: 1,
@@ -82,6 +83,31 @@ export const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-between"
+    },
+    totalSumTextWrapper: {
+        marginVertical: 10
+    },
+    totalSumText: {
+        fontSize: 14,
+        fontWeight: "bold"
+    },
+    totalSumDynamicText: {
+        fontSize: 16,
+        color: "#007AFF"
+    },
+    productDetailsWrapper: {
+        width: "100%",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignItems: "center",
+    },
+    productText: {
+        width: "50%",
+        fontSize: 14,
+        fontWeight: "bold",
+    },
+    productDynamicText: {
+        color: "#007AFF"
     },
     fab: {
         width: 64,
