@@ -22,6 +22,7 @@ import TransportDetailScreen from "../screens/AdminMenuScreen/TransportScreen/Tr
 import ReadyProductDetailScreen from "../screens/AdminMenuScreen/TransportScreen/TransportDetailScreen/ReadyScreen/ReadyProductDetailsScreen";
 import ReadyScreen from "../screens/AdminMenuScreen/TransportScreen/TransportDetailScreen/ReadyScreen";
 import Transport1 from "../screens/AdminMenuScreen/TransportScreen/TransportDetailScreen/ReadyScreen/ReadyProductDetailsScreen/Transport1";
+import Transport2 from "../screens/AdminMenuScreen/TransportScreen/TransportDetailScreen/ReadyScreen/ReadyProductDetailsScreen/Transport2";
 
 const RoutesNames = {
     Menu: <Feather name="menu" size={24} color="black" />,
@@ -196,6 +197,27 @@ const MenuStack = ({ navigation, route }) => {
             <Stack.Screen
                 name="Transport1"
                 component={Transport1}
+                options={({ route }) => ({
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        // top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        backgroundColor: "#F5F5F5"
+                        // height: Dimensions.get("window").height / 5.8,
+                    },
+                    // title: route.params.id,
+                    headerRight: () => null,
+                    headerLeft: () => null,
+                })}
+            />
+             <Stack.Screen
+                name="Transport2"
+                component={Transport2}
                 options={({ route }) => ({
                     headerTitleAlign: "center",
                     headerTitleStyle: {
