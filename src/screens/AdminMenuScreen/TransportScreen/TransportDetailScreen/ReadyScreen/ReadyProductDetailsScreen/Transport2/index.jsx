@@ -209,7 +209,7 @@ const Transport2 = ({ navigation, route }) => {
                     </View>
                 </View>
             </ScrollView>
-            <TouchableOpacity style={styles.fab}>
+            <TouchableOpacity style={styles.fab} onPress={() => navigation.goBack()}>
                 <Ionicons name="ios-arrow-back" size={28} color="white" />
             </TouchableOpacity>
         </View>
