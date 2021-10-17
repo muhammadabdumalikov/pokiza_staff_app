@@ -42,10 +42,7 @@ const ReadyScreen = ({ navigation }) => {
                     <Image style={styles.orderImage} />
                 </View>
                 <View
-                    style={{
-                        ...styles.orderDetailBox,
-                        backgroundColor: "#AAF7B5",
-                    }}
+                    style={styles.orderDetailBox}
                 >
                     <View style={styles.orderDetailTextContent}>
                         <View style={styles.orderDetailStatusContent}>
