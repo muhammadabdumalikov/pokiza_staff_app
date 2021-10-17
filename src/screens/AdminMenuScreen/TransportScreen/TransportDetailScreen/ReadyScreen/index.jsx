@@ -15,7 +15,7 @@ const ReadyScreen = ({navigation}) => {
                 style={styles.container}
                 contentContainerStyle={styles.contentStyle}
             >
-                <View style={styles.orderBox}>
+                <TouchableOpacity style={styles.orderBox} onPress={()=> navigation.navigate("ReadyProductDetailScreen")}>
                     <View style={styles.orderBoxContent}>
                         <View style={styles.orderNumber}>
                             <Text style={styles.orderNumberStyle}>
@@ -58,7 +58,7 @@ const ReadyScreen = ({navigation}) => {
                             }}
                         ></View>
                     </View>
-                </View>
+                </TouchableOpacity>
             </ScrollView>
             <TouchableOpacity
                 style={styles.fab}
