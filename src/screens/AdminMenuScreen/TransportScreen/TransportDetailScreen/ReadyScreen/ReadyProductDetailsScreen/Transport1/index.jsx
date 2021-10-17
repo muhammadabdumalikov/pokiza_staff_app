@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     ScrollView,
     Text,
     View,
     TouchableOpacity,
-    TextInput,
     Dimensions,
-    Platform,
 } from "react-native";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 
@@ -75,12 +73,33 @@ const Transport1 = ({ navigation, route }) => {
                     </View>
                     <View style={styles.bottomBox}>
                         <View style={styles.totalSumTextWrapper}>
-                            <Text style={styles.totalSumText}>Total: <Text style={styles.totalSumDynamicText}>{"269.00"}</Text> sum</Text>
+                            <Text style={styles.totalSumText}>
+                                Total:{" "}
+                                <Text style={styles.totalSumDynamicText}>
+                                    {"269.00"}
+                                </Text>{" "}
+                                sum
+                            </Text>
                         </View>
                         <View style={styles.productDetailsWrapper}>
-                            <Text style={styles.productText}>{"3"} pcs. <Text style={styles.productDynamicText}>{"carpet"}</Text></Text>
-                            <Text style={styles.productText}>{"1"} pcs. <Text style={styles.productDynamicText}>{"veil"}</Text></Text>
-                            <Text style={styles.productText}>{"3"} pcs. <Text style={styles.productDynamicText}>{"carpet"}</Text></Text>
+                            <Text style={styles.productText}>
+                                {"3"} pcs.{" "}
+                                <Text style={styles.productDynamicText}>
+                                    {"carpet"}
+                                </Text>
+                            </Text>
+                            <Text style={styles.productText}>
+                                {"1"} pcs.{" "}
+                                <Text style={styles.productDynamicText}>
+                                    {"veil"}
+                                </Text>
+                            </Text>
+                            <Text style={styles.productText}>
+                                {"3"} pcs.{" "}
+                                <Text style={styles.productDynamicText}>
+                                    {"carpet"}
+                                </Text>
+                            </Text>
                         </View>
                     </View>
                 </View>
