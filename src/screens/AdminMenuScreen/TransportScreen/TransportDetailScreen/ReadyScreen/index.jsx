@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { styles } from "./styles";
 
-const ReadyScreen = () => {
+const ReadyScreen = ({navigation}) => {
     return (
         <View style={{ height: "100%" }}>
             <View style={styles.dateAndTransport}>
@@ -62,7 +62,7 @@ const ReadyScreen = () => {
             </ScrollView>
             <TouchableOpacity
                 style={styles.fab}
-                onPress={() => navigation.goBack()}
+                onPress={() => navigation.navigate("TransportScreen")}
             >
                 <Ionicons name="ios-arrow-back" size={28} color="white" />
             </TouchableOpacity>

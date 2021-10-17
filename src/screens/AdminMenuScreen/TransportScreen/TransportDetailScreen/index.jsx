@@ -8,7 +8,7 @@ const Tab = createMaterialTopTabNavigator();
 
 const height = Dimensions.get("window").height;
 
-const TransportDetailScreen = () => {
+const TransportDetailScreen = ({navigation}) => {
     return (
         <Tab.Navigator
             screenOptions={{
