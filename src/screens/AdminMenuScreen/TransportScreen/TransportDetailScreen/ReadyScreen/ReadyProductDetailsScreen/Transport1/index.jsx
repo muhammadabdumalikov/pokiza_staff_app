@@ -8,10 +8,7 @@ import {
     Dimensions,
     Platform,
 } from "react-native";
-import {
-    Entypo,
-    Ionicons,
-} from "@expo/vector-icons";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 
 import { styles } from "./styles";
 
@@ -30,37 +27,53 @@ const Transport1 = ({ navigation, route }) => {
                 showsVerticalScrollIndicator={false}
             >
                 <View style={styles.resultBox}>
-                    <View style={styles.resultName}>
-                        <Text style={styles.resultNameText}>
-                            {"Abdujalilov Abdulaziz"}
-                        </Text>
-                    </View>
-                    <View style={styles.resultOrderId}>
-                        <Text style={styles.resultOrderIdText}>
-                            Order ID:    <Text style={styles.resultOrderIdDynamicText}>#{"100174"}</Text>
-                        </Text>
-                    </View>
-                    <View style={styles.resultAddress}>
-                        <Text style={styles.resultAddressText}>Address:     </Text>
-                        <Text style={styles.resultAddressDynamicText}>
-                            {
-                                "Mirobod tumani, Rakat mahalla, Xosilot ko'chasi, 76-uy, 42-xonadon"
-                            }
-                        </Text>
-                    </View>
-                    <View style={styles.resultAddressLocation}>
-                        <Entypo name="location-pin" size={24} color="#007AFF" />
-                        <Text style={styles.resultAddressLocationDynamicText}>{"Mirobod masjidi"}</Text>
-                    </View>
-                    <View style={styles.resultPhoneNumbers}>
-                        <Text style={styles.resultAddressText}>Phone Numbers:</Text>
-                        <View>
-                            <Text>{"+998911234567"}</Text>
-                            <Text>{"+998911234567"}</Text>
+                    <View style={styles.topBox}>
+                        <View style={styles.resultName}>
+                            <Text style={styles.resultNameText}>
+                                {"Abdujalilov Abdulaziz"}
+                            </Text>
+                        </View>
+                        <View style={styles.resultOrderId}>
+                            <Text style={styles.resultOrderIdText}>
+                                Order ID:{" "}
+                                <Text style={styles.resultOrderIdDynamicText}>
+                                    #{"100174"}
+                                </Text>
+                            </Text>
+                        </View>
+                        <View style={styles.resultAddress}>
+                            <Text style={styles.resultAddressText}>
+                                Address:{" "}
+                            </Text>
+                            <Text style={styles.resultAddressDynamicText}>
+                                {
+                                    "Mirobod tumani, Rakat mahalla, Xosilot ko'chasi, 76-uy, 42-xonadon"
+                                }
+                            </Text>
+                        </View>
+                        <View style={styles.resultAddressLocation}>
+                            <Entypo
+                                name="location-pin"
+                                size={24}
+                                color="#007AFF"
+                            />
+                            <Text
+                                style={styles.resultAddressLocationDynamicText}
+                            >
+                                {"Mirobod masjidi"}
+                            </Text>
+                        </View>
+                        <View style={styles.resultPhoneNumbers}>
+                            <Text style={styles.resultAddressText}>
+                                Phone Numbers:
+                            </Text>
+                            <View>
+                                <Text>{"+998911234567"}</Text>
+                                <Text>{"+998911234567"}</Text>
+                            </View>
                         </View>
                     </View>
                 </View>
-                
             </ScrollView>
             <TouchableOpacity
                 style={styles.fab}

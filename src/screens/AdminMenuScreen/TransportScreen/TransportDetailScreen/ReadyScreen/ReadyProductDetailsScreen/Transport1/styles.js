@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
         color: "#007AFF"
     },
     resultBox: {
-        height: height / 3.62,
+        height: height / 2.4,
         padding: 14,
         borderRadius: 10,
         borderWidth: 1,
@@ -31,6 +31,12 @@ export const styles = StyleSheet.create({
         backgroundColor: "#fff",
         overflow: "hidden",
         marginBottom: 16
+    },
+    topBox: {
+        height: "66%"
+    },
+    bottomBox: {
+        
     },
     resultName: {
         flex: 1,
