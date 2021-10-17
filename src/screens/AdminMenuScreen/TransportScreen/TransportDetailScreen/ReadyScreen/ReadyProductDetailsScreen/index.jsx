@@ -15,7 +15,7 @@ const ReadyScreen = ({ navigation }) => {
                 style={styles.container}
                 contentContainerStyle={styles.contentStyle}
             >
-                <View style={styles.orderDetailBox}>
+                <TouchableOpacity style={styles.orderDetailBox} onPress={() => navigation.navigate("Transport1")}>
                     <View style={styles.orderDetailTextContent}>
                         <View style={styles.orderDetailStatusContent}>
                             <Text style={styles.statusText}>Status:</Text>
@@ -27,7 +27,7 @@ const ReadyScreen = ({ navigation }) => {
                         </View>
                     </View>
                     <Image style={styles.orderImage} />
-                </View>
+                </TouchableOpacity>
                 <View style={styles.orderDetailBox}>
                     <View style={styles.orderDetailTextContent}>
                         <View style={styles.orderDetailStatusContent}>
