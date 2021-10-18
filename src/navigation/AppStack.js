@@ -23,6 +23,7 @@ import ReadyProductDetailScreen from "../screens/AdminMenuScreen/TransportScreen
 import ReadyScreen from "../screens/AdminMenuScreen/TransportScreen/TransportDetailScreen/ReadyScreen";
 import Transport1 from "../screens/AdminMenuScreen/TransportScreen/TransportDetailScreen/ReadyScreen/ReadyProductDetailsScreen/Transport1";
 import Transport2 from "../screens/AdminMenuScreen/TransportScreen/TransportDetailScreen/ReadyScreen/ReadyProductDetailsScreen/Transport2";
+import QRCodeScreen from "../screens/QRCodeScreen";
 
 const RoutesNames = {
     Menu: <Feather name="menu" size={24} color="black" />,
@@ -301,8 +302,8 @@ const QRCodeStack = ({ navigation, route }) => {
     return (
         <Stack.Navigator screenOptions={{}}>
             <Stack.Screen
-                name="SettingsScreen"
-                component={SettingsScreen}
+                name="QRCodeSCreen"
+                component={QRCodeScreen}
                 options={({ route }) => ({
                     headerTitleAlign: "center",
                     headerTitleStyle: {
