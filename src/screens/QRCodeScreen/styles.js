@@ -6,10 +6,13 @@ const height = Dimensions.get("window").height;
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
+        height: "100%",
         backgroundColor: "#fff",
+        padding: 24
+    },
+    content: {
         alignItems: "center",
         justifyContent: "center",
-        padding: 24
     },
     maintext: {
         fontSize: 16,
@@ -29,6 +32,21 @@ export const styles = StyleSheet.create({
         height: height/14.7,
         backgroundColor: "#F5F5F5",
         borderRadius: 10,
-        paddingHorizontal: 15
+        paddingHorizontal: 20,
+        marginBottom: 50
+    },
+    accepted: {
+        width: "100%",
+        height: height/16.2,
+        backgroundColor: "#007AFF",
+        borderRadius: 10,
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 50
+    },
+    acceptedText: {
+        color: "white",
+        fontSize: 16,
+        fontWeight: "bold"
     }
 });

@@ -4,6 +4,7 @@ import {
     View,
     StyleSheet,
     Button,
+    ScrollView,
     TouchableOpacity,
     Dimensions,
     TextInput,
@@ -45,7 +46,7 @@ const QRCodeScreen = () => {
         return <Text>No access to camera</Text>;
     }
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container} contentContainerStyle={styles.content}>
             <View style={styles.barcodebox}>
                 <BarCodeScanner
                     onBarCodeScanned={
@@ -57,16 +58,15 @@ const QRCodeScreen = () => {
 
             <TextInput style={styles.qrcodeinput} placeholder={text}/>
 
-            <Text style={styles.maintext}>{text}</Text>
-
             {scanned && (
-                <Button
-                    title={"Scan again?"}
+                <TouchableOpacity
                     onPress={() => setScanned(false)}
-                    color="tomato"
-                />
+                    style={styles.accepted}
+                >
+                    <Text style={styles.acceptedText}>Accepted</Text>
+                </TouchableOpacity>
             )}
-        </View>
+        </ScrollView>
     );
 };
 
