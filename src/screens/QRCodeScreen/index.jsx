@@ -8,23 +8,21 @@ import {
     TouchableOpacity,
     Dimensions,
     TextInput,
+    Alert,
 } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import BarcodeMask from "react-native-barcode-mask";
 
 import { styles } from "./styles";
 
-const finderWidth = width;
-const finderHeight = height;
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
-const viewMinX = width - finderWidth;
-const viewMinY = 400;
 
 const QRCodeScreen = () => {
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
     const [text, setText] = useState("Not yet scanned");
+    const [qrcode, setqrcode] = useState();
 
     useEffect(() => {
         (async () => {
@@ -36,7 +34,25 @@ const QRCodeScreen = () => {
     const handleBarCodeScanned = ({ type, data }) => {
         setScanned(true);
         setText(data);
-        console.log("Type: " + type + "\nData: " + data);
+    };
+
+    const callAlert = () => {
+        Alert.alert(
+            "Do you want to Accepted this deal?",
+            "",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => setScanned(false),
+                    style: "cancel",
+                },
+                {
+                    text: "Yes, Check deal",
+                    onPress: () => setqrcode(text),
+                },
+            ],
+            { cancelable: false }
+        );
     };
 
     if (hasPermission === null) {
@@ -46,7 +62,10 @@ const QRCodeScreen = () => {
         return <Text>No access to camera</Text>;
     }
     return (
-        <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+        <ScrollView
+            style={styles.container}
+            contentContainerStyle={styles.content}
+        >
             <View style={styles.barcodebox}>
                 <BarCodeScanner
                     onBarCodeScanned={
@@ -56,16 +75,28 @@ const QRCodeScreen = () => {
                 />
             </View>
 
-            <TextInput style={styles.qrcodeinput} placeholder={text}/>
+            <TextInput style={styles.qrcodeinput} placeholder={text} />
 
             {scanned && (
                 <TouchableOpacity
-                    onPress={() => setScanned(false)}
+                    onPress={() => {
+                        setScanned(false);
+                        setText("Not yet scanned")
+                    }}
                     style={styles.accepted}
                 >
-                    <Text style={styles.acceptedText}>Accepted</Text>
+                    <Text style={styles.acceptedText}>Scan again</Text>
                 </TouchableOpacity>
             )}
+
+            <TouchableOpacity
+                onPress={() => {
+                    callAlert();
+                }}
+                style={styles.accepted}
+            >
+                <Text style={styles.acceptedText}>Accepted</Text>
+            </TouchableOpacity>
         </ScrollView>
     );
 };
