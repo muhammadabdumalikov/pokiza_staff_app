@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
         fontWeight: "500",
     },
     hiddenContent: {
-        height: height / 1.47,
+        height: height / 2.3,
         backgroundColor: "#F5F5F5",
     },
     content: {},
@@ -56,6 +56,9 @@ export const styles = StyleSheet.create({
         height: "100%",
         backgroundColor: "#eee",
         color: "#B8B8BB",
+    },
+    datePicker: {
+        flex: 1
     },
     inputContainer: {
         width: "100%",
@@ -91,6 +94,7 @@ export const styles = StyleSheet.create({
         width: "100%",
         flexDirection: "row",
         justifyContent: "space-between",
+        alignItems: "center",
         backgroundColor: "#fff",
         paddingHorizontal: 16,
         marginBottom: 16,
