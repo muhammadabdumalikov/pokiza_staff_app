@@ -72,7 +72,10 @@ const AdminMenuScreen = ({ navigation }) => {
                     <Text style={styles.menuText}>Staffs</Text>
                     <Feather name="users" size={24} color="black" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuBox}>
+                <TouchableOpacity
+                    style={styles.menuBox}
+                    onPress={() => navigation.navigate("HistoryScreen")}
+                >
                     <Text style={styles.menuText}>History</Text>
                     <MaterialIcons name="history" size={24} color="black" />
                 </TouchableOpacity>
