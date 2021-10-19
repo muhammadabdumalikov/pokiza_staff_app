@@ -153,6 +153,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                             />
                         </ModalSelector>
                     </View>
+                    
                     {/* Alphabet input -------------------------------------------------------------- */}
                     <View
                         style={{

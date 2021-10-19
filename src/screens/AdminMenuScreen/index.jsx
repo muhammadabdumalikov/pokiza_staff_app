@@ -5,20 +5,26 @@ import {
     AntDesign,
     MaterialCommunityIcons,
     Ionicons,
-    Feather
+    Feather,
 } from "@expo/vector-icons";
 
 import { styles } from "./styles";
 
-const AdminMenuScreen = ({navigation}) => {
+const AdminMenuScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.firstBox}>
-                <TouchableOpacity style={styles.menuBox} onPress={()=> navigation.navigate("ContactsScreen")}>
+                <TouchableOpacity
+                    style={styles.menuBox}
+                    onPress={() => navigation.navigate("ContactsScreen")}
+                >
                     <Text style={styles.menuText}>Contacts</Text>
                     <AntDesign name="contacts" size={24} color="black" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuBox} onPress={()=> navigation.navigate("ModeratorsScreen")}>
+                <TouchableOpacity
+                    style={styles.menuBox}
+                    onPress={() => navigation.navigate("ModeratorsScreen")}
+                >
                     <Text style={styles.menuText}>Moderators</Text>
                     <MaterialIcons
                         name="person-outline"
@@ -26,12 +32,22 @@ const AdminMenuScreen = ({navigation}) => {
                         color="black"
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuBox} onPress={()=> navigation.navigate("OrdersScreen")}>
+                <TouchableOpacity
+                    style={styles.menuBox}
+                    onPress={() => navigation.navigate("OrdersScreen")}
+                >
                     <Text style={styles.menuText}>Orders</Text>
                     {/* <AntDesign name="menuunfold" size={24} color="black" /> */}
-                    <MaterialCommunityIcons name="clipboard-list-outline" size={24} color="black" />
+                    <MaterialCommunityIcons
+                        name="clipboard-list-outline"
+                        size={24}
+                        color="black"
+                    />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuBox} onPress={()=> navigation.navigate("TransportScreen")}>
+                <TouchableOpacity
+                    style={styles.menuBox}
+                    onPress={() => navigation.navigate("TransportScreen")}
+                >
                     <Text style={styles.menuText}>Transports</Text>
                     <Ionicons name="ios-car-outline" size={24} color="black" />
                 </TouchableOpacity>
@@ -49,7 +65,10 @@ const AdminMenuScreen = ({navigation}) => {
             </View>
 
             <View style={styles.secondBox}>
-                <TouchableOpacity style={styles.menuBox}>
+                <TouchableOpacity
+                    style={styles.menuBox}
+                    onPress={() => navigation.navigate("StaffsScreen")}
+                >
                     <Text style={styles.menuText}>Staffs</Text>
                     <Feather name="users" size={24} color="black" />
                 </TouchableOpacity>
