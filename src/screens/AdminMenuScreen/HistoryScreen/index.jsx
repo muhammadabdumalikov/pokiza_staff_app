@@ -139,7 +139,7 @@ const HistoryScreen = ({ navigation, route }) => {
                         <TextInput
                             style={styles.input}
                             numberOfLines={1}
-                            placeholder="Enter first name"
+                            placeholder="User name"
                             placeholderTextColor="#B8B8BB"
                             onChangeText={(value) => (firstname = value)}
                             keyboardType="default"
