@@ -58,7 +58,10 @@ const AdminMenuScreen = ({ navigation }) => {
                     <Text style={styles.menuText}>Finance</Text>
                     <Feather name="pie-chart" size={24} color="black" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuBox}>
+                <TouchableOpacity
+                    style={styles.menuBox}
+                    onPress={() => navigation.navigate("StatisticsScreen")}
+                >
                     <Text style={styles.menuText}>Statistics</Text>
                     <Feather name="trending-up" size={24} color="black" />
                 </TouchableOpacity>

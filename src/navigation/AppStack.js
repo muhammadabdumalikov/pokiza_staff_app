@@ -26,6 +26,7 @@ import Transport2 from "../screens/AdminMenuScreen/TransportScreen/TransportDeta
 import QRCodeScreen from "../screens/QRCodeScreen";
 import StaffsScreen from "../screens/AdminMenuScreen/StaffsScreen";
 import HistoryScreen from "../screens/AdminMenuScreen/HistoryScreen";
+import StatisticsScreen from "../screens/AdminMenuScreen/StatisticsScreen";
 
 const RoutesNames = {
     Menu: <Feather name="menu" size={24} color="black" />,
@@ -221,6 +222,27 @@ const MenuStack = ({ navigation, route }) => {
              <Stack.Screen
                 name="Transport2"
                 component={Transport2}
+                options={({ route }) => ({
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        // top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        backgroundColor: "#F5F5F5"
+                        // height: Dimensions.get("window").height / 5.8,
+                    },
+                    // title: route.params.id,
+                    headerRight: () => null,
+                    headerLeft: () => null,
+                })}
+            />
+            <Stack.Screen
+                name="StatisticsScreen"
+                component={StatisticsScreen}
                 options={({ route }) => ({
                     headerTitleAlign: "center",
                     headerTitleStyle: {
