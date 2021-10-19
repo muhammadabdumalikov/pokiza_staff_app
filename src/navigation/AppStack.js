@@ -477,7 +477,7 @@ const AppStack = (route) => {
                 tabBarStyle: {
                     height: Dimensions.get("window").height / 9.78,
                     paddingBottom: 20,
-                },
+                }, 
             }}
         >
             <StaffTab.Screen
