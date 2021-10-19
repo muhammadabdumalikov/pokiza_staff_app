@@ -345,19 +345,15 @@ const StaffsScreen = ({ navigation, route }) => {
                 <View style={styles.resultBox}>
                     <View style={styles.resultLineBox}>
                         <View style={styles.resultId}>
-                            <Ionicons
-                                name="md-heart"
-                                size={24}
-                                color="#E50000"
-                            />
                             <Text style={styles.resultIdText}>{"001523"}</Text>
                         </View>
                         <Entypo name="location-pin" size={24} color="black" />
                     </View>
-                    <View style={styles.resultLineBox}>
+                    <View style={styles.resultLineBigBox}>
                         <Text style={styles.resultFullName}>
                             Hamdamboyev Hudoyberdi
                         </Text>
+                        <Text style={styles.resultPermissionText}>Permission: {"Operator"}</Text>
                     </View>
                     <View style={styles.resultLineBox}>
                         <Text style={styles.resultPhoneNumbers}>
@@ -376,108 +372,8 @@ const StaffsScreen = ({ navigation, route }) => {
                         </Text>
                     </View>
                 </View>
-                <View style={styles.resultBox}>
-                    <View style={styles.resultLineBox}>
-                        <View style={styles.resultId}>
-                            <Ionicons
-                                name="md-heart"
-                                size={24}
-                                color="#E50000"
-                            />
-                            <Text style={styles.resultIdText}>{"001523"}</Text>
-                        </View>
-                        <Entypo name="location-pin" size={24} color="black" />
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultFullName}>
-                            Hamdamboyev Hudoyberdi
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998911000000
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998901111111
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Age: {"28"}
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Gender: {"Male"}
-                        </Text>
-                    </View>
-                </View>
-                <View style={styles.resultBox}>
-                    <View style={styles.resultLineBox}>
-                        <View style={styles.resultId}>
-                            <Ionicons
-                                name="md-heart"
-                                size={24}
-                                color="#E50000"
-                            />
-                            <Text style={styles.resultIdText}>{"001523"}</Text>
-                        </View>
-                        <Entypo name="location-pin" size={24} color="black" />
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultFullName}>
-                            Hamdamboyev Hudoyberdi
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998911000000
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998901111111
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Age: {"28"}
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Gender: {"Male"}
-                        </Text>
-                    </View>
-                </View>
-                <View style={styles.resultBox}>
-                    <View style={styles.resultLineBox}>
-                        <View style={styles.resultId}>
-                            <Ionicons
-                                name="md-heart"
-                                size={24}
-                                color="#E50000"
-                            />
-                            <Text style={styles.resultIdText}>{"001523"}</Text>
-                        </View>
-                        <Entypo name="location-pin" size={24} color="black" />
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultFullName}>
-                            Hamdamboyev Hudoyberdi
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998911000000
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998901111111
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Age: {"28"}
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Gender: {"Male"}
-                        </Text>
-                    </View>
-                </View>
+               
+               
 
                 {/* // Custom component */}
                 {/* <ModalSelector

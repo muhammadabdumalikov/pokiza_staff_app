@@ -127,7 +127,7 @@ export const styles = StyleSheet.create({
         marginVertical: 24,
     },
     resultBox: {
-        height: height / 3.98,
+        height: height / 3.18,
         backgroundColor: "gray",
         borderRadius: 15,
         marginHorizontal: 16,
@@ -141,6 +141,16 @@ export const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         alignItems: "center",
+        justifyContent: "space-between",
+        paddingHorizontal: 16,
+        backgroundColor: "white",
+        borderBottomWidth: 0.5,
+        borderBottomColor: "#EDEDED",
+    },
+    resultLineBigBox: {
+        width: "100%",
+        flex: 2,
+        alignItems: "flex-start",
         justifyContent: "space-between",
         paddingHorizontal: 16,
         backgroundColor: "white",
@@ -161,6 +171,11 @@ export const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 16,
         fontWeight: "bold",
+        textAlignVertical: "center"
+    },
+    resultPermissionText: {
+        flex: 1,
+        textAlignVertical: "center"
     },
     resultPhoneNumbers: {
         flex: 1,
