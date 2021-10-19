@@ -159,23 +159,21 @@ export const styles = StyleSheet.create({
     },
     resultId: {
         flexDirection: "row",
-        width: "30%",
         justifyContent: "space-between",
     },
     resultIdText: {
         fontSize: 16,
-        fontWeight: "bold",
     },
     resultFullName: {
         flex: 1,
         textAlign: "center",
         fontSize: 16,
         fontWeight: "bold",
-        textAlignVertical: "center"
+        textAlignVertical: "center",
     },
     resultPermissionText: {
         flex: 1,
-        textAlignVertical: "center"
+        textAlignVertical: "center",
     },
     resultPhoneNumbers: {
         flex: 1,

@@ -345,9 +345,11 @@ const HistoryScreen = ({ navigation, route }) => {
                 <View style={styles.resultBox}>
                     <View style={styles.resultLineBox}>
                         <View style={styles.resultId}>
-                            <Text style={styles.resultIdText}>{"001523"}</Text>
+                            <Text style={styles.resultIdText}>Transact.Date:</Text>
                         </View>
-                        <Entypo name="location-pin" size={24} color="black" />
+                        <View style={styles.resultId}>
+                            <Text>{"29.01.2021"} {"14:08"}</Text>
+                        </View>
                     </View>
                     <View style={styles.resultLineBigBox}>
                         <Text style={styles.resultFullName}>
