@@ -27,6 +27,7 @@ import QRCodeScreen from "../screens/QRCodeScreen";
 import StaffsScreen from "../screens/AdminMenuScreen/StaffsScreen";
 import HistoryScreen from "../screens/AdminMenuScreen/HistoryScreen";
 import StatisticsScreen from "../screens/AdminMenuScreen/StatisticsScreen";
+import SearchScreen from "../screens/SearchScreen";
 
 const RoutesNames = {
     Menu: <Feather name="menu" size={24} color="black" />,
@@ -337,8 +338,8 @@ const SearchStack = ({ navigation, route }) => {
     return (
         <Stack.Navigator screenOptions={{}}>
             <Stack.Screen
-                name="LocationScreen"
-                component={LocationScreen}
+                name="SearchScreen"
+                component={SearchScreen}
                 options={({ route }) => ({
                     headerTitleAlign: "center",
                     headerTitleStyle: {

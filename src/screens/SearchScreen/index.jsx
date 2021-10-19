@@ -5,8 +5,10 @@ import styles from "./styles";
 
 const SearchScreen = () => {
     return(
-        <View>
+        <View style={styles.container}>
             <Text>This screen unsupported now</Text>
         </View>
     )
 }
+
+export default SearchScreen;
