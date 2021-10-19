@@ -374,24 +374,24 @@ const HistoryScreen = ({ navigation, route }) => {
                         ]}
                     >
                         <Text style={styles.resultPermissionText}>
-                            Permission: {"Operator"}
+                            Modified: {"FirstName"}
                         </Text>
                     </View>
                     <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998911000000
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998901111111
-                        </Text>
+                        <Text style={styles.resultOldValue}>Old Value</Text>
+                        <TouchableOpacity>
+                            <Text style={styles.resultOldValueLink}>
+                                Old Value
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Age: {"28"}
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Gender: {"Male"}
-                        </Text>
+                        <Text style={styles.resultOldValue}>New Value</Text>
+                        <TouchableOpacity>
+                            <Text style={styles.resultOldValueLink}>
+                                New Value
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
 

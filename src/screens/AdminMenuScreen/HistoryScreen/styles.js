@@ -179,11 +179,17 @@ export const styles = StyleSheet.create({
     resultPermissionText: {
         flex: 1,
         textAlignVertical: "center",
+        fontSize: 16
     },
-    resultPhoneNumbers: {
-        flex: 1,
+    resultOldValue: {
         textAlign: "center",
         fontSize: 16,
+    },
+    resultOldValueLink: {
+        fontSize: 16,
+        fontWeight: "bold",
+        color: "#007AFF",
+        textDecorationLine: "underline"
     },
     fab: {
         width: 64,
