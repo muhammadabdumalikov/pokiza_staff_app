@@ -345,17 +345,37 @@ const HistoryScreen = ({ navigation, route }) => {
                 <View style={styles.resultBox}>
                     <View style={styles.resultLineBox}>
                         <View style={styles.resultId}>
-                            <Text style={styles.resultIdText}>Transact.Date:</Text>
+                            <Text style={styles.resultIdText}>
+                                Transact.Date:
+                            </Text>
                         </View>
                         <View style={styles.resultId}>
-                            <Text>{"29.01.2021"} {"14:08"}</Text>
+                            <Text>
+                                {"29.01.2021"} {"14:08"}
+                            </Text>
                         </View>
                     </View>
-                    <View style={styles.resultLineBigBox}>
-                        <Text style={styles.resultFullName}>
-                            Hamdamboyev Hudoyberdi
+                    <View style={styles.resultLineBox}>
+                        <View style={styles.resultId}>
+                            <Text style={styles.resultIdText}>
+                                Office Employer 24
+                            </Text>
+                        </View>
+                        <View style={styles.resultId}>
+                            <Text style={styles.tariffDynamicText}>
+                                {"@001007"}
+                            </Text>
+                        </View>
+                    </View>
+                    <View
+                        style={[
+                            styles.resultLineBox,
+                            styles.resultPermissionText,
+                        ]}
+                    >
+                        <Text style={styles.resultPermissionText}>
+                            Permission: {"Operator"}
                         </Text>
-                        <Text style={styles.resultPermissionText}>Permission: {"Operator"}</Text>
                     </View>
                     <View style={styles.resultLineBox}>
                         <Text style={styles.resultPhoneNumbers}>
@@ -374,8 +394,6 @@ const HistoryScreen = ({ navigation, route }) => {
                         </Text>
                     </View>
                 </View>
-               
-               
 
                 {/* // Custom component */}
                 {/* <ModalSelector

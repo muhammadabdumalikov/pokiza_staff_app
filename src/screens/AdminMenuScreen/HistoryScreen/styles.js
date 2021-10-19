@@ -171,6 +171,11 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlignVertical: "center",
     },
+    tariffDynamicText: {
+        fontSize: 16,
+        fontWeight: "bold",
+        color: "#007AFF",
+    },
     resultPermissionText: {
         flex: 1,
         textAlignVertical: "center",
