@@ -1,5 +1,4 @@
 import React from "react";
-import { AppRegistry } from "react-native";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 import Providers from "./src/navigation";
@@ -12,8 +11,9 @@ const client = new ApolloClient({
 
 export default function App() {
     return (
+       
         <ApolloProvider client={client}>
-            <MyRootComponent />
+             <Providers />
         </ApolloProvider>
     );
 }

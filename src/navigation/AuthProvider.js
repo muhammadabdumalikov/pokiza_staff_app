@@ -39,8 +39,9 @@ export const AuthProvider = ({ children }) => {
                 setArea,
                 branch,
                 setBranch,
-                login: async (password) => {
+                login: async (username, password) => {
                     try {
+                        console.log(username, password)
                     } catch (e) {
                         console.log(e);
                     }
