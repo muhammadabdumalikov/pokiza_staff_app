@@ -12,8 +12,8 @@ export const Routes = () => {
 
     return (
         <NavigationContainer>
-            {/* <SignInScreen /> */}
-            <AppStack />
+            <SignInScreen />
+            {/* <AppStack /> */}
         </NavigationContainer>
     );
 };
