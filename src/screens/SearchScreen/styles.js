@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#E5E5E7",
         borderRadius: 10,
-        padding: 15
+        paddingHorizontal: 16
     },
     searchBox: {
         height: "100%",

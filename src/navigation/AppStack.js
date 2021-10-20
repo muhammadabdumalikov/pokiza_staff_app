@@ -20,7 +20,6 @@ import OrdersScreen from "../screens/AdminMenuScreen/OrdersScreen";
 import TransportScreen from "../screens/AdminMenuScreen/TransportScreen";
 import TransportDetailScreen from "../screens/AdminMenuScreen/TransportScreen/TransportDetailScreen";
 import ReadyProductDetailScreen from "../screens/AdminMenuScreen/TransportScreen/TransportDetailScreen/ReadyScreen/ReadyProductDetailsScreen";
-import ReadyScreen from "../screens/AdminMenuScreen/TransportScreen/TransportDetailScreen/ReadyScreen";
 import Transport1 from "../screens/AdminMenuScreen/TransportScreen/TransportDetailScreen/ReadyScreen/ReadyProductDetailsScreen/Transport1";
 import Transport2 from "../screens/AdminMenuScreen/TransportScreen/TransportDetailScreen/ReadyScreen/ReadyProductDetailsScreen/Transport2";
 import QRCodeScreen from "../screens/QRCodeScreen";
@@ -28,6 +27,7 @@ import StaffsScreen from "../screens/AdminMenuScreen/StaffsScreen";
 import HistoryScreen from "../screens/AdminMenuScreen/HistoryScreen";
 import StatisticsScreen from "../screens/AdminMenuScreen/StatisticsScreen";
 import SearchScreen from "../screens/SearchScreen";
+import NoticesScreen from "../screens/NotificationScreen";
 
 const RoutesNames = {
     Menu: <Feather name="menu" size={24} color="black" />,

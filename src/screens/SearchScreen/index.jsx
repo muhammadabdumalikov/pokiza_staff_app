@@ -10,7 +10,7 @@ const SearchScreen = () => {
         <View style={styles.container}>
             <View style={styles.searchBoxWrapper}>
                 <View style={styles.searchBox}>
-                    <Feather name="search" size={18} color="black" />
+                    <Feather name="search" size={18} color="black" style={{marginRight: 5}} />
                     <TextInput
                         placeholder="Search"
                         onFocus={() => setSearchBtnVisible(true)}
