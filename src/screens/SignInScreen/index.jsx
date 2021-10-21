@@ -4,12 +4,12 @@ import { AuthContext } from "../../navigation/AuthProvider";
 import { useQuery, useMutation, gql } from "@apollo/client";
 
 import styles from "./styles";
+import { request } from "../../helpers/request";
 
 const mainContact = "998946209914";
 const mainPassword = "root";
-const url = "https://pokiza.herokuapp.com/graphql";
 
-const LOGIN = gql`
+const LOGIN = `
     mutation ($mainContact: String!, $password: String!) {
         loginStaff(mainContact: $mainContact, password: $password) {
             status
@@ -32,6 +32,7 @@ const SignInScreen = () => {
     const { signUp, isLoading } = useContext(AuthContext);
     const [username, setUsername] = useState("login username");
     const [password, setPassword] = useState();
+    let data;
 
     // const { data, loading, error } = useMutation(LOGIN, {
     //     variables: { mainContact: "998946209914", password: "root" },
@@ -39,44 +40,15 @@ const SignInScreen = () => {
     // if (loading || error) return null;
     // console.log(data, loading, error);
 
-    const data = fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            query: `
-            mutation ($mainContact: String!, $password: String!) {
-                loginStaff(mainContact: $mainContact, password: $password) {
-                    status
-                    token
-                    message
-                    data
-                    permissions {
-                        branchId
-                        branchName
-                        permissionsList {
-                            permissionAction
-                            permissionModel
-                        }
-                    }
-                }
-            }
-            `,
-            variables: {
-                mainContact,
-                password: mainPassword
-            },
-        }),
-    })
-        .then((res) => res.json())
-        .then((result) => console.log(result));
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setIsLoading(false);
-    //     }, 10000);
-    // }, []);
+    console.log(data)
+
+    useEffect(() => {
+        setTimeout(() => {
+            data = request(LOGIN, {mainContact: mainContact, password: mainPassword})
+            setIsLoading(false);
+        }, 10000);
+    }, []);
 
     // if (isLoading) {
     //     return (
