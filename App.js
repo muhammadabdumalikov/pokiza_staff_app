@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 import Providers from "./src/navigation";
+import getEnvVars from './config';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -11,9 +12,8 @@ const client = new ApolloClient({
 
 export default function App() {
     return (
-       
         <ApolloProvider client={client}>
-             <Providers />
+            <Providers />
         </ApolloProvider>
     );
 }

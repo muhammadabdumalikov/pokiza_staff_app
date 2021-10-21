@@ -16,6 +16,9 @@ export const AuthProvider = ({ children }) => {
     const [area, setArea] = useState();
     const [branch, setBranch] = useState();
 
+    const [isLoading, setIsLoading] = useState(true);
+    const [userToken, setUserToken] = useState(null);
+
     return (
         <AuthContext.Provider
             value={{
@@ -39,15 +42,31 @@ export const AuthProvider = ({ children }) => {
                 setArea,
                 branch,
                 setBranch,
-                login: async (username, password) => {
+                isLoading,
+                setIsLoading,
+                userToken,
+                setUserToken,
+                signIn: async (username, password) => {
                     try {
-                        console.log(username, password)
+                        console.log(username, password);
+                        setUserToken("dff");
+                        setIsLoading(false);
                     } catch (e) {
                         console.log(e);
                     }
                 },
-                register: async (phone) => {
+                signUp: async () => {
                     try {
+                        setUserToken("dff");
+                        setIsLoading(false);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                },
+                signOut: async (phone) => {
+                    try {
+                        setUserToken(null);
+                        setIsLoading(false);
                     } catch (e) {
                         console.log(e);
                     }
