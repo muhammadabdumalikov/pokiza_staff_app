@@ -28,26 +28,20 @@ const LOGIN = `
     }
 `;
 
-const SignInScreen = () => {
-    const { signUp, isLoading } = useContext(AuthContext);
+const SignInScreen = ({navigation}) => {
+    const { signUp, isLoading, setIsLoading, setUserToken } = useContext(AuthContext);
     const [username, setUsername] = useState("login username");
     const [password, setPassword] = useState();
+    const [loading, setLoading] = useState(true)
     let data;
 
-    // const { data, loading, error } = useMutation(LOGIN, {
-    //     variables: { mainContact: "998946209914", password: "root" },
-    // });
-    // if (loading || error) return null;
+    // if (isLoading) return null;
     // console.log(data, loading, error);
-
-
-    console.log(data)
 
     useEffect(() => {
         setTimeout(() => {
-            data = request(LOGIN, {mainContact: mainContact, password: mainPassword})
-            setIsLoading(false);
-        }, 10000);
+            // setIsLoading(false);
+        }, 3000);
     }, []);
 
     // if (isLoading) {
@@ -92,7 +86,8 @@ const SignInScreen = () => {
 
                 <TouchableOpacity
                     onPress={async () => {
-                        await signUp(username, password);
+                        data = await request(LOGIN, {mainContact: username, password: password})
+                        setUserToken(data.loginStaff.token)
                     }}
                     style={styles.btn}
                 >

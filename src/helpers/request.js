@@ -1,7 +1,7 @@
 const url = "https://pokiza.herokuapp.com/graphql";
 
-export const request = (query, variables) => {
-    fetch(url, {
+export const request = async (query, variables) => {
+    let data = await fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -10,7 +10,7 @@ export const request = (query, variables) => {
             query: query,
             variables: variables,
         }),
-    })
-        .then((res) => res.json())
-        .then((result) => console.log(result));
-} 
+    });
+    let jsonData = await data.json();
+    return jsonData.data;
+};
