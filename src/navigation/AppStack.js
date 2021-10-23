@@ -29,24 +29,6 @@ import StatisticsScreen from "../screens/AdminMenuScreen/StatisticsScreen";
 import SearchScreen from "../screens/SearchScreen";
 import NoticesScreen from "../screens/NotificationScreen";
 
-const RoutesNames = {
-    Menu: <Feather name="menu" size={24} color="black" />,
-    Contacts: <AntDesign name="contacts" size={24} color="black" />,
-    Moderators: <MaterialIcons name="person-outline" size={24} color="black" />,
-    Orders: (
-        <MaterialCommunityIcons
-            name="clipboard-list-outline"
-            size={24}
-            color="black"
-        />
-    ),
-    Transports: <Ionicons name="ios-car-outline" size={24} color="black" />,
-    Finance: <Feather name="trending-up" size={24} color="black" />,
-    Statistics: <Feather name="trending-up" size={24} color="black" />,
-    Staffs: <Feather name="users" size={24} color="black" />,
-    History: <MaterialIcons name="history" size={24} color="black" />,
-};
-
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
