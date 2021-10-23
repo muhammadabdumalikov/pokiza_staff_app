@@ -91,6 +91,7 @@ const TransportScreen = ({ navigation }) => {
                         data={data}
                         renderItem={renderItem}
                         keyExtractor={(item) => item.transportId}
+                        showsVerticalScrollIndicator={false}
                     />
                 )}
             </View>

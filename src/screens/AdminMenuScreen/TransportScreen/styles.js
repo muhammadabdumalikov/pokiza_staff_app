@@ -24,9 +24,7 @@ export const styles = StyleSheet.create({
     scrollBox: {
         flex: 1,
         backgroundColor: "#fff",
-        // height: "100%",
-        padding: 16,
-        paddingBottom: 100,
+        paddingHorizontal: 16,
     },
     scrollContentContainer: {},
     resultBox: {
