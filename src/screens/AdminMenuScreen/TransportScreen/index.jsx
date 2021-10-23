@@ -33,7 +33,7 @@ const TransportScreen = ({ navigation }) => {
 
     async function fetchData() {
         let downloadData = await request(QUERY, null, userToken);
-        setData(downloadData);
+        setData(downloadData.transports);
         setLoading(false);
     }
 
@@ -56,9 +56,9 @@ const TransportScreen = ({ navigation }) => {
                 </View>
                 <View style={styles.resultDetailBox}>
                     <View style={styles.resultDetailLine}>
-                        <Text style={styles.carModelText}>{"Damas"}</Text>
+                        <Text style={styles.carModelText}>{item.transportModel}</Text>
                         <Text style={styles.carNumberText}>
-                            {"01 A 714 PA"}
+                            {item.transportNumber}
                         </Text>
                     </View>
                     <View style={styles.resultDetailLine}>
@@ -80,18 +80,20 @@ const TransportScreen = ({ navigation }) => {
                 <Text style={styles.dateText}>Date: </Text>
                 <Text style={styles.dateDynamicText}>{"10.08.2021"}</Text>
             </View>
-            {loading && <ActivityIndicator size="large" color="red" />}
-            {data && (
-                <FlatList
-                    data={data}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item}
-                />
-            )}
+
             <View
                 style={styles.scrollBox}
                 // contentContainerStyle={styles.scrollContentContainer}
-            ></View>
+            >
+                {loading && <ActivityIndicator size="large" color="red" />}
+                {data && (
+                    <FlatList
+                        data={data}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.transportId}
+                    />
+                )}
+            </View>
             <TouchableOpacity
                 style={styles.fab}
                 onPress={() => navigation.goBack()}
