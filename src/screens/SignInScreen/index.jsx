@@ -30,8 +30,8 @@ const LOGIN = `
 
 const SignInScreen = ({navigation}) => {
     const { signUp, isLoading, setIsLoading, setUserToken } = useContext(AuthContext);
-    const [username, setUsername] = useState("login username");
-    const [password, setPassword] = useState();
+    const [username, setUsername] = useState("998946209914");
+    const [password, setPassword] = useState("root");
     const [loading, setLoading] = useState(true)
     let data;
 
