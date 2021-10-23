@@ -85,7 +85,7 @@ const TransportScreen = ({ navigation }) => {
                 style={styles.scrollBox}
                 // contentContainerStyle={styles.scrollContentContainer}
             >
-                {loading && <ActivityIndicator size="large" color="red" />}
+                {loading && <View style={styles.loadingIndicator}><ActivityIndicator size="large" color="#007AFF"/></View>}
                 {data && (
                     <FlatList
                         data={data}

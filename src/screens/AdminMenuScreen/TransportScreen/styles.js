@@ -26,7 +26,11 @@ export const styles = StyleSheet.create({
         backgroundColor: "#fff",
         paddingHorizontal: 16,
     },
-    scrollContentContainer: {},
+    loadingIndicator: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
     resultBox: {
         height: height / 7.18,
         flexDirection: "row",
