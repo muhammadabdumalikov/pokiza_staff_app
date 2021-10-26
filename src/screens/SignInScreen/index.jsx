@@ -38,7 +38,6 @@ const LOGIN = `
 `;
 
 const SignInScreen = ({ navigation }) => {
-    const { setUserToken } = useContext(AuthContext);
     const [phoneNumber, setPhoneNumber] = useState("998946209914");
     const [password, setPassword] = useState("root");
     const [loading, setLoading] = useState(true);
@@ -86,6 +85,7 @@ const SignInScreen = ({ navigation }) => {
                         numberOfLines={1}
                         placeholder="Enter phone number"
                         placeholderTextColor="#B8B8BB"
+                        value={phoneNumber}
                         onChangeText={setPhoneNumber}
                         keyboardType="phone-pad"
                         // autoFocus={true}
@@ -102,9 +102,10 @@ const SignInScreen = ({ navigation }) => {
                     <TextInput
                         style={styles.input}
                         numberOfLines={1}
-                        placeholder="Enter phone number"
+                        placeholder="Enter password"
                         placeholderTextColor="#B8B8BB"
-                        onChangeText={(number) => setPhoneNumber(number)}
+                        value={password}
+                        onChangeText={setPassword}
                         keyboardType="phone-pad"
                         // autoFocus={true}
                         maxLength={12}
