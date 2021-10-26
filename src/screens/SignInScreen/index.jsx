@@ -1,5 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import {
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    ScrollView,
+    Dimensions
+} from "react-native";
 import { AuthContext } from "../../navigation/AuthProvider";
 import { useQuery, useMutation, gql } from "@apollo/client";
 
@@ -8,6 +15,8 @@ import { request } from "../../helpers/request";
 
 const mainContact = "998946209914";
 const mainPassword = "root";
+
+const height = Dimensions.get("window").height;
 
 const LOGIN = `
     mutation ($mainContact: String!, $password: String!) {
@@ -28,21 +37,15 @@ const LOGIN = `
     }
 `;
 
-const SignInScreen = ({navigation}) => {
-    const { signUp, isLoading, setIsLoading, setUserToken } = useContext(AuthContext);
-    const [username, setUsername] = useState("998946209914");
+const SignInScreen = ({ navigation }) => {
+    const { setUserToken } = useContext(AuthContext);
+    const [phoneNumber, setPhoneNumber] = useState("998946209914");
     const [password, setPassword] = useState("root");
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
     let data;
 
     // if (isLoading) return null;
     // console.log(data, loading, error);
-
-    useEffect(() => {
-        setTimeout(() => {
-            // setIsLoading(false);
-        }, 3000);
-    }, []);
 
     // if (isLoading) {
     //     return (
@@ -59,42 +62,70 @@ const SignInScreen = ({navigation}) => {
     // }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.logoBox}></View>
-            <View style={styles.formBox}>
-                <View style={styles.inputBox}>
-                    <Text style={styles.inputText}>Login</Text>
+        <ScrollView
+            style={styles.container}
+            contentContainerStyle={styles.content}
+        >
+            <View style={styles.logoBox}>
+                <Text style={styles.signIn}>Sign In</Text>
+                <Text style={styles.signInDescription}>
+                    But I must explain to you how all this mistaken idea of
+                    denouncing pleasure
+                </Text>
+            </View>
+            <View style={styles.signInBox}>
+                <View
+                    style={styles.inputContainer}
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                >
+                    <View style={styles.preTextWrapperStyle}>
+                        <Text style={styles.preText}>Number</Text>
+                    </View>
                     <TextInput
                         style={styles.input}
-                        placeholder="Enter login"
-                        selectionColor="blue"
-                        value={username}
-                        onChangeText={setUsername}
+                        numberOfLines={1}
+                        placeholder="Enter phone number"
+                        placeholderTextColor="#B8B8BB"
+                        onChangeText={setPhoneNumber}
+                        keyboardType="phone-pad"
+                        // autoFocus={true}
+                        maxLength={12}
                     />
                 </View>
-                <View style={styles.inputBox}>
-                    <Text style={styles.inputText}>Password</Text>
+                <View
+                    style={{ ...styles.inputContainer, bottom: height / 4.3 }}
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                >
+                    <View style={styles.preTextWrapperStyle}>
+                        <Text style={styles.preText}>Password</Text>
+                    </View>
                     <TextInput
                         style={styles.input}
-                        placeholder="Enter password"
-                        selectionColor="blue"
-                        secureTextEntry
-                        value={password}
-                        onChangeText={setPassword}
+                        numberOfLines={1}
+                        placeholder="Enter phone number"
+                        placeholderTextColor="#B8B8BB"
+                        onChangeText={(number) => setPhoneNumber(number)}
+                        keyboardType="phone-pad"
+                        // autoFocus={true}
+                        maxLength={12}
                     />
                 </View>
 
                 <TouchableOpacity
+                    style={styles.sendCodeWrapper}
                     onPress={async () => {
-                        data = await request(LOGIN, {mainContact: username, password: password})
-                        setUserToken(data.loginStaff.token)
+                        data = await request(LOGIN, {
+                            mainContact: username,
+                            password: password,
+                        });
+                        setUserToken(data.loginStaff.token);
                     }}
-                    style={styles.btn}
+                    disabled={loading}
                 >
-                    <Text>Goo</Text>
+                    <Text style={styles.sendCodeText}>Send code</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </ScrollView>
     );
 };
 

@@ -1,47 +1,105 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { Dimensions, StyleSheet,  Platform } from "react-native";
+import Constants from "expo-constants";
 
-const height = Dimensions.get("window").height;
+const statusBarHeight = Constants.statusBarHeight;
 const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
     container: {
+        flex: 1,
         height: "100%",
+        backgroundColor: "white",
+    },
+    content: {
         width: width,
+        paddingTop: Platform.OS === "android" ? statusBarHeight : 0,
     },
     logoBox: {
-        height: "40%",
-        width: "100%",
-        backgroundColor: "gray",
+        height: height*.45,
+        alignItems: "center",
+        paddingHorizontal: 76,
+        backgroundColor: "#F5F5F5",
     },
-    formBox: {
-        padding: 16,
+    signIn: {
+        top: height / 2.96,
+        width: 80,
+        height: 32,
+        fontWeight: "bold",
+        fontSize: 24,
+        color: "#007AFF",
+        textAlign: "center",
+        marginBottom: 12,
     },
-    inputBox: {
-        height: height / 18,
+    signInDescription: {
+        position: "absolute",
+        top: height / 2.56,
+        width: 223,
+        height: 32,
+        fontSize: 12,
+        textAlign: "center",
+    },
+    signInBox: {
+        backgroundColor: "#fff",
+        alignItems: "center",
+        position: "relative",
+        height: height*.55,
+    },
+    inputContainer: {
+        position: "absolute",
+        bottom: height / 3.25,
+        marginTop: 5,
+        marginBottom: 10,
         width: "100%",
+        height: height / 15,
+        borderBottomColor: "#ccc",
+        borderRadius: 3,
+        borderBottomWidth: 1,
         flexDirection: "row",
         alignItems: "center",
-        borderBottomColor: "gray",
-        borderBottomWidth: 0.5,
+        backgroundColor: "#fff",
     },
-    inputText: {
-        width: "25%",
+    preTextWrapperStyle: {
+        padding: 10,
         height: "100%",
-        textAlignVertical: "center",
-        fontSize: 17
+        justifyContent: "center",
+        alignItems: "center",
+        width: "30%",
+    },
+    preText: {
+        fontSize: 16,
     },
     input: {
-        width: "75%",
-        height: "100%",
-        fontSize: 17
-    },
-    btn: {
-        height: 30,
-        width: 60,
-        backgroundColor: "blue",
+        width: "100%",
+        padding: 10,
+        flex: 1,
+        fontSize: 16,
+        color: "#666",
         justifyContent: "center",
-        alignItems: "center"
-    }
+        alignItems: "center",
+    },
+    inputField: {
+        padding: 10,
+        marginTop: 5,
+        marginBottom: 10,
+        width: height / 1.5,
+        height: height / 15,
+        fontSize: 16,
+        borderRadius: 8,
+        borderWidth: 1,
+    },
+    sendCodeWrapper: {
+        position: "absolute",
+        bottom: height / 14,
+        backgroundColor: "#007AFF",
+        width: 344,
+        height: 50,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 10,
+    },
+    sendCodeText: {
+        color: "#fff",
+        fontSize: 17,
+    },
 });
-
-export default styles;
