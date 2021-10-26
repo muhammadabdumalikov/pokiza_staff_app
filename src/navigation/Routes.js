@@ -1,19 +1,33 @@
 import React, { useContext, useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthContext } from "./AuthProvider";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import SignInScreen from "../screens/SignInScreen";
 import AppStack from "./AppStack";
 
 export const Routes = () => {
-    const { userToken } = useContext(AuthContext);
+    const [token, setToken] = useState("");
     const [initializing, setInitializing] = useState(true);
 
-    useEffect(() => {}, []);
+    useEffect(() => {
+        async function getData() {
+            try {
+                const value = await AsyncStorage.getItem("staff_token");
+                if (value !== null) {
+                    setToken(value);
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        getData();
+    }, []);
 
+    console.log(token)
     return (
         <NavigationContainer>
-            {!userToken ? <SignInScreen /> : <AppStack />}
+            {!token ? <SignInScreen /> : <AppStack />}
         </NavigationContainer>
     );
 };

@@ -5,10 +5,11 @@ import {
     TextInput,
     TouchableOpacity,
     ScrollView,
-    Dimensions
+    Dimensions,
 } from "react-native";
 import { AuthContext } from "../../navigation/AuthProvider";
 import { useQuery, useMutation, gql } from "@apollo/client";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import styles from "./styles";
 import { request } from "../../helpers/request";
@@ -18,7 +19,7 @@ const mainPassword = "root";
 
 const height = Dimensions.get("window").height;
 
-const LOGIN = `
+const LOGIN = gql`
     mutation ($mainContact: String!, $password: String!) {
         loginStaff(mainContact: $mainContact, password: $password) {
             status
@@ -38,10 +39,28 @@ const LOGIN = `
 `;
 
 const SignInScreen = ({ navigation }) => {
+    const [verify, { loading }] = useMutation(LOGIN);
+    const [value, setValue] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("998946209914");
     const [password, setPassword] = useState("root");
-    const [loading, setLoading] = useState(true);
-    let data;
+    // const [loading, setLoading] = useState(true);
+
+    const handleSubmit = () => {
+        verify({
+            variables: {
+                mainContact: phoneNumber,
+                password: password,
+            },
+        })
+            .then(({ data }) => {
+                if (data.loginStaff.status == 200) {
+                    AsyncStorage.setItem("staff_token", data.loginStaff.token);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     // if (isLoading) return null;
     // console.log(data, loading, error);
@@ -59,6 +78,11 @@ const SignInScreen = ({ navigation }) => {
     //         </View>
     //     );
     // }
+
+    // data = await request(LOGIN, {
+    //     mainContact: username,
+    //     password: password,
+    // });
 
     return (
         <ScrollView
@@ -114,14 +138,8 @@ const SignInScreen = ({ navigation }) => {
 
                 <TouchableOpacity
                     style={styles.sendCodeWrapper}
-                    onPress={async () => {
-                        data = await request(LOGIN, {
-                            mainContact: username,
-                            password: password,
-                        });
-                        setUserToken(data.loginStaff.token);
-                    }}
-                    disabled={loading}
+                    onPress={handleSubmit}
+                    // disabled={loading}
                 >
                     <Text style={styles.sendCodeText}>Send code</Text>
                 </TouchableOpacity>
