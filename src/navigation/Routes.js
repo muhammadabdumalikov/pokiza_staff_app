@@ -24,7 +24,6 @@ export const Routes = () => {
         getData();
     }, []);
 
-    console.log(token)
     return (
         <NavigationContainer>
             {!token ? <SignInScreen /> : <AppStack />}

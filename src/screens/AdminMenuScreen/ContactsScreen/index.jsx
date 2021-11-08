@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     ScrollView,
     Text,
@@ -7,17 +7,40 @@ import {
     TextInput,
     Dimensions,
     Platform,
+    ActivityIndicator,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Collapsible from "react-native-collapsible";
 import ModalSelector from "react-native-modal-selector";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
 import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 
+import { request } from "../../../helpers/request";
 import { sliderStyles, styles } from "./styles";
 
 const height = Dimensions.get("window").height;
 
 const ContactsScreen = ({ navigation, route }) => {
+    const ALL_CLIENTS_QUERY = `query($clientStatus: Int! = 1, $age: Int = null, $gender: Int = null){
+        clients(clientStatus: $clientStatus, age: $age, gender: $gender ){
+          clientId
+          clientStatus
+          clientSummary
+          clientInfo{
+            userId
+            mainContact
+            secondContact
+            firstName
+            lastName
+            age
+            gender
+            
+          }
+        }
+      }`;
+    const [clients, setClients] = useState();
+    let [staffToken, setStaffToken] = useState("");
+    let [isLoading, setLoading] = useState(true);
     const [collapsed, setCollapsed] = useState(true);
     let [selectedAge, setSelectedAge] = useState("");
     let [selectedStatus, setSelectedStatus] = useState("");
@@ -30,6 +53,21 @@ const ContactsScreen = ({ navigation, route }) => {
     let index = 0;
     let genderIndex = 0;
 
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const value = await AsyncStorage.getItem("staff_token");
+                console.log(value);
+                setStaffToken(value);
+                setClients(await request(ALL_CLIENTS_QUERY, null, value));
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
+    }, []);
+    console.log(clients);
 
     const toggleExpanded = () => {
         setCollapsed(!collapsed);
@@ -56,423 +94,401 @@ const ContactsScreen = ({ navigation, route }) => {
     ];
 
     return (
-        <View style={{ height: "100%" }}>
-            <TouchableOpacity onPress={toggleExpanded} style={styles.filterBox}>
-                <Text style={styles.headerText}>Filter by</Text>
-                {/*Heading of Single Collapsible*/}
-            </TouchableOpacity>
-            <Collapsible
-                style={styles.hiddenContent}
-                collapsed={collapsed}
-                align="center"
-            >
-                <View style={styles.content}>
-                    <View style={styles.pickerWrapper}>
-                        <View style={styles.preTextWrapperStyle}>
-                            <Text style={styles.preText}>Status</Text>
-                        </View>
-                        <ModalSelector
-                            data={data}
-                            initValue="Select something yummy!"
-                            supportedOrientations={["portrait"]}
-                            overlayStyle={{
-                                flex: 1,
-                                padding: "5%",
-                                justifyContent: "center",
-                                backgroundColor: "rgba(0,0,0,0.5)",
-                            }}
-                            selectTextStyle={{
-                                color: "#fff",
-                            }}
-                            touchableActiveOpacity={0.5}
-                            accessible={true}
-                            scrollViewAccessibilityLabel={"Scrollable options"}
-                            cancelButtonAccessibilityLabel={"Cancel Button"}
-                            onChange={(option) => {
-                                setSelectedStatus(option.label);
-                            }}
-                        >
-                            <TextInput
+        <>
+            {isLoading ? (
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <ActivityIndicator
+                        size="large"
+                        color="#00ff00"
+                        style={{ alignSelf: "center" }}
+                    />
+                </View>
+            ) : (
+                <View style={{ height: "100%" }}>
+                    <TouchableOpacity
+                        onPress={toggleExpanded}
+                        style={styles.filterBox}
+                    >
+                        <Text style={styles.headerText}>Filter by</Text>
+                        {/*Heading of Single Collapsible*/}
+                    </TouchableOpacity>
+                    <Collapsible
+                        style={styles.hiddenContent}
+                        collapsed={collapsed}
+                        align="center"
+                    >
+                        <View style={styles.content}>
+                            <View style={styles.pickerWrapper}>
+                                <View style={styles.preTextWrapperStyle}>
+                                    <Text style={styles.preText}>Status</Text>
+                                </View>
+                                <ModalSelector
+                                    data={data}
+                                    initValue="Select something yummy!"
+                                    supportedOrientations={["portrait"]}
+                                    overlayStyle={{
+                                        flex: 1,
+                                        padding: "5%",
+                                        justifyContent: "center",
+                                        backgroundColor: "rgba(0,0,0,0.5)",
+                                    }}
+                                    selectTextStyle={{
+                                        color: "#fff",
+                                    }}
+                                    touchableActiveOpacity={0.5}
+                                    accessible={true}
+                                    scrollViewAccessibilityLabel={
+                                        "Scrollable options"
+                                    }
+                                    cancelButtonAccessibilityLabel={
+                                        "Cancel Button"
+                                    }
+                                    onChange={(option) => {
+                                        setSelectedStatus(option.label);
+                                    }}
+                                >
+                                    <TextInput
+                                        style={{
+                                            borderColor: "#ccc",
+                                            padding: 10,
+                                            height: "100%",
+                                        }}
+                                        editable={true}
+                                        placeholder={
+                                            selectedStatus
+                                                ? selectedStatus
+                                                : "Add status"
+                                        }
+                                        value={selectedStatus}
+                                    />
+                                </ModalSelector>
+                            </View>
+                            {/* Name input --------------------------------------------------------------- */}
+                            <View
                                 style={{
-                                    borderColor: "#ccc",
-                                    padding: 10,
-                                    height: "100%",
+                                    ...styles.inputContainer,
+                                    marginBottom: 16,
                                 }}
-                                editable={true}
-                                placeholder={
-                                    selectedStatus
-                                        ? selectedStatus
-                                        : "Add status"
+                                behavior={
+                                    Platform.OS === "ios" ? "padding" : "height"
                                 }
-                                value={selectedStatus}
-                            />
-                        </ModalSelector>
-                    </View>
-                    {/* Name input --------------------------------------------------------------- */}
-                    <View
-                        style={{
-                            ...styles.inputContainer,
-                            marginBottom: 16,
-                        }}
-                        behavior={Platform.OS === "ios" ? "padding" : "height"}
-                    >
-                        <View style={styles.preTextWrapperStyle}>
-                            <Text style={styles.preText}>Name</Text>
-                        </View>
-                        <TextInput
-                            style={styles.input}
-                            numberOfLines={1}
-                            placeholder="Enter first name"
-                            placeholderTextColor="#B8B8BB"
-                            onChangeText={(value) => (firstname = value)}
-                            keyboardType="default"
-                            // autoFocus={true}
-                            maxLength={9}
-                        />
-                    </View>
-                    {/* Age input ------------------------------------------------------------------- */}
-                    <View
-                        style={styles.inputContainer}
-                        behavior={Platform.OS === "ios" ? "padding" : "height"}
-                    >
-                        <View style={styles.preTextWrapperStyle}>
-                            <Text style={styles.preText}>Age</Text>
-                        </View>
-                        <TextInput
-                            style={styles.input}
-                            numberOfLines={1}
-                            placeholder={`${multiSliderValue[0]}-${multiSliderValue[1]}`}
-                            placeholderTextColor="#B8B8BB"
-                            keyboardType="default"
-                            // autoFocus={true}
-                            maxLength={9}
-                        />
-                    </View>
-
-                    {/* Slider ----------------------------------------------------------- */}
-                    <View style={sliderStyles.viewContainer}>
-                        <View style={sliderStyles.sliderWrapper}>
-                            <View style={sliderStyles.labelWrapper}>
-                                <Text style={sliderStyles.labelText}>
-                                    {multiSliderValue[0]}
-                                </Text>
-                                <MultiSlider
-                                    markerStyle={{
-                                        ...Platform.select({
-                                            ios: {
-                                                height: 20,
-                                                width: 20,
-                                                shadowColor: "#000000",
-                                                shadowOffset: {
-                                                    width: 0,
-                                                    height: 3,
-                                                },
-                                                shadowRadius: 1,
-                                                shadowOpacity: 0.1,
-                                            },
-                                            android: {
-                                                height: 20,
-                                                width: 20,
-                                                borderRadius: 50,
-                                                backgroundColor: "#1792E8",
-                                            },
-                                        }),
-                                    }}
-                                    pressedMarkerStyle={{
-                                        ...Platform.select({
-                                            android: {
-                                                height: 30,
-                                                width: 30,
-                                                borderRadius: 20,
-                                                backgroundColor: "#148ADC",
-                                            },
-                                        }),
-                                    }}
-                                    selectedStyle={{
-                                        backgroundColor: "#1792E8",
-                                    }}
-                                    trackStyle={{
-                                        backgroundColor: "#CECECE",
-                                    }}
-                                    touchDimensions={{
-                                        height: 20,
-                                        width: 20,
-                                        borderRadius: 10,
-                                        slipDisplacement: 40,
-                                    }}
-                                    values={[
-                                        multiSliderValue[0],
-                                        multiSliderValue[1],
-                                    ]}
-                                    sliderLength={280}
-                                    onValuesChange={multiSliderValuesChange}
-                                    min={16}
-                                    max={72}
-                                    allowOverlap={false}
-                                    minMarkerOverlapDistance={10}
+                            >
+                                <View style={styles.preTextWrapperStyle}>
+                                    <Text style={styles.preText}>Name</Text>
+                                </View>
+                                <TextInput
+                                    style={styles.input}
+                                    numberOfLines={1}
+                                    placeholder="Enter first name"
+                                    placeholderTextColor="#B8B8BB"
+                                    onChangeText={(value) =>
+                                        (firstname = value)
+                                    }
+                                    keyboardType="default"
+                                    // autoFocus={true}
+                                    maxLength={9}
                                 />
-                                <Text style={sliderStyles.labelText}>
-                                    {multiSliderValue[1]}
-                                </Text>
+                            </View>
+                            {/* Age input ------------------------------------------------------------------- */}
+                            <View
+                                style={styles.inputContainer}
+                                behavior={
+                                    Platform.OS === "ios" ? "padding" : "height"
+                                }
+                            >
+                                <View style={styles.preTextWrapperStyle}>
+                                    <Text style={styles.preText}>Age</Text>
+                                </View>
+                                <TextInput
+                                    style={styles.input}
+                                    numberOfLines={1}
+                                    placeholder={`${multiSliderValue[0]}-${multiSliderValue[1]}`}
+                                    placeholderTextColor="#B8B8BB"
+                                    keyboardType="default"
+                                    // autoFocus={true}
+                                    maxLength={9}
+                                />
+                            </View>
+
+                            {/* Slider ----------------------------------------------------------- */}
+                            <View style={sliderStyles.viewContainer}>
+                                <View style={sliderStyles.sliderWrapper}>
+                                    <View style={sliderStyles.labelWrapper}>
+                                        <Text style={sliderStyles.labelText}>
+                                            {multiSliderValue[0]}
+                                        </Text>
+                                        <MultiSlider
+                                            markerStyle={{
+                                                ...Platform.select({
+                                                    ios: {
+                                                        height: 20,
+                                                        width: 20,
+                                                        shadowColor: "#000000",
+                                                        shadowOffset: {
+                                                            width: 0,
+                                                            height: 3,
+                                                        },
+                                                        shadowRadius: 1,
+                                                        shadowOpacity: 0.1,
+                                                    },
+                                                    android: {
+                                                        height: 20,
+                                                        width: 20,
+                                                        borderRadius: 50,
+                                                        backgroundColor:
+                                                            "#1792E8",
+                                                    },
+                                                }),
+                                            }}
+                                            pressedMarkerStyle={{
+                                                ...Platform.select({
+                                                    android: {
+                                                        height: 30,
+                                                        width: 30,
+                                                        borderRadius: 20,
+                                                        backgroundColor:
+                                                            "#148ADC",
+                                                    },
+                                                }),
+                                            }}
+                                            selectedStyle={{
+                                                backgroundColor: "#1792E8",
+                                            }}
+                                            trackStyle={{
+                                                backgroundColor: "#CECECE",
+                                            }}
+                                            touchDimensions={{
+                                                height: 20,
+                                                width: 20,
+                                                borderRadius: 10,
+                                                slipDisplacement: 40,
+                                            }}
+                                            values={[
+                                                multiSliderValue[0],
+                                                multiSliderValue[1],
+                                            ]}
+                                            sliderLength={280}
+                                            onValuesChange={
+                                                multiSliderValuesChange
+                                            }
+                                            min={16}
+                                            max={72}
+                                            allowOverlap={false}
+                                            minMarkerOverlapDistance={10}
+                                        />
+                                        <Text style={sliderStyles.labelText}>
+                                            {multiSliderValue[1]}
+                                        </Text>
+                                    </View>
+                                </View>
+                            </View>
+
+                            {/* Address input ----------------------------------------------------------- */}
+                            <View style={styles.pickerWrapper}>
+                                <View style={styles.preTextWrapperStyle}>
+                                    <Text style={styles.preText}>Address</Text>
+                                </View>
+                                <ModalSelector
+                                    data={data}
+                                    initValue="Select something yummy!"
+                                    supportedOrientations={["portrait"]}
+                                    overlayStyle={{
+                                        flex: 1,
+                                        padding: "5%",
+                                        justifyContent: "center",
+                                        backgroundColor: "rgba(0,0,0,0.5)",
+                                    }}
+                                    selectTextStyle={{
+                                        color: "#fff",
+                                    }}
+                                    touchableActiveOpacity={0.5}
+                                    accessible={true}
+                                    scrollViewAccessibilityLabel={
+                                        "Scrollable options"
+                                    }
+                                    cancelButtonAccessibilityLabel={
+                                        "Cancel Button"
+                                    }
+                                    onChange={(option) => {
+                                        setSelectedAddress(option.label);
+                                    }}
+                                >
+                                    <TextInput
+                                        style={{
+                                            borderColor: "#ccc",
+                                            padding: 10,
+                                            height: "100%",
+                                        }}
+                                        editable={true}
+                                        placeholder={
+                                            selectedAddress
+                                                ? selectedAddress
+                                                : "Add adress"
+                                        }
+                                        value={selectedAddress}
+                                    />
+                                </ModalSelector>
+                            </View>
+                            {/* Gender input -------------------------------------------------------------- */}
+                            <View
+                                style={{
+                                    ...styles.pickerWrapper,
+                                    marginBottom: 24,
+                                }}
+                            >
+                                <View style={styles.preTextWrapperStyle}>
+                                    <Text style={styles.preText}>Gender</Text>
+                                </View>
+                                <ModalSelector
+                                    data={genderData}
+                                    initValue="Select something yummy!"
+                                    supportedOrientations={["portrait"]}
+                                    overlayStyle={{
+                                        flex: 1,
+                                        padding: "5%",
+                                        justifyContent: "center",
+                                        backgroundColor: "rgba(0,0,0,0.5)",
+                                    }}
+                                    selectTextStyle={{
+                                        color: "#fff",
+                                    }}
+                                    touchableActiveOpacity={0.5}
+                                    accessible={true}
+                                    scrollViewAccessibilityLabel={
+                                        "Scrollable options"
+                                    }
+                                    cancelButtonAccessibilityLabel={
+                                        "Cancel Button"
+                                    }
+                                    onChange={(option) => {
+                                        setSelectedGender(option.label);
+                                    }}
+                                >
+                                    <TextInput
+                                        style={{
+                                            borderColor: "#ccc",
+                                            padding: 10,
+                                            height: "100%",
+                                        }}
+                                        editable={true}
+                                        placeholder={
+                                            selectedGender
+                                                ? selectedGender
+                                                : "Add gender"
+                                        }
+                                        value={selectedGender}
+                                    />
+                                </ModalSelector>
+                            </View>
+                            {/* Reset Filter Button ------------------------------------------------ */}
+                            <View style={styles.resetWrapper}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        setSelectedStatus("");
+                                        setSelectedAddress("");
+                                        setSelectedGender("");
+                                        setMultiSliderValue([16, 99]);
+                                    }}
+                                >
+                                    <Text style={styles.resetText}>
+                                        Reset Filter
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                            {/* Hide Filter Button ------------------------------------------------------ */}
+                            <View style={styles.hideButtonWrapper}>
+                                <TouchableOpacity onPress={toggleExpanded}>
+                                    <Text style={styles.hideButtonText}>
+                                        Hide Filter
+                                    </Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
-                    </View>
+                    </Collapsible>
 
-                    {/* Address input ----------------------------------------------------------- */}
-                    <View style={styles.pickerWrapper}>
-                        <View style={styles.preTextWrapperStyle}>
-                            <Text style={styles.preText}>Address</Text>
-                        </View>
-                        <ModalSelector
-                            data={data}
-                            initValue="Select something yummy!"
-                            supportedOrientations={["portrait"]}
-                            overlayStyle={{
-                                flex: 1,
-                                padding: "5%",
-                                justifyContent: "center",
-                                backgroundColor: "rgba(0,0,0,0.5)",
-                            }}
-                            selectTextStyle={{
-                                color: "#fff",
-                            }}
-                            touchableActiveOpacity={0.5}
-                            accessible={true}
-                            scrollViewAccessibilityLabel={"Scrollable options"}
-                            cancelButtonAccessibilityLabel={"Cancel Button"}
-                            onChange={(option) => {
-                                setSelectedAddress(option.label);
-                            }}
-                        >
-                            <TextInput
-                                style={{
-                                    borderColor: "#ccc",
-                                    padding: 10,
-                                    height: "100%",
-                                }}
-                                editable={true}
-                                placeholder={
-                                    selectedAddress
-                                        ? selectedAddress
-                                        : "Add adress"
-                                }
-                                value={selectedAddress}
-                            />
-                        </ModalSelector>
-                    </View>
-                    {/* Gender input -------------------------------------------------------------- */}
-                    <View
-                        style={{
-                            ...styles.pickerWrapper,
-                            marginBottom: 24,
-                        }}
+                    <ScrollView
+                        style={styles.container}
+                        contentContainerStyle={styles.contentStyle}
+                        showsVerticalScrollIndicator={false}
                     >
-                        <View style={styles.preTextWrapperStyle}>
-                            <Text style={styles.preText}>Gender</Text>
-                        </View>
-                        <ModalSelector
-                            data={genderData}
-                            initValue="Select something yummy!"
-                            supportedOrientations={["portrait"]}
-                            overlayStyle={{
-                                flex: 1,
-                                padding: "5%",
-                                justifyContent: "center",
-                                backgroundColor: "rgba(0,0,0,0.5)",
-                            }}
-                            selectTextStyle={{
-                                color: "#fff",
-                            }}
-                            touchableActiveOpacity={0.5}
-                            accessible={true}
-                            scrollViewAccessibilityLabel={"Scrollable options"}
-                            cancelButtonAccessibilityLabel={"Cancel Button"}
-                            onChange={(option) => {
-                                setSelectedGender(option.label);
-                            }}
-                        >
-                            <TextInput
-                                style={{
-                                    borderColor: "#ccc",
-                                    padding: 10,
-                                    height: "100%",
-                                }}
-                                editable={true}
-                                placeholder={
-                                    selectedGender
-                                        ? selectedGender
-                                        : "Add gender"
-                                }
-                                value={selectedGender}
-                            />
-                        </ModalSelector>
-                    </View>
-                    {/* Reset Filter Button ------------------------------------------------ */}
-                    <View style={styles.resetWrapper}>
-                        <TouchableOpacity onPress={() => {
-                            setSelectedStatus("")
-                            setSelectedAddress("")
-                            setSelectedGender("")
-                            setMultiSliderValue([16,99])
-                        } }>
-                            <Text style={styles.resetText}>Reset Filter</Text>
-                        </TouchableOpacity>
-                    </View>
-                    {/* Hide Filter Button ------------------------------------------------------ */}
-                    <View style={styles.hideButtonWrapper}>
-                        <TouchableOpacity onPress={toggleExpanded}>
-                            <Text style={styles.hideButtonText}>
-                                Hide Filter
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </Collapsible>
-            <ScrollView
-                style={styles.container}
-                contentContainerStyle={styles.contentStyle}
-                showsVerticalScrollIndicator={false}
-            >
-                {/* Result box of staffs ------------------------------------------------------- */}
-                <View style={styles.resultBox}>
-                    <View style={styles.resultLineBox}>
-                        <View style={styles.resultId}>
-                            <Ionicons
-                                name="md-heart"
-                                size={24}
-                                color="#E50000"
-                            />
-                            <Text style={styles.resultIdText}>{"001523"}</Text>
-                        </View>
-                        <Entypo name="location-pin" size={24} color="black" />
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultFullName}>
-                            Hamdamboyev Hudoyberdi
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998911000000
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998901111111
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Age: {"28"}
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Gender: {"Male"}
-                        </Text>
-                    </View>
-                </View>
-                <View style={styles.resultBox}>
-                    <View style={styles.resultLineBox}>
-                        <View style={styles.resultId}>
-                            <Ionicons
-                                name="md-heart"
-                                size={24}
-                                color="#E50000"
-                            />
-                            <Text style={styles.resultIdText}>{"001523"}</Text>
-                        </View>
-                        <Entypo name="location-pin" size={24} color="black" />
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultFullName}>
-                            Hamdamboyev Hudoyberdi
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998911000000
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998901111111
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Age: {"28"}
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Gender: {"Male"}
-                        </Text>
-                    </View>
-                </View>
-                <View style={styles.resultBox}>
-                    <View style={styles.resultLineBox}>
-                        <View style={styles.resultId}>
-                            <Ionicons
-                                name="md-heart"
-                                size={24}
-                                color="#E50000"
-                            />
-                            <Text style={styles.resultIdText}>{"001523"}</Text>
-                        </View>
-                        <Entypo name="location-pin" size={24} color="black" />
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultFullName}>
-                            Hamdamboyev Hudoyberdi
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998911000000
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998901111111
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Age: {"28"}
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Gender: {"Male"}
-                        </Text>
-                    </View>
-                </View>
-                <View style={styles.resultBox}>
-                    <View style={styles.resultLineBox}>
-                        <View style={styles.resultId}>
-                            <Ionicons
-                                name="md-heart"
-                                size={24}
-                                color="#E50000"
-                            />
-                            <Text style={styles.resultIdText}>{"001523"}</Text>
-                        </View>
-                        <Entypo name="location-pin" size={24} color="black" />
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultFullName}>
-                            Hamdamboyev Hudoyberdi
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998911000000
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            +998901111111
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Age: {"28"}
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Gender: {"Male"}
-                        </Text>
-                    </View>
-                </View>
+                        {/* Result box of staffs ------------------------------------------------------- */}
 
-                {/* // Custom component */}
-                {/* <ModalSelector
+                        {clients.clients.map((data) => {
+                            return (
+                                <>
+                                    <View
+                                        style={styles.resultBox}
+                                        key={data.clientId}
+                                    >
+                                        <View style={styles.resultLineBox}>
+                                            <View style={styles.resultId}>
+                                                <Ionicons
+                                                    name="md-heart"
+                                                    size={24}
+                                                    color="#E50000"
+                                                />
+                                                <Text
+                                                    style={styles.resultIdText}
+                                                >
+                                                    {"001523"}
+                                                </Text>
+                                            </View>
+                                            <Entypo
+                                                name="location-pin"
+                                                size={24}
+                                                color="black"
+                                            />
+                                        </View>
+                                        <View style={styles.resultLineBox}>
+                                            <Text style={styles.resultFullName}>
+                                                {`${data.clientInfo.firstName} ${data.clientInfo.lastName}`}
+                                            </Text>
+                                        </View>
+                                        <View style={styles.resultLineBox}>
+                                            <Text
+                                                style={
+                                                    styles.resultPhoneNumbers
+                                                }
+                                            >
+                                                {data.clientInfo.mainContact}
+                                            </Text>
+                                            <Text
+                                                style={
+                                                    styles.resultPhoneNumbers
+                                                }
+                                            >
+                                                {data.clientInfo.secondContact}
+                                            </Text>
+                                        </View>
+                                        <View style={styles.resultLineBox}>
+                                            <Text
+                                                style={
+                                                    styles.resultPhoneNumbers
+                                                }
+                                            >
+                                                Age: {data.clientInfo.age}
+                                            </Text>
+                                            <Text
+                                                style={
+                                                    styles.resultPhoneNumbers
+                                                }
+                                            >
+                                                Gender: {data.clientInfo.gender == 1 ? "Male" : "Female"}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                </>
+                            );
+                        })}
+
+                        {/* // Custom component */}
+                        {/* <ModalSelector
                     data={data}
                     ref={(selector) => {
                         this.selector = selector;
@@ -481,14 +497,20 @@ const ContactsScreen = ({ navigation, route }) => {
                         <Switch onValueChange={() => this.selector.open()} />
                     }
                 /> */}
-            </ScrollView>
-            <TouchableOpacity
-                style={styles.fab}
-                onPress={() => navigation.goBack()}
-            >
-                <Ionicons name="ios-arrow-back" size={28} color="white" />
-            </TouchableOpacity>
-        </View>
+                    </ScrollView>
+                    <TouchableOpacity
+                        style={styles.fab}
+                        onPress={() => navigation.goBack()}
+                    >
+                        <Ionicons
+                            name="ios-arrow-back"
+                            size={28}
+                            color="white"
+                        />
+                    </TouchableOpacity>
+                </View>
+            )}
+        </>
     );
 };
 
