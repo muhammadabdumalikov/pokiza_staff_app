@@ -174,10 +174,4 @@ export const styles = StyleSheet.create({
         left: 24,
         backgroundColor: "#007AFF",
     },
-    // active: {
-    //     backgroundColor: "rgba(255,255,255,1)",
-    // },
-    // inactive: {
-    //     backgroundColor: "rgba(245,252,255,1)",
-    // },
 });

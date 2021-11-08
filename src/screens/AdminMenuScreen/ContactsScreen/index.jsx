@@ -79,18 +79,14 @@ const ContactsScreen = ({ navigation, route }) => {
         { key: genderIndex++, label: "Female" },
     ];
 
-    const data = [
-        { key: index++, section: true, label: "Fruits" },
-        { key: index++, label: "Red Apples" },
-        { key: index++, label: "Cherries" },
-        {
-            key: index++,
-            label: "Cranberries",
-            accessibilityLabel: "Tap here for cranberries",
-        },
+    const clientStatus = [
+        { key: 1, label: "Normal" },
+        { key: 2, label: "Good" },
+        { key: 3, label: "Favourites" },
+       
         // etc...
         // Can also add additional custom keys which are passed to the onChange callback
-        { key: index++, label: "Vegetable", customKey: "Not a fruit" },
+        { key: 4, label: "Black-list"},
     ];
 
     return (
@@ -129,7 +125,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                     <Text style={styles.preText}>Status</Text>
                                 </View>
                                 <ModalSelector
-                                    data={data}
+                                    data={clientStatus}
                                     initValue="Select something yummy!"
                                     supportedOrientations={["portrait"]}
                                     overlayStyle={{
@@ -146,12 +142,12 @@ const ContactsScreen = ({ navigation, route }) => {
                                     scrollViewAccessibilityLabel={
                                         "Scrollable options"
                                     }
-                                    cancelButtonAccessibilityLabel={
-                                        "Cancel Button"
-                                    }
+                                    cancelText={"Cancel"}
+                                    cancelTextStyle={{color: "#E50000"}}
                                     onChange={(option) => {
                                         setSelectedStatus(option.label);
                                     }}
+                                    key={clientStatus.key}
                                 >
                                     <TextInput
                                         style={{
@@ -169,6 +165,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                     />
                                 </ModalSelector>
                             </View>
+
                             {/* Name input --------------------------------------------------------------- */}
                             <View
                                 style={{
@@ -295,7 +292,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                     <Text style={styles.preText}>Address</Text>
                                 </View>
                                 <ModalSelector
-                                    data={data}
+                                    data={clientStatus}
                                     initValue="Select something yummy!"
                                     supportedOrientations={["portrait"]}
                                     overlayStyle={{
