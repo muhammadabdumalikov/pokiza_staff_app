@@ -8,6 +8,9 @@ import {
     Dimensions,
     Platform,
     ActivityIndicator,
+    Modal,
+    Pressable,
+    FlatList,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Collapsible from "react-native-collapsible";
@@ -38,8 +41,27 @@ const ContactsScreen = ({ navigation, route }) => {
           }
         }
       }`;
+
+    const GET_STATE_QUERY = `{
+        states {
+          stateId
+          stateName
+        }
+      }`;
+
+    const GET_REGION_QUERY = `
+    query($stateId: ID!){
+        regions(stateId: $stateId){
+          regionId
+          regionName
+        }
+      }`;
+
     const [clients, setClients] = useState();
-    let [staffToken, setStaffToken] = useState("");
+    const [selectedState, setSelectedState] = useState();
+    let [states, setStates] = useState();
+    const [selectedRegion, setSelectedRegion] = useState();
+    let [regions, setRegions] = useState();
     let [isLoading, setLoading] = useState(true);
     const [collapsed, setCollapsed] = useState(true);
     let [selectedAge, setSelectedAge] = useState("");
@@ -48,18 +70,15 @@ const ContactsScreen = ({ navigation, route }) => {
     let [selectedGender, setSelectedGender] = useState("");
     const [multiSliderValue, setMultiSliderValue] = useState([16, 99]);
 
-    let firstname;
-    let age;
-    let index = 0;
-    let genderIndex = 0;
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const value = await AsyncStorage.getItem("staff_token");
-                console.log(value);
-                setStaffToken(value);
                 setClients(await request(ALL_CLIENTS_QUERY, null, value));
+                setStates(await request(GET_STATE_QUERY, null, value));
+                setRegions(await request(GET_REGION_QUERY, null, value));
                 setLoading(false);
             } catch (error) {
                 console.log(error);
@@ -67,7 +86,6 @@ const ContactsScreen = ({ navigation, route }) => {
         }
         fetchData();
     }, []);
-    console.log(clients);
 
     const toggleExpanded = () => {
         setCollapsed(!collapsed);
@@ -75,19 +93,28 @@ const ContactsScreen = ({ navigation, route }) => {
     const multiSliderValuesChange = (values) => setMultiSliderValue(values);
 
     const genderData = [
-        { key: genderIndex++, label: "Male" },
-        { key: genderIndex++, label: "Female" },
+        { key: 1, label: "Male" },
+        { key: 2, label: "Female" },
     ];
 
     const clientStatus = [
         { key: 1, label: "Normal" },
         { key: 2, label: "Good" },
         { key: 3, label: "Favourites" },
-       
         // etc...
         // Can also add additional custom keys which are passed to the onChange callback
-        { key: 4, label: "Black-list"},
+        { key: 4, label: "Black-list" },
     ];
+    const modalState = ({ item }) => {
+        console.log(item);
+        return (
+            <Pressable>
+                <Text
+                    style={{ flex: 1 }}
+                >{`${item.stateName}`}</Text>
+            </Pressable>
+        );
+    };
 
     return (
         <>
@@ -143,7 +170,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                         "Scrollable options"
                                     }
                                     cancelText={"Cancel"}
-                                    cancelTextStyle={{color: "#E50000"}}
+                                    cancelTextStyle={{ color: "#E50000" }}
                                     onChange={(option) => {
                                         setSelectedStatus(option.label);
                                     }}
@@ -286,7 +313,58 @@ const ContactsScreen = ({ navigation, route }) => {
                                 </View>
                             </View>
 
-                            {/* Address input ----------------------------------------------------------- */}
+                            {/* State input ----------------------------------------------------------- */}
+                            <View style={styles.pickerWrapper}>
+                                <View style={styles.preTextWrapperStyle}>
+                                    <Text style={styles.preText}>State</Text>
+                                </View>
+                                <Modal
+                                    animationType="slide"
+                                    transparent={true}
+                                    visible={modalVisible}
+                                    onRequestClose={() => {
+                                        Alert.alert("Modal has been closed.");
+                                        setModalVisible(!modalVisible);
+                                    }}
+                                >
+                                    <View style={styles.centeredView}>
+                                        <View style={styles.modalView}>
+                                            <FlatList
+                                                style={{ height: "80%", backgroundColor: "red" }}
+                                                data={states.states}
+                                                renderItem={modalState}
+                                                keyExtractor={(item) =>
+                                                    item.stateId
+                                                }
+                                            />
+                                            <Pressable
+                                                style={[
+                                                    styles.button,
+                                                    styles.buttonClose,
+                                                ]}
+                                                onPress={() =>
+                                                    setModalVisible(
+                                                        !modalVisible
+                                                    )
+                                                }
+                                            >
+                                                <Text style={styles.textStyle}>
+                                                    Hide Modal
+                                                </Text>
+                                            </Pressable>
+                                        </View>
+                                    </View>
+                                </Modal>
+                                <Pressable
+                                    style={[styles.button, styles.buttonOpen]}
+                                    onPress={() => setModalVisible(true)}
+                                >
+                                    <Text style={styles.textStyle}>
+                                        Show Modal
+                                    </Text>
+                                </Pressable>
+                            </View>
+
                             <View style={styles.pickerWrapper}>
                                 <View style={styles.preTextWrapperStyle}>
                                     <Text style={styles.preText}>Address</Text>
@@ -309,12 +387,12 @@ const ContactsScreen = ({ navigation, route }) => {
                                     scrollViewAccessibilityLabel={
                                         "Scrollable options"
                                     }
-                                    cancelButtonAccessibilityLabel={
-                                        "Cancel Button"
-                                    }
+                                    cancelText={"Cancel"}
+                                    cancelTextStyle={{ color: "#E50000" }}
                                     onChange={(option) => {
                                         setSelectedAddress(option.label);
                                     }}
+                                    key={clientStatus.key}
                                 >
                                     <TextInput
                                         style={{
@@ -322,7 +400,6 @@ const ContactsScreen = ({ navigation, route }) => {
                                             padding: 10,
                                             height: "100%",
                                         }}
-                                        editable={true}
                                         placeholder={
                                             selectedAddress
                                                 ? selectedAddress
@@ -332,6 +409,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                     />
                                 </ModalSelector>
                             </View>
+
                             {/* Gender input -------------------------------------------------------------- */}
                             <View
                                 style={{
@@ -360,12 +438,12 @@ const ContactsScreen = ({ navigation, route }) => {
                                     scrollViewAccessibilityLabel={
                                         "Scrollable options"
                                     }
-                                    cancelButtonAccessibilityLabel={
-                                        "Cancel Button"
-                                    }
+                                    cancelText={"Cancel"}
+                                    cancelTextStyle={{ color: "#E50000" }}
                                     onChange={(option) => {
                                         setSelectedGender(option.label);
                                     }}
+                                    key={genderData.key}
                                 >
                                     <TextInput
                                         style={{
@@ -476,7 +554,10 @@ const ContactsScreen = ({ navigation, route }) => {
                                                     styles.resultPhoneNumbers
                                                 }
                                             >
-                                                Gender: {data.clientInfo.gender == 1 ? "Male" : "Female"}
+                                                Gender:{" "}
+                                                {data.clientInfo.gender == 1
+                                                    ? "Male"
+                                                    : "Female"}
                                             </Text>
                                         </View>
                                     </View>
