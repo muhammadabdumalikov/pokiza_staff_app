@@ -64,21 +64,25 @@ const ContactsScreen = ({ navigation, route }) => {
     let [regions, setRegions] = useState();
     let [isLoading, setLoading] = useState(true);
     const [collapsed, setCollapsed] = useState(true);
-    let [selectedAge, setSelectedAge] = useState("");
-    let [selectedStatus, setSelectedStatus] = useState("");
-    let [selectedAddress, setSelectedAddress] = useState("");
-    let [selectedGender, setSelectedGender] = useState("");
+    let [selectedAge, setSelectedAge] = useState();
+    let [selectedStatus, setSelectedStatus] = useState()
+    let [selectedGender, setSelectedGender] = useState();
     const [multiSliderValue, setMultiSliderValue] = useState([16, 99]);
+    let [userToken, setUserToken] = useState();
 
-    const [modalVisible, setModalVisible] = useState(false);
+
+    const [statusModalVisible, setStatusModalVisible] = useState(false);
+    const [stateModalVisible, setStateModalVisible] = useState(false);
+    const [regionModalVisible, setRegionModalVisible] = useState(false);
+    const [genderModalVisible, setGenderModalVisible] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const value = await AsyncStorage.getItem("staff_token");
+                setUserToken(value)
                 setClients(await request(ALL_CLIENTS_QUERY, null, value));
                 setStates(await request(GET_STATE_QUERY, null, value));
-                setRegions(await request(GET_REGION_QUERY, null, value));
                 setLoading(false);
             } catch (error) {
                 console.log(error);
@@ -86,6 +90,24 @@ const ContactsScreen = ({ navigation, route }) => {
         }
         fetchData();
     }, []);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                setRegions(
+                    await request(
+                        GET_REGION_QUERY,
+                        { stateId: selectedState.stateId },
+                        userToken
+                    )
+                );
+                setSelectedRegion(null)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
+    }, [selectedState])
 
     const toggleExpanded = () => {
         setCollapsed(!collapsed);
@@ -98,17 +120,74 @@ const ContactsScreen = ({ navigation, route }) => {
     ];
 
     const clientStatus = [
-        { key: 1, label: "Normal" },
-        { key: 2, label: "Good" },
-        { key: 3, label: "Favourites" },
+        { key: "1", label: "Normal" },
+        { key: "2", label: "Good" },
+        { key: "3", label: "Favourites" },
         // etc...
         // Can also add additional custom keys which are passed to the onChange callback
-        { key: 4, label: "Black-list" },
+        { key: "4", label: "Black-list" },
     ];
+
+    const modalStatus = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedStatus(item);
+                    setStatusModalVisible(!statusModalVisible);
+                }}
+            >
+                <Text
+                    style={{ flex: 1, fontSize: 15, color: "#2196F3" }}
+                >{item.label}</Text>
+            </TouchableOpacity>
+        );
+    };
+
     const modalState = ({ item }) => {
         return (
-            <TouchableOpacity style={{ width: "80%", paddingVertical: 15,  }}>
-                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>{`${item.stateName}`}</Text>
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedState(item);
+                    setStateModalVisible(!stateModalVisible);
+                }}
+            >
+                <Text
+                    style={{ flex: 1, fontSize: 15, color: "#2196F3" }}
+                >{item.stateName}</Text>
+            </TouchableOpacity>
+        );
+    };
+
+    const modalRegion = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedRegion(item);
+                    setRegionModalVisible(!regionModalVisible);
+                }}
+            >
+                <Text
+                    style={{ flex: 1, fontSize: 15, color: "#2196F3" }}
+                >{item.regionName}</Text>
+            </TouchableOpacity>
+        );
+    };
+
+    const modalGender = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedGender(item);
+                    setGenderModalVisible(!genderModalVisible);
+                }}
+            >
+                <Text
+                    style={{ flex: 1, fontSize: 15, color: "#2196F3" }}
+                >{item.label}</Text>
             </TouchableOpacity>
         );
     };
@@ -125,7 +204,7 @@ const ContactsScreen = ({ navigation, route }) => {
                 >
                     <ActivityIndicator
                         size="large"
-                        color="#00ff00"
+                        color="#2196F3"
                         style={{ alignSelf: "center" }}
                     />
                 </View>
@@ -148,46 +227,55 @@ const ContactsScreen = ({ navigation, route }) => {
                                 <View style={styles.preTextWrapperStyle}>
                                     <Text style={styles.preText}>Status</Text>
                                 </View>
-                                <ModalSelector
-                                    data={clientStatus}
-                                    initValue="Select something yummy!"
-                                    supportedOrientations={["portrait"]}
-                                    overlayStyle={{
-                                        flex: 1,
-                                        padding: "5%",
-                                        justifyContent: "center",
-                                        backgroundColor: "rgba(0,0,0,0.5)",
+                                <Modal
+                                    animationType="slide"
+                                    transparent={true}
+                                    visible={statusModalVisible}
+                                    onRequestClose={() => {
+                                        setStatusModalVisible(
+                                            !statusModalVisible
+                                        );
                                     }}
-                                    selectTextStyle={{
-                                        color: "#fff",
-                                    }}
-                                    touchableActiveOpacity={0.5}
-                                    accessible={true}
-                                    scrollViewAccessibilityLabel={
-                                        "Scrollable options"
-                                    }
-                                    cancelText={"Cancel"}
-                                    cancelTextStyle={{ color: "#E50000" }}
-                                    onChange={(option) => {
-                                        setSelectedStatus(option.label);
-                                    }}
-                                    key={clientStatus.key}
                                 >
-                                    <TextInput
-                                        style={{
-                                            borderColor: "#ccc",
-                                            padding: 10,
-                                            height: "100%",
-                                        }}
-                                        editable={true}
-                                        placeholder={
-                                            selectedStatus
-                                                ? selectedStatus
-                                                : "Add status"
-                                        }
-                                        value={selectedStatus}
-                                    />
-                                </ModalSelector>
+                                    <View style={styles.centeredView}>
+                                        <View style={styles.modalWrapper}>
+                                            <FlatList
+                                                data={clientStatus}
+                                                renderItem={modalStatus}
+                                                keyExtractor={(item) =>
+                                                    item.key
+                                                }
+                                                contentContainerStyle={
+                                                    styles.modalView
+                                                }
+                                                style={styles.contenModalView}
+                                                showsVerticalScrollIndicator={
+                                                    false
+                                                }
+                                            />
+                                        </View>
+                                        <Pressable
+                                            style={styles.buttonClose}
+                                            onPress={() =>
+                                                setStatusModalVisible(
+                                                    !statusModalVisible
+                                                )
+                                            }
+                                        >
+                                            <Text style={styles.hideModalButton}>
+                                                Hide Modal
+                                            </Text>
+                                        </Pressable>
+                                    </View>
+                                </Modal>
+                                <Pressable
+                                    style={styles.buttonOpen}
+                                    onPress={() => setStatusModalVisible(true)}
+                                >
+                                    <Text style={styles.textStyle}>
+                                        {selectedStatus != undefined ? selectedStatus.label : "Add Status"}
+                                    </Text>
+                                </Pressable>
                             </View>
 
                             {/* Name input --------------------------------------------------------------- */}
@@ -318,10 +406,11 @@ const ContactsScreen = ({ navigation, route }) => {
                                 <Modal
                                     animationType="slide"
                                     transparent={true}
-                                    visible={modalVisible}
+                                    visible={stateModalVisible}
                                     onRequestClose={() => {
-                                        Alert.alert("Modal has been closed.");
-                                        setModalVisible(!modalVisible);
+                                        setStateModalVisible(
+                                            !stateModalVisible
+                                        );
                                     }}
                                 >
                                     <View style={styles.centeredView}>
@@ -336,7 +425,9 @@ const ContactsScreen = ({ navigation, route }) => {
                                                     styles.modalView
                                                 }
                                                 style={styles.contenModalView}
-                                                showsVerticalScrollIndicator={false}
+                                                showsVerticalScrollIndicator={
+                                                    false
+                                                }
                                             />
                                         </View>
                                         <Pressable
@@ -345,10 +436,12 @@ const ContactsScreen = ({ navigation, route }) => {
                                                 styles.buttonClose,
                                             ]}
                                             onPress={() =>
-                                                setModalVisible(!modalVisible)
+                                                setStateModalVisible(
+                                                    !stateModalVisible
+                                                )
                                             }
                                         >
-                                            <Text style={styles.textStyle}>
+                                            <Text style={styles.hideModalButton}>
                                                 Hide Modal
                                             </Text>
                                         </Pressable>
@@ -356,57 +449,71 @@ const ContactsScreen = ({ navigation, route }) => {
                                 </Modal>
                                 <Pressable
                                     style={styles.buttonOpen}
-                                    onPress={() => setModalVisible(true)}
+                                    onPress={() => setStateModalVisible(true)}
                                 >
                                     <Text style={styles.textStyle}>
-                                        Show Modal
+                                        {selectedState != undefined ? selectedState.stateName : "Add State"}
                                     </Text>
                                 </Pressable>
                             </View>
-
+                            
+                            {/* Region input -------------------------------------------- */}
                             <View style={styles.pickerWrapper}>
                                 <View style={styles.preTextWrapperStyle}>
                                     <Text style={styles.preText}>Address</Text>
                                 </View>
-                                <ModalSelector
-                                    data={clientStatus}
-                                    initValue="Select something yummy!"
-                                    supportedOrientations={["portrait"]}
-                                    overlayStyle={{
-                                        flex: 1,
-                                        padding: "5%",
-                                        justifyContent: "center",
-                                        backgroundColor: "rgba(0,0,0,0.5)",
+                                <Modal
+                                    animationType="slide"
+                                    transparent={true}
+                                    visible={regionModalVisible}
+                                    onRequestClose={() => {
+                                        setRegionModalVisible(
+                                            !regionModalVisible
+                                        );
                                     }}
-                                    selectTextStyle={{
-                                        color: "#fff",
-                                    }}
-                                    touchableActiveOpacity={0.5}
-                                    accessible={true}
-                                    scrollViewAccessibilityLabel={
-                                        "Scrollable options"
-                                    }
-                                    cancelText={"Cancel"}
-                                    cancelTextStyle={{ color: "#E50000" }}
-                                    onChange={(option) => {
-                                        setSelectedAddress(option.label);
-                                    }}
-                                    key={clientStatus.key}
                                 >
-                                    <TextInput
-                                        style={{
-                                            borderColor: "#ccc",
-                                            padding: 10,
-                                            height: "100%",
-                                        }}
-                                        placeholder={
-                                            selectedAddress
-                                                ? selectedAddress
-                                                : "Add adress"
-                                        }
-                                        value={selectedAddress}
-                                    />
-                                </ModalSelector>
+                                    <View style={styles.centeredView}>
+                                        <View style={styles.modalWrapper}>
+                                            <FlatList
+                                                data={regions != undefined ? regions.regions : []}
+                                                renderItem={modalRegion}
+                                                keyExtractor={(item) =>
+                                                    item.regionId
+                                                }
+                                                contentContainerStyle={
+                                                    styles.modalView
+                                                }
+                                                style={styles.contenModalView}
+                                                showsVerticalScrollIndicator={
+                                                    false
+                                                }
+                                            />
+                                        </View>
+                                        <Pressable
+                                            style={[
+                                                styles.button,
+                                                styles.buttonClose,
+                                            ]}
+                                            onPress={() =>
+                                                setRegionModalVisible(
+                                                    !regionModalVisible
+                                                )
+                                            }
+                                        >
+                                            <Text style={styles.hideModalButton}>
+                                                Hide Modal
+                                            </Text>
+                                        </Pressable>
+                                    </View>
+                                </Modal>
+                                <Pressable
+                                    style={styles.buttonOpen}
+                                    onPress={() => setRegionModalVisible(true)}
+                                >
+                                    <Text style={styles.textStyle}>
+                                        {selectedRegion != undefined ? selectedRegion.regionName : "Add Region"}
+                                    </Text>
+                                </Pressable>
                             </View>
 
                             {/* Gender input -------------------------------------------------------------- */}
@@ -419,46 +526,58 @@ const ContactsScreen = ({ navigation, route }) => {
                                 <View style={styles.preTextWrapperStyle}>
                                     <Text style={styles.preText}>Gender</Text>
                                 </View>
-                                <ModalSelector
-                                    data={genderData}
-                                    initValue="Select something yummy!"
-                                    supportedOrientations={["portrait"]}
-                                    overlayStyle={{
-                                        flex: 1,
-                                        padding: "5%",
-                                        justifyContent: "center",
-                                        backgroundColor: "rgba(0,0,0,0.5)",
+                                <Modal
+                                    animationType="slide"
+                                    transparent={true}
+                                    visible={genderModalVisible}
+                                    onRequestClose={() => {
+                                        setGenderModalVisible(
+                                            !genderModalVisible
+                                        );
                                     }}
-                                    selectTextStyle={{
-                                        color: "#fff",
-                                    }}
-                                    touchableActiveOpacity={0.5}
-                                    accessible={true}
-                                    scrollViewAccessibilityLabel={
-                                        "Scrollable options"
-                                    }
-                                    cancelText={"Cancel"}
-                                    cancelTextStyle={{ color: "#E50000" }}
-                                    onChange={(option) => {
-                                        setSelectedGender(option.label);
-                                    }}
-                                    key={genderData.key}
                                 >
-                                    <TextInput
-                                        style={{
-                                            borderColor: "#ccc",
-                                            padding: 10,
-                                            height: "100%",
-                                        }}
-                                        editable={true}
-                                        placeholder={
-                                            selectedGender
-                                                ? selectedGender
-                                                : "Add gender"
-                                        }
-                                        value={selectedGender}
-                                    />
-                                </ModalSelector>
+                                    <View style={styles.centeredView}>
+                                        <View style={styles.modalWrapper}>
+                                            <FlatList
+                                                data={genderData}
+                                                renderItem={modalGender}
+                                                keyExtractor={(item) =>
+                                                    item.key
+                                                }
+                                                contentContainerStyle={
+                                                    styles.modalView
+                                                }
+                                                style={styles.contenModalView}
+                                                showsVerticalScrollIndicator={
+                                                    false
+                                                }
+                                            />
+                                        </View>
+                                        <Pressable
+                                            style={[
+                                                styles.button,
+                                                styles.buttonClose,
+                                            ]}
+                                            onPress={() =>
+                                                setGenderModalVisible(
+                                                    !genderModalVisible
+                                                )
+                                            }
+                                        >
+                                            <Text style={styles.hideModalButton}>
+                                                Hide Modal
+                                            </Text>
+                                        </Pressable>
+                                    </View>
+                                </Modal>
+                                <Pressable
+                                    style={styles.buttonOpen}
+                                    onPress={() => setGenderModalVisible(true)}
+                                >
+                                    <Text style={styles.textStyle}>
+                                        {selectedGender != undefined ? selectedGender.label : "Add Gender"}
+                                    </Text>
+                                </Pressable>
                             </View>
                             {/* Reset Filter Button ------------------------------------------------ */}
                             <View style={styles.resetWrapper}>

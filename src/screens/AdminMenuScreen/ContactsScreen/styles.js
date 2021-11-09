@@ -213,7 +213,6 @@ export const styles = StyleSheet.create({
         backgroundColor: "#2196F3",
         height: 30,
         width: "33%",
-        alignSelf: "center",
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 15,
@@ -226,4 +225,7 @@ export const styles = StyleSheet.create({
     modalText: {
         textAlign: "center",
     },
+    hideModalButton: {
+        color: "white"
+    }
 });
