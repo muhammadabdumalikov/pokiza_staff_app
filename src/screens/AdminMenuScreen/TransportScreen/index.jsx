@@ -37,10 +37,11 @@ const TransportScreen = ({ navigation }) => {
             const value = await AsyncStorage.getItem("staff_token");
             setUserToken(value);
             setData(await request(QUERY, null, userToken));
+            setLoading(false);
         }
         fetchData();
     }, []);
-
+    
     const renderItem = ({ item }) => {
         console.log(item);
         return (
