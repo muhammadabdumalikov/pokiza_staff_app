@@ -9,6 +9,7 @@ import {
     FlatList,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { styles } from "./styles";
 import DamasSvg from "../../../../assets/svg/damas";
@@ -27,21 +28,21 @@ let QUERY = `
 `;
 
 const TransportScreen = ({ navigation }) => {
-    const { userToken } = useContext(AuthContext);
     const [data, setData] = useState();
     const [loading, setLoading] = useState(true);
-
-    async function fetchData() {
-        let downloadData = await request(QUERY, null, userToken);
-        setData(downloadData.transports);
-        setLoading(false);
-    }
+    const [userToken, setUserToken] = useState();
 
     useEffect(() => {
+        async function fetchData() {
+            const value = await AsyncStorage.getItem("staff_token");
+            setUserToken(value);
+            setData(await request(QUERY, null, userToken));
+        }
         fetchData();
     }, []);
 
     const renderItem = ({ item }) => {
+        console.log(item);
         return (
             <TouchableOpacity
                 style={styles.resultBox}
@@ -56,7 +57,9 @@ const TransportScreen = ({ navigation }) => {
                 </View>
                 <View style={styles.resultDetailBox}>
                     <View style={styles.resultDetailLine}>
-                        <Text style={styles.carModelText}>{item.transportModel}</Text>
+                        <Text style={styles.carModelText}>
+                            {item.transportModel}
+                        </Text>
                         <Text style={styles.carNumberText}>
                             {item.transportNumber}
                         </Text>
@@ -85,10 +88,14 @@ const TransportScreen = ({ navigation }) => {
                 style={styles.scrollBox}
                 // contentContainerStyle={styles.scrollContentContainer}
             >
-                {loading && <View style={styles.loadingIndicator}><ActivityIndicator size="large" color="#007AFF"/></View>}
+                {loading && (
+                    <View style={styles.loadingIndicator}>
+                        <ActivityIndicator size="large" color="#007AFF" />
+                    </View>
+                )}
                 {data && (
                     <FlatList
-                        data={data}
+                        data={data.transports}
                         renderItem={renderItem}
                         keyExtractor={(item) => item.transportId}
                         showsVerticalScrollIndicator={false}
