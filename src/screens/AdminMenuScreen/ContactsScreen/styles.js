@@ -182,8 +182,7 @@ export const styles = StyleSheet.create({
     },
     modalWrapper: {
         width: "70%",
-        minHeight: "25%",
-        maxHeight: "35%",
+        height: "30%",
         shadowColor: "#000",
         borderRadius: 20,
         shadowOffset: {
@@ -196,6 +195,9 @@ export const styles = StyleSheet.create({
         elevation: 5,
         overflow: "hidden",
         marginBottom: 10 
+    },
+    genderModalWrapper:{
+        height: "15%"
     },
     contenModalView: {
         flex: 1,

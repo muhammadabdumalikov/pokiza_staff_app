@@ -537,7 +537,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                     }}
                                 >
                                     <View style={styles.centeredView}>
-                                        <View style={styles.modalWrapper}>
+                                        <View style={[styles.modalWrapper, styles.genderModalWrapper]}>
                                             <FlatList
                                                 data={genderData}
                                                 renderItem={modalGender}
@@ -583,9 +583,10 @@ const ContactsScreen = ({ navigation, route }) => {
                             <View style={styles.resetWrapper}>
                                 <TouchableOpacity
                                     onPress={() => {
-                                        setSelectedStatus("");
-                                        setSelectedAddress("");
-                                        setSelectedGender("");
+                                        setSelectedStatus(null);
+                                        setSelectedState(null);
+                                        setSelectedRegion(null)
+                                        setSelectedGender(null);
                                         setMultiSliderValue([16, 99]);
                                     }}
                                 >
