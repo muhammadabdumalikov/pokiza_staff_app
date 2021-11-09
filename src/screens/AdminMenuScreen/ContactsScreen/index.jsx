@@ -89,7 +89,7 @@ const ContactsScreen = ({ navigation, route }) => {
         }
         fetchData();
     }, []);
-
+    
     useEffect(() => {
         async function fetchData() {
             try {

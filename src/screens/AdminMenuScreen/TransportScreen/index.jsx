@@ -15,29 +15,27 @@ import DamasSvg from "../../../../assets/svg/damas";
 import { request } from "../../../helpers/request";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-let QUERY = `
-{
-    transports{
-      transportId
-      transportModel
-      transportNumber
-    }
-  }
-`;
-
 const TransportScreen = ({ navigation }) => {
     const [data, setData] = useState();
     const [loading, setLoading] = useState(true);
     const [userToken, setUserToken] = useState();
 
-   
+    const QUERY = `
+        {
+            transports{
+                transportId
+                transportModel
+                transportNumber
+            }
+        }
+    `;
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const value = await AsyncStorage.getItem("staff_token");
                 setUserToken(value);
-                setData(await request(QUERY, null, userToken));
+                setData(await request(QUERY, null, value));
                 setLoading(false);
             } catch (error) {
                 console.log(error);
@@ -45,7 +43,6 @@ const TransportScreen = ({ navigation }) => {
         }
         fetchData();
     }, []);
-    console.log(data)
 
     const renderItem = ({ item }) => {
         return (
@@ -93,19 +90,20 @@ const TransportScreen = ({ navigation }) => {
                 style={styles.scrollBox}
                 // contentContainerStyle={styles.scrollContentContainer}
             >
-                {loading && (
+                {loading ? (
                     <View style={styles.loadingIndicator}>
                         <ActivityIndicator size="large" color="#007AFF" />
                     </View>
-                )}
-                {data ? (
+                ) : (
                     <FlatList
-                        data={data.transports}
+                        data={
+                            data.transports != undefined ? data.transports : []
+                        }
                         renderItem={renderItem}
                         keyExtractor={(item) => item.transportId}
                         showsVerticalScrollIndicator={false}
                     />
-                ) : null}
+                )}
             </View>
             <TouchableOpacity
                 style={styles.fab}
