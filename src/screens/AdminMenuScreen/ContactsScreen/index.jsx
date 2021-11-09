@@ -115,8 +115,8 @@ const ContactsScreen = ({ navigation, route }) => {
     const multiSliderValuesChange = (values) => setMultiSliderValue(values);
 
     const genderData = [
-        { key: 1, label: "Male" },
-        { key: 2, label: "Female" },
+        { key: "1", label: "Male" },
+        { key: "2", label: "Female" },
     ];
 
     const clientStatus = [
