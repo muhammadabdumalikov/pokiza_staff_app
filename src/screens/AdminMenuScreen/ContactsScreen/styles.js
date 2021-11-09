@@ -172,7 +172,7 @@ export const styles = StyleSheet.create({
         position: "absolute",
         bottom: 28,
         left: 24,
-        backgroundColor: "#007AFF",
+        backgroundColor: "#2196F3",
     },
     centeredView: {
         flex: 1,
@@ -180,40 +180,50 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 22,
     },
-    modalView: {
+    modalWrapper: {
         width: "70%",
-        height: "40%",
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 16,
-        alignItems: "center",
+        minHeight: "25%",
+        maxHeight: "35%",
         shadowColor: "#000",
+        borderRadius: 20,
         shadowOffset: {
             width: 0,
             height: 2,
         },
+        backgroundColor: "white",
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
+        overflow: "hidden",
+        marginBottom: 10 
     },
-    button: {
-        borderRadius: 20,
-        elevation: 2,
+    contenModalView: {
+        flex: 1,
+        height: "100%",
+    },
+    modalView: {
+        padding: 16,
+        alignItems: "center", 
     },
     buttonOpen: {
-        backgroundColor: "#F194FF",
+        justifyContent: "center",
+        alignItems: "center"
     },
     buttonClose: {
         backgroundColor: "#2196F3",
+        height: 30,
+        width: "33%",
+        alignSelf: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 15,
+        elevation: 2,
     },
     textStyle: {
-        color: "white",
-        fontWeight: "bold",
+        color: 'gray',
         textAlign: "center",
     },
     modalText: {
-        marginBottom: 15,
         textAlign: "center",
     },
 });

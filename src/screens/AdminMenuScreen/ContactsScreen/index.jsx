@@ -106,13 +106,10 @@ const ContactsScreen = ({ navigation, route }) => {
         { key: 4, label: "Black-list" },
     ];
     const modalState = ({ item }) => {
-        console.log(item);
         return (
-            <Pressable>
-                <Text
-                    style={{ flex: 1 }}
-                >{`${item.stateName}`}</Text>
-            </Pressable>
+            <TouchableOpacity style={{ width: "80%", paddingVertical: 15,  }}>
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>{`${item.stateName}`}</Text>
+            </TouchableOpacity>
         );
     };
 
@@ -328,35 +325,37 @@ const ContactsScreen = ({ navigation, route }) => {
                                     }}
                                 >
                                     <View style={styles.centeredView}>
-                                        <View style={styles.modalView}>
+                                        <View style={styles.modalWrapper}>
                                             <FlatList
-                                                style={{ height: "80%", backgroundColor: "red" }}
                                                 data={states.states}
                                                 renderItem={modalState}
                                                 keyExtractor={(item) =>
                                                     item.stateId
                                                 }
-                                            />
-                                            <Pressable
-                                                style={[
-                                                    styles.button,
-                                                    styles.buttonClose,
-                                                ]}
-                                                onPress={() =>
-                                                    setModalVisible(
-                                                        !modalVisible
-                                                    )
+                                                contentContainerStyle={
+                                                    styles.modalView
                                                 }
-                                            >
-                                                <Text style={styles.textStyle}>
-                                                    Hide Modal
-                                                </Text>
-                                            </Pressable>
+                                                style={styles.contenModalView}
+                                                showsVerticalScrollIndicator={false}
+                                            />
                                         </View>
+                                        <Pressable
+                                            style={[
+                                                styles.button,
+                                                styles.buttonClose,
+                                            ]}
+                                            onPress={() =>
+                                                setModalVisible(!modalVisible)
+                                            }
+                                        >
+                                            <Text style={styles.textStyle}>
+                                                Hide Modal
+                                            </Text>
+                                        </Pressable>
                                     </View>
                                 </Modal>
                                 <Pressable
-                                    style={[styles.button, styles.buttonOpen]}
+                                    style={styles.buttonOpen}
                                     onPress={() => setModalVisible(true)}
                                 >
                                     <Text style={styles.textStyle}>
