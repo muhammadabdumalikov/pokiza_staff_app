@@ -65,11 +65,10 @@ const ContactsScreen = ({ navigation, route }) => {
     let [isLoading, setLoading] = useState(true);
     const [collapsed, setCollapsed] = useState(true);
     let [selectedAge, setSelectedAge] = useState();
-    let [selectedStatus, setSelectedStatus] = useState()
+    let [selectedStatus, setSelectedStatus] = useState();
     let [selectedGender, setSelectedGender] = useState();
     const [multiSliderValue, setMultiSliderValue] = useState([16, 99]);
     let [userToken, setUserToken] = useState();
-
 
     const [statusModalVisible, setStatusModalVisible] = useState(false);
     const [stateModalVisible, setStateModalVisible] = useState(false);
@@ -80,7 +79,7 @@ const ContactsScreen = ({ navigation, route }) => {
         async function fetchData() {
             try {
                 const value = await AsyncStorage.getItem("staff_token");
-                setUserToken(value)
+                setUserToken(value);
                 setClients(await request(ALL_CLIENTS_QUERY, null, value));
                 setStates(await request(GET_STATE_QUERY, null, value));
                 setLoading(false);
@@ -101,13 +100,13 @@ const ContactsScreen = ({ navigation, route }) => {
                         userToken
                     )
                 );
-                setSelectedRegion(null)
+                setSelectedRegion(null);
             } catch (error) {
                 console.log(error);
             }
         }
         fetchData();
-    }, [selectedState])
+    }, [selectedState]);
 
     const toggleExpanded = () => {
         setCollapsed(!collapsed);
@@ -128,6 +127,47 @@ const ContactsScreen = ({ navigation, route }) => {
         { key: "4", label: "Black-list" },
     ];
 
+    const renderItem = ({ item }) => {
+        return (
+            <>
+                <View style={styles.resultBox}>
+                    <View style={styles.resultLineBox}>
+                        <View style={styles.resultId}>
+                            <Ionicons
+                                name="md-heart"
+                                size={24}
+                                color="#E50000"
+                            />
+                            <Text style={styles.resultIdText}>{"001523"}</Text>
+                        </View>
+                        <Entypo name="location-pin" size={24} color="black" />
+                    </View>
+                    <View style={styles.resultLineBox}>
+                        <Text style={styles.resultFullName}>
+                            {`${item.clientInfo.firstName} ${item.clientInfo.lastName}`}
+                        </Text>
+                    </View>
+                    <View style={styles.resultLineBox}>
+                        <Text style={styles.resultPhoneNumbers}>
+                            {item.clientInfo.mainContact}
+                        </Text>
+                        <Text style={styles.resultPhoneNumbers}>
+                            {item.clientInfo.secondContact}
+                        </Text>
+                    </View>
+                    <View style={styles.resultLineBox}>
+                        <Text style={styles.resultPhoneNumbers}>
+                            Age: {item.clientInfo.age}
+                        </Text>
+                        <Text style={styles.resultPhoneNumbers}>
+                            Gender:{" "}
+                            {item.clientInfo.gender == 1 ? "Male" : "Female"}
+                        </Text>
+                    </View>
+                </View>
+            </>
+        );
+    };
     const modalStatus = ({ item }) => {
         return (
             <TouchableOpacity
@@ -137,9 +177,9 @@ const ContactsScreen = ({ navigation, route }) => {
                     setStatusModalVisible(!statusModalVisible);
                 }}
             >
-                <Text
-                    style={{ flex: 1, fontSize: 15, color: "#2196F3" }}
-                >{item.label}</Text>
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.label}
+                </Text>
             </TouchableOpacity>
         );
     };
@@ -153,9 +193,9 @@ const ContactsScreen = ({ navigation, route }) => {
                     setStateModalVisible(!stateModalVisible);
                 }}
             >
-                <Text
-                    style={{ flex: 1, fontSize: 15, color: "#2196F3" }}
-                >{item.stateName}</Text>
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.stateName}
+                </Text>
             </TouchableOpacity>
         );
     };
@@ -169,9 +209,9 @@ const ContactsScreen = ({ navigation, route }) => {
                     setRegionModalVisible(!regionModalVisible);
                 }}
             >
-                <Text
-                    style={{ flex: 1, fontSize: 15, color: "#2196F3" }}
-                >{item.regionName}</Text>
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.regionName}
+                </Text>
             </TouchableOpacity>
         );
     };
@@ -185,9 +225,9 @@ const ContactsScreen = ({ navigation, route }) => {
                     setGenderModalVisible(!genderModalVisible);
                 }}
             >
-                <Text
-                    style={{ flex: 1, fontSize: 15, color: "#2196F3" }}
-                >{item.label}</Text>
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.label}
+                </Text>
             </TouchableOpacity>
         );
     };
@@ -262,7 +302,9 @@ const ContactsScreen = ({ navigation, route }) => {
                                                 )
                                             }
                                         >
-                                            <Text style={styles.hideModalButton}>
+                                            <Text
+                                                style={styles.hideModalButton}
+                                            >
                                                 Hide Modal
                                             </Text>
                                         </Pressable>
@@ -273,7 +315,9 @@ const ContactsScreen = ({ navigation, route }) => {
                                     onPress={() => setStatusModalVisible(true)}
                                 >
                                     <Text style={styles.textStyle}>
-                                        {selectedStatus != undefined ? selectedStatus.label : "Add Status"}
+                                        {selectedStatus != undefined
+                                            ? selectedStatus.label
+                                            : "Add Status"}
                                     </Text>
                                 </Pressable>
                             </View>
@@ -441,7 +485,9 @@ const ContactsScreen = ({ navigation, route }) => {
                                                 )
                                             }
                                         >
-                                            <Text style={styles.hideModalButton}>
+                                            <Text
+                                                style={styles.hideModalButton}
+                                            >
                                                 Hide Modal
                                             </Text>
                                         </Pressable>
@@ -452,11 +498,13 @@ const ContactsScreen = ({ navigation, route }) => {
                                     onPress={() => setStateModalVisible(true)}
                                 >
                                     <Text style={styles.textStyle}>
-                                        {selectedState != undefined ? selectedState.stateName : "Add State"}
+                                        {selectedState != undefined
+                                            ? selectedState.stateName
+                                            : "Add State"}
                                     </Text>
                                 </Pressable>
                             </View>
-                            
+
                             {/* Region input -------------------------------------------- */}
                             <View style={styles.pickerWrapper}>
                                 <View style={styles.preTextWrapperStyle}>
@@ -475,7 +523,11 @@ const ContactsScreen = ({ navigation, route }) => {
                                     <View style={styles.centeredView}>
                                         <View style={styles.modalWrapper}>
                                             <FlatList
-                                                data={regions != undefined ? regions.regions : []}
+                                                data={
+                                                    regions != undefined
+                                                        ? regions.regions
+                                                        : []
+                                                }
                                                 renderItem={modalRegion}
                                                 keyExtractor={(item) =>
                                                     item.regionId
@@ -500,7 +552,9 @@ const ContactsScreen = ({ navigation, route }) => {
                                                 )
                                             }
                                         >
-                                            <Text style={styles.hideModalButton}>
+                                            <Text
+                                                style={styles.hideModalButton}
+                                            >
                                                 Hide Modal
                                             </Text>
                                         </Pressable>
@@ -511,7 +565,9 @@ const ContactsScreen = ({ navigation, route }) => {
                                     onPress={() => setRegionModalVisible(true)}
                                 >
                                     <Text style={styles.textStyle}>
-                                        {selectedRegion != undefined ? selectedRegion.regionName : "Add Region"}
+                                        {selectedRegion != undefined
+                                            ? selectedRegion.regionName
+                                            : "Add Region"}
                                     </Text>
                                 </Pressable>
                             </View>
@@ -537,7 +593,12 @@ const ContactsScreen = ({ navigation, route }) => {
                                     }}
                                 >
                                     <View style={styles.centeredView}>
-                                        <View style={[styles.modalWrapper, styles.genderModalWrapper]}>
+                                        <View
+                                            style={[
+                                                styles.modalWrapper,
+                                                styles.genderModalWrapper,
+                                            ]}
+                                        >
                                             <FlatList
                                                 data={genderData}
                                                 renderItem={modalGender}
@@ -564,7 +625,9 @@ const ContactsScreen = ({ navigation, route }) => {
                                                 )
                                             }
                                         >
-                                            <Text style={styles.hideModalButton}>
+                                            <Text
+                                                style={styles.hideModalButton}
+                                            >
                                                 Hide Modal
                                             </Text>
                                         </Pressable>
@@ -575,7 +638,9 @@ const ContactsScreen = ({ navigation, route }) => {
                                     onPress={() => setGenderModalVisible(true)}
                                 >
                                     <Text style={styles.textStyle}>
-                                        {selectedGender != undefined ? selectedGender.label : "Add Gender"}
+                                        {selectedGender != undefined
+                                            ? selectedGender.label
+                                            : "Add Gender"}
                                     </Text>
                                 </Pressable>
                             </View>
@@ -585,7 +650,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                     onPress={() => {
                                         setSelectedStatus(null);
                                         setSelectedState(null);
-                                        setSelectedRegion(null)
+                                        setSelectedRegion(null);
                                         setSelectedGender(null);
                                         setMultiSliderValue([16, 99]);
                                     }}
@@ -606,86 +671,18 @@ const ContactsScreen = ({ navigation, route }) => {
                         </View>
                     </Collapsible>
 
-                    <ScrollView
+                    <FlatList
+                        data={clients.clients != undefined ? clients.clients : []}
+                        keyExtractor={ item => item.clientId}
+                        renderItem={renderItem}
                         style={styles.container}
                         contentContainerStyle={styles.contentStyle}
                         showsVerticalScrollIndicator={false}
-                    >
-                        {/* Result box of staffs ------------------------------------------------------- */}
+                    />
+                    {/* Result box of staffs ------------------------------------------------------- */}
 
-                        {clients.clients.map((data) => {
-                            return (
-                                <>
-                                    <View
-                                        style={styles.resultBox}
-                                        key={data.clientId}
-                                    >
-                                        <View style={styles.resultLineBox}>
-                                            <View style={styles.resultId}>
-                                                <Ionicons
-                                                    name="md-heart"
-                                                    size={24}
-                                                    color="#E50000"
-                                                />
-                                                <Text
-                                                    style={styles.resultIdText}
-                                                >
-                                                    {"001523"}
-                                                </Text>
-                                            </View>
-                                            <Entypo
-                                                name="location-pin"
-                                                size={24}
-                                                color="black"
-                                            />
-                                        </View>
-                                        <View style={styles.resultLineBox}>
-                                            <Text style={styles.resultFullName}>
-                                                {`${data.clientInfo.firstName} ${data.clientInfo.lastName}`}
-                                            </Text>
-                                        </View>
-                                        <View style={styles.resultLineBox}>
-                                            <Text
-                                                style={
-                                                    styles.resultPhoneNumbers
-                                                }
-                                            >
-                                                {data.clientInfo.mainContact}
-                                            </Text>
-                                            <Text
-                                                style={
-                                                    styles.resultPhoneNumbers
-                                                }
-                                            >
-                                                {data.clientInfo.secondContact}
-                                            </Text>
-                                        </View>
-                                        <View style={styles.resultLineBox}>
-                                            <Text
-                                                style={
-                                                    styles.resultPhoneNumbers
-                                                }
-                                            >
-                                                Age: {data.clientInfo.age}
-                                            </Text>
-                                            <Text
-                                                style={
-                                                    styles.resultPhoneNumbers
-                                                }
-                                            >
-                                                Gender:{" "}
-                                                {data.clientInfo.gender == 1
-                                                    ? "Male"
-                                                    : "Female"}
-                                            </Text>
-                                        </View>
-                                    </View>
-                                </>
-                            );
-                        })}
-
-                        {/* // Custom component */}
-                        {/* <ModalSelector
+                    {/* // Custom component */}
+                    {/* <ModalSelector
                     data={data}
                     ref={(selector) => {
                         this.selector = selector;
@@ -694,7 +691,6 @@ const ContactsScreen = ({ navigation, route }) => {
                         <Switch onValueChange={() => this.selector.open()} />
                     }
                 /> */}
-                    </ScrollView>
                     <TouchableOpacity
                         style={styles.fab}
                         onPress={() => navigation.goBack()}

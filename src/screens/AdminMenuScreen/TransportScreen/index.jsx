@@ -9,13 +9,11 @@ import {
     FlatList,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { styles } from "./styles";
 import DamasSvg from "../../../../assets/svg/damas";
 import { request } from "../../../helpers/request";
-import { AuthContext } from "../../../navigation/AuthProvider";
-import { useQuery, gql } from "@apollo/client";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 let QUERY = `
 {
@@ -32,18 +30,24 @@ const TransportScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(true);
     const [userToken, setUserToken] = useState();
 
+   
+
     useEffect(() => {
         async function fetchData() {
-            const value = await AsyncStorage.getItem("staff_token");
-            setUserToken(value);
-            setData(await request(QUERY, null, userToken));
-            setLoading(false);
+            try {
+                const value = await AsyncStorage.getItem("staff_token");
+                setUserToken(value);
+                setData(await request(QUERY, null, userToken));
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
+            }
         }
         fetchData();
     }, []);
-    
+    console.log(data)
+
     const renderItem = ({ item }) => {
-        console.log(item);
         return (
             <TouchableOpacity
                 style={styles.resultBox}
@@ -94,14 +98,14 @@ const TransportScreen = ({ navigation }) => {
                         <ActivityIndicator size="large" color="#007AFF" />
                     </View>
                 )}
-                {data && (
+                {data ? (
                     <FlatList
                         data={data.transports}
                         renderItem={renderItem}
                         keyExtractor={(item) => item.transportId}
                         showsVerticalScrollIndicator={false}
                     />
-                )}
+                ) : null}
             </View>
             <TouchableOpacity
                 style={styles.fab}
