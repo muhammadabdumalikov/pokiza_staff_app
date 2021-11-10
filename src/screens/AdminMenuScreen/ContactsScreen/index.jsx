@@ -267,12 +267,13 @@ const ContactsScreen = ({ navigation, route }) => {
                                 <View style={styles.preTextWrapperStyle}>
                                     <Text style={styles.preText}>Status</Text>
                                 </View>
+                                {/* Status input --------------------------------------------------------- */}
                                 <Modal
                                     animationType="slide"
                                     transparent={true}
                                     visible={statusModalVisible}
                                     onRequestClose={() => {
-                                        setStatusModalVisible(
+                                        setStatusModalVisible(  
                                             !statusModalVisible
                                         );
                                     }}
