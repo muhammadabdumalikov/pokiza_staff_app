@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import {
     ScrollView,
     Text,
@@ -14,11 +14,14 @@ import {
 } from "@expo/vector-icons";
 
 import { styles } from "./styles";
+import { AuthContext } from "../../../../../navigation/AuthProvider";
 
 const height = Dimensions.get("window").height;
 
 const WaitingScreen = ({ navigation, route }) => {
-    console.log("ok", route);
+    const {transportId} = useContext(AuthContext)
+    console.log(transportId);
+
     return (
         <View style={{ height: "100%" }}>
             <View style={styles.dateAndTransport}>

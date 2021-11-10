@@ -49,7 +49,7 @@ const TransportDetailScreen = ({navigation, route}) => {
                 },
             }}
         >
-            <Tab.Screen name="Waiting" component={WaitingScreen} initialParams={{transportId: route.params.transportId}}/>
+            <Tab.Screen name="Waiting" component={WaitingScreen} />
             <Tab.Screen name="Ready" component={ReadyScreen} />
         </Tab.Navigator>
     );

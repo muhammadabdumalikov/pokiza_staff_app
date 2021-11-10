@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, createContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
     View,
     Text,
@@ -13,11 +13,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { request } from "../../../helpers/request";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthContext } from "../../../navigation/AuthProvider";
 
 const TransportScreen = ({ navigation }) => {
     const [data, setData] = useState();
     const [loading, setLoading] = useState(true);
     const [userToken, setUserToken] = useState();
+    const {setTransportId} = useContext(AuthContext)
 
     const QUERY = `
         {
@@ -48,10 +50,8 @@ const TransportScreen = ({ navigation }) => {
             <TouchableOpacity
                 style={styles.resultBox}
                 onPress={() => {
-                    navigation.navigate("TransportDetailScreen", {
-                        transportId: item.transportId,
-                    });
-                    setTransportData({ transportId: item.transportId });
+                    navigation.navigate("TransportDetailScreen");
+                    setTransportId(item.transportId);
                 }}
             >
                 <View style={styles.resultImageBox}>
@@ -82,7 +82,6 @@ const TransportScreen = ({ navigation }) => {
             </TouchableOpacity>
         );
     };
-
     return (
         <View style={styles.container}>
             <View style={styles.dateWrapper}>
