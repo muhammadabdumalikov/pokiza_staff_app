@@ -24,20 +24,20 @@ import { sliderStyles, styles } from "./styles";
 const height = Dimensions.get("window").height;
 
 const StaffsScreen = ({ navigation, route }) => {
-    const ALL_CLIENTS_QUERY = `query($clientStatus: Int! = 1, $age: Int = null, $gender: Int = null){
-        clients(clientStatus: $clientStatus, age: $age, gender: $gender ){
-          clientId
-          clientStatus
-          clientSummary
-          clientInfo{
+    const ALL_STAFFS_QUERY = `query{
+        staffs{
+          staffId
+          staffPhoto
+          staffInfo{
             userId
             mainContact
             secondContact
             firstName
             lastName
-            age
-            gender
-            
+            branch{
+              branchId
+              branchName
+            }
           }
         }
       }`;
@@ -57,7 +57,7 @@ const StaffsScreen = ({ navigation, route }) => {
         }
       }`;
 
-    const [clients, setClients] = useState();
+    const [staffs, setStaffs] = useState();
     const [selectedState, setSelectedState] = useState();
     let [states, setStates] = useState();
     const [selectedRegion, setSelectedRegion] = useState();
@@ -80,7 +80,7 @@ const StaffsScreen = ({ navigation, route }) => {
             try {
                 const value = await AsyncStorage.getItem("staff_token");
                 setUserToken(value);
-                setClients(await request(ALL_CLIENTS_QUERY, null, value));
+                setStaffs(await request(ALL_STAFFS_QUERY, null, value));
                 setStates(await request(GET_STATE_QUERY, null, value));
                 setLoading(false);
             } catch (error) {
@@ -133,13 +133,13 @@ const StaffsScreen = ({ navigation, route }) => {
                 <View style={styles.resultBox}>
                     <View style={styles.resultLineBox}>
                         <View style={styles.resultId}>
-                            <Text style={styles.resultIdText}>{"001523"}</Text>
+                            <Text style={styles.resultIdText}>{item.staffId}</Text>
                         </View>
                         <Entypo name="location-pin" size={24} color="black" />
                     </View>
                     <View style={styles.resultLineBigBox}>
                         <Text style={styles.resultFullName}>
-                            Hamdamboyev Hudoyberdi
+                            {`${item.staffInfo.firstName} ${item.staffInfo.lastName}`}
                         </Text>
                         <Text style={styles.resultPermissionText}>
                             Permission: {"Operator"}
@@ -147,10 +147,10 @@ const StaffsScreen = ({ navigation, route }) => {
                     </View>
                     <View style={styles.resultLineBox}>
                         <Text style={styles.resultPhoneNumbers}>
-                            +998911000000
+                            +{item.staffInfo.mainContact}
                         </Text>
                         <Text style={styles.resultPhoneNumbers}>
-                            +998901111111
+                            +{item.staffInfo.secondContact}
                         </Text>
                     </View>
                     <View style={styles.resultLineBox}>
@@ -670,9 +670,9 @@ const StaffsScreen = ({ navigation, route }) => {
 
                     <FlatList
                         data={
-                            clients.clients != undefined ? clients.clients : []
+                            staffs.staffs != undefined ? staffs.staffs : []
                         }
-                        keyExtractor={(item) => item.clientId}
+                        keyExtractor={(item) => item.staffId}
                         renderItem={renderItem}
                         style={styles.container}
                         contentContainerStyle={styles.contentStyle}
