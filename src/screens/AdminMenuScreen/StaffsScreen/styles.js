@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
         fontWeight: "500",
     },
     hiddenContent: {
-        height: height / 1.47,
+        height: height / 1.37,
         backgroundColor: "#F5F5F5",
     },
     content: {},
