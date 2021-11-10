@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useContext} from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Dimensions } from "react-native";
+
 import WaitingScreen from "./WaitingScreen";
 import ReadyScreen from "./ReadyScreen";
 
@@ -8,7 +9,7 @@ const Tab = createMaterialTopTabNavigator();
 
 const height = Dimensions.get("window").height;
 
-const TransportDetailScreen = ({navigation}) => {
+const TransportDetailScreen = ({navigation, route}) => {
     return (
         <Tab.Navigator
             screenOptions={{
@@ -48,7 +49,7 @@ const TransportDetailScreen = ({navigation}) => {
                 },
             }}
         >
-            <Tab.Screen name="Waiting" component={WaitingScreen} />
+            <Tab.Screen name="Waiting" component={WaitingScreen} initialParams={{transportId: route.params.transportId}}/>
             <Tab.Screen name="Ready" component={ReadyScreen} />
         </Tab.Navigator>
     );

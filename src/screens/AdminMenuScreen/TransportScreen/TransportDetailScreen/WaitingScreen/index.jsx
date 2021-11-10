@@ -18,6 +18,7 @@ import { styles } from "./styles";
 const height = Dimensions.get("window").height;
 
 const WaitingScreen = ({ navigation, route }) => {
+    console.log("ok", route);
     return (
         <View style={{ height: "100%" }}>
             <View style={styles.dateAndTransport}>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, createContext } from "react";
 import {
     View,
     Text,
@@ -11,7 +11,6 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 import { styles } from "./styles";
-import DamasSvg from "../../../../assets/svg/damas";
 import { request } from "../../../helpers/request";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -48,7 +47,12 @@ const TransportScreen = ({ navigation }) => {
         return (
             <TouchableOpacity
                 style={styles.resultBox}
-                onPress={() => navigation.navigate("TransportDetailScreen")}
+                onPress={() => {
+                    navigation.navigate("TransportDetailScreen", {
+                        transportId: item.transportId,
+                    });
+                    setTransportData({ transportId: item.transportId });
+                }}
             >
                 <View style={styles.resultImageBox}>
                     <Image
