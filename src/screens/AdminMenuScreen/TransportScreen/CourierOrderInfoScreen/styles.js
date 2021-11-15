@@ -34,12 +34,12 @@ export const styles = StyleSheet.create({
     preText: {
         fontSize: 16,
     },
-    prductInfo:{
-        height: height/3,
+    prductInfo: {
+        height: height / 3,
         padding: 15,
-        borderRadius: 15, 
+        borderRadius: 15,
         borderWidth: 1,
-        borderColor: colors.lightGray
+        borderColor: colors.lightGray,
     },
     inputContainer: {
         height: "25%",
@@ -55,13 +55,31 @@ export const styles = StyleSheet.create({
         height: "25%",
         flexDirection: "row",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
     },
     sizeText: {
         flex: 1,
     },
     sizeInput: {
         flex: 1,
+    },
+    camera: {
+        flex: 1,
+    },
+    buttonContainer: {
+        flex: 1,
+        backgroundColor: "transparent",
+        flexDirection: "row",
+        margin: 20,
+    },
+    button: {
+        flex: 0.1,
+        alignSelf: "flex-end",
+        alignItems: "center",
+    },
+    text: {
+        fontSize: 18,
+        color: "white",
     },
     centeredView: {
         flex: 1,
@@ -83,10 +101,10 @@ export const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
         overflow: "hidden",
-        marginBottom: 10 
+        marginBottom: 10,
     },
-    genderModalWrapper:{
-        height: "15%"
+    genderModalWrapper: {
+        height: "15%",
     },
     contenModalView: {
         flex: 1,
@@ -94,11 +112,11 @@ export const styles = StyleSheet.create({
     },
     modalView: {
         padding: 16,
-        alignItems: "center", 
+        alignItems: "center",
     },
     buttonOpen: {
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     buttonClose: {
         backgroundColor: "#2196F3",
@@ -117,6 +135,6 @@ export const styles = StyleSheet.create({
         textAlign: "center",
     },
     hideModalButton: {
-        color: "white"
-    }
+        color: "white",
+    },
 });

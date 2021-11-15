@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     Text,
@@ -7,10 +7,12 @@ import {
     Modal,
     FlatList,
     Pressable,
+    TextInput,
 } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { Camera } from "expo-camera";
+
 import { styles } from "./styles";
-import { TextInput } from "react-native-gesture-handler";
 import { colors } from "../../../../constants/color";
 
 const CourierAddOrderInfoScreen = ({ navigation }) => {
@@ -19,11 +21,29 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
     let [statusModalVisible, setStatusModalVisible] = useState(false);
     let [tariffModalVisible, setTariffModalVisible] = useState(false);
 
+    const [hasPermission, setHasPermission] = useState(null);
+    const [useCamera, setUseCamera] = useState(false);
+    const [type, setType] = useState(Camera.Constants.Type.back);
+
     const productsList = [{ id: "1", name: "Gilam" }];
     const tariffList = [
         { id: "1", name: "Oddiy" },
         { id: "2", name: "Tezkor" },
     ];
+
+    useEffect(() => {
+        (async () => {
+            const { status } = await Camera.requestCameraPermissionsAsync();
+            if (useCamera) setHasPermission(status === "granted");
+        })();
+    }, []);
+
+    // if (hasPermission === null) {
+    //     return <View />;
+    // }
+    // if (hasPermission === false) {
+    //     return <Text>No access to camera</Text>;
+    // }
 
     const modalStatus = ({ item }) => {
         return (
@@ -198,6 +218,25 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
                     <TextInput placeholder="Yuza * 10.000" />
                 </View>
             </View>
+
+            <Camera style={styles.camera} type={type}>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                            setType(
+                                type === Camera.Constants.Type.back
+                                    ? Camera.Constants.Type.front
+                                    : Camera.Constants.Type.back
+                            );
+                        }}
+                    >
+                        <Text style={styles.text}> Flip </Text>
+                    </TouchableOpacity>
+                </View>
+            </Camera>
+
+            <TouchableOpacity onPress={()=> setUseCamera(!useCamera)}><Text>Camera</Text></TouchableOpacity>
         </ScrollView>
     );
 };
