@@ -44,6 +44,15 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 10
     },
+    callTxt: {
+        fontSize: 16,
+        color: colors.green,
+        fontWeight: "bold"
+    },
+    addTxt: {
+        fontSize: 16,
+        color: "white"
+    },
     add: {
         height: height/15,
         width: "100%",

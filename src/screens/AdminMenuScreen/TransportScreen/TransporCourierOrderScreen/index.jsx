@@ -49,10 +49,10 @@ const TransportCourierOrderScreen = ({ navigation }) => {
                 />
             </View>
             <TouchableOpacity style={styles.call}>
-                <Text style={styles.fontSize}>Called</Text>
+                <Text style={styles.callTxt}>Called</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.add}>
-                <Text style={styles.fontSize}>Buyurtmani qabul qilish</Text>
+                <Text style={styles.addTxt}>Buyurtmani qabul qilish</Text>
             </TouchableOpacity>
         </ScrollView>
     );
