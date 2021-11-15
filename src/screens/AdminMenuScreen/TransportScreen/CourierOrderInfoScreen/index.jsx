@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, Modal, FlatList, Pressable } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { TextInput } from "react-native-gesture-handler";
@@ -8,6 +8,10 @@ import { colors } from "../../../../constants/color";
 const CourierAddOrderInfoScreen = ({ navigation }) => {
     let [selectedStatus, setSelectedStatus] = useState();
     const [statusModalVisible, setStatusModalVisible] = useState(false);
+
+    const productsList = [
+        {id: "1", name: "Gilam"}
+    ]
 
     const modalStatus = ({ item }) => {
         return (
@@ -19,7 +23,7 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
                 }}
             >
                 <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
-                    {item.label}
+                    {item.name}
                 </Text>
             </TouchableOpacity>
         );
@@ -31,9 +35,10 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
             contentContainerStyle={styles.contentStyle}
             showsVerticalScrollIndicator={false}
         >
+            {/* Product input ------------------------------------------------- */}
             <View style={styles.pickerWrapper}>
                 <View style={styles.preTextWrapperStyle}>
-                    <Text style={styles.preText}>Status</Text>
+                    <Text style={styles.preText}>Product</Text>
                 </View>
                 <Modal
                     animationType="slide"
@@ -46,9 +51,9 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
                     <View style={styles.centeredView}>
                         <View style={styles.modalWrapper}>
                             <FlatList
-                                data={clientStatus}
+                                data={productsList}
                                 renderItem={modalStatus}
-                                keyExtractor={(item) => item.key}
+                                keyExtractor={(item) => item.id}
                                 contentContainerStyle={styles.modalView}
                                 style={styles.contenModalView}
                                 showsVerticalScrollIndicator={false}
@@ -72,7 +77,7 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
                 >
                     <Text style={styles.textStyle}>
                         {selectedStatus != undefined
-                            ? selectedStatus.label
+                            ? selectedStatus.name
                             : "Add Status"}
                     </Text>
                 </Pressable>

@@ -29,6 +29,7 @@ import StatisticsScreen from "../screens/AdminMenuScreen/StatisticsScreen";
 import SearchScreen from "../screens/SearchScreen";
 import NoticesScreen from "../screens/NotificationScreen";
 import TransportCourierOrderScreen from "../screens/AdminMenuScreen/TransportScreen/TransporCourierOrderScreen";
+import CourierAddOrderInfoScreen from "../screens/AdminMenuScreen/TransportScreen/CourierOrderInfoScreen";
 
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -247,7 +248,7 @@ const MenuStack = ({ navigation, route }) => {
             />
             <Stack.Screen
                 name="StatisticsScreen"
-                component={StatisticsScreen}
+                component={CourierAddOrderInfoScreen}
                 options={({ route }) => ({
                     headerTitleAlign: "center",
                     headerTitleStyle: {
