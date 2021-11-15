@@ -32,8 +32,7 @@ const HistoryScreen = ({ navigation, route }) => {
         new Date().toLocaleDateString()
     );
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-    const [isDatePickerVisibleTwo, setDatePickerVisibilityTwo] =
-        useState(false)
+    const [isDatePickerVisibleTwo, setDatePickerVisibilityTwo] = useState(false)
 
     let firstname;
     let age;
