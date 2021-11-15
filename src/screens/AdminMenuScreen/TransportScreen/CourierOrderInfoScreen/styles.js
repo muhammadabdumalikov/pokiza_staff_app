@@ -19,6 +19,9 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         backgroundColor: "#fff",
+        borderWidth: 1,
+        borderColor: colors.lightGray,
+        borderRadius: 5,
         paddingHorizontal: 16,
         marginBottom: 16,
     },
@@ -30,6 +33,35 @@ export const styles = StyleSheet.create({
     },
     preText: {
         fontSize: 16,
+    },
+    prductInfo:{
+        height: height/3,
+        padding: 15,
+        borderRadius: 15, 
+        borderWidth: 1,
+        borderColor: colors.lightGray
+    },
+    inputContainer: {
+        height: "25%",
+        flexDirection: "row",
+    },
+    productSize: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    infoLine: {
+        height: "25%",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center"
+    },
+    sizeText: {
+        flex: 1,
+    },
+    sizeInput: {
+        flex: 1,
     },
     centeredView: {
         flex: 1,
@@ -78,7 +110,7 @@ export const styles = StyleSheet.create({
         elevation: 2,
     },
     textStyle: {
-        color: 'gray',
+        color: colors.gray,
         textAlign: "center",
     },
     modalText: {
