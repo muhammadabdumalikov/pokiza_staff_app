@@ -13,9 +13,6 @@ export const styles = StyleSheet.create({
     contentStyle: {
         padding: 16,
     },
-    contentWrapper: {
-        height: "100%",
-    },
     inputContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
