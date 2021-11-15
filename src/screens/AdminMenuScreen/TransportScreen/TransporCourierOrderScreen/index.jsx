@@ -46,6 +46,8 @@ const TransportCourierOrderScreen = ({ navigation }) => {
                 <TextInput
                     placeholder="Izoh yozish uchun joy"
                     multiline={true}
+                    style={styles.txtInput}
+                    
                 />
             </View>
             <TouchableOpacity style={styles.call}>

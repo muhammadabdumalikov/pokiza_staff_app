@@ -23,15 +23,27 @@ export const styles = StyleSheet.create({
     },
     name: {
         height: height/12,
+        borderBottomColor: colors.lightGray,
+        borderBottomWidth: .5
     },
     phones: {
         height: height/12,
+        borderBottomColor: colors.lightGray,
+        borderBottomWidth: .5
     },
     address: {
         height: height/6,
+        borderBottomColor: colors.lightGray,
+        borderBottomWidth: 1
     },
     comment: {
         height: height/6,
+        paddingTop: 15,
+    },
+    txtInput: {
+        borderBottomColor: colors.lightGray,
+        borderBottomWidth: .5,
+        marginTop: 5
     },
     call: {
         height: height/15,
