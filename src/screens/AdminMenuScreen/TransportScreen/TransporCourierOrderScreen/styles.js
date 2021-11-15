@@ -7,6 +7,28 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",
-        height: "100%"
+        padding: 16,
     },
-})
+    inputContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    name: {
+        flex: 1,
+    },
+    phones: {
+        flex: 1,
+    },
+    address: {
+        flex: 2,
+    },
+    comment: {
+        flex: 2,
+    },
+    call: {
+        flex: 1,
+    },
+    add: {
+        flex: 1,
+    },
+});
