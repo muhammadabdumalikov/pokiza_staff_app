@@ -1,46 +1,61 @@
 import React from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
-import { FontAwesome5 } from '@expo/vector-icons'; 
+import { FontAwesome5 } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { TextInput } from "react-native-gesture-handler";
 import { colors } from "../../../../constants/color";
 
-const TransportCourierOrderScreen = ({navigation}) => {
-    return(
-        <View style={styles.container}>
-            <View style={[styles.inputContainer], styles.name}>
-                <Text>Ism</Text>
-                <Text>Abdujalilov Abdulaziz</Text>
+const TransportCourierOrderScreen = ({ navigation }) => {
+    return (
+        <ScrollView
+            style={styles.container}
+            contentContainerStyle={styles.contentStyle}
+            showsVerticalScrollIndicator={false}
+        >
+            <View style={[styles.inputContainer, styles.name]}>
+                <Text style={styles.fontSize}>Ism</Text>
+                <Text style={styles.fontSize}>Abdujalilov Abdulaziz</Text>
             </View>
             <View style={[styles.inputContainer, styles.phones]}>
-                <Text>Telefon</Text>
-                <Text>Abdujalilov Abdulaziz</Text>
-                <FontAwesome5 name="phone-square-alt" size={24} color={colors.lighGreen} />
+                <Text style={styles.fontSize}>Telefon</Text>
+                <Text style={styles.fontSize}>Abdujalilov Abdulaziz</Text>
+                <FontAwesome5
+                    name="phone-square-alt"
+                    size={24}
+                    color={colors.lighGreen}
+                />
             </View>
             <View style={[styles.inputContainer, styles.phones]}>
-                <Text>Telefon 2</Text>
-                <Text>Abdujalilov Abdulaziz</Text>
-                <FontAwesome5 name="phone-square-alt" size={24} color={colors.lighGreen} />
+                <Text style={styles.fontSize}>Telefon 2</Text>
+                <Text style={styles.fontSize}>Abdujalilov Abdulaziz</Text>
+                <FontAwesome5
+                    name="phone-square-alt"
+                    size={24}
+                    color={colors.lighGreen}
+                />
             </View>
-            <View style={styles.address}>
+            <View style={[styles.inputContainer, styles.address]}>
                 <View>
-                    <Text>Adress</Text>
+                    <Text style={styles.fontSize}>Adress</Text>
                     <Text>State, Region</Text>
                 </View>
-                <Text>Detail</Text>
+                <Text style={styles.fontSize}>Detail</Text>
             </View>
             <View style={styles.comment}>
-                <Text>Izoh</Text>
-                <TextInput placeholder="Izoh yozish uchun joy" multiline={true}/>
+                <Text style={styles.fontSize}>Izoh</Text>
+                <TextInput
+                    placeholder="Izoh yozish uchun joy"
+                    multiline={true}
+                />
             </View>
             <TouchableOpacity style={styles.call}>
-                <Text>Called</Text>
+                <Text style={styles.fontSize}>Called</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.add}>
-                <Text>Buyurtmani qabul qilish</Text>
+                <Text style={styles.fontSize}>Buyurtmani qabul qilish</Text>
             </TouchableOpacity>
-        </View>
-    )
-}
+        </ScrollView>
+    );
+};
 
 export default TransportCourierOrderScreen;
