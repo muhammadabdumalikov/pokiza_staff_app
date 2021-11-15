@@ -82,6 +82,7 @@ const TransportScreen = ({ navigation }) => {
             </TouchableOpacity>
         );
     };
+
     return (
         <View style={styles.container}>
             <View style={styles.dateWrapper}>

@@ -28,6 +28,7 @@ import HistoryScreen from "../screens/AdminMenuScreen/HistoryScreen";
 import StatisticsScreen from "../screens/AdminMenuScreen/StatisticsScreen";
 import SearchScreen from "../screens/SearchScreen";
 import NoticesScreen from "../screens/NotificationScreen";
+import TransportCourierOrderScreen from "../screens/AdminMenuScreen/TransportScreen/TransporCourierOrderScreen";
 
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -217,6 +218,27 @@ const MenuStack = ({ navigation, route }) => {
                         elevation: 0,
                         backgroundColor: "#F5F5F5"
                         // height: Dimensions.get("window").height / 5.8,
+                    },
+                    // title: route.params.id,
+                    headerRight: () => null,
+                    headerLeft: () => null,
+                })}
+            />
+            <Stack.Screen
+                name="CourierAddOrder"
+                component={TransportCourierOrderScreen}
+                options={({ route }) => ({
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        backgroundColor: "#F5F5F5",
+                        height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
                     headerRight: () => null,

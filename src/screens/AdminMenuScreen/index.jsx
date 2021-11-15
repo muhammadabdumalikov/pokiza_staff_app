@@ -54,7 +54,10 @@ const AdminMenuScreen = ({ navigation }) => {
             </View>
 
             <View style={styles.secondBox}>
-                <TouchableOpacity style={styles.menuBox}>
+                <TouchableOpacity
+                    style={styles.menuBox}
+                    onPress={() => navigation.navigate("CourierAddOrder")}
+                >
                     <Text style={styles.menuText}>Finance</Text>
                     <Feather name="pie-chart" size={24} color="black" />
                 </TouchableOpacity>
