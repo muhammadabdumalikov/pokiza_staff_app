@@ -89,7 +89,7 @@ const ContactsScreen = ({ navigation, route }) => {
         }
         fetchData();
     }, []);
-    
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -263,17 +263,18 @@ const ContactsScreen = ({ navigation, route }) => {
                         align="center"
                     >
                         <View style={styles.content}>
+                            {/* Status input --------------------------------------------------------- */}
+
                             <View style={styles.pickerWrapper}>
                                 <View style={styles.preTextWrapperStyle}>
                                     <Text style={styles.preText}>Status</Text>
                                 </View>
-                                {/* Status input --------------------------------------------------------- */}
                                 <Modal
                                     animationType="slide"
                                     transparent={true}
                                     visible={statusModalVisible}
                                     onRequestClose={() => {
-                                        setStatusModalVisible(  
+                                        setStatusModalVisible(
                                             !statusModalVisible
                                         );
                                     }}
@@ -673,8 +674,10 @@ const ContactsScreen = ({ navigation, route }) => {
                     </Collapsible>
 
                     <FlatList
-                        data={clients.clients != undefined ? clients.clients : []}
-                        keyExtractor={ item => item.clientId}
+                        data={
+                            clients.clients != undefined ? clients.clients : []
+                        }
+                        keyExtractor={(item) => item.clientId}
                         renderItem={renderItem}
                         style={styles.container}
                         contentContainerStyle={styles.contentStyle}
