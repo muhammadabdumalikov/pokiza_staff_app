@@ -34,7 +34,11 @@ export const styles = StyleSheet.create({
     address: {
         height: height/6,
         borderBottomColor: colors.lightGray,
+        alignItems: "center",
         borderBottomWidth: 1
+    },
+    addressInfo: {
+        color: colors.gray
     },
     comment: {
         height: height/6,

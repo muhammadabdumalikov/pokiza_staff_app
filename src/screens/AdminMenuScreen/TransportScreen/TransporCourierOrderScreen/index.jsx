@@ -37,7 +37,7 @@ const TransportCourierOrderScreen = ({ navigation }) => {
             <View style={[styles.inputContainer, styles.address]}>
                 <View>
                     <Text style={styles.fontSize}>Adress</Text>
-                    <Text>State, Region</Text>
+                    <Text style={styles.addressInfo}>State, Region</Text>
                 </View>
                 <Text style={styles.fontSize}>Detail</Text>
             </View>
