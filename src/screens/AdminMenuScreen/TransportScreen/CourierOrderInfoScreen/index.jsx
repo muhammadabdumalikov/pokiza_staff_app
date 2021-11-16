@@ -8,7 +8,7 @@ import {
     FlatList,
     Pressable,
     TextInput,
-    ImageBackground
+    ImageBackground,
 } from "react-native";
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import { Camera } from "expo-camera";
@@ -62,8 +62,7 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
         }
     };
 
-    const savePhoto = () => {}
-
+    const savePhoto = () => {};
 
     const __takePicture = async () => {
         const photo = await camera.takePictureAsync();
@@ -271,153 +270,66 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
                 </View>
             </View>
 
-            <Modal style={styles.cameraBox} visible={true}>
-                {startCamera ? (
-                    <View
-                        style={{
-                            flex: 1,
-                            width: "100%",
-                        }}
-                    >
-                        {previewVisible && capturedImage ? (
-                            <CameraPreview
-                                photo={capturedImage}
-                                savePhoto={savePhoto}
-                                retakePicture={retakePicture}
-                            />
-                        ) : (
-                            <Camera
-                                type={cameraType}
-                                flashMode={flashMode}
-                                style={{ flex: 1 }}
-                                ref={(r) => {
-                                    camera = r;
+            <Modal style={styles.cameraBox} visible={useCamera}>
+                <View style={styles.camera}>
+                    {previewVisible && capturedImage ? (
+                        <CameraPreview
+                            photo={capturedImage}
+                            savePhoto={() => setUseCamera(!useCamera)}
+                            retakePicture={retakePicture}
+                        />
+                    ) : (
+                        <Camera
+                            type={cameraType}
+                            flashMode={flashMode}
+                            style={{ flex: 1 }}
+                            ref={(r) => {
+                                camera = r;
+                            }}
+                        >
+                            <View
+                                style={{
+                                    flex: 1,
+                                    width: "100%",
+                                    backgroundColor: "transparent",
+                                    flexDirection: "row",
                                 }}
                             >
                                 <View
                                     style={{
+                                        position: "absolute",
+                                        bottom: 0,
+                                        flexDirection: "row",
                                         flex: 1,
                                         width: "100%",
-                                        backgroundColor: "transparent",
-                                        flexDirection: "row",
+                                        padding: 20,
+                                        justifyContent: "space-between",
                                     }}
                                 >
                                     <View
                                         style={{
-                                            position: "absolute",
-                                            left: "5%",
-                                            top: "10%",
-                                            flexDirection: "column",
-                                            justifyContent: "space-between",
-                                        }}
-                                    >
-                                        <TouchableOpacity
-                                            onPress={__handleFlashMode}
-                                            style={{
-                                                backgroundColor:
-                                                    flashMode === "off"
-                                                        ? "#000"
-                                                        : "#fff",
-                                                borderRadius: 10,
-                                                height: 25,
-                                                width: 25,
-                                            }}
-                                        >
-                                            <Text
-                                                style={{
-                                                    fontSize: 20,
-                                                }}
-                                            >
-                                                ⚡️
-                                            </Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                            onPress={__switchCamera}
-                                            style={{
-                                                marginTop: 20,
-                                                borderRadius: 10,
-                                                height: 25,
-                                                width: 25,
-                                            }}
-                                        >
-                                            <Text
-                                                style={{
-                                                    fontSize: 20,
-                                                }}
-                                            >
-                                                {cameraType === "front"
-                                                    ? "🤳"
-                                                    : "📷"}
-                                            </Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View
-                                        style={{
-                                            position: "absolute",
-                                            bottom: 0,
-                                            flexDirection: "row",
+                                            alignSelf: "center",
                                             flex: 1,
-                                            width: "100%",
-                                            padding: 20,
-                                            justifyContent: "space-between",
+                                            alignItems: "center",
                                         }}
                                     >
-                                        <View
+                                        <TouchableOpacity
+                                            onPress={__takePicture}
                                             style={{
-                                                alignSelf: "center",
-                                                flex: 1,
-                                                alignItems: "center",
+                                                width: 70,
+                                                height: 70,
+                                                bottom: 0,
+                                                borderRadius: 50,
+                                                backgroundColor: "#fff",
                                             }}
-                                        >
-                                            <TouchableOpacity
-                                                onPress={__takePicture}
-                                                style={{
-                                                    width: 70,
-                                                    height: 70,
-                                                    bottom: 0,
-                                                    borderRadius: 50,
-                                                    backgroundColor: "#fff",
-                                                }}
-                                            />
-                                        </View>
+                                        />
                                     </View>
                                 </View>
-                            </Camera>
-                        )}
-                    </View>
-                ) : (
-                    <View
-                        style={{
-                            flex: 1,
-                            backgroundColor: "#fff",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-                        <TouchableOpacity
-                            onPress={__startCamera}
-                            style={{
-                                width: 130,
-                                borderRadius: 4,
-                                backgroundColor: "#14274e",
-                                flexDirection: "row",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                height: 40,
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    color: "#fff",
-                                    fontWeight: "bold",
-                                    textAlign: "center",
-                                }}
-                            >
-                                Take picture
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                )}
+                            </View>
+                        </Camera>
+                    )}
+                </View>
+
                 <View style={styles.cameraOptions}>
                     <TouchableOpacity
                         style={styles.cameraOption}
