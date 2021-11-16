@@ -63,8 +63,27 @@ export const styles = StyleSheet.create({
     sizeInput: {
         flex: 1,
     },
+    cameraBox: {
+        flex: 1
+    },
     camera: {
-        flex: 1,
+        flex: 4,
+    },
+    cameraOptions: {
+        flex: 2,
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        backgroundColor: "black"
+    },
+    cameraOption: {
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 35,
+        height: 70,
+        width: 70,
+        padding: 10,
+        backgroundColor: "white"
     },
     buttonContainer: {
         flex: 1,
