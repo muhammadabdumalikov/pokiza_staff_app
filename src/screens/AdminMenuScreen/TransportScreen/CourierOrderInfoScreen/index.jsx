@@ -422,8 +422,8 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
                     <TouchableOpacity
                         style={styles.cameraOption}
                         onPress={() => {
-                            setType(
-                                type === Camera.Constants.Type.back
+                            setCameraType(
+                                cameraType === Camera.Constants.Type.back
                                     ? Camera.Constants.Type.front
                                     : Camera.Constants.Type.back
                             );
@@ -452,7 +452,6 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
 };
 
 const CameraPreview = ({ photo, retakePicture, savePhoto }) => {
-    console.log("sdsfds", photo);
     return (
         <View
             style={{
