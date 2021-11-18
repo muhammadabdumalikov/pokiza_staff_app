@@ -62,13 +62,10 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
         }
     };
 
-    const savePhoto = () => {};
-
     const __takePicture = async () => {
         const photo = await camera.takePictureAsync({ quality: 1 });
         console.log(photo);
         setPreviewVisible(true);
-        //setStartCamera(false)
         setCapturedImage(photo);
     };
 
@@ -304,7 +301,11 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
                         style={styles.cameraOption}
                         onPress={() => setUseCamera(false)}
                     >
-                        <MaterialIcons name="cancel" size={32} color="black" />
+                        <Ionicons
+                            name="md-save-sharp"
+                            size={32}
+                            color="black"
+                        />
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -333,10 +334,6 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
                 </View>
             </Modal>
 
-            <TouchableOpacity onPress={() => setUseCamera(true)}>
-                <Text>Camera</Text>
-            </TouchableOpacity>
-
             <View style={styles.photoBox}>
                 {capturedImage ? (
                     <ImageBackground
@@ -345,14 +342,10 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
                         style={{ flex: 1 }}
                     />
                 ) : (
-                    <View
-                        style={{ flex: 1, backgroundColor: colors.lightGray, justifyContent: "center", alignItems: "center" }}
-                    >
-                        <Ionicons
-                            name="camera"
-                            size={32}
-                            color="black"
-                        />
+                    <View style={styles.cameraBtn}>
+                        <TouchableOpacity onPress={() => setUseCamera(true)}>
+                            <Ionicons name="camera" size={48} color="black" />
+                        </TouchableOpacity>
                     </View>
                 )}
             </View>
@@ -375,62 +368,7 @@ const CameraPreview = ({ photo, retakePicture, savePhoto }) => {
                 style={{
                     flex: 1,
                 }}
-            >
-                <View
-                    style={{
-                        flex: 1,
-                        flexDirection: "column",
-                        padding: 15,
-                        justifyContent: "flex-end",
-                    }}
-                >
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                        }}
-                    >
-                        <TouchableOpacity
-                            onPress={retakePicture}
-                            style={{
-                                width: 130,
-                                height: 40,
-
-                                alignItems: "center",
-                                // borderRadius: 4,
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    color: "#fff",
-                                    fontSize: 20,
-                                }}
-                            >
-                                Re-take
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={savePhoto}
-                            style={{
-                                width: 130,
-                                height: 40,
-
-                                alignItems: "center",
-                                // borderRadius: 4,
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    color: "#fff",
-                                    fontSize: 20,
-                                }}
-                            >
-                                save photo
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </ImageBackground>
+            ></ImageBackground>
         </View>
     );
 };

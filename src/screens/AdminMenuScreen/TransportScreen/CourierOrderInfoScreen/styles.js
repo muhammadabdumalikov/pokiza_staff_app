@@ -64,7 +64,7 @@ export const styles = StyleSheet.create({
         flex: 1,
     },
     cameraBox: {
-        flex: 1
+        flex: 1,
     },
     camera: {
         flex: 5,
@@ -74,7 +74,7 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
-        backgroundColor: "black"
+        backgroundColor: "black",
     },
     cameraOption: {
         justifyContent: "center",
@@ -83,7 +83,7 @@ export const styles = StyleSheet.create({
         height: 70,
         width: 70,
         padding: 10,
-        backgroundColor: colors.white
+        backgroundColor: colors.white,
     },
     shot: {
         justifyContent: "center",
@@ -91,14 +91,20 @@ export const styles = StyleSheet.create({
         borderRadius: 30,
         height: 60,
         width: 60,
-        backgroundColor: colors.blue
+        backgroundColor: colors.blue,
     },
     photoBox: {
         height: height / 3,
-        borderRadius: 15,
+        borderRadius: 10,
         borderWidth: 1,
         borderColor: colors.lightGray,
-        overflow: "hidden"
+        padding: 10
+    },
+    cameraBtn: {
+        flex: 1,
+        backgroundColor: colors.lightGray,
+        justifyContent: "center",
+        alignItems: "center",
     },
     button: {
         flex: 0.1,
