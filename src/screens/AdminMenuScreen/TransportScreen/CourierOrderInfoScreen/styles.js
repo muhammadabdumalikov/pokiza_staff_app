@@ -67,7 +67,7 @@ export const styles = StyleSheet.create({
         flex: 1
     },
     camera: {
-        flex: 4,
+        flex: 5,
     },
     cameraOptions: {
         flex: 2,
@@ -83,7 +83,7 @@ export const styles = StyleSheet.create({
         height: 70,
         width: 70,
         padding: 10,
-        backgroundColor: colors.lightGray
+        backgroundColor: colors.white
     },
     shot: {
         justifyContent: "center",
@@ -91,22 +91,19 @@ export const styles = StyleSheet.create({
         borderRadius: 30,
         height: 60,
         width: 60,
-        backgroundColor: "white" 
+        backgroundColor: colors.blue
     },
-    buttonContainer: {
-        flex: 1,
-        backgroundColor: "transparent",
-        flexDirection: "row",
-        margin: 20,
+    photoBox: {
+        height: height / 3,
+        borderRadius: 15,
+        borderWidth: 1,
+        borderColor: colors.lightGray,
+        overflow: "hidden"
     },
     button: {
         flex: 0.1,
         alignSelf: "flex-end",
         alignItems: "center",
-    },
-    text: {
-        fontSize: 18,
-        color: "white",
     },
     centeredView: {
         flex: 1,

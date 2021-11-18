@@ -10,7 +10,7 @@ import {
     TextInput,
     ImageBackground,
 } from "react-native";
-import { Ionicons, Entypo } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Camera } from "expo-camera";
 
 import { styles } from "./styles";
@@ -65,7 +65,7 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
     const savePhoto = () => {};
 
     const __takePicture = async () => {
-        const photo = await camera.takePictureAsync();
+        const photo = await camera.takePictureAsync({ quality: 1 });
         console.log(photo);
         setPreviewVisible(true);
         //setStartCamera(false)
@@ -294,43 +294,26 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
                                     backgroundColor: "transparent",
                                     flexDirection: "row",
                                 }}
-                            >
-                                <View
-                                    style={{
-                                        position: "absolute",
-                                        bottom: 0,
-                                        flexDirection: "row",
-                                        flex: 1,
-                                        width: "100%",
-                                        padding: 20,
-                                        justifyContent: "space-between",
-                                    }}
-                                >
-                                    <View
-                                        style={{
-                                            alignSelf: "center",
-                                            flex: 1,
-                                            alignItems: "center",
-                                        }}
-                                    >
-                                        <TouchableOpacity
-                                            onPress={__takePicture}
-                                            style={{
-                                                width: 70,
-                                                height: 70,
-                                                bottom: 0,
-                                                borderRadius: 50,
-                                                backgroundColor: "#fff",
-                                            }}
-                                        />
-                                    </View>
-                                </View>
-                            </View>
+                            ></View>
                         </Camera>
                     )}
                 </View>
 
                 <View style={styles.cameraOptions}>
+                    <TouchableOpacity
+                        style={styles.cameraOption}
+                        onPress={() => setUseCamera(false)}
+                    >
+                        <MaterialIcons name="cancel" size={32} color="black" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.cameraOption}
+                        onPress={__takePicture}
+                    >
+                        <View style={styles.shot}></View>
+                    </TouchableOpacity>
+
                     <TouchableOpacity
                         style={styles.cameraOption}
                         onPress={() => {
@@ -344,30 +327,35 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
                         <Ionicons
                             name="camera-reverse"
                             size={32}
-                            color="white"
+                            color="black"
                         />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={styles.cameraOption}
-                        onPress={__takePicture}
-                    >
-                        <View style={styles.shot}>
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={styles.cameraOption}
-                        onPress={__takePicture}
-                    >
-                        <Ionicons name="camera" size={32} color="white" />
                     </TouchableOpacity>
                 </View>
             </Modal>
 
-            <TouchableOpacity onPress={() => setUseCamera(!useCamera)}>
+            <TouchableOpacity onPress={() => setUseCamera(true)}>
                 <Text>Camera</Text>
             </TouchableOpacity>
+
+            <View style={styles.photoBox}>
+                {capturedImage ? (
+                    <ImageBackground
+                        source={{ uri: capturedImage && capturedImage.uri }}
+                        imageStyle={{ resizeMode: "contain" }}
+                        style={{ flex: 1 }}
+                    />
+                ) : (
+                    <View
+                        style={{ flex: 1, backgroundColor: colors.lightGray, justifyContent: "center", alignItems: "center" }}
+                    >
+                        <Ionicons
+                            name="camera"
+                            size={32}
+                            color="black"
+                        />
+                    </View>
+                )}
+            </View>
         </ScrollView>
     );
 };
