@@ -120,10 +120,10 @@ export const styles = StyleSheet.create({
     fontSize: {
         fontSize: 16,
     },
-    call: {
+    reset: {
         height: height / 15,
         width: "100%",
-        borderColor: colors.green,
+        borderColor: colors.red,
         borderWidth: 1,
         borderRadius: 5,
         alignSelf: "center",
@@ -131,19 +131,20 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 10,
     },
-    callTxt: {
+    resetTxt: {
         fontSize: 16,
-        color: colors.green,
+        color: colors.red,
         fontWeight: "bold",
     },
     addTxt: {
         fontSize: 16,
         color: "white",
+        fontWeight: "bold"
     },
     add: {
         height: height / 15,
         width: "100%",
-        backgroundColor: colors.blue,
+        backgroundColor: colors.lighGreen,
         borderRadius: 5,
         alignSelf: "center",
         justifyContent: "center",

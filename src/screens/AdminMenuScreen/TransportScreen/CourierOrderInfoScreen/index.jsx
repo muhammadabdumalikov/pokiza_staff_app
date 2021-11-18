@@ -359,10 +359,10 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
                 />
             </View>
 
-            <TouchableOpacity style={styles.call}>
-                <Text style={styles.callTxt}>Called</Text>
+            <TouchableOpacity style={styles.reset}>
+                <Text style={styles.resetTxt}>Reset Forms</Text>
             </TouchableOpacity>
-            
+
             <TouchableOpacity style={styles.add}>
                 <Text style={styles.addTxt}>Buyurtmani qabul qilish</Text>
             </TouchableOpacity>
