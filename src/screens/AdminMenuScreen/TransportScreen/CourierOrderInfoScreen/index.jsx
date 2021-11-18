@@ -349,6 +349,23 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
                     </View>
                 )}
             </View>
+
+            <View style={styles.comment}>
+                <Text style={styles.fontSize}>Izoh</Text>
+                <TextInput
+                    placeholder="Izoh yozish uchun joy"
+                    multiline={true}
+                    style={styles.txtInput}
+                />
+            </View>
+
+            <TouchableOpacity style={styles.call}>
+                <Text style={styles.callTxt}>Called</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.add}>
+                <Text style={styles.addTxt}>Buyurtmani qabul qilish</Text>
+            </TouchableOpacity>
         </ScrollView>
     );
 };

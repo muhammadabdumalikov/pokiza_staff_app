@@ -40,6 +40,7 @@ export const styles = StyleSheet.create({
         borderRadius: 15,
         borderWidth: 1,
         borderColor: colors.lightGray,
+        marginBottom: 16,
     },
     inputContainer: {
         height: "25%",
@@ -98,7 +99,8 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderColor: colors.lightGray,
-        padding: 10
+        padding: 10,
+        marginBottom: 16,
     },
     cameraBtn: {
         flex: 1,
@@ -106,10 +108,48 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    button: {
-        flex: 0.1,
-        alignSelf: "flex-end",
+    comment: {
+        height: height / 6,
+        paddingTop: 15,
+    },
+    txtInput: {
+        borderBottomColor: colors.lightGray,
+        borderBottomWidth: 0.5,
+        marginTop: 5,
+    },
+    fontSize: {
+        fontSize: 16,
+    },
+    call: {
+        height: height / 15,
+        width: "100%",
+        borderColor: colors.green,
+        borderWidth: 1,
+        borderRadius: 5,
+        alignSelf: "center",
+        justifyContent: "center",
         alignItems: "center",
+        marginTop: 10,
+    },
+    callTxt: {
+        fontSize: 16,
+        color: colors.green,
+        fontWeight: "bold",
+    },
+    addTxt: {
+        fontSize: 16,
+        color: "white",
+    },
+    add: {
+        height: height / 15,
+        width: "100%",
+        backgroundColor: colors.blue,
+        borderRadius: 5,
+        alignSelf: "center",
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 15,
+        marginTop: 15,
     },
     centeredView: {
         flex: 1,
