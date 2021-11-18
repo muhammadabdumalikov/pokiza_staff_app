@@ -344,14 +344,23 @@ const CourierAddOrderInfoScreen = ({ navigation }) => {
                         <Ionicons
                             name="camera-reverse"
                             size={32}
-                            color="black"
+                            color="white"
                         />
                     </TouchableOpacity>
+
                     <TouchableOpacity
                         style={styles.cameraOption}
                         onPress={__takePicture}
                     >
-                        <Ionicons name="camera" size={32} color="black" />
+                        <View style={styles.shot}>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.cameraOption}
+                        onPress={__takePicture}
+                    >
+                        <Ionicons name="camera" size={32} color="white" />
                     </TouchableOpacity>
                 </View>
             </Modal>

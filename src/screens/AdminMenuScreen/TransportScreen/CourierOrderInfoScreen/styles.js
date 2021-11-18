@@ -83,7 +83,15 @@ export const styles = StyleSheet.create({
         height: 70,
         width: 70,
         padding: 10,
-        backgroundColor: "white"
+        backgroundColor: colors.lightGray
+    },
+    shot: {
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 30,
+        height: 60,
+        width: 60,
+        backgroundColor: "white" 
     },
     buttonContainer: {
         flex: 1,
