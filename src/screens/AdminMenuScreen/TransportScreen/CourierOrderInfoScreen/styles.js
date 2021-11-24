@@ -180,10 +180,12 @@ export const styles = StyleSheet.create({
     contenModalView: {
         flex: 1,
         height: "100%",
+        backgroundColor: "white"
     },
     modalView: {
         padding: 16,
         alignItems: "center",
+        backgroundColor: "white"
     },
     buttonOpen: {
         justifyContent: "center",
