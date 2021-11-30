@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     ScrollView,
     Dimensions,
+    Alert,
 } from "react-native";
 import { AuthContext } from "../../navigation/AuthProvider";
 import { useQuery, useMutation, gql } from "@apollo/client";
@@ -45,6 +46,16 @@ const SignInScreen = ({ navigation }) => {
     const [password, setPassword] = useState("root");
     // const [loading, setLoading] = useState(true);
 
+    const confirmSecondContact = () =>
+    Alert.alert("Xatolik!", "Login yoki parol noto'g'ri kiritilgan!", [
+        {
+            text: "Qaytadan kiritish",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+        },
+        // { text: "Ha, xohlayman", onPress: () => console.log("OK Pressed") },
+    ]);
+
     const handleSubmit = () => {
         verify({
             variables: {
@@ -53,9 +64,13 @@ const SignInScreen = ({ navigation }) => {
             },
         })
             .then(({ data }) => {
+                console.log(data)
                 if (data.loginStaff.status == 200) {
                     AsyncStorage.setItem("staff_token", data.loginStaff.token);
+                } else {
+                    confirmSecondContact()
                 }
+
             })
             .catch((err) => {
                 console.log(err);
