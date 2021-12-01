@@ -77,6 +77,12 @@ const AddClientScreen = ({ navigation, route }) => {
 
     const [searchBtnVisible, setSearchBtnVisible] = useState(false);
 
+    let firstname;
+    let lastname;
+    let firstPhone;
+    let lastPhone;
+    let summary;
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -129,69 +135,6 @@ const AddClientScreen = ({ navigation, route }) => {
         { key: "4", label: "Black-list" },
     ];
 
-    const renderItem = ({ item }) => {
-        return (
-            <>
-                <View style={styles.resultBox}>
-                    <View style={styles.resultLineBox}>
-                        <View style={styles.resultId}>
-                            <Ionicons
-                                name="md-heart"
-                                size={24}
-                                color="#E50000"
-                            />
-                            <TouchableOpacity>
-                                <Text style={styles.resultIdText}>
-                                    {"001523"}
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <TouchableOpacity style={styles.locationStyle}>
-                            <Entypo
-                                name="location-pin"
-                                size={24}
-                                color="black"
-                            />
-                        </TouchableOpacity>
-                    </View>
-                    <View
-                        style={{
-                            ...styles.resultLineBox,
-                            borderBottomWidth: 0,
-                        }}
-                    >
-                        <TouchableOpacity>
-                            <Text style={styles.resultFullName}>
-                                {`${item.clientInfo.firstName} ${item.clientInfo.lastName}`}
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            {item.clientInfo.mainContact}
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            {item.clientInfo.secondContact}
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            ...styles.resultLineBox,
-                            borderBottomWidth: 0,
-                        }}
-                    >
-                        <Text style={styles.resultPhoneNumbers}>
-                            Yoshi: {item.clientInfo.age}
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Jinsi:{" "}
-                            {item.clientInfo.gender == 1 ? "Erkak" : "Ayol"}
-                        </Text>
-                    </View>
-                </View>
-            </>
-        );
-    };
     const modalStatus = ({ item }) => {
         return (
             <TouchableOpacity
@@ -273,35 +216,42 @@ const AddClientScreen = ({ navigation, route }) => {
                     />
                 </View>
             ) : (
-                <View style={{ height: "100%" }}>
-                    <View style={styles.content}>
-                        {/* Name input --------------------------------------------------------------- */}
-                        <View
-                            style={{
-                                ...styles.inputContainer,
-                                marginBottom: 16,
-                            }}
-                            behavior={
-                                Platform.OS === "ios" ? "padding" : "height"
-                            }
-                        >
-                            <View style={styles.preTextWrapperStyle}>
-                                <Text style={styles.preText}>Ism</Text>
+                <>
+                    <ScrollView
+                        style={styles.container}
+                        contentContainerStyle={styles.contentStyle}
+                        showsVerticalScrollIndicator={false}
+                    >
+                        <View style={styles.content}>
+                            {/* Name input --------------------------------------------------------------- */}
+                            <View
+                                style={{
+                                    ...styles.inputContainer,
+                                    marginBottom: 16,
+                                }}
+                                behavior={
+                                    Platform.OS === "ios" ? "padding" : "height"
+                                }
+                            >
+                                <View style={styles.preTextWrapperStyle}>
+                                    <Text style={styles.preText}>Ism</Text>
+                                </View>
+                                <TextInput
+                                    style={styles.input}
+                                    numberOfLines={1}
+                                    placeholder="Ism kiriting"
+                                    placeholderTextColor="#B8B8BB"
+                                    onChangeText={(value) =>
+                                        (firstname = value)
+                                    }
+                                    keyboardType="default"
+                                    // autoFocus={true}
+                                    maxLength={9}
+                                />
                             </View>
-                            <TextInput
-                                style={styles.input}
-                                numberOfLines={1}
-                                placeholder="Ism kiriting"
-                                placeholderTextColor="#B8B8BB"
-                                onChangeText={(value) => (firstname = value)}
-                                keyboardType="default"
-                                // autoFocus={true}
-                                maxLength={9}
-                            />
-                        </View>
 
-                        {/* Surname input --------------------------------------------------------------- */}
-                        <View
+                            {/* Surname input --------------------------------------------------------------- */}
+                            <View
                                 style={{
                                     ...styles.inputContainer,
                                     marginBottom: 16,
@@ -318,69 +268,163 @@ const AddClientScreen = ({ navigation, route }) => {
                                     numberOfLines={1}
                                     placeholder="Familiya kiriting"
                                     placeholderTextColor="#B8B8BB"
-                                    onChangeText={(value) =>
-                                        (firstname = value)
-                                    }
+                                    onChangeText={(value) => (lastname = value)}
                                     keyboardType="default"
                                     // autoFocus={true}
                                     maxLength={9}
                                 />
                             </View>
 
-                        {/* Status input --------------------------------------------------------- */}
-                        <View style={styles.pickerWrapper}>
-                            <View style={styles.preTextWrapperStyle}>
-                                <Text style={styles.preText}>Holati</Text>
-                            </View>
-                            <Modal
-                                animationType="slide"
-                                transparent={true}
-                                visible={statusModalVisible}
-                                onRequestClose={() => {
-                                    setStatusModalVisible(!statusModalVisible);
-                                }}
-                            >
-                                <View style={styles.centeredView}>
-                                    <View style={styles.modalWrapper}>
-                                        <FlatList
-                                            data={clientStatus}
-                                            renderItem={modalStatus}
-                                            keyExtractor={(item) => item.key}
-                                            contentContainerStyle={
-                                                styles.modalView
-                                            }
-                                            style={styles.contenModalView}
-                                            showsVerticalScrollIndicator={false}
-                                        />
-                                    </View>
-                                    <Pressable
-                                        style={styles.buttonClose}
-                                        onPress={() =>
-                                            setStatusModalVisible(
-                                                !statusModalVisible
-                                            )
-                                        }
-                                    >
-                                        <Text style={styles.hideModalButton}>
-                                            Hide Modal
-                                        </Text>
-                                    </Pressable>
-                                </View>
-                            </Modal>
-                            <Pressable
-                                style={styles.buttonOpen}
-                                onPress={() => setStatusModalVisible(true)}
-                            >
-                                <Text style={styles.textStyle}>
-                                    {selectedStatus != undefined
-                                        ? selectedStatus.label
-                                        : "Add Status"}
+                            {/* First Phone Num input --------------------------------------------------------------- */}
+                            <View style={styles.phoneTxtWrapper}>
+                                <Text style={styles.phoneTxt}>
+                                    1 - Telefon raqam:
                                 </Text>
-                            </Pressable>
-                        </View>
+                            </View>
+                            <View
+                                style={{
+                                    ...styles.inputContainer,
+                                    marginBottom: 16,
+                                    flexDirection: "column",
+                                }}
+                                behavior={
+                                    Platform.OS === "ios" ? "padding" : "height"
+                                }
+                            >
+                                <TextInput
+                                    style={styles.input}
+                                    numberOfLines={1}
+                                    placeholder="Telefon raqam kiriting"
+                                    placeholderTextColor="#B8B8BB"
+                                    onChangeText={(value) =>
+                                        (firstPhone = value)
+                                    }
+                                    keyboardType="phone-pad"
+                                    // autoFocus={true}
+                                    maxLength={9}
+                                />
+                            </View>
 
-                        {/* Age input ------------------------------------------------------------------- */}
-                        {/* <View
+                            {/* Second Phone Num input --------------------------------------------------------------- */}
+                            <View style={styles.phoneTxtWrapper}>
+                                <Text style={styles.phoneTxt}>
+                                    2 - Telefon raqam:
+                                </Text>
+                            </View>
+                            <View
+                                style={{
+                                    ...styles.inputContainer,
+                                    marginBottom: 16,
+                                    flexDirection: "column",
+                                }}
+                                behavior={
+                                    Platform.OS === "ios" ? "padding" : "height"
+                                }
+                            >
+                                <TextInput
+                                    style={styles.input}
+                                    numberOfLines={1}
+                                    placeholder="Telefon raqam kiriting"
+                                    placeholderTextColor="#B8B8BB"
+                                    onChangeText={(value) =>
+                                        (lastPhone = value)
+                                    }
+                                    keyboardType="phone-pad"
+                                    // autoFocus={true}
+                                    maxLength={9}
+                                />
+                            </View>
+
+                            {/* Status input --------------------------------------------------------- */}
+                            <View style={styles.pickerWrapper}>
+                                <View style={styles.preTextWrapperStyle}>
+                                    <Text style={styles.preText}>Holati</Text>
+                                </View>
+                                <Modal
+                                    animationType="slide"
+                                    transparent={true}
+                                    visible={statusModalVisible}
+                                    onRequestClose={() => {
+                                        setStatusModalVisible(
+                                            !statusModalVisible
+                                        );
+                                    }}
+                                >
+                                    <View style={styles.centeredView}>
+                                        <View style={styles.modalWrapper}>
+                                            <FlatList
+                                                data={clientStatus}
+                                                renderItem={modalStatus}
+                                                keyExtractor={(item) =>
+                                                    item.key
+                                                }
+                                                contentContainerStyle={
+                                                    styles.modalView
+                                                }
+                                                style={styles.contenModalView}
+                                                showsVerticalScrollIndicator={
+                                                    false
+                                                }
+                                            />
+                                        </View>
+                                        <Pressable
+                                            style={styles.buttonClose}
+                                            onPress={() =>
+                                                setStatusModalVisible(
+                                                    !statusModalVisible
+                                                )
+                                            }
+                                        >
+                                            <Text
+                                                style={styles.hideModalButton}
+                                            >
+                                                Hide Modal
+                                            </Text>
+                                        </Pressable>
+                                    </View>
+                                </Modal>
+                                <Pressable
+                                    style={styles.buttonOpen}
+                                    onPress={() => setStatusModalVisible(true)}
+                                >
+                                    <Text style={styles.textStyle}>
+                                        {selectedStatus != undefined
+                                            ? selectedStatus.label
+                                            : "Add Status"}
+                                    </Text>
+                                </Pressable>
+                            </View>
+
+                            {/* Second Phone Num input --------------------------------------------------------------- */}
+                            <View style={styles.phoneTxtWrapper}>
+                                <Text style={{ color: "black", fontSize: 16 }}>
+                                    Mijoz haqida izoh
+                                </Text>
+                            </View>
+                            <View
+                                style={{
+                                    ...styles.inputContainer,
+                                    marginBottom: 16,
+                                    flexDirection: "column",
+                                }}
+                                behavior={
+                                    Platform.OS === "ios" ? "padding" : "height"
+                                }
+                            >
+                                <TextInput
+                                    style={styles.input}
+                                    numberOfLines={1}
+                                    placeholder="Izoh qoldiring"
+                                    placeholderTextColor="#B8B8BB"
+                                    onChangeText={(value) => (summary = value)}
+                                    keyboardType="default"
+                                    // autoFocus={true}
+                                    maxLength={9}
+                                />
+                            </View>
+
+                            {/* Age input ------------------------------------------------------------------- */}
+                            {/* <View
                                 style={styles.inputContainer}
                                 behavior={
                                     Platform.OS === "ios" ? "padding" : "height"
@@ -400,8 +444,8 @@ const AddClientScreen = ({ navigation, route }) => {
                                 />
                             </View> */}
 
-                        {/* Slider ----------------------------------------------------------- */}
-                        {/* <View style={sliderStyles.viewContainer}>
+                            {/* Slider ----------------------------------------------------------- */}
+                            {/* <View style={sliderStyles.viewContainer}>
                                 <View style={sliderStyles.sliderWrapper}>
                                     <View style={sliderStyles.labelWrapper}>
                                         <Text style={sliderStyles.labelText}>
@@ -473,69 +517,79 @@ const AddClientScreen = ({ navigation, route }) => {
                                 </View>
                             </View> */}
 
-                        {/* Branch input ----------------------------------------------------------- */}
-                        <View style={styles.pickerWrapper}>
-                            <View style={styles.preTextWrapperStyle}>
-                                <Text style={styles.preText}>
-                                    Filial bo'yicha
+                            <View style={styles.phoneTxtWrapper}>
+                                <Text style={styles.addressTxt}>
+                                    Mijoz manzili:
                                 </Text>
                             </View>
-                            <Modal
-                                animationType="slide"
-                                transparent={true}
-                                visible={stateModalVisible}
-                                onRequestClose={() => {
-                                    setStateModalVisible(!stateModalVisible);
-                                }}
-                            >
-                                <View style={styles.centeredView}>
-                                    <View style={styles.modalWrapper}>
-                                        <FlatList
-                                            data={states.states}
-                                            renderItem={modalState}
-                                            keyExtractor={(item) =>
-                                                item.stateId
-                                            }
-                                            contentContainerStyle={
-                                                styles.modalView
-                                            }
-                                            style={styles.contenModalView}
-                                            showsVerticalScrollIndicator={false}
-                                        />
-                                    </View>
-                                    <Pressable
-                                        style={[
-                                            styles.button,
-                                            styles.buttonClose,
-                                        ]}
-                                        onPress={() =>
-                                            setStateModalVisible(
-                                                !stateModalVisible
-                                            )
-                                        }
-                                    >
-                                        <Text style={styles.hideModalButton}>
-                                            Hide Modal
-                                        </Text>
-                                    </Pressable>
-                                </View>
-                            </Modal>
-                            <Pressable
-                                style={styles.buttonOpen}
-                                onPress={() => setStateModalVisible(true)}
-                            >
-                                <Text style={styles.textStyle}>
-                                    {selectedState != undefined
-                                        ? selectedState.stateName
-                                        : "Add State"}
-                                </Text>
-                            </Pressable>
-                        </View>
 
-                        {/* Region input --------------------------------------------
+                            {/* State input ----------------------------------------------------------- */}
                             <View style={styles.pickerWrapper}>
                                 <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Address</Text>
+                                    <Text style={styles.preText}>Viloyat</Text>
+                                </View>
+                                <Modal
+                                    animationType="slide"
+                                    transparent={true}
+                                    visible={stateModalVisible}
+                                    onRequestClose={() => {
+                                        setStateModalVisible(
+                                            !stateModalVisible
+                                        );
+                                    }}
+                                >
+                                    <View style={styles.centeredView}>
+                                        <View style={styles.modalWrapper}>
+                                            <FlatList
+                                                data={states.states}
+                                                renderItem={modalState}
+                                                keyExtractor={(item) =>
+                                                    item.stateId
+                                                }
+                                                contentContainerStyle={
+                                                    styles.modalView
+                                                }
+                                                style={styles.contenModalView}
+                                                showsVerticalScrollIndicator={
+                                                    false
+                                                }
+                                            />
+                                        </View>
+                                        <Pressable
+                                            style={[
+                                                styles.button,
+                                                styles.buttonClose,
+                                            ]}
+                                            onPress={() =>
+                                                setStateModalVisible(
+                                                    !stateModalVisible
+                                                )
+                                            }
+                                        >
+                                            <Text
+                                                style={styles.hideModalButton}
+                                            >
+                                                Hide Modal
+                                            </Text>
+                                        </Pressable>
+                                    </View>
+                                </Modal>
+                                <Pressable
+                                    style={styles.buttonOpen}
+                                    onPress={() => setStateModalVisible(true)}
+                                >
+                                    <Text style={styles.textStyle}>
+                                        {selectedState != undefined
+                                            ? selectedState.stateName
+                                            : "Add State"}
+                                    </Text>
+                                </Pressable>
+                            </View>
+
+                            {/* Region input -------------------------------------------- */}
+                            <View style={styles.pickerWrapper}>
+                                <View style={styles.preTextWrapperStyle}>
+                                    <Text style={styles.preText}>Shahar/Tuman</Text>
                                 </View>
                                 <Modal
                                     animationType="slide"
@@ -597,10 +651,10 @@ const AddClientScreen = ({ navigation, route }) => {
                                             : "Add Region"}
                                     </Text>
                                 </Pressable>
-                            </View> */}
+                            </View>
 
-                        {/* Gender input -------------------------------------------------------------- */}
-                        {/* <View
+                            {/* Gender input -------------------------------------------------------------- */}
+                            {/* <View
                                 style={{
                                     ...styles.pickerWrapper,
                                     marginBottom: 24,
@@ -671,43 +725,18 @@ const AddClientScreen = ({ navigation, route }) => {
                                     </Text>
                                 </Pressable>
                             </View> */}
-                    </View>
+                        </View>
 
-                    <FlatList
-                        data={
-                            clients.clients != undefined ? clients.clients : []
-                        }
-                        keyExtractor={(item) => item.clientId}
-                        renderItem={renderItem}
-                        style={styles.container}
-                        contentContainerStyle={styles.contentStyle}
-                        showsVerticalScrollIndicator={false}
-                    />
-                    {/* Result box of staffs ------------------------------------------------------- */}
+                        {/* Result box of staffs ------------------------------------------------------- */}
 
-                    {/* // Custom component */}
-                    {/* <ModalSelector
-                    data={data}
-                    ref={(selector) => {
-                        this.selector = selector;
-                    }}
-                    customSelector={
-                        <Switch onValueChange={() => this.selector.open()} />
-                    }
-                /> */}
+                    </ScrollView>
                     <TouchableOpacity
                         style={styles.fab}
                         onPress={() => navigation.goBack()}
                     >
                         <Feather name="arrow-left" size={28} color="white" />
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.fab2}
-                        onPress={() => navigation.goBack()}
-                    >
-                        <Feather name="user-plus" size={28} color="white" />
-                    </TouchableOpacity>
-                </View>
+                </>
             )}
         </>
     );

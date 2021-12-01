@@ -30,11 +30,11 @@ export const sliderStyles = StyleSheet.create({
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
         height: "100%",
     },
     contentStyle: {
         paddingVertical: 16,
+        paddingBottom: 100
     },
     searchBoxWrapper: {
         height: height / 22.55,
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#E5E5E7",
         borderRadius: 10,
-        paddingHorizontal: 16
+        paddingHorizontal: 16,
     },
     searchBox: {
         height: "100%",
@@ -99,6 +99,20 @@ export const styles = StyleSheet.create({
     },
     preText: {
         fontSize: 16,
+    },
+    phoneTxtWrapper: {
+        height: height / 15,
+        paddingHorizontal: 16,
+        justifyContent: "center",
+    },
+    phoneTxt: {
+        color: colors.gray,
+        fontSize: 16,
+    },
+    addressTxt: {
+        color: "black",
+        fontSize: 16,
+        fontWeight: "bold"
     },
     input: {
         width: "100%",
@@ -181,7 +195,7 @@ export const styles = StyleSheet.create({
         padding: 2,
         borderWidth: 1,
         borderColor: colors.lightGray,
-        borderRadius: 10
+        borderRadius: 10,
     },
     resultFullName: {
         fontSize: 16,
@@ -234,10 +248,10 @@ export const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
         overflow: "hidden",
-        marginBottom: 10 
+        marginBottom: 10,
     },
-    genderModalWrapper:{
-        height: "15%"
+    genderModalWrapper: {
+        height: "15%",
     },
     contenModalView: {
         flex: 1,
@@ -245,11 +259,11 @@ export const styles = StyleSheet.create({
     },
     modalView: {
         padding: 16,
-        alignItems: "center", 
+        alignItems: "center",
     },
     buttonOpen: {
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     buttonClose: {
         backgroundColor: "#2196F3",
@@ -261,13 +275,13 @@ export const styles = StyleSheet.create({
         elevation: 2,
     },
     textStyle: {
-        color: 'gray',
+        color: "gray",
         textAlign: "center",
     },
     modalText: {
         textAlign: "center",
     },
     hideModalButton: {
-        color: "white"
-    }
+        color: "white",
+    },
 });
