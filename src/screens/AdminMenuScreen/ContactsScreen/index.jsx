@@ -142,9 +142,20 @@ const ContactsScreen = ({ navigation, route }) => {
                             />
                             <Text style={styles.resultIdText}>{"001523"}</Text>
                         </View>
-                        <Entypo name="location-pin" size={24} color="black" />
+                        <TouchableOpacity style={styles.locationStyle}>
+                            <Entypo
+                                name="location-pin"
+                                size={24}
+                                color="black"
+                            />
+                        </TouchableOpacity>
                     </View>
-                    <View style={styles.resultLineBox}>
+                    <View
+                        style={{
+                            ...styles.resultLineBox,
+                            borderBottomWidth: 0,
+                        }}
+                    >
                         <Text style={styles.resultFullName}>
                             {`${item.clientInfo.firstName} ${item.clientInfo.lastName}`}
                         </Text>
@@ -157,13 +168,18 @@ const ContactsScreen = ({ navigation, route }) => {
                             {item.clientInfo.secondContact}
                         </Text>
                     </View>
-                    <View style={styles.resultLineBox}>
+                    <View
+                        style={{
+                            ...styles.resultLineBox,
+                            borderBottomWidth: 0,
+                        }}
+                    >
                         <Text style={styles.resultPhoneNumbers}>
-                            Age: {item.clientInfo.age}
+                            Yoshi: {item.clientInfo.age}
                         </Text>
                         <Text style={styles.resultPhoneNumbers}>
-                            Gender:{" "}
-                            {item.clientInfo.gender == 1 ? "Male" : "Female"}
+                            Jinsi:{" "}
+                            {item.clientInfo.gender == 1 ? "Erkak" : "Ayol"}
                         </Text>
                     </View>
                 </View>
@@ -488,7 +504,9 @@ const ContactsScreen = ({ navigation, route }) => {
                             {/* Branch input ----------------------------------------------------------- */}
                             <View style={styles.pickerWrapper}>
                                 <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Filial bo'yicha</Text>
+                                    <Text style={styles.preText}>
+                                        Filial bo'yicha
+                                    </Text>
                                 </View>
                                 <Modal
                                     animationType="slide"
@@ -687,7 +705,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                     </Text>
                                 </Pressable>
                             </View> */}
-                            
+
                             {/* Reset Filter Button ------------------------------------------------ */}
                             <View style={styles.resetWrapper}>
                                 <TouchableOpacity
@@ -743,11 +761,13 @@ const ContactsScreen = ({ navigation, route }) => {
                         style={styles.fab}
                         onPress={() => navigation.goBack()}
                     >
-                        <Ionicons
-                            name="ios-arrow-back"
-                            size={28}
-                            color="white"
-                        />
+                        <Feather name="arrow-left" size={28} color="white" />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.fab2}
+                        onPress={() => navigation.goBack()}
+                    >
+                        <Feather name="user-plus" size={28} color="white" />
                     </TouchableOpacity>
                 </View>
             )}

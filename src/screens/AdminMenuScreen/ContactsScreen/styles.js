@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { colors } from "../../../constants/color";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -164,7 +165,7 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between",
         paddingHorizontal: 16,
         backgroundColor: "white",
-        borderBottomWidth: 0.5,
+        borderBottomWidth: 1,
         borderBottomColor: "#EDEDED",
     },
     resultId: {
@@ -175,6 +176,12 @@ export const styles = StyleSheet.create({
     resultIdText: {
         fontSize: 16,
         fontWeight: "bold",
+    },
+    locationStyle: {
+        padding: 2,
+        borderWidth: 1,
+        borderColor: colors.lightGray,
+        borderRadius: 10
     },
     resultFullName: {
         flex: 1,
@@ -196,6 +203,17 @@ export const styles = StyleSheet.create({
         position: "absolute",
         bottom: 28,
         left: 24,
+        backgroundColor: "#2196F3",
+    },
+    fab2: {
+        width: 64,
+        height: 64,
+        borderRadius: 32,
+        justifyContent: "center",
+        alignItems: "center",
+        position: "absolute",
+        bottom: 28,
+        right: 24,
         backgroundColor: "#2196F3",
     },
     centeredView: {
