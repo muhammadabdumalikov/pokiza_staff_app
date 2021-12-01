@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
         backgroundColor: "#fff"
     },
     firstBox: {
-        height: height /3.98,
+        height: height /3.18,
         justifyContent: "space-between",
         borderRadius: 15,
         backgroundColor: "#fff",

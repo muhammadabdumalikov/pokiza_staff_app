@@ -28,6 +28,7 @@ export const Routes = () => {
     return (
         <NavigationContainer>
             {!token ? <SignInScreen /> : <AppStack />}
+            {/* <AppStack/> */}
         </NavigationContainer>
     );
 };
