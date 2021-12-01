@@ -16,7 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Collapsible from "react-native-collapsible";
 import ModalSelector from "react-native-modal-selector";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
-import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Entypo, Ionicons, Feather } from "@expo/vector-icons";
 
 import { request } from "../../../helpers/request";
 import { sliderStyles, styles } from "./styles";
@@ -255,6 +255,19 @@ const ContactsScreen = ({ navigation, route }) => {
                         style={styles.filterBox}
                     >
                         <Text style={styles.headerText}>Filter by</Text>
+                        {collapsed ? (
+                            <Feather
+                                name="chevron-down"
+                                size={28}
+                                color="black"
+                            />
+                        ) : (
+                            <Feather
+                                name="chevron-up"
+                                size={28}
+                                color="black"
+                            />
+                        )}
                         {/*Heading of Single Collapsible*/}
                     </TouchableOpacity>
                     <Collapsible

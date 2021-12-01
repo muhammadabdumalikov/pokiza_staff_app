@@ -37,8 +37,10 @@ export const styles = StyleSheet.create({
     },
     filterBox: {
         height: height / 20,
-        width: width / 5,
-        justifyContent: "center",
+        paddingHorizontal: 16,
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-between",
         alignItems: "center",
     },
     headerText: {
