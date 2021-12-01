@@ -140,7 +140,11 @@ const ContactsScreen = ({ navigation, route }) => {
                                 size={24}
                                 color="#E50000"
                             />
-                            <Text style={styles.resultIdText}>{"001523"}</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.resultIdText}>
+                                    {"001523"}
+                                </Text>
+                            </TouchableOpacity>
                         </View>
                         <TouchableOpacity style={styles.locationStyle}>
                             <Entypo
@@ -156,9 +160,11 @@ const ContactsScreen = ({ navigation, route }) => {
                             borderBottomWidth: 0,
                         }}
                     >
-                        <Text style={styles.resultFullName}>
-                            {`${item.clientInfo.firstName} ${item.clientInfo.lastName}`}
-                        </Text>
+                        <TouchableOpacity>
+                            <Text style={styles.resultFullName}>
+                                {`${item.clientInfo.firstName} ${item.clientInfo.lastName}`}
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.resultLineBox}>
                         <Text style={styles.resultPhoneNumbers}>

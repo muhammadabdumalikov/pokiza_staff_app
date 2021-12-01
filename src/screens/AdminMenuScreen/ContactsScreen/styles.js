@@ -184,14 +184,12 @@ export const styles = StyleSheet.create({
         borderRadius: 10
     },
     resultFullName: {
-        flex: 1,
-        textAlign: "center",
         fontSize: 16,
         fontWeight: "bold",
+        textAlign: "center",
     },
     resultPhoneNumbers: {
         flex: 1,
-        textAlign: "center",
         fontSize: 16,
     },
     fab: {
