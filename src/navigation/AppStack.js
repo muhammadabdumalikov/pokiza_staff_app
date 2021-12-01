@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, Dimensions } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
     Ionicons,
@@ -11,7 +11,6 @@ import {
 } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import { Dimensions } from "react-native";
 import AdminMenuScreen from "../screens/AdminMenuScreen";
 import ContactsScreen from "../screens/AdminMenuScreen/ContactsScreen";
 import { AuthContext } from "./AuthProvider";
@@ -30,13 +29,22 @@ import SearchScreen from "../screens/SearchScreen";
 import NoticesScreen from "../screens/NotificationScreen";
 import TransportCourierOrderScreen from "../screens/AdminMenuScreen/TransportScreen/TransporCourierOrderScreen";
 import CourierAddOrderInfoScreen from "../screens/AdminMenuScreen/TransportScreen/CourierOrderInfoScreen";
+import CallButton from "../components/callButton";
+import LogoImage from "../components/LogoImage";
+import AddClientScreen from "../screens/AdminMenuScreen/ContactsScreen/AddClientScreen";
 
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
+
 const MenuStack = ({ navigation, route }) => {
     return (
-        <Stack.Navigator screenOptions={{}}>
+        <Stack.Navigator
+            screenOptions={{
+            }}
+        >
             <Stack.Screen
                 name="AdminMenuScreen"
                 component={AdminMenuScreen}
@@ -58,26 +66,42 @@ const MenuStack = ({ navigation, route }) => {
                 name="ContactsScreen"
                 component={ContactsScreen}
                 options={({ route }) => ({
+                    headerTitle: "Mijoz qo'shish bo'limi",
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 18,
-                        top: 25,
+                        top: 35,
                         textAlign: "center",
                     },
                     headerStyle: {
+                        backgroundColor: "#F4F4F5",
                         shadowColor: "#fff",
                         elevation: 0,
-                        height: Dimensions.get("window").height / 5.8,
+                        height: height * 0.18,
                     },
-                    // title: route.params.id,
-                    headerRight: () => (
-                        <TouchableOpacity
-                            style={{ marginRight: 20, marginTop: 40 }}
-                        >
-                            <Feather name="phone" size={24} color="#007AFF" />
-                        </TouchableOpacity>
-                    ),
-                    headerLeft: () => null,
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
+                })}
+            />
+            <Stack.Screen
+                name="AddClientScreen"
+                component={AddClientScreen}
+                options={({ route }) => ({
+                    headerTitle: "Mijoz qo'shish bo'limi",
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        top: 35,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        backgroundColor: "#F4F4F5",
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        height: height * 0.2,
+                    },
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
                 })}
             />
             <Stack.Screen
@@ -120,7 +144,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerLeft: () => null,
                 })}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="TransportScreen"
                 component={TransportScreen}
                 options={({ route }) => ({
@@ -133,7 +157,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        backgroundColor: "#F5F5F5"
+                        backgroundColor: "#F5F5F5",
                         // height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
@@ -141,7 +165,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerLeft: () => null,
                 })}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="TransportDetailScreen"
                 component={TransportDetailScreen}
                 options={({ route }) => ({
@@ -154,7 +178,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        backgroundColor: "#F5F5F5"
+                        backgroundColor: "#F5F5F5",
                         // height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
@@ -162,7 +186,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerLeft: () => null,
                 })}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="ReadyProductDetailScreen"
                 component={ReadyProductDetailScreen}
                 options={({ route }) => ({
@@ -175,7 +199,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        backgroundColor: "#F5F5F5"
+                        backgroundColor: "#F5F5F5",
                         // height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
@@ -196,7 +220,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        backgroundColor: "#F5F5F5"
+                        backgroundColor: "#F5F5F5",
                         // height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
@@ -204,7 +228,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerLeft: () => null,
                 })}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="Transport2"
                 component={Transport2}
                 options={({ route }) => ({
@@ -217,7 +241,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        backgroundColor: "#F5F5F5"
+                        backgroundColor: "#F5F5F5",
                         // height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
@@ -259,7 +283,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        backgroundColor: "#F5F5F5"
+                        backgroundColor: "#F5F5F5",
                         // height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
@@ -280,7 +304,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        backgroundColor: "#F5F5F5"
+                        backgroundColor: "#F5F5F5",
                         // height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
@@ -301,7 +325,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        backgroundColor: "#F5F5F5"
+                        backgroundColor: "#F5F5F5",
                         // height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
@@ -483,7 +507,7 @@ const AppStack = (route) => {
                 tabBarStyle: {
                     height: Dimensions.get("window").height / 9.78,
                     paddingBottom: 20,
-                }, 
+                },
             }}
         >
             <StaffTab.Screen
