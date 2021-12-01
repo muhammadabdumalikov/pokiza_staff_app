@@ -35,6 +35,28 @@ export const styles = StyleSheet.create({
     contentStyle: {
         paddingVertical: 16,
     },
+    searchBoxWrapper: {
+        height: height / 22.55,
+        margin: 16,
+        marginBottom: 0,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "#E5E5E7",
+        borderRadius: 10,
+        paddingHorizontal: 16
+    },
+    searchBox: {
+        height: "100%",
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    searchBtn: {
+        paddingRight: 5,
+        height: "80%",
+        justifyContent: "center",
+        alignItems: "center",
+    },
     filterBox: {
         height: height / 20,
         paddingHorizontal: 16,

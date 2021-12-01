@@ -75,6 +75,8 @@ const ContactsScreen = ({ navigation, route }) => {
     const [regionModalVisible, setRegionModalVisible] = useState(false);
     const [genderModalVisible, setGenderModalVisible] = useState(false);
 
+    const [searchBtnVisible, setSearchBtnVisible] = useState(false);
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -250,6 +252,32 @@ const ContactsScreen = ({ navigation, route }) => {
                 </View>
             ) : (
                 <View style={{ height: "100%" }}>
+                    <View style={styles.searchBoxWrapper}>
+                        <View style={styles.searchBox}>
+                            <Feather
+                                name="search"
+                                size={18}
+                                color="black"
+                                style={{ marginRight: 5 }}
+                            />
+                            <TextInput
+                                placeholder="Search"
+                                onFocus={() => setSearchBtnVisible(true)}
+                            />
+                        </View>
+                        {searchBtnVisible ? (
+                            <TouchableOpacity
+                                style={styles.searchBtn}
+                                onPress={() => setSearchBtnVisible(false)}
+                            >
+                                <Feather
+                                    name="x-circle"
+                                    size={18}
+                                    color="black"
+                                />
+                            </TouchableOpacity>
+                        ) : null}
+                    </View>
                     <TouchableOpacity
                         onPress={toggleExpanded}
                         style={styles.filterBox}
