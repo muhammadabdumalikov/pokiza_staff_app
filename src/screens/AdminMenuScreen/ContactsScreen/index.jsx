@@ -261,7 +261,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                 style={{ marginRight: 5 }}
                             />
                             <TextInput
-                                placeholder="Search"
+                                placeholder="Mijozlar ma'lumotlarini qidirish"
                                 onFocus={() => setSearchBtnVisible(true)}
                             />
                         </View>
@@ -282,7 +282,7 @@ const ContactsScreen = ({ navigation, route }) => {
                         onPress={toggleExpanded}
                         style={styles.filterBox}
                     >
-                        <Text style={styles.headerText}>Filter by</Text>
+                        <Text style={styles.headerText}>Filter</Text>
                         {collapsed ? (
                             <Feather
                                 name="chevron-down"
@@ -308,7 +308,7 @@ const ContactsScreen = ({ navigation, route }) => {
 
                             <View style={styles.pickerWrapper}>
                                 <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Status</Text>
+                                    <Text style={styles.preText}>Holati</Text>
                                 </View>
                                 <Modal
                                     animationType="slide"
@@ -365,7 +365,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                 </Pressable>
                             </View>
 
-                            {/* Name input --------------------------------------------------------------- */}
+                            {/* Name input ---------------------------------------------------------------
                             <View
                                 style={{
                                     ...styles.inputContainer,
@@ -390,9 +390,9 @@ const ContactsScreen = ({ navigation, route }) => {
                                     // autoFocus={true}
                                     maxLength={9}
                                 />
-                            </View>
+                            </View> */}
                             {/* Age input ------------------------------------------------------------------- */}
-                            <View
+                            {/* <View
                                 style={styles.inputContainer}
                                 behavior={
                                     Platform.OS === "ios" ? "padding" : "height"
@@ -410,10 +410,10 @@ const ContactsScreen = ({ navigation, route }) => {
                                     // autoFocus={true}
                                     maxLength={9}
                                 />
-                            </View>
+                            </View> */}
 
                             {/* Slider ----------------------------------------------------------- */}
-                            <View style={sliderStyles.viewContainer}>
+                            {/* <View style={sliderStyles.viewContainer}>
                                 <View style={sliderStyles.sliderWrapper}>
                                     <View style={sliderStyles.labelWrapper}>
                                         <Text style={sliderStyles.labelText}>
@@ -483,12 +483,12 @@ const ContactsScreen = ({ navigation, route }) => {
                                         </Text>
                                     </View>
                                 </View>
-                            </View>
+                            </View> */}
 
-                            {/* State input ----------------------------------------------------------- */}
+                            {/* Branch input ----------------------------------------------------------- */}
                             <View style={styles.pickerWrapper}>
                                 <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>State</Text>
+                                    <Text style={styles.preText}>Filial bo'yicha</Text>
                                 </View>
                                 <Modal
                                     animationType="slide"
@@ -548,7 +548,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                 </Pressable>
                             </View>
 
-                            {/* Region input -------------------------------------------- */}
+                            {/* Region input --------------------------------------------
                             <View style={styles.pickerWrapper}>
                                 <View style={styles.preTextWrapperStyle}>
                                     <Text style={styles.preText}>Address</Text>
@@ -613,10 +613,10 @@ const ContactsScreen = ({ navigation, route }) => {
                                             : "Add Region"}
                                     </Text>
                                 </Pressable>
-                            </View>
+                            </View> */}
 
                             {/* Gender input -------------------------------------------------------------- */}
-                            <View
+                            {/* <View
                                 style={{
                                     ...styles.pickerWrapper,
                                     marginBottom: 24,
@@ -686,7 +686,8 @@ const ContactsScreen = ({ navigation, route }) => {
                                             : "Add Gender"}
                                     </Text>
                                 </Pressable>
-                            </View>
+                            </View> */}
+                            
                             {/* Reset Filter Button ------------------------------------------------ */}
                             <View style={styles.resetWrapper}>
                                 <TouchableOpacity
@@ -699,16 +700,18 @@ const ContactsScreen = ({ navigation, route }) => {
                                     }}
                                 >
                                     <Text style={styles.resetText}>
-                                        Reset Filter
+                                        Filterni tozalash
                                     </Text>
                                 </TouchableOpacity>
                             </View>
                             {/* Hide Filter Button ------------------------------------------------------ */}
                             <View style={styles.hideButtonWrapper}>
                                 <TouchableOpacity onPress={toggleExpanded}>
-                                    <Text style={styles.hideButtonText}>
-                                        Hide Filter
-                                    </Text>
+                                    <Feather
+                                        name="chevron-up"
+                                        size={28}
+                                        color="black"
+                                    />
                                 </TouchableOpacity>
                             </View>
                         </View>
