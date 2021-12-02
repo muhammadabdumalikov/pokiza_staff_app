@@ -15,13 +15,11 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Collapsible from "react-native-collapsible";
 import ModalSelector from "react-native-modal-selector";
-import MultiSlider from "@ptomasroos/react-native-multi-slider";
-import { Entypo, Ionicons, Feather } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 import { request } from "../../../helpers/request";
 import { sliderStyles, styles } from "./styles";
-
-const height = Dimensions.get("window").height;
+import CardComponent from "./CardComponent";
 
 const ContactsScreen = ({ navigation, route }) => {
     const ALL_CLIENTS_QUERY = `query($clientStatus: Int! = 1, $age: Int = null, $gender: Int = null){
@@ -113,7 +111,6 @@ const ContactsScreen = ({ navigation, route }) => {
     const toggleExpanded = () => {
         setCollapsed(!collapsed);
     };
-    const multiSliderValuesChange = (values) => setMultiSliderValue(values);
 
     const genderData = [
         { key: "1", label: "Male" },
@@ -129,69 +126,6 @@ const ContactsScreen = ({ navigation, route }) => {
         { key: "4", label: "Black-list" },
     ];
 
-    const renderItem = ({ item }) => {
-        return (
-            <>
-                <View style={styles.resultBox}>
-                    <View style={styles.resultLineBox}>
-                        <View style={styles.resultId}>
-                            <Ionicons
-                                name="md-heart"
-                                size={24}
-                                color="#E50000"
-                            />
-                            <TouchableOpacity>
-                                <Text style={styles.resultIdText}>
-                                    {"001523"}
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <TouchableOpacity style={styles.locationStyle}>
-                            <Entypo
-                                name="location-pin"
-                                size={24}
-                                color="black"
-                            />
-                        </TouchableOpacity>
-                    </View>
-                    <View
-                        style={{
-                            ...styles.resultLineBox,
-                            borderBottomWidth: 0,
-                        }}
-                    >
-                        <TouchableOpacity>
-                            <Text style={styles.resultFullName}>
-                                {`${item.clientInfo.firstName} ${item.clientInfo.lastName}`}
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultPhoneNumbers}>
-                            {item.clientInfo.mainContact}
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            {item.clientInfo.secondContact}
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            ...styles.resultLineBox,
-                            borderBottomWidth: 0,
-                        }}
-                    >
-                        <Text style={styles.resultPhoneNumbers}>
-                            Yoshi: {item.clientInfo.age}
-                        </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            Jinsi:{" "}
-                            {item.clientInfo.gender == 1 ? "Erkak" : "Ayol"}
-                        </Text>
-                    </View>
-                </View>
-            </>
-        );
-    };
     const modalStatus = ({ item }) => {
         return (
             <TouchableOpacity
@@ -387,126 +321,6 @@ const ContactsScreen = ({ navigation, route }) => {
                                 </Pressable>
                             </View>
 
-                            {/* Name input ---------------------------------------------------------------
-                            <View
-                                style={{
-                                    ...styles.inputContainer,
-                                    marginBottom: 16,
-                                }}
-                                behavior={
-                                    Platform.OS === "ios" ? "padding" : "height"
-                                }
-                            >
-                                <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Name</Text>
-                                </View>
-                                <TextInput
-                                    style={styles.input}
-                                    numberOfLines={1}
-                                    placeholder="Enter first name"
-                                    placeholderTextColor="#B8B8BB"
-                                    onChangeText={(value) =>
-                                        (firstname = value)
-                                    }
-                                    keyboardType="default"
-                                    // autoFocus={true}
-                                    maxLength={9}
-                                />
-                            </View> */}
-                            {/* Age input ------------------------------------------------------------------- */}
-                            {/* <View
-                                style={styles.inputContainer}
-                                behavior={
-                                    Platform.OS === "ios" ? "padding" : "height"
-                                }
-                            >
-                                <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Age</Text>
-                                </View>
-                                <TextInput
-                                    style={styles.input}
-                                    numberOfLines={1}
-                                    placeholder={`${multiSliderValue[0]}-${multiSliderValue[1]}`}
-                                    placeholderTextColor="#B8B8BB"
-                                    keyboardType="default"
-                                    // autoFocus={true}
-                                    maxLength={9}
-                                />
-                            </View> */}
-
-                            {/* Slider ----------------------------------------------------------- */}
-                            {/* <View style={sliderStyles.viewContainer}>
-                                <View style={sliderStyles.sliderWrapper}>
-                                    <View style={sliderStyles.labelWrapper}>
-                                        <Text style={sliderStyles.labelText}>
-                                            {multiSliderValue[0]}
-                                        </Text>
-                                        <MultiSlider
-                                            markerStyle={{
-                                                ...Platform.select({
-                                                    ios: {
-                                                        height: 20,
-                                                        width: 20,
-                                                        shadowColor: "#000000",
-                                                        shadowOffset: {
-                                                            width: 0,
-                                                            height: 3,
-                                                        },
-                                                        shadowRadius: 1,
-                                                        shadowOpacity: 0.1,
-                                                    },
-                                                    android: {
-                                                        height: 20,
-                                                        width: 20,
-                                                        borderRadius: 50,
-                                                        backgroundColor:
-                                                            "#1792E8",
-                                                    },
-                                                }),
-                                            }}
-                                            pressedMarkerStyle={{
-                                                ...Platform.select({
-                                                    android: {
-                                                        height: 30,
-                                                        width: 30,
-                                                        borderRadius: 20,
-                                                        backgroundColor:
-                                                            "#148ADC",
-                                                    },
-                                                }),
-                                            }}
-                                            selectedStyle={{
-                                                backgroundColor: "#1792E8",
-                                            }}
-                                            trackStyle={{
-                                                backgroundColor: "#CECECE",
-                                            }}
-                                            touchDimensions={{
-                                                height: 20,
-                                                width: 20,
-                                                borderRadius: 10,
-                                                slipDisplacement: 40,
-                                            }}
-                                            values={[
-                                                multiSliderValue[0],
-                                                multiSliderValue[1],
-                                            ]}
-                                            sliderLength={280}
-                                            onValuesChange={
-                                                multiSliderValuesChange
-                                            }
-                                            min={16}
-                                            max={72}
-                                            allowOverlap={false}
-                                            minMarkerOverlapDistance={10}
-                                        />
-                                        <Text style={sliderStyles.labelText}>
-                                            {multiSliderValue[1]}
-                                        </Text>
-                                    </View>
-                                </View>
-                            </View> */}
-
                             {/* Branch input ----------------------------------------------------------- */}
                             <View style={styles.pickerWrapper}>
                                 <View style={styles.preTextWrapperStyle}>
@@ -572,146 +386,6 @@ const ContactsScreen = ({ navigation, route }) => {
                                 </Pressable>
                             </View>
 
-                            {/* Region input --------------------------------------------
-                            <View style={styles.pickerWrapper}>
-                                <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Address</Text>
-                                </View>
-                                <Modal
-                                    animationType="slide"
-                                    transparent={true}
-                                    visible={regionModalVisible}
-                                    onRequestClose={() => {
-                                        setRegionModalVisible(
-                                            !regionModalVisible
-                                        );
-                                    }}
-                                >
-                                    <View style={styles.centeredView}>
-                                        <View style={styles.modalWrapper}>
-                                            <FlatList
-                                                data={
-                                                    regions != undefined
-                                                        ? regions.regions
-                                                        : []
-                                                }
-                                                renderItem={modalRegion}
-                                                keyExtractor={(item) =>
-                                                    item.regionId
-                                                }
-                                                contentContainerStyle={
-                                                    styles.modalView
-                                                }
-                                                style={styles.contenModalView}
-                                                showsVerticalScrollIndicator={
-                                                    false
-                                                }
-                                            />
-                                        </View>
-                                        <Pressable
-                                            style={[
-                                                styles.button,
-                                                styles.buttonClose,
-                                            ]}
-                                            onPress={() =>
-                                                setRegionModalVisible(
-                                                    !regionModalVisible
-                                                )
-                                            }
-                                        >
-                                            <Text
-                                                style={styles.hideModalButton}
-                                            >
-                                                Hide Modal
-                                            </Text>
-                                        </Pressable>
-                                    </View>
-                                </Modal>
-                                <Pressable
-                                    style={styles.buttonOpen}
-                                    onPress={() => setRegionModalVisible(true)}
-                                >
-                                    <Text style={styles.textStyle}>
-                                        {selectedRegion != undefined
-                                            ? selectedRegion.regionName
-                                            : "Add Region"}
-                                    </Text>
-                                </Pressable>
-                            </View> */}
-
-                            {/* Gender input -------------------------------------------------------------- */}
-                            {/* <View
-                                style={{
-                                    ...styles.pickerWrapper,
-                                    marginBottom: 24,
-                                }}
-                            >
-                                <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Gender</Text>
-                                </View>
-                                <Modal
-                                    animationType="slide"
-                                    transparent={true}
-                                    visible={genderModalVisible}
-                                    onRequestClose={() => {
-                                        setGenderModalVisible(
-                                            !genderModalVisible
-                                        );
-                                    }}
-                                >
-                                    <View style={styles.centeredView}>
-                                        <View
-                                            style={[
-                                                styles.modalWrapper,
-                                                styles.genderModalWrapper,
-                                            ]}
-                                        >
-                                            <FlatList
-                                                data={genderData}
-                                                renderItem={modalGender}
-                                                keyExtractor={(item) =>
-                                                    item.key
-                                                }
-                                                contentContainerStyle={
-                                                    styles.modalView
-                                                }
-                                                style={styles.contenModalView}
-                                                showsVerticalScrollIndicator={
-                                                    false
-                                                }
-                                            />
-                                        </View>
-                                        <Pressable
-                                            style={[
-                                                styles.button,
-                                                styles.buttonClose,
-                                            ]}
-                                            onPress={() =>
-                                                setGenderModalVisible(
-                                                    !genderModalVisible
-                                                )
-                                            }
-                                        >
-                                            <Text
-                                                style={styles.hideModalButton}
-                                            >
-                                                Hide Modal
-                                            </Text>
-                                        </Pressable>
-                                    </View>
-                                </Modal>
-                                <Pressable
-                                    style={styles.buttonOpen}
-                                    onPress={() => setGenderModalVisible(true)}
-                                >
-                                    <Text style={styles.textStyle}>
-                                        {selectedGender != undefined
-                                            ? selectedGender.label
-                                            : "Add Gender"}
-                                    </Text>
-                                </Pressable>
-                            </View> */}
-
                             {/* Reset Filter Button ------------------------------------------------ */}
                             <View style={styles.resetWrapper}>
                                 <TouchableOpacity
@@ -746,7 +420,7 @@ const ContactsScreen = ({ navigation, route }) => {
                             clients.clients != undefined ? clients.clients : []
                         }
                         keyExtractor={(item) => item.clientId}
-                        renderItem={renderItem}
+                        renderItem={item => <CardComponent item={item.item}/>}
                         style={styles.container}
                         contentContainerStyle={styles.contentStyle}
                         showsVerticalScrollIndicator={false}
