@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { colors } from "../../../constants/color";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -11,12 +12,14 @@ export const styles = StyleSheet.create({
     },
     contentStyle: {
         paddingTop: 16,
-        paddingBottom: 100
+        paddingBottom: 100,
     },
     filterBox: {
         height: height / 20,
-        width: width / 5,
-        justifyContent: "center",
+        paddingHorizontal: 16,
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-between",
         alignItems: "center",
     },
     headerText: {
@@ -25,7 +28,7 @@ export const styles = StyleSheet.create({
         fontWeight: "500",
     },
     hiddenContent: {
-        height: height / 2.3,
+        height: height / 3.2,
         backgroundColor: "#F5F5F5",
     },
     content: {},
@@ -151,13 +154,15 @@ export const styles = StyleSheet.create({
     },
     tariffDynamicText: {
         fontSize: 16,
-        fontWeight: "bold"
+        fontWeight: "bold",
     },
     acceptBox: {
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-evenly",
         alignItems: "center",
+        borderRightColor: colors.gray,
+        borderRightWidth: 1
     },
     acceptText: {
         color: "rgb(75,206,0)",
@@ -168,8 +173,11 @@ export const styles = StyleSheet.create({
         justifyContent: "space-evenly",
         alignItems: "center",
     },
-    deleteText: { 
-        // color: "#E50000"
+    locationStyle: {
+        padding: 2,
+        borderWidth: 1,
+        borderColor: colors.lightGray,
+        borderRadius: 10,
     },
     fab: {
         width: 64,
@@ -181,5 +189,58 @@ export const styles = StyleSheet.create({
         bottom: 28,
         left: 24,
         backgroundColor: "#007AFF",
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22,
+    },
+    modalWrapper: {
+        width: "70%",
+        height: "30%",
+        shadowColor: "#000",
+        borderRadius: 20,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        backgroundColor: "white",
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        overflow: "hidden",
+        marginBottom: 10,
+    },
+    contenModalView: {
+        flex: 1,
+        height: "100%",
+    },
+    modalView: {
+        padding: 16,
+        alignItems: "center",
+    },
+    buttonOpen: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+        height: 30,
+        width: "33%",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 15,
+        elevation: 2,
+    },
+    textStyle: {
+        color: "gray",
+        textAlign: "center",
+    },
+    modalText: {
+        textAlign: "center",
+    },
+    hideModalButton: {
+        color: "white",
     },
 });
