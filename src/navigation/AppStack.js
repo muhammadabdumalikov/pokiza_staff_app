@@ -66,7 +66,7 @@ const MenuStack = ({ navigation, route }) => {
                 name="ContactsScreen"
                 component={ContactsScreen}
                 options={({ route }) => ({
-                    headerTitle: "Mijoz qo'shish bo'limi",
+                    headerTitle: "Mijozlar bo'limi",
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 18,
