@@ -6,9 +6,10 @@ import { colors } from "../../../constants/color";
 import { styles } from "./styles";
 
 const height = Dimensions.get("window").height;
+const elements = []
+
 
 const CardComponent = ({item}) => {
-    console.log(item)
     const [resultBox, setResultBox] = useState({
         height: height / 3.98,
         backgroundColor: "gray",
@@ -38,6 +39,8 @@ const CardComponent = ({item}) => {
                         overflow: "hidden",
                     });
                     setSelected(true);
+                    elements.push(item.clientInfo.userId)
+                    console.log(elements)
                 }}
             >
                 <View style={styles.resultLineBox}>
