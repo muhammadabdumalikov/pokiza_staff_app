@@ -75,7 +75,6 @@ export const styles = StyleSheet.create({
         height: height / 3.2,
         backgroundColor: "#F5F5F5",
     },
-    content: {},
     picker: {
         flex: 1,
         height: "100%",
@@ -283,5 +282,18 @@ export const styles = StyleSheet.create({
     },
     hideModalButton: {
         color: "white",
+    },
+    confirmBtnWrapper: {
+        alignSelf: "center",
+        backgroundColor: colors.blue,
+        width: 344,
+        height: 50,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 10,
+    },
+    confirmBtnText: {
+        color: "#fff",
+        fontSize: 17,
     },
 });

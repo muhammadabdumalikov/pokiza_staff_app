@@ -222,796 +222,235 @@ const AddClientScreen = ({ navigation, route }) => {
                         contentContainerStyle={styles.contentStyle}
                         showsVerticalScrollIndicator={false}
                     >
-                        <View style={styles.content}>
-                            {/* Name input --------------------------------------------------------------- */}
-                            <View
-                                style={{
-                                    ...styles.inputContainer,
-                                    marginBottom: 16,
-                                }}
-                                behavior={
-                                    Platform.OS === "ios" ? "padding" : "height"
-                                }
-                            >
-                                <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Ism</Text>
-                                </View>
-                                <TextInput
-                                    style={styles.input}
-                                    numberOfLines={1}
-                                    placeholder="Ism kiriting"
-                                    placeholderTextColor="#B8B8BB"
-                                    onChangeText={(value) =>
-                                        (firstname = value)
-                                    }
-                                    keyboardType="default"
-                                    // autoFocus={true}
-                                    maxLength={9}
-                                />
+                        {/* Name input --------------------------------------------------------------- */}
+                        <View
+                            style={{
+                                ...styles.inputContainer,
+                                marginBottom: 16,
+                            }}
+                            behavior={
+                                Platform.OS === "ios" ? "padding" : "height"
+                            }
+                        >
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>Ism</Text>
                             </View>
+                            <TextInput
+                                style={styles.input}
+                                numberOfLines={1}
+                                placeholder="Ism kiriting"
+                                placeholderTextColor="#B8B8BB"
+                                onChangeText={(value) => (firstname = value)}
+                                keyboardType="default"
+                                // autoFocus={true}
+                                maxLength={9}
+                            />
+                        </View>
 
-                            {/* Surname input --------------------------------------------------------------- */}
-                            <View
-                                style={{
-                                    ...styles.inputContainer,
-                                    marginBottom: 16,
-                                }}
-                                behavior={
-                                    Platform.OS === "ios" ? "padding" : "height"
-                                }
-                            >
-                                <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Familiya</Text>
-                                </View>
-                                <TextInput
-                                    style={styles.input}
-                                    numberOfLines={1}
-                                    placeholder="Familiya kiriting"
-                                    placeholderTextColor="#B8B8BB"
-                                    onChangeText={(value) => (lastname = value)}
-                                    keyboardType="default"
-                                    // autoFocus={true}
-                                    maxLength={9}
-                                />
+                        {/* Surname input --------------------------------------------------------------- */}
+                        <View
+                            style={{
+                                ...styles.inputContainer,
+                                marginBottom: 16,
+                            }}
+                            behavior={
+                                Platform.OS === "ios" ? "padding" : "height"
+                            }
+                        >
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>Familiya</Text>
                             </View>
+                            <TextInput
+                                style={styles.input}
+                                numberOfLines={1}
+                                placeholder="Familiya kiriting"
+                                placeholderTextColor="#B8B8BB"
+                                onChangeText={(value) => (lastname = value)}
+                                keyboardType="default"
+                                // autoFocus={true}
+                                maxLength={9}
+                            />
+                        </View>
 
-                            {/* First Phone Num input --------------------------------------------------------------- */}
-                            <View style={styles.phoneTxtWrapper}>
-                                <Text style={styles.phoneTxt}>
-                                    1 - Telefon raqam:
-                                </Text>
-                            </View>
-                            <View
-                                style={{
-                                    ...styles.inputContainer,
-                                    marginBottom: 16,
-                                    flexDirection: "column",
-                                }}
-                                behavior={
-                                    Platform.OS === "ios" ? "padding" : "height"
-                                }
-                            >
-                                <TextInput
-                                    style={styles.input}
-                                    numberOfLines={1}
-                                    placeholder="Telefon raqam kiriting"
-                                    placeholderTextColor="#B8B8BB"
-                                    onChangeText={(value) =>
-                                        (firstPhone = value)
-                                    }
-                                    keyboardType="phone-pad"
-                                    // autoFocus={true}
-                                    maxLength={9}
-                                />
-                            </View>
+                        {/* First Phone Num input --------------------------------------------------------------- */}
+                        <View style={styles.phoneTxtWrapper}>
+                            <Text style={styles.phoneTxt}>
+                                1 - Telefon raqam:
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                ...styles.inputContainer,
+                                marginBottom: 16,
+                                flexDirection: "column",
+                            }}
+                            behavior={
+                                Platform.OS === "ios" ? "padding" : "height"
+                            }
+                        >
+                            <TextInput
+                                style={styles.input}
+                                numberOfLines={1}
+                                placeholder="Telefon raqam kiriting"
+                                placeholderTextColor="#B8B8BB"
+                                onChangeText={(value) => (firstPhone = value)}
+                                keyboardType="phone-pad"
+                                // autoFocus={true}
+                                maxLength={9}
+                            />
+                        </View>
 
-                            {/* Second Phone Num input --------------------------------------------------------------- */}
-                            <View style={styles.phoneTxtWrapper}>
-                                <Text style={styles.phoneTxt}>
-                                    2 - Telefon raqam:
-                                </Text>
-                            </View>
-                            <View
-                                style={{
-                                    ...styles.inputContainer,
-                                    marginBottom: 16,
-                                    flexDirection: "column",
-                                }}
-                                behavior={
-                                    Platform.OS === "ios" ? "padding" : "height"
-                                }
-                            >
-                                <TextInput
-                                    style={styles.input}
-                                    numberOfLines={1}
-                                    placeholder="Telefon raqam kiriting"
-                                    placeholderTextColor="#B8B8BB"
-                                    onChangeText={(value) =>
-                                        (lastPhone = value)
-                                    }
-                                    keyboardType="phone-pad"
-                                    // autoFocus={true}
-                                    maxLength={9}
-                                />
-                            </View>
+                        {/* Second Phone Num input --------------------------------------------------------------- */}
+                        <View style={styles.phoneTxtWrapper}>
+                            <Text style={styles.phoneTxt}>
+                                2 - Telefon raqam:
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                ...styles.inputContainer,
+                                marginBottom: 16,
+                                flexDirection: "column",
+                            }}
+                            behavior={
+                                Platform.OS === "ios" ? "padding" : "height"
+                            }
+                        >
+                            <TextInput
+                                style={styles.input}
+                                numberOfLines={1}
+                                placeholder="Telefon raqam kiriting"
+                                placeholderTextColor="#B8B8BB"
+                                onChangeText={(value) => (lastPhone = value)}
+                                keyboardType="phone-pad"
+                                // autoFocus={true}
+                                maxLength={9}
+                            />
+                        </View>
 
-                            {/* Status input --------------------------------------------------------- */}
-                            <View style={styles.pickerWrapper}>
-                                <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Holati</Text>
-                                </View>
-                                <Modal
-                                    animationType="slide"
-                                    transparent={true}
-                                    visible={statusModalVisible}
-                                    onRequestClose={() => {
-                                        setStatusModalVisible(
-                                            !statusModalVisible
-                                        );
-                                    }}
-                                >
-                                    <View style={styles.centeredView}>
-                                        <View style={styles.modalWrapper}>
-                                            <FlatList
-                                                data={clientStatus}
-                                                renderItem={modalStatus}
-                                                keyExtractor={(item) =>
-                                                    item.key
-                                                }
-                                                contentContainerStyle={
-                                                    styles.modalView
-                                                }
-                                                style={styles.contenModalView}
-                                                showsVerticalScrollIndicator={
-                                                    false
-                                                }
-                                            />
-                                        </View>
-                                        <Pressable
-                                            style={styles.buttonClose}
-                                            onPress={() =>
-                                                setStatusModalVisible(
-                                                    !statusModalVisible
-                                                )
+                        {/* Status input --------------------------------------------------------- */}
+                        <View style={styles.pickerWrapper}>
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>Holati</Text>
+                            </View>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={statusModalVisible}
+                                onRequestClose={() => {
+                                    setStatusModalVisible(!statusModalVisible);
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalWrapper}>
+                                        <FlatList
+                                            data={clientStatus}
+                                            renderItem={modalStatus}
+                                            keyExtractor={(item) => item.key}
+                                            contentContainerStyle={
+                                                styles.modalView
                                             }
-                                        >
-                                            <Text
-                                                style={styles.hideModalButton}
-                                            >
-                                                Hide Modal
-                                            </Text>
-                                        </Pressable>
+                                            style={styles.contenModalView}
+                                            showsVerticalScrollIndicator={false}
+                                        />
                                     </View>
-                                </Modal>
-                                <Pressable
-                                    style={styles.buttonOpen}
-                                    onPress={() => setStatusModalVisible(true)}
-                                >
-                                    <Text style={styles.textStyle}>
-                                        {selectedStatus != undefined
-                                            ? selectedStatus.label
-                                            : "Add Status"}
-                                    </Text>
-                                </Pressable>
-                            </View>
-
-                            {/* Client comment input --------------------------------------------------------------- */}
-                            <View style={styles.phoneTxtWrapper}>
-                                <Text style={{ color: "black", fontSize: 16 }}>
-                                    Mijoz haqida izoh
-                                </Text>
-                            </View>
-                            <View
-                                style={{
-                                    ...styles.inputContainer,
-                                    marginBottom: 16,
-                                    flexDirection: "column",
-                                }}
-                                behavior={
-                                    Platform.OS === "ios" ? "padding" : "height"
-                                }
-                            >
-                                <TextInput
-                                    style={styles.input}
-                                    numberOfLines={1}
-                                    placeholder="Izoh qoldiring"
-                                    placeholderTextColor="#B8B8BB"
-                                    onChangeText={(value) => (summary = value)}
-                                    keyboardType="default"
-                                    // autoFocus={true}
-                                    maxLength={9}
-                                />
-                            </View>
-
-                            {/* Age and Gender input ------------------------------------------------------------------- */}
-                            <View
-                                style={{
-                                    width: "100%",
-                                    height: height / 15,
-                                    flexDirection: "row",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                }}
-                                behavior={
-                                    Platform.OS === "ios" ? "padding" : "height"
-                                }
-                            >
-                                {/* Age input ------------------------------------------------------------------- */}
-
-                                <View
-                                    style={{...styles.inputContainer, width: "48%"}}
-                                    behavior={
-                                        Platform.OS === "ios"
-                                            ? "padding"
-                                            : "height"
-                                    }
-                                >
-                                    <View style={styles.preTextWrapperStyle}>
-                                        <Text style={styles.preText}>Age</Text>
-                                    </View>
-                                    <TextInput
-                                        style={styles.input}
-                                        numberOfLines={1}
-                                        placeholder="27"
-                                        placeholderTextColor="#B8B8BB"
-                                        keyboardType="numeric"
-                                        // autoFocus={true}
-                                        maxLength={9}
-                                    />
-                                </View>
-                                {/* Gender input -------------------------------------------------------------- */}
-                                <View
-                                    style={{
-                                        ...styles.pickerWrapper,
-                                        marginBottom: 0,
-                                        width: "48%"
-                                    }}
-                                >
-                                    <View style={styles.preTextWrapperStyle}>
-                                        <Text style={styles.preText}>
-                                            Gender
-                                        </Text>
-                                    </View>
-                                    <Modal
-                                        animationType="slide"
-                                        transparent={true}
-                                        visible={genderModalVisible}
-                                        onRequestClose={() => {
-                                            setGenderModalVisible(
-                                                !genderModalVisible
-                                            );
-                                        }}
-                                    >
-                                        <View style={styles.centeredView}>
-                                            <View
-                                                style={[
-                                                    styles.modalWrapper,
-                                                    styles.genderModalWrapper,
-                                                ]}
-                                            >
-                                                <FlatList
-                                                    data={genderData}
-                                                    renderItem={modalGender}
-                                                    keyExtractor={(item) =>
-                                                        item.key
-                                                    }
-                                                    contentContainerStyle={
-                                                        styles.modalView
-                                                    }
-                                                    style={
-                                                        styles.contenModalView
-                                                    }
-                                                    showsVerticalScrollIndicator={
-                                                        false
-                                                    }
-                                                />
-                                            </View>
-                                            <Pressable
-                                                style={[
-                                                    styles.button,
-                                                    styles.buttonClose,
-                                                ]}
-                                                onPress={() =>
-                                                    setGenderModalVisible(
-                                                        !genderModalVisible
-                                                    )
-                                                }
-                                            >
-                                                <Text
-                                                    style={
-                                                        styles.hideModalButton
-                                                    }
-                                                >
-                                                    Hide Modal
-                                                </Text>
-                                            </Pressable>
-                                        </View>
-                                    </Modal>
                                     <Pressable
-                                        style={styles.buttonOpen}
+                                        style={styles.buttonClose}
                                         onPress={() =>
-                                            setGenderModalVisible(true)
+                                            setStatusModalVisible(
+                                                !statusModalVisible
+                                            )
                                         }
                                     >
-                                        <Text style={styles.textStyle}>
-                                            {selectedGender != undefined
-                                                ? selectedGender.label
-                                                : "Add Gender"}
+                                        <Text style={styles.hideModalButton}>
+                                            Hide Modal
                                         </Text>
                                     </Pressable>
                                 </View>
-                            </View>
-
-                            <View style={styles.phoneTxtWrapper}>
-                                <Text style={styles.addressTxt}>
-                                    Mijoz manzili:
+                            </Modal>
+                            <Pressable
+                                style={styles.buttonOpen}
+                                onPress={() => setStatusModalVisible(true)}
+                            >
+                                <Text style={styles.textStyle}>
+                                    {selectedStatus != undefined
+                                        ? selectedStatus.label
+                                        : "Add Status"}
                                 </Text>
-                            </View>
+                            </Pressable>
+                        </View>
 
-                            {/* State input ----------------------------------------------------------- */}
-                            <View style={styles.pickerWrapper}>
-                                <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Viloyat</Text>
-                                </View>
-                                <Modal
-                                    animationType="slide"
-                                    transparent={true}
-                                    visible={stateModalVisible}
-                                    onRequestClose={() => {
-                                        setStateModalVisible(
-                                            !stateModalVisible
-                                        );
-                                    }}
-                                >
-                                    <View style={styles.centeredView}>
-                                        <View style={styles.modalWrapper}>
-                                            <FlatList
-                                                data={states.states}
-                                                renderItem={modalState}
-                                                keyExtractor={(item) =>
-                                                    item.stateId
-                                                }
-                                                contentContainerStyle={
-                                                    styles.modalView
-                                                }
-                                                style={styles.contenModalView}
-                                                showsVerticalScrollIndicator={
-                                                    false
-                                                }
-                                            />
-                                        </View>
-                                        <Pressable
-                                            style={[
-                                                styles.button,
-                                                styles.buttonClose,
-                                            ]}
-                                            onPress={() =>
-                                                setStateModalVisible(
-                                                    !stateModalVisible
-                                                )
-                                            }
-                                        >
-                                            <Text
-                                                style={styles.hideModalButton}
-                                            >
-                                                Hide Modal
-                                            </Text>
-                                        </Pressable>
-                                    </View>
-                                </Modal>
-                                <Pressable
-                                    style={styles.buttonOpen}
-                                    onPress={() => setStateModalVisible(true)}
-                                >
-                                    <Text style={styles.textStyle}>
-                                        {selectedState != undefined
-                                            ? selectedState.stateName
-                                            : "Add State"}
-                                    </Text>
-                                </Pressable>
-                            </View>
+                        {/* Client comment input --------------------------------------------------------------- */}
+                        <View style={styles.phoneTxtWrapper}>
+                            <Text style={{ color: "black", fontSize: 16 }}>
+                                Mijoz haqida izoh
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                ...styles.inputContainer,
+                                marginBottom: 16,
+                                flexDirection: "column",
+                            }}
+                            behavior={
+                                Platform.OS === "ios" ? "padding" : "height"
+                            }
+                        >
+                            <TextInput
+                                style={styles.input}
+                                numberOfLines={1}
+                                placeholder="Izoh qoldiring"
+                                placeholderTextColor="#B8B8BB"
+                                onChangeText={(value) => (summary = value)}
+                                keyboardType="default"
+                                // autoFocus={true}
+                                maxLength={9}
+                            />
+                        </View>
 
-                            {/* Region input -------------------------------------------- */}
-                            <View style={styles.pickerWrapper}>
-                                <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>
-                                        Shahar/Tuman
-                                    </Text>
-                                </View>
-                                <Modal
-                                    animationType="slide"
-                                    transparent={true}
-                                    visible={regionModalVisible}
-                                    onRequestClose={() => {
-                                        setRegionModalVisible(
-                                            !regionModalVisible
-                                        );
-                                    }}
-                                >
-                                    <View style={styles.centeredView}>
-                                        <View style={styles.modalWrapper}>
-                                            <FlatList
-                                                data={
-                                                    regions != undefined
-                                                        ? regions.regions
-                                                        : []
-                                                }
-                                                renderItem={modalRegion}
-                                                keyExtractor={(item) =>
-                                                    item.regionId
-                                                }
-                                                contentContainerStyle={
-                                                    styles.modalView
-                                                }
-                                                style={styles.contenModalView}
-                                                showsVerticalScrollIndicator={
-                                                    false
-                                                }
-                                            />
-                                        </View>
-                                        <Pressable
-                                            style={[
-                                                styles.button,
-                                                styles.buttonClose,
-                                            ]}
-                                            onPress={() =>
-                                                setRegionModalVisible(
-                                                    !regionModalVisible
-                                                )
-                                            }
-                                        >
-                                            <Text
-                                                style={styles.hideModalButton}
-                                            >
-                                                Hide Modal
-                                            </Text>
-                                        </Pressable>
-                                    </View>
-                                </Modal>
-                                <Pressable
-                                    style={styles.buttonOpen}
-                                    onPress={() => setRegionModalVisible(true)}
-                                >
-                                    <Text style={styles.textStyle}>
-                                        {selectedRegion != undefined
-                                            ? selectedRegion.regionName
-                                            : "Add Region"}
-                                    </Text>
-                                </Pressable>
-                            </View>
+                        {/* Age and Gender input ------------------------------------------------------------------- */}
+                        <View
+                            style={{
+                                width: "100%",
+                                height: height / 15,
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                            behavior={
+                                Platform.OS === "ios" ? "padding" : "height"
+                            }
+                        >
+                            {/* Age input ------------------------------------------------------------------- */}
 
-                            {/* Neighborhood input -------------------------------------------- */}
-                            <View style={styles.pickerWrapper}>
-                                <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>
-                                        Mahalla/Qishloq
-                                    </Text>
-                                </View>
-                                <Modal
-                                    animationType="slide"
-                                    transparent={true}
-                                    visible={regionModalVisible}
-                                    onRequestClose={() => {
-                                        setRegionModalVisible(
-                                            !regionModalVisible
-                                        );
-                                    }}
-                                >
-                                    <View style={styles.centeredView}>
-                                        <View style={styles.modalWrapper}>
-                                            <FlatList
-                                                data={
-                                                    regions != undefined
-                                                        ? regions.regions
-                                                        : []
-                                                }
-                                                renderItem={modalRegion}
-                                                keyExtractor={(item) =>
-                                                    item.regionId
-                                                }
-                                                contentContainerStyle={
-                                                    styles.modalView
-                                                }
-                                                style={styles.contenModalView}
-                                                showsVerticalScrollIndicator={
-                                                    false
-                                                }
-                                            />
-                                        </View>
-                                        <Pressable
-                                            style={[
-                                                styles.button,
-                                                styles.buttonClose,
-                                            ]}
-                                            onPress={() =>
-                                                setRegionModalVisible(
-                                                    !regionModalVisible
-                                                )
-                                            }
-                                        >
-                                            <Text
-                                                style={styles.hideModalButton}
-                                            >
-                                                Hide Modal
-                                            </Text>
-                                        </Pressable>
-                                    </View>
-                                </Modal>
-                                <Pressable
-                                    style={styles.buttonOpen}
-                                    onPress={() => setRegionModalVisible(true)}
-                                >
-                                    <Text style={styles.textStyle}>
-                                        {selectedRegion != undefined
-                                            ? selectedRegion.regionName
-                                            : "Add Region"}
-                                    </Text>
-                                </Pressable>
-                            </View>
-
-                            {/* Area input -------------------------------------------- */}
-                            <View style={styles.pickerWrapper}>
-                                <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Mo'ljal</Text>
-                                </View>
-                                <Modal
-                                    animationType="slide"
-                                    transparent={true}
-                                    visible={regionModalVisible}
-                                    onRequestClose={() => {
-                                        setRegionModalVisible(
-                                            !regionModalVisible
-                                        );
-                                    }}
-                                >
-                                    <View style={styles.centeredView}>
-                                        <View style={styles.modalWrapper}>
-                                            <FlatList
-                                                data={
-                                                    regions != undefined
-                                                        ? regions.regions
-                                                        : []
-                                                }
-                                                renderItem={modalRegion}
-                                                keyExtractor={(item) =>
-                                                    item.regionId
-                                                }
-                                                contentContainerStyle={
-                                                    styles.modalView
-                                                }
-                                                style={styles.contenModalView}
-                                                showsVerticalScrollIndicator={
-                                                    false
-                                                }
-                                            />
-                                        </View>
-                                        <Pressable
-                                            style={[
-                                                styles.button,
-                                                styles.buttonClose,
-                                            ]}
-                                            onPress={() =>
-                                                setRegionModalVisible(
-                                                    !regionModalVisible
-                                                )
-                                            }
-                                        >
-                                            <Text
-                                                style={styles.hideModalButton}
-                                            >
-                                                Hide Modal
-                                            </Text>
-                                        </Pressable>
-                                    </View>
-                                </Modal>
-                                <Pressable
-                                    style={styles.buttonOpen}
-                                    onPress={() => setRegionModalVisible(true)}
-                                >
-                                    <Text style={styles.textStyle}>
-                                        {selectedRegion != undefined
-                                            ? selectedRegion.regionName
-                                            : "Add Region"}
-                                    </Text>
-                                </Pressable>
-                            </View>
-
-                            {/* Street input -------------------------------------------- */}
-                            <View style={styles.pickerWrapper}>
-                                <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Ko'cha</Text>
-                                </View>
-                                <Modal
-                                    animationType="slide"
-                                    transparent={true}
-                                    visible={regionModalVisible}
-                                    onRequestClose={() => {
-                                        setRegionModalVisible(
-                                            !regionModalVisible
-                                        );
-                                    }}
-                                >
-                                    <View style={styles.centeredView}>
-                                        <View style={styles.modalWrapper}>
-                                            <FlatList
-                                                data={
-                                                    regions != undefined
-                                                        ? regions.regions
-                                                        : []
-                                                }
-                                                renderItem={modalRegion}
-                                                keyExtractor={(item) =>
-                                                    item.regionId
-                                                }
-                                                contentContainerStyle={
-                                                    styles.modalView
-                                                }
-                                                style={styles.contenModalView}
-                                                showsVerticalScrollIndicator={
-                                                    false
-                                                }
-                                            />
-                                        </View>
-                                        <Pressable
-                                            style={[
-                                                styles.button,
-                                                styles.buttonClose,
-                                            ]}
-                                            onPress={() =>
-                                                setRegionModalVisible(
-                                                    !regionModalVisible
-                                                )
-                                            }
-                                        >
-                                            <Text
-                                                style={styles.hideModalButton}
-                                            >
-                                                Hide Modal
-                                            </Text>
-                                        </Pressable>
-                                    </View>
-                                </Modal>
-                                <Pressable
-                                    style={styles.buttonOpen}
-                                    onPress={() => setRegionModalVisible(true)}
-                                >
-                                    <Text style={styles.textStyle}>
-                                        {selectedRegion != undefined
-                                            ? selectedRegion.regionName
-                                            : "Add Region"}
-                                    </Text>
-                                </Pressable>
-                            </View>
-
-                            {/* Home Number input --------------------------------------------------------------- */}
                             <View
                                 style={{
                                     ...styles.inputContainer,
-                                    marginBottom: 16,
+                                    width: "48%",
                                 }}
                                 behavior={
                                     Platform.OS === "ios" ? "padding" : "height"
                                 }
                             >
                                 <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>
-                                        Uy raqami
-                                    </Text>
+                                    <Text style={styles.preText}>Age</Text>
                                 </View>
                                 <TextInput
                                     style={styles.input}
                                     numberOfLines={1}
-                                    placeholder="Uy raqamini kiriting"
+                                    placeholder="27"
                                     placeholderTextColor="#B8B8BB"
-                                    onChangeText={(value) =>
-                                        (firstname = value)
-                                    }
-                                    keyboardType="default"
+                                    keyboardType="numeric"
                                     // autoFocus={true}
                                     maxLength={9}
                                 />
                             </View>
-
-                            {/* Branch input -------------------------------------------- */}
-                            <View style={styles.pickerWrapper}>
-                                <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Filial</Text>
-                                </View>
-                                <Modal
-                                    animationType="slide"
-                                    transparent={true}
-                                    visible={regionModalVisible}
-                                    onRequestClose={() => {
-                                        setRegionModalVisible(
-                                            !regionModalVisible
-                                        );
-                                    }}
-                                >
-                                    <View style={styles.centeredView}>
-                                        <View style={styles.modalWrapper}>
-                                            <FlatList
-                                                data={
-                                                    regions != undefined
-                                                        ? regions.regions
-                                                        : []
-                                                }
-                                                renderItem={modalRegion}
-                                                keyExtractor={(item) =>
-                                                    item.regionId
-                                                }
-                                                contentContainerStyle={
-                                                    styles.modalView
-                                                }
-                                                style={styles.contenModalView}
-                                                showsVerticalScrollIndicator={
-                                                    false
-                                                }
-                                            />
-                                        </View>
-                                        <Pressable
-                                            style={[
-                                                styles.button,
-                                                styles.buttonClose,
-                                            ]}
-                                            onPress={() =>
-                                                setRegionModalVisible(
-                                                    !regionModalVisible
-                                                )
-                                            }
-                                        >
-                                            <Text
-                                                style={styles.hideModalButton}
-                                            >
-                                                Hide Modal
-                                            </Text>
-                                        </Pressable>
-                                    </View>
-                                </Modal>
-                                <Pressable
-                                    style={styles.buttonOpen}
-                                    onPress={() => setRegionModalVisible(true)}
-                                >
-                                    <Text style={styles.textStyle}>
-                                        {selectedRegion != undefined
-                                            ? selectedRegion.regionName
-                                            : "Add Region"}
-                                    </Text>
-                                </Pressable>
-                            </View>
-
-                            {/* Address comment input --------------------------------------------------------------- */}
-                            <View style={styles.phoneTxtWrapper}>
-                                <Text style={{ color: "black", fontSize: 16 }}>
-                                    Mijoz haqida izoh
-                                </Text>
-                            </View>
-                            <View
-                                style={{
-                                    ...styles.inputContainer,
-                                    marginBottom: 16,
-                                    flexDirection: "column",
-                                }}
-                                behavior={
-                                    Platform.OS === "ios" ? "padding" : "height"
-                                }
-                            >
-                                <TextInput
-                                    style={styles.input}
-                                    numberOfLines={1}
-                                    placeholder="Izoh qoldiring"
-                                    placeholderTextColor="#B8B8BB"
-                                    onChangeText={(value) => (summary = value)}
-                                    keyboardType="default"
-                                    // autoFocus={true}
-                                    maxLength={9}
-                                />
-                            </View>
-
                             {/* Gender input -------------------------------------------------------------- */}
-                            {/* <View
+                            <View
                                 style={{
                                     ...styles.pickerWrapper,
-                                    marginBottom: 24,
+                                    marginBottom: 0,
+                                    width: "48%",
                                 }}
                             >
                                 <View style={styles.preTextWrapperStyle}>
@@ -1078,10 +517,436 @@ const AddClientScreen = ({ navigation, route }) => {
                                             : "Add Gender"}
                                     </Text>
                                 </Pressable>
-                            </View> */}
+                            </View>
                         </View>
 
-                        {/* Result box of staffs ------------------------------------------------------- */}
+                        <View style={styles.phoneTxtWrapper}>
+                            <Text style={styles.addressTxt}>
+                                Mijoz manzili:
+                            </Text>
+                        </View>
+
+                        {/* State input ----------------------------------------------------------- */}
+                        <View style={styles.pickerWrapper}>
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>Viloyat</Text>
+                            </View>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={stateModalVisible}
+                                onRequestClose={() => {
+                                    setStateModalVisible(!stateModalVisible);
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalWrapper}>
+                                        <FlatList
+                                            data={states.states}
+                                            renderItem={modalState}
+                                            keyExtractor={(item) =>
+                                                item.stateId
+                                            }
+                                            contentContainerStyle={
+                                                styles.modalView
+                                            }
+                                            style={styles.contenModalView}
+                                            showsVerticalScrollIndicator={false}
+                                        />
+                                    </View>
+                                    <Pressable
+                                        style={[
+                                            styles.button,
+                                            styles.buttonClose,
+                                        ]}
+                                        onPress={() =>
+                                            setStateModalVisible(
+                                                !stateModalVisible
+                                            )
+                                        }
+                                    >
+                                        <Text style={styles.hideModalButton}>
+                                            Hide Modal
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            </Modal>
+                            <Pressable
+                                style={styles.buttonOpen}
+                                onPress={() => setStateModalVisible(true)}
+                            >
+                                <Text style={styles.textStyle}>
+                                    {selectedState != undefined
+                                        ? selectedState.stateName
+                                        : "Add State"}
+                                </Text>
+                            </Pressable>
+                        </View>
+
+                        {/* Region input -------------------------------------------- */}
+                        <View style={styles.pickerWrapper}>
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>Shahar/Tuman</Text>
+                            </View>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={regionModalVisible}
+                                onRequestClose={() => {
+                                    setRegionModalVisible(!regionModalVisible);
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalWrapper}>
+                                        <FlatList
+                                            data={
+                                                regions != undefined
+                                                    ? regions.regions
+                                                    : []
+                                            }
+                                            renderItem={modalRegion}
+                                            keyExtractor={(item) =>
+                                                item.regionId
+                                            }
+                                            contentContainerStyle={
+                                                styles.modalView
+                                            }
+                                            style={styles.contenModalView}
+                                            showsVerticalScrollIndicator={false}
+                                        />
+                                    </View>
+                                    <Pressable
+                                        style={[
+                                            styles.button,
+                                            styles.buttonClose,
+                                        ]}
+                                        onPress={() =>
+                                            setRegionModalVisible(
+                                                !regionModalVisible
+                                            )
+                                        }
+                                    >
+                                        <Text style={styles.hideModalButton}>
+                                            Hide Modal
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            </Modal>
+                            <Pressable
+                                style={styles.buttonOpen}
+                                onPress={() => setRegionModalVisible(true)}
+                            >
+                                <Text style={styles.textStyle}>
+                                    {selectedRegion != undefined
+                                        ? selectedRegion.regionName
+                                        : "Add Region"}
+                                </Text>
+                            </Pressable>
+                        </View>
+
+                        {/* Neighborhood input -------------------------------------------- */}
+                        <View style={styles.pickerWrapper}>
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>
+                                    Mahalla/Qishloq
+                                </Text>
+                            </View>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={regionModalVisible}
+                                onRequestClose={() => {
+                                    setRegionModalVisible(!regionModalVisible);
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalWrapper}>
+                                        <FlatList
+                                            data={
+                                                regions != undefined
+                                                    ? regions.regions
+                                                    : []
+                                            }
+                                            renderItem={modalRegion}
+                                            keyExtractor={(item) =>
+                                                item.regionId
+                                            }
+                                            contentContainerStyle={
+                                                styles.modalView
+                                            }
+                                            style={styles.contenModalView}
+                                            showsVerticalScrollIndicator={false}
+                                        />
+                                    </View>
+                                    <Pressable
+                                        style={[
+                                            styles.button,
+                                            styles.buttonClose,
+                                        ]}
+                                        onPress={() =>
+                                            setRegionModalVisible(
+                                                !regionModalVisible
+                                            )
+                                        }
+                                    >
+                                        <Text style={styles.hideModalButton}>
+                                            Hide Modal
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            </Modal>
+                            <Pressable
+                                style={styles.buttonOpen}
+                                onPress={() => setRegionModalVisible(true)}
+                            >
+                                <Text style={styles.textStyle}>
+                                    {selectedRegion != undefined
+                                        ? selectedRegion.regionName
+                                        : "Add Region"}
+                                </Text>
+                            </Pressable>
+                        </View>
+
+                        {/* Area input -------------------------------------------- */}
+                        <View style={styles.pickerWrapper}>
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>Mo'ljal</Text>
+                            </View>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={regionModalVisible}
+                                onRequestClose={() => {
+                                    setRegionModalVisible(!regionModalVisible);
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalWrapper}>
+                                        <FlatList
+                                            data={
+                                                regions != undefined
+                                                    ? regions.regions
+                                                    : []
+                                            }
+                                            renderItem={modalRegion}
+                                            keyExtractor={(item) =>
+                                                item.regionId
+                                            }
+                                            contentContainerStyle={
+                                                styles.modalView
+                                            }
+                                            style={styles.contenModalView}
+                                            showsVerticalScrollIndicator={false}
+                                        />
+                                    </View>
+                                    <Pressable
+                                        style={[
+                                            styles.button,
+                                            styles.buttonClose,
+                                        ]}
+                                        onPress={() =>
+                                            setRegionModalVisible(
+                                                !regionModalVisible
+                                            )
+                                        }
+                                    >
+                                        <Text style={styles.hideModalButton}>
+                                            Hide Modal
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            </Modal>
+                            <Pressable
+                                style={styles.buttonOpen}
+                                onPress={() => setRegionModalVisible(true)}
+                            >
+                                <Text style={styles.textStyle}>
+                                    {selectedRegion != undefined
+                                        ? selectedRegion.regionName
+                                        : "Add Region"}
+                                </Text>
+                            </Pressable>
+                        </View>
+
+                        {/* Street input -------------------------------------------- */}
+                        <View style={styles.pickerWrapper}>
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>Ko'cha</Text>
+                            </View>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={regionModalVisible}
+                                onRequestClose={() => {
+                                    setRegionModalVisible(!regionModalVisible);
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalWrapper}>
+                                        <FlatList
+                                            data={
+                                                regions != undefined
+                                                    ? regions.regions
+                                                    : []
+                                            }
+                                            renderItem={modalRegion}
+                                            keyExtractor={(item) =>
+                                                item.regionId
+                                            }
+                                            contentContainerStyle={
+                                                styles.modalView
+                                            }
+                                            style={styles.contenModalView}
+                                            showsVerticalScrollIndicator={false}
+                                        />
+                                    </View>
+                                    <Pressable
+                                        style={[
+                                            styles.button,
+                                            styles.buttonClose,
+                                        ]}
+                                        onPress={() =>
+                                            setRegionModalVisible(
+                                                !regionModalVisible
+                                            )
+                                        }
+                                    >
+                                        <Text style={styles.hideModalButton}>
+                                            Hide Modal
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            </Modal>
+                            <Pressable
+                                style={styles.buttonOpen}
+                                onPress={() => setRegionModalVisible(true)}
+                            >
+                                <Text style={styles.textStyle}>
+                                    {selectedRegion != undefined
+                                        ? selectedRegion.regionName
+                                        : "Add Region"}
+                                </Text>
+                            </Pressable>
+                        </View>
+
+                        {/* Home Number input --------------------------------------------------------------- */}
+                        <View
+                            style={{
+                                ...styles.inputContainer,
+                                marginBottom: 16,
+                            }}
+                            behavior={
+                                Platform.OS === "ios" ? "padding" : "height"
+                            }
+                        >
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>Uy raqami</Text>
+                            </View>
+                            <TextInput
+                                style={styles.input}
+                                numberOfLines={1}
+                                placeholder="Uy raqamini kiriting"
+                                placeholderTextColor="#B8B8BB"
+                                onChangeText={(value) => (firstname = value)}
+                                keyboardType="default"
+                                // autoFocus={true}
+                                maxLength={9}
+                            />
+                        </View>
+
+                        {/* Branch input -------------------------------------------- */}
+                        <View style={styles.pickerWrapper}>
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>Filial</Text>
+                            </View>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={regionModalVisible}
+                                onRequestClose={() => {
+                                    setRegionModalVisible(!regionModalVisible);
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalWrapper}>
+                                        <FlatList
+                                            data={
+                                                regions != undefined
+                                                    ? regions.regions
+                                                    : []
+                                            }
+                                            renderItem={modalRegion}
+                                            keyExtractor={(item) =>
+                                                item.regionId
+                                            }
+                                            contentContainerStyle={
+                                                styles.modalView
+                                            }
+                                            style={styles.contenModalView}
+                                            showsVerticalScrollIndicator={false}
+                                        />
+                                    </View>
+                                    <Pressable
+                                        style={[
+                                            styles.button,
+                                            styles.buttonClose,
+                                        ]}
+                                        onPress={() =>
+                                            setRegionModalVisible(
+                                                !regionModalVisible
+                                            )
+                                        }
+                                    >
+                                        <Text style={styles.hideModalButton}>
+                                            Hide Modal
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            </Modal>
+                            <Pressable
+                                style={styles.buttonOpen}
+                                onPress={() => setRegionModalVisible(true)}
+                            >
+                                <Text style={styles.textStyle}>
+                                    {selectedRegion != undefined
+                                        ? selectedRegion.regionName
+                                        : "Add Region"}
+                                </Text>
+                            </Pressable>
+                        </View>
+
+                        {/* Address comment input --------------------------------------------------------------- */}
+                        <View style={styles.phoneTxtWrapper}>
+                            <Text style={{ color: "black", fontSize: 16 }}>
+                                Mijoz haqida izoh
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                ...styles.inputContainer,
+                                marginBottom: 16,
+                                flexDirection: "column",
+                            }}
+                            behavior={
+                                Platform.OS === "ios" ? "padding" : "height"
+                            }
+                        >
+                            <TextInput
+                                style={styles.input}
+                                numberOfLines={1}
+                                placeholder="Izoh qoldiring"
+                                placeholderTextColor="#B8B8BB"
+                                onChangeText={(value) => (summary = value)}
+                                keyboardType="default"
+                                // autoFocus={true}
+                                maxLength={9}
+                            />
+                        </View>
+                        <TouchableOpacity style={styles.confirmBtnWrapper}>
+                            <Text style={styles.confirmBtnText}>
+                                Mijoz qo'shish
+                            </Text>
+                        </TouchableOpacity>
                     </ScrollView>
                     <TouchableOpacity
                         style={styles.fab}
