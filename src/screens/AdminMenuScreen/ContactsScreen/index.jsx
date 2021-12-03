@@ -420,7 +420,7 @@ const ContactsScreen = ({ navigation, route }) => {
                             clients.clients != undefined ? clients.clients : []
                         }
                         keyExtractor={(item) => item.clientId}
-                        renderItem={item => <CardComponent item={item.item}/>}
+                        renderItem={({item}) => <CardComponent item={item}/>}
                         style={styles.container}
                         contentContainerStyle={styles.contentStyle}
                         showsVerticalScrollIndicator={false}
