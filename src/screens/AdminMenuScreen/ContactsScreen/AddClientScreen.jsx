@@ -119,7 +119,6 @@ const AddClientScreen = ({ navigation, route }) => {
     const toggleExpanded = () => {
         setCollapsed(!collapsed);
     };
-    const multiSliderValuesChange = (values) => setMultiSliderValue(values);
 
     const genderData = [
         { key: "1", label: "Male" },

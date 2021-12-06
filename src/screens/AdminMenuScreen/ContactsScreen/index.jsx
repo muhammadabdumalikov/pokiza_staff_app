@@ -62,7 +62,7 @@ const ContactsScreen = ({ navigation, route }) => {
           }
         }
       }      
-    `
+    `;
 
     const [clients, setClients] = useState();
     const [branches, setBranches] = useState();
@@ -71,6 +71,8 @@ const ContactsScreen = ({ navigation, route }) => {
     const [collapsed, setCollapsed] = useState(true);
     const [selectedStatus, setSelectedStatus] = useState();
     const [userToken, setUserToken] = useState();
+
+    const [canFilter, setCanFilter] = useState(true);
 
     const [statusModalVisible, setStatusModalVisible] = useState(false);
     const [branchModalVisible, setBranchModalVisible] = useState(false);
@@ -134,9 +136,51 @@ const ContactsScreen = ({ navigation, route }) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                setLoading(true);
-                setClients(await request(SEARCH_CLIENT, {searchKey: searchKey}, userToken));
-                setLoading(false);
+                if (selectedStatus || selectedBranch) {
+                    let searchedDataId = await clients.clients.filter(
+                        (item) => item.clientId == searchKey
+                    );
+                    let searchedDataMC = await clients.clients.filter(
+                        (item) => item.clientInfo.mainContact == searchKey
+                    );
+                    let searchedDataSC = await clients.clients.filter(
+                        (item) => item.clientInfo.secondContact == searchKey
+                    );
+                    let searchedDataFN = await clients.clients.filter(
+                        (item) => item.clientInfo.firstName == searchKey
+                    );
+                    let searchedDataLN = await clients.clients.filter(
+                        (item) => item.clientInfo.lastName == searchKey
+                    );
+                    let searchedData = [
+                        ...searchedDataId,
+                        ...searchedDataMC,
+                        ...searchedDataSC,
+                        ...searchedDataFN,
+                        ...searchedDataLN,
+                    ];
+                    console.log(searchedData)
+                    setClients({ clients: searchedData });
+                }
+                if (searchKey && !(selectedStatus && selectedBranch)) {
+                    setLoading(true);
+                    setClients(
+                        await request(
+                            SEARCH_CLIENT,
+                            { searchKey: searchKey },
+                            userToken
+                        )
+                    );
+                    setCanFilter(false);
+                    setLoading(false);
+                } else {
+                    setLoading(true);
+                    setClients(
+                        await request(ALL_CLIENTS_QUERY, null, userToken)
+                    );
+                    setCanFilter(true);
+                    setLoading(false);
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -145,7 +189,7 @@ const ContactsScreen = ({ navigation, route }) => {
     }, [searchKey]);
 
     const toggleExpanded = () => {
-        setCollapsed(!collapsed);
+        if (canFilter) setCollapsed(!collapsed);
     };
 
     const clientStatus = [
@@ -188,7 +232,6 @@ const ContactsScreen = ({ navigation, route }) => {
             </TouchableOpacity>
         );
     };
-    console.log(clients)
     return (
         <>
             {isLoading ? (
@@ -218,7 +261,9 @@ const ContactsScreen = ({ navigation, route }) => {
                             <TextInput
                                 placeholder="Mijozlar ma'lumotlarini qidirish"
                                 onFocus={() => setSearchBtnVisible(true)}
-                                onSubmitEditing={(value) => setSearchKey(value.nativeEvent.text)}
+                                onSubmitEditing={(value) =>
+                                    setSearchKey(value.nativeEvent.text)
+                                }
                             />
                         </View>
                         {searchBtnVisible ? (
@@ -341,7 +386,11 @@ const ContactsScreen = ({ navigation, route }) => {
                                     <View style={styles.centeredView}>
                                         <View style={styles.modalWrapper}>
                                             <FlatList
-                                                data={branches ? branches.branches: []}
+                                                data={
+                                                    branches
+                                                        ? branches.branches
+                                                        : []
+                                                }
                                                 renderItem={modalBranch}
                                                 keyExtractor={(item) =>
                                                     item.branchId
@@ -413,9 +462,7 @@ const ContactsScreen = ({ navigation, route }) => {
                     </Collapsible>
 
                     <FlatList
-                        data={
-                            clients ? clients.clients : []
-                        }
+                        data={clients ? clients.clients : []}
                         keyExtractor={(item) => item.clientId}
                         renderItem={({ item }) => <CardComponent item={item} />}
                         style={styles.container}

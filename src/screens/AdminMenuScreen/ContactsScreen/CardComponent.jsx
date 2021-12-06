@@ -60,7 +60,7 @@ const CardComponent = ({ item }) => {
                             )}
                             <TouchableOpacity>
                                 <Text style={styles.resultIdText}>
-                                    {"001523"}
+                                    {`${item.clientId}`}
                                 </Text>
                             </TouchableOpacity>
                         </View>
