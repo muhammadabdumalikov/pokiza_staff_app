@@ -108,6 +108,7 @@ const MenuStack = ({ navigation, route }) => {
                 name="ModeratorsScreen"
                 component={ModeratorsScreen}
                 options={({ route }) => ({
+                    headerTitle: "Moderator bo'limi",
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 18,

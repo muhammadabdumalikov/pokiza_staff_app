@@ -22,8 +22,6 @@ const height = Dimensions.get("window").height;
 const ModeratorsScreen = ({ navigation, route }) => {
     const [collapsed, setCollapsed] = useState(true);
     let [selectedTariffs, setSelectedTariffs] = useState("");
-    let [selectedAddress, setSelectedAddress] = useState("");
-    let [selectedAlphabet, setSelectedAlphabet] = useState("");
     const [selectedState, setSelectedState] = useState();
     let [isLoading, setLoading] = useState(true);
     const [stateModalVisible, setStateModalVisible] = useState(false);
@@ -170,7 +168,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                                             <Text
                                                 style={styles.hideModalButton}
                                             >
-                                                Hide Modal
+                                                Yopish
                                             </Text>
                                         </Pressable>
                                     </View>
@@ -182,7 +180,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                                     <Text style={styles.textStyle}>
                                         {selectedState != undefined
                                             ? selectedState.stateName
-                                            : "Add State"}
+                                            : "Filialni tanlash"}
                                     </Text>
                                 </Pressable>
                             </View>
@@ -235,7 +233,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                                             <Text
                                                 style={styles.hideModalButton}
                                             >
-                                                Hide Modal
+                                                Yopish
                                             </Text>
                                         </Pressable>
                                     </View>
@@ -247,7 +245,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                                     <Text style={styles.textStyle}>
                                         {selectedState != undefined
                                             ? selectedState.stateName
-                                            : "Add State"}
+                                            : "Tarifni tanlash"}
                                     </Text>
                                 </Pressable>
                             </View>
@@ -262,7 +260,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                                     }}
                                 >
                                     <Text style={styles.resetText}>
-                                        Reset Filter
+                                        Filterni tozalash
                                     </Text>
                                 </TouchableOpacity>
                             </View>
@@ -313,7 +311,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                             </View>
                             <View style={styles.resultLineBox}>
                                 <Text style={styles.tariffText}>
-                                    Tariff:{"    "}
+                                    Tarif:{"    "}
                                     <Text
                                         style={{
                                             ...styles.tariffDynamicText,
@@ -333,7 +331,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                                         color="#4BCE00"
                                     />
                                     <Text style={styles.acceptText}>
-                                        Accept
+                                        Qabul qilish
                                     </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.deleteBox}>
@@ -343,7 +341,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                                         color="black"
                                     />
                                     <Text style={styles.deleteText}>
-                                        Delete
+                                        O'chirish
                                     </Text>
                                 </TouchableOpacity>
                             </View>
@@ -378,7 +376,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                             </View>
                             <View style={styles.resultLineBox}>
                                 <Text style={styles.tariffText}>
-                                    Tariff:{"    "}
+                                    Tarif:{"    "}
                                     <Text
                                         style={{
                                             ...styles.tariffDynamicText,
@@ -398,7 +396,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                                         color="#4BCE00"
                                     />
                                     <Text style={styles.acceptText}>
-                                        Accept
+                                        Qabul qilish
                                     </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.deleteBox}>
@@ -408,7 +406,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
                                         color="black"
                                     />
                                     <Text style={styles.deleteText}>
-                                        Delete
+                                        O'chirish
                                     </Text>
                                 </TouchableOpacity>
                             </View>
