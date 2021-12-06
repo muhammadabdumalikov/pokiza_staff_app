@@ -57,38 +57,82 @@ const AddClientScreen = ({ navigation, route }) => {
         }
       }`;
 
-    const [clients, setClients] = useState();
-    const [selectedState, setSelectedState] = useState();
-    let [states, setStates] = useState();
-    const [selectedRegion, setSelectedRegion] = useState();
-    let [regions, setRegions] = useState();
-    let [isLoading, setLoading] = useState(true);
-    const [collapsed, setCollapsed] = useState(true);
-    let [selectedAge, setSelectedAge] = useState();
-    let [selectedStatus, setSelectedStatus] = useState();
-    let [selectedGender, setSelectedGender] = useState();
-    const [multiSliderValue, setMultiSliderValue] = useState([16, 99]);
-    let [userToken, setUserToken] = useState();
+    const GET_AREAS_QUERY = `query($regionId: ID!){
+        areas(regionId: $regionId){
+          areaId
+          areaName
+        }
+      }`;
 
-    const [statusModalVisible, setStatusModalVisible] = useState(false);
+    const GET_NEIGHBORHOOD_QUERY = `query($regionId: ID!){
+        neighborhoods(regionId: $regionId){
+          neighborhoodId
+          neighborhoodName
+        }
+      }`;
+
+    const GET_STREET_QUERY = `query($neighborhoodId: ID!){
+        streets(neighborhoodId: $neighborhoodId ){
+          streetId
+          streetName
+        }
+      }`;
+
+    const GET_BRANCHES_QUERY = `query($regionId: ID!){
+        regions(regionId: $regionId){
+          branch{
+            branchId
+            branchName
+          }
+        }
+      }`;
+
+    const [selectedFirstName, setSelectedFirstName] = useState();
+    const [selectedLastName, setSelectedLastName] = useState();
+    const [selectedMainContact, setSelectedMainContact] = useState();
+    const [selectedSecondContact, setSelectedSecondContact] = useState();
+
+    const [selectedState, setSelectedState] = useState();
+    const [selectedRegion, setSelectedRegion] = useState();
+    const [selectedArea, setSelectedArea] = useState();
+    const [selectedNeighborhood, setSelectedNeighborhood] = useState();
+    const [selectedStreet, setSelectedStreet] = useState();
+    const [selectedBranch, setSelectedBranch] = useState();
+    const [selectedAge, setSelectedAge] = useState();
+    const [selectedStatus, setSelectedStatus] = useState();
+    const [selectedGender, setSelectedGender] = useState();
+    const [isLoading, setLoading] = useState(true);
+    const [userToken, setUserToken] = useState();
+    const [collapsed, setCollapsed] = useState(true);
+
+    let [states, setStates] = useState();
+    let [branches, setBranches] = useState();
+    let [regions, setRegions] = useState();
+    let [areas, setAreas] = useState();
+    let [neighborhoods, setNeighborhoods] = useState();
+    let [streets, setStreets] = useState();
+
     const [stateModalVisible, setStateModalVisible] = useState(false);
     const [regionModalVisible, setRegionModalVisible] = useState(false);
+    const [areaModalVisible, setAreaModalVisible] = useState(false);
+    const [neighborhoodModalVisible, setNeighborhoodModalVisible] =
+        useState(false);
+    const [streetModalVisible, setStreetModalVisible] = useState(false);
+    const [branchModalVisible, setBranchModalVisible] = useState(false);
+
+    const [statusModalVisible, setStatusModalVisible] = useState(false);
     const [genderModalVisible, setGenderModalVisible] = useState(false);
 
     const [searchBtnVisible, setSearchBtnVisible] = useState(false);
 
-    let firstname;
-    let lastname;
-    let firstPhone;
-    let lastPhone;
-    let summary;
+    const [clientSummary, setClientSummary] = useState();
+    const [locationSummary, setLocationSummary] = useState();
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const value = await AsyncStorage.getItem("staff_token");
                 setUserToken(value);
-                setClients(await request(ALL_CLIENTS_QUERY, null, value));
                 setStates(await request(GET_STATE_QUERY, null, value));
                 setLoading(false);
             } catch (error) {
@@ -108,7 +152,6 @@ const AddClientScreen = ({ navigation, route }) => {
                         userToken
                     )
                 );
-                setSelectedRegion(null);
             } catch (error) {
                 console.log(error);
             }
@@ -116,22 +159,90 @@ const AddClientScreen = ({ navigation, route }) => {
         fetchData();
     }, [selectedState]);
 
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                setAreas(
+                    await request(
+                        GET_AREAS_QUERY,
+                        { regionId: selectedRegion.regionId },
+                        userToken
+                    )
+                );
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
+    }, [selectedRegion]);
+
+    useEffect(() => {
+        async function fetchNeighborhood() {
+            try {
+                setNeighborhoods(
+                    await request(
+                        GET_NEIGHBORHOOD_QUERY,
+                        { regionId: selectedRegion },
+                        userToken
+                    )
+                );
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchNeighborhood();
+    }, [selectedRegion]);
+
+    useEffect(() => {
+        async function fetchStreet() {
+            try {
+                setStreets(
+                    await request(
+                        GET_STREET_QUERY,
+                        { neighborhoodId: selectedNeighborhood },
+                        userToken
+                    )
+                );
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchStreet();
+    }, [selectedNeighborhood]);
+
+    useEffect(() => {
+        async function fetchBranches() {
+            try {
+                setBranches(
+                    await request(
+                        GET_BRANCHES_QUERY,
+                        { regionId: selectedRegion },
+                        userToken
+                    )
+                );
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchBranches();
+    }, [selectedRegion]);
+
     const toggleExpanded = () => {
         setCollapsed(!collapsed);
     };
 
     const genderData = [
-        { key: "1", label: "Male" },
-        { key: "2", label: "Female" },
+        { key: "1", label: "Male", value: 1 },
+        { key: "2", label: "Female", value: 2 },
     ];
 
     const clientStatus = [
-        { key: "1", label: "Normal" },
-        { key: "2", label: "Good" },
-        { key: "3", label: "Favourites" },
+        { key: "1", label: "Normal", value: 1 },
+        { key: "2", label: "Good", value: 2 },
+        { key: "3", label: "Favourites", value: 3 },
         // etc...
         // Can also add additional custom keys which are passed to the onChange callback
-        { key: "4", label: "Black-list" },
+        { key: "4", label: "Black-list", value: 4 },
     ];
 
     const modalStatus = ({ item }) => {
@@ -177,6 +288,70 @@ const AddClientScreen = ({ navigation, route }) => {
             >
                 <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
                     {item.regionName}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+
+    const modalArea = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedArea(item);
+                    setAreaModalVisible(!areaModalVisible);
+                }}
+            >
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.areaName}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+
+    const modalNeighborhood = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedNeighborhood(item);
+                    setNeighborhoodModalVisible(!neighborhoodModalVisible);
+                }}
+            >
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.neighborhoodName}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+
+    const modalStreet = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedStreet(item);
+                    setStreetModalVisible(!streetModalVisible);
+                }}
+            >
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.streetName}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+
+    const modalBranch = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedBranch(item);
+                    setBranchModalVisible(!branchModalVisible);
+                }}
+            >
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.branchName}
                 </Text>
             </TouchableOpacity>
         );
@@ -239,7 +414,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 numberOfLines={1}
                                 placeholder="Ism kiriting"
                                 placeholderTextColor="#B8B8BB"
-                                onChangeText={(value) => (firstname = value)}
+                                onChangeText={(value) => setSelectedFirstName(value)}
                                 keyboardType="default"
                                 // autoFocus={true}
                                 maxLength={9}
@@ -264,7 +439,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 numberOfLines={1}
                                 placeholder="Familiya kiriting"
                                 placeholderTextColor="#B8B8BB"
-                                onChangeText={(value) => (lastname = value)}
+                                onChangeText={(value) => setSelectedLastName(value)}
                                 keyboardType="default"
                                 // autoFocus={true}
                                 maxLength={9}
@@ -292,7 +467,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 numberOfLines={1}
                                 placeholder="Telefon raqam kiriting"
                                 placeholderTextColor="#B8B8BB"
-                                onChangeText={(value) => (firstPhone = value)}
+                                onChangeText={(value) => setSelectedMainContact(value)}
                                 keyboardType="phone-pad"
                                 // autoFocus={true}
                                 maxLength={9}
@@ -320,7 +495,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 numberOfLines={1}
                                 placeholder="Telefon raqam kiriting"
                                 placeholderTextColor="#B8B8BB"
-                                onChangeText={(value) => (lastPhone = value)}
+                                onChangeText={(value) => setSelectedSecondContact(value)}
                                 keyboardType="phone-pad"
                                 // autoFocus={true}
                                 maxLength={9}
@@ -400,7 +575,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 numberOfLines={1}
                                 placeholder="Izoh qoldiring"
                                 placeholderTextColor="#B8B8BB"
-                                onChangeText={(value) => (summary = value)}
+                                onChangeText={(value) => setClientSummary(value)}
                                 keyboardType="default"
                                 // autoFocus={true}
                                 maxLength={9}
@@ -440,6 +615,9 @@ const AddClientScreen = ({ navigation, route }) => {
                                     placeholder="27"
                                     placeholderTextColor="#B8B8BB"
                                     keyboardType="numeric"
+                                    onChangeText={(value) =>
+                                        setSelectedAge(value)
+                                    }
                                     // autoFocus={true}
                                     maxLength={9}
                                 />
@@ -643,6 +821,65 @@ const AddClientScreen = ({ navigation, route }) => {
                             </Pressable>
                         </View>
 
+                        {/* Area input -------------------------------------------- */}
+                        <View style={styles.pickerWrapper}>
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>Mo'ljal</Text>
+                            </View>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={areaModalVisible}
+                                onRequestClose={() => {
+                                    setAreaModalVisible(!areaModalVisible);
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalWrapper}>
+                                        <FlatList
+                                            data={
+                                                areas != undefined
+                                                    ? areas.areas
+                                                    : []
+                                            }
+                                            renderItem={modalArea}
+                                            keyExtractor={(item) => item.areaId}
+                                            contentContainerStyle={
+                                                styles.modalView
+                                            }
+                                            style={styles.contenModalView}
+                                            showsVerticalScrollIndicator={false}
+                                        />
+                                    </View>
+                                    <Pressable
+                                        style={[
+                                            styles.button,
+                                            styles.buttonClose,
+                                        ]}
+                                        onPress={() =>
+                                            setAreaModalVisible(
+                                                !areaModalVisible
+                                            )
+                                        }
+                                    >
+                                        <Text style={styles.hideModalButton}>
+                                            Hide Modal
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            </Modal>
+                            <Pressable
+                                style={styles.buttonOpen}
+                                onPress={() => setAreaModalVisible(true)}
+                            >
+                                <Text style={styles.textStyle}>
+                                    {selectedArea != undefined
+                                        ? selectedArea.areaName
+                                        : "Hudud"}
+                                </Text>
+                            </Pressable>
+                        </View>
+
                         {/* Neighborhood input -------------------------------------------- */}
                         <View style={styles.pickerWrapper}>
                             <View style={styles.preTextWrapperStyle}>
@@ -653,22 +890,24 @@ const AddClientScreen = ({ navigation, route }) => {
                             <Modal
                                 animationType="slide"
                                 transparent={true}
-                                visible={regionModalVisible}
+                                visible={neighborhoodModalVisible}
                                 onRequestClose={() => {
-                                    setRegionModalVisible(!regionModalVisible);
+                                    setNeighborhoodModalVisible(
+                                        !neighborhoodModalVisible
+                                    );
                                 }}
                             >
                                 <View style={styles.centeredView}>
                                     <View style={styles.modalWrapper}>
                                         <FlatList
                                             data={
-                                                regions != undefined
-                                                    ? regions.regions
+                                                neighborhoods != undefined
+                                                    ? neighborhoods.neighborhoods
                                                     : []
                                             }
-                                            renderItem={modalRegion}
+                                            renderItem={modalNeighborhood}
                                             keyExtractor={(item) =>
-                                                item.regionId
+                                                item.neighborhoodId
                                             }
                                             contentContainerStyle={
                                                 styles.modalView
@@ -683,8 +922,8 @@ const AddClientScreen = ({ navigation, route }) => {
                                             styles.buttonClose,
                                         ]}
                                         onPress={() =>
-                                            setRegionModalVisible(
-                                                !regionModalVisible
+                                            setNeighborhoodModalVisible(
+                                                !neighborhoodModalVisible
                                             )
                                         }
                                     >
@@ -696,73 +935,14 @@ const AddClientScreen = ({ navigation, route }) => {
                             </Modal>
                             <Pressable
                                 style={styles.buttonOpen}
-                                onPress={() => setRegionModalVisible(true)}
+                                onPress={() =>
+                                    setNeighborhoodModalVisible(true)
+                                }
                             >
                                 <Text style={styles.textStyle}>
-                                    {selectedRegion != undefined
-                                        ? selectedRegion.regionName
-                                        : "Add Region"}
-                                </Text>
-                            </Pressable>
-                        </View>
-
-                        {/* Area input -------------------------------------------- */}
-                        <View style={styles.pickerWrapper}>
-                            <View style={styles.preTextWrapperStyle}>
-                                <Text style={styles.preText}>Mo'ljal</Text>
-                            </View>
-                            <Modal
-                                animationType="slide"
-                                transparent={true}
-                                visible={regionModalVisible}
-                                onRequestClose={() => {
-                                    setRegionModalVisible(!regionModalVisible);
-                                }}
-                            >
-                                <View style={styles.centeredView}>
-                                    <View style={styles.modalWrapper}>
-                                        <FlatList
-                                            data={
-                                                regions != undefined
-                                                    ? regions.regions
-                                                    : []
-                                            }
-                                            renderItem={modalRegion}
-                                            keyExtractor={(item) =>
-                                                item.regionId
-                                            }
-                                            contentContainerStyle={
-                                                styles.modalView
-                                            }
-                                            style={styles.contenModalView}
-                                            showsVerticalScrollIndicator={false}
-                                        />
-                                    </View>
-                                    <Pressable
-                                        style={[
-                                            styles.button,
-                                            styles.buttonClose,
-                                        ]}
-                                        onPress={() =>
-                                            setRegionModalVisible(
-                                                !regionModalVisible
-                                            )
-                                        }
-                                    >
-                                        <Text style={styles.hideModalButton}>
-                                            Hide Modal
-                                        </Text>
-                                    </Pressable>
-                                </View>
-                            </Modal>
-                            <Pressable
-                                style={styles.buttonOpen}
-                                onPress={() => setRegionModalVisible(true)}
-                            >
-                                <Text style={styles.textStyle}>
-                                    {selectedRegion != undefined
-                                        ? selectedRegion.regionName
-                                        : "Add Region"}
+                                    {selectedNeighborhood != undefined
+                                        ? selectedNeighborhood.neighborhoodName
+                                        : "Mahallani kiriting"}
                                 </Text>
                             </Pressable>
                         </View>
@@ -775,22 +955,22 @@ const AddClientScreen = ({ navigation, route }) => {
                             <Modal
                                 animationType="slide"
                                 transparent={true}
-                                visible={regionModalVisible}
+                                visible={streetModalVisible}
                                 onRequestClose={() => {
-                                    setRegionModalVisible(!regionModalVisible);
+                                    setStreetModalVisible(!streetModalVisible);
                                 }}
                             >
                                 <View style={styles.centeredView}>
                                     <View style={styles.modalWrapper}>
                                         <FlatList
                                             data={
-                                                regions != undefined
-                                                    ? regions.regions
+                                                streets != undefined
+                                                    ? streets.streets
                                                     : []
                                             }
-                                            renderItem={modalRegion}
+                                            renderItem={modalStreet}
                                             keyExtractor={(item) =>
-                                                item.regionId
+                                                item.streetId
                                             }
                                             contentContainerStyle={
                                                 styles.modalView
@@ -805,8 +985,8 @@ const AddClientScreen = ({ navigation, route }) => {
                                             styles.buttonClose,
                                         ]}
                                         onPress={() =>
-                                            setRegionModalVisible(
-                                                !regionModalVisible
+                                            setStreetModalVisible(
+                                                !streetModalVisible
                                             )
                                         }
                                     >
@@ -818,12 +998,12 @@ const AddClientScreen = ({ navigation, route }) => {
                             </Modal>
                             <Pressable
                                 style={styles.buttonOpen}
-                                onPress={() => setRegionModalVisible(true)}
+                                onPress={() => setStreetModalVisible(true)}
                             >
                                 <Text style={styles.textStyle}>
-                                    {selectedRegion != undefined
-                                        ? selectedRegion.regionName
-                                        : "Add Region"}
+                                    {selectedStreet != undefined
+                                        ? selectedStreet.streetName
+                                        : "Ko'chani kiriting"}
                                 </Text>
                             </Pressable>
                         </View>
@@ -861,22 +1041,22 @@ const AddClientScreen = ({ navigation, route }) => {
                             <Modal
                                 animationType="slide"
                                 transparent={true}
-                                visible={regionModalVisible}
+                                visible={branchModalVisible}
                                 onRequestClose={() => {
-                                    setRegionModalVisible(!regionModalVisible);
+                                    setBranchModalVisible(!branchModalVisible);
                                 }}
                             >
                                 <View style={styles.centeredView}>
                                     <View style={styles.modalWrapper}>
                                         <FlatList
                                             data={
-                                                regions != undefined
-                                                    ? regions.regions
+                                                branches != undefined
+                                                    ? branches.branches
                                                     : []
                                             }
-                                            renderItem={modalRegion}
+                                            renderItem={modalBranch}
                                             keyExtractor={(item) =>
-                                                item.regionId
+                                                item.branchId
                                             }
                                             contentContainerStyle={
                                                 styles.modalView
@@ -891,8 +1071,8 @@ const AddClientScreen = ({ navigation, route }) => {
                                             styles.buttonClose,
                                         ]}
                                         onPress={() =>
-                                            setRegionModalVisible(
-                                                !regionModalVisible
+                                            setBranchModalVisible(
+                                                !branchModalVisible
                                             )
                                         }
                                     >
@@ -904,12 +1084,13 @@ const AddClientScreen = ({ navigation, route }) => {
                             </Modal>
                             <Pressable
                                 style={styles.buttonOpen}
-                                onPress={() => setRegionModalVisible(true)}
+                                onPress={() => setBranchModalVisible(true)}
+                                disabled={true}
                             >
                                 <Text style={styles.textStyle}>
-                                    {selectedRegion != undefined
-                                        ? selectedRegion.regionName
-                                        : "Add Region"}
+                                    {selectedBranch != undefined
+                                        ? selectedBranch.branchName
+                                        : "Filialni kiriting"}
                                 </Text>
                             </Pressable>
                         </View>
@@ -917,7 +1098,7 @@ const AddClientScreen = ({ navigation, route }) => {
                         {/* Address comment input --------------------------------------------------------------- */}
                         <View style={styles.phoneTxtWrapper}>
                             <Text style={{ color: "black", fontSize: 16 }}>
-                                Mijoz haqida izoh
+                                Manzil haqida izoh qoldirish
                             </Text>
                         </View>
                         <View
@@ -935,7 +1116,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 numberOfLines={1}
                                 placeholder="Izoh qoldiring"
                                 placeholderTextColor="#B8B8BB"
-                                onChangeText={(value) => (summary = value)}
+                                onChangeText={(value) => setLocationSummary(value)}
                                 keyboardType="default"
                                 // autoFocus={true}
                                 maxLength={9}
