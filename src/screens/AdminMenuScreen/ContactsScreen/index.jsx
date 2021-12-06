@@ -19,6 +19,7 @@ import { sliderStyles, styles } from "./styles";
 import CardComponent from "./CardComponent";
 
 const ContactsScreen = ({ navigation, route }) => {
+
     const ALL_CLIENTS_QUERY = `query($clientStatus: Int = null, $branchId: ID = null){
         clients(clientStatus: $clientStatus, branchId: $branchId){
           clientId
@@ -35,14 +36,16 @@ const ContactsScreen = ({ navigation, route }) => {
             
           }
         }
-      }`;
+      }
+    `;
 
     const GET_ALL_BRANCHES_QUERY = `query($branchId:ID){
         branches(branchId: $branchId){
           branchId
           branchName
         }
-      }`;
+      }
+    `;
 
     const SEARCH_CLIENT = `query($searchKey: String!) {
         clients: search(searchKey: $searchKey) {
@@ -159,7 +162,7 @@ const ContactsScreen = ({ navigation, route }) => {
                         ...searchedDataFN,
                         ...searchedDataLN,
                     ];
-                    console.log(searchedData)
+                    console.log(searchedDataId, searchedDataMC, searchedDataSC, searchedDataFN, searchedDataLN)
                     setClients({ clients: searchedData });
                 }
                 if (searchKey && !(selectedStatus && selectedBranch)) {
