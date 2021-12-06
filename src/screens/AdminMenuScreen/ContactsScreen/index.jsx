@@ -44,6 +44,26 @@ const ContactsScreen = ({ navigation, route }) => {
         }
       }`;
 
+    const SEARCH_CLIENT = `query($searchKey: String!) {
+        clients: search(searchKey: $searchKey) {
+          ... on Client {
+            clientId
+              clientStatus
+              clientSummary
+              clientInfo{
+                userId
+                mainContact
+                secondContact
+                firstName
+                lastName
+                age
+                gender
+              }
+          }
+        }
+      }      
+    `
+
     const [clients, setClients] = useState();
     const [branches, setBranches] = useState();
     const [selectedBranch, setSelectedBranch] = useState();
@@ -56,6 +76,7 @@ const ContactsScreen = ({ navigation, route }) => {
     const [branchModalVisible, setBranchModalVisible] = useState(false);
 
     const [searchBtnVisible, setSearchBtnVisible] = useState(false);
+    const [searchKey, setSearchKey] = useState();
 
     useEffect(() => {
         async function fetchData() {
@@ -110,6 +131,19 @@ const ContactsScreen = ({ navigation, route }) => {
         fetchData();
     }, [selectedStatus]);
 
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                setLoading(true);
+                setClients(await request(SEARCH_CLIENT, {searchKey: searchKey}, userToken));
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
+    }, [searchKey]);
+
     const toggleExpanded = () => {
         setCollapsed(!collapsed);
     };
@@ -154,9 +188,7 @@ const ContactsScreen = ({ navigation, route }) => {
             </TouchableOpacity>
         );
     };
-
-    console.log(selectedBranch);
-
+    console.log(clients)
     return (
         <>
             {isLoading ? (
@@ -186,6 +218,7 @@ const ContactsScreen = ({ navigation, route }) => {
                             <TextInput
                                 placeholder="Mijozlar ma'lumotlarini qidirish"
                                 onFocus={() => setSearchBtnVisible(true)}
+                                onSubmitEditing={(value) => setSearchKey(value.nativeEvent.text)}
                             />
                         </View>
                         {searchBtnVisible ? (
