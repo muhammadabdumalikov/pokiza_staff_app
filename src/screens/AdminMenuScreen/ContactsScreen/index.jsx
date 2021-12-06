@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {
-    ScrollView,
     Text,
     View,
     TouchableOpacity,
     TextInput,
-    Dimensions,
-    Platform,
     ActivityIndicator,
     Modal,
     Pressable,
@@ -22,8 +19,8 @@ import { sliderStyles, styles } from "./styles";
 import CardComponent from "./CardComponent";
 
 const ContactsScreen = ({ navigation, route }) => {
-    const ALL_CLIENTS_QUERY = `query($clientStatus: Int! = 1, $age: Int = null, $gender: Int = null){
-        clients(clientStatus: $clientStatus, age: $age, gender: $gender ){
+    const ALL_CLIENTS_QUERY = `query($clientStatus: Int = null, $branchId: ID = null){
+        clients(clientStatus: $clientStatus, branchId: $branchId){
           clientId
           clientStatus
           clientSummary
@@ -40,38 +37,23 @@ const ContactsScreen = ({ navigation, route }) => {
         }
       }`;
 
-    const GET_STATE_QUERY = `{
-        states {
-          stateId
-          stateName
-        }
-      }`;
-
-    const GET_REGION_QUERY = `
-    query($stateId: ID!){
-        regions(stateId: $stateId){
-          regionId
-          regionName
+    const GET_ALL_BRANCHES_QUERY = `query($branchId:ID){
+        branches(branchId: $branchId){
+          branchId
+          branchName
         }
       }`;
 
     const [clients, setClients] = useState();
-    const [selectedState, setSelectedState] = useState();
-    let [states, setStates] = useState();
-    const [selectedRegion, setSelectedRegion] = useState();
-    let [regions, setRegions] = useState();
-    let [isLoading, setLoading] = useState(true);
+    const [branches, setBranches] = useState();
+    const [selectedBranch, setSelectedBranch] = useState();
+    const [isLoading, setLoading] = useState(true);
     const [collapsed, setCollapsed] = useState(true);
-    let [selectedAge, setSelectedAge] = useState();
-    let [selectedStatus, setSelectedStatus] = useState();
-    let [selectedGender, setSelectedGender] = useState();
-    const [multiSliderValue, setMultiSliderValue] = useState([16, 99]);
-    let [userToken, setUserToken] = useState();
+    const [selectedStatus, setSelectedStatus] = useState();
+    const [userToken, setUserToken] = useState();
 
     const [statusModalVisible, setStatusModalVisible] = useState(false);
-    const [stateModalVisible, setStateModalVisible] = useState(false);
-    const [regionModalVisible, setRegionModalVisible] = useState(false);
-    const [genderModalVisible, setGenderModalVisible] = useState(false);
+    const [branchModalVisible, setBranchModalVisible] = useState(false);
 
     const [searchBtnVisible, setSearchBtnVisible] = useState(false);
 
@@ -81,7 +63,7 @@ const ContactsScreen = ({ navigation, route }) => {
                 const value = await AsyncStorage.getItem("staff_token");
                 setUserToken(value);
                 setClients(await request(ALL_CLIENTS_QUERY, null, value));
-                setStates(await request(GET_STATE_QUERY, null, value));
+                setBranches(await request(GET_ALL_BRANCHES_QUERY, null, value));
                 setLoading(false);
             } catch (error) {
                 console.log(error);
@@ -93,37 +75,52 @@ const ContactsScreen = ({ navigation, route }) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                setRegions(
+                setLoading(true);
+                setClients(
                     await request(
-                        GET_REGION_QUERY,
-                        { stateId: selectedState.stateId },
+                        ALL_CLIENTS_QUERY,
+                        { branchId: selectedBranch?.branchId },
                         userToken
                     )
                 );
-                setSelectedRegion(null);
+                setLoading(false);
             } catch (error) {
                 console.log(error);
             }
         }
         fetchData();
-    }, [selectedState]);
+    }, [selectedBranch]);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                setLoading(true);
+                setClients(
+                    await request(
+                        ALL_CLIENTS_QUERY,
+                        { clientStatus: selectedStatus?.value },
+                        userToken
+                    )
+                );
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
+    }, [selectedStatus]);
 
     const toggleExpanded = () => {
         setCollapsed(!collapsed);
     };
 
-    const genderData = [
-        { key: "1", label: "Male" },
-        { key: "2", label: "Female" },
-    ];
-
     const clientStatus = [
-        { key: "1", label: "Normal" },
-        { key: "2", label: "Good" },
-        { key: "3", label: "Favourites" },
+        { key: "1", label: "Normal", value: 1 },
+        { key: "2", label: "Good", value: 2 },
+        { key: "3", label: "Favourites", value: 3 },
         // etc...
         // Can also add additional custom keys which are passed to the onChange callback
-        { key: "4", label: "Black-list" },
+        { key: "4", label: "Black-list", value: 4 },
     ];
 
     const modalStatus = ({ item }) => {
@@ -142,53 +139,23 @@ const ContactsScreen = ({ navigation, route }) => {
         );
     };
 
-    const modalState = ({ item }) => {
+    const modalBranch = ({ item }) => {
         return (
             <TouchableOpacity
                 style={{ width: "80%", paddingVertical: 15 }}
                 onPress={() => {
-                    setSelectedState(item);
-                    setStateModalVisible(!stateModalVisible);
+                    setSelectedBranch(item);
+                    setBranchModalVisible(!branchModalVisible);
                 }}
             >
                 <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
-                    {item.stateName}
+                    {item.branchName}
                 </Text>
             </TouchableOpacity>
         );
     };
 
-    const modalRegion = ({ item }) => {
-        return (
-            <TouchableOpacity
-                style={{ width: "80%", paddingVertical: 15 }}
-                onPress={() => {
-                    setSelectedRegion(item);
-                    setRegionModalVisible(!regionModalVisible);
-                }}
-            >
-                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
-                    {item.regionName}
-                </Text>
-            </TouchableOpacity>
-        );
-    };
-
-    const modalGender = ({ item }) => {
-        return (
-            <TouchableOpacity
-                style={{ width: "80%", paddingVertical: 15 }}
-                onPress={() => {
-                    setSelectedGender(item);
-                    setGenderModalVisible(!genderModalVisible);
-                }}
-            >
-                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
-                    {item.label}
-                </Text>
-            </TouchableOpacity>
-        );
-    };
+    console.log(selectedBranch);
 
     return (
         <>
@@ -316,7 +283,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                     <Text style={styles.textStyle}>
                                         {selectedStatus != undefined
                                             ? selectedStatus.label
-                                            : "Add Status"}
+                                            : "Statusni kiriting"}
                                     </Text>
                                 </Pressable>
                             </View>
@@ -331,20 +298,20 @@ const ContactsScreen = ({ navigation, route }) => {
                                 <Modal
                                     animationType="slide"
                                     transparent={true}
-                                    visible={stateModalVisible}
+                                    visible={branchModalVisible}
                                     onRequestClose={() => {
-                                        setStateModalVisible(
-                                            !stateModalVisible
+                                        setBranchModalVisible(
+                                            !branchModalVisible
                                         );
                                     }}
                                 >
                                     <View style={styles.centeredView}>
                                         <View style={styles.modalWrapper}>
                                             <FlatList
-                                                data={states.states}
-                                                renderItem={modalState}
+                                                data={branches ? branches.branches: []}
+                                                renderItem={modalBranch}
                                                 keyExtractor={(item) =>
-                                                    item.stateId
+                                                    item.branchId
                                                 }
                                                 contentContainerStyle={
                                                     styles.modalView
@@ -361,8 +328,8 @@ const ContactsScreen = ({ navigation, route }) => {
                                                 styles.buttonClose,
                                             ]}
                                             onPress={() =>
-                                                setStateModalVisible(
-                                                    !stateModalVisible
+                                                setBranchModalVisible(
+                                                    !branchModalVisible
                                                 )
                                             }
                                         >
@@ -376,12 +343,12 @@ const ContactsScreen = ({ navigation, route }) => {
                                 </Modal>
                                 <Pressable
                                     style={styles.buttonOpen}
-                                    onPress={() => setStateModalVisible(true)}
+                                    onPress={() => setBranchModalVisible(true)}
                                 >
                                     <Text style={styles.textStyle}>
-                                        {selectedState != undefined
-                                            ? selectedState.stateName
-                                            : "Add State"}
+                                        {selectedBranch != undefined
+                                            ? selectedBranch.branchName
+                                            : "Filialni kiriting"}
                                     </Text>
                                 </Pressable>
                             </View>
@@ -391,10 +358,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                 <TouchableOpacity
                                     onPress={() => {
                                         setSelectedStatus(null);
-                                        setSelectedState(null);
-                                        setSelectedRegion(null);
-                                        setSelectedGender(null);
-                                        setMultiSliderValue([16, 99]);
+                                        setSelectedBranch(null);
                                     }}
                                 >
                                     <Text style={styles.resetText}>
@@ -417,10 +381,10 @@ const ContactsScreen = ({ navigation, route }) => {
 
                     <FlatList
                         data={
-                            clients.clients != undefined ? clients.clients : []
+                            clients ? clients.clients : []
                         }
                         keyExtractor={(item) => item.clientId}
-                        renderItem={({item}) => <CardComponent item={item}/>}
+                        renderItem={({ item }) => <CardComponent item={item} />}
                         style={styles.container}
                         contentContainerStyle={styles.contentStyle}
                         showsVerticalScrollIndicator={false}
