@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TouchableOpacity, Text, Dimensions } from "react-native";
+import { View, TouchableOpacity, Text, Dimensions, Alert } from "react-native";
 import { Entypo, Feather, AntDesign } from "@expo/vector-icons";
 
 import { colors } from "../../../constants/color";
@@ -8,6 +8,15 @@ import { styles } from "./styles";
 const height = Dimensions.get("window").height;
 
 const CardComponent = ({ item }) => {
+    const addressAlert = (id) => {
+        Alert.alert(`${id}`, "", [
+            {
+                text: "Qaytish",
+                onPress: () => null,
+                style: "cancel",
+            },
+        ]);
+    }
     return (
         <>
             {item.orderId ? (
@@ -18,7 +27,7 @@ const CardComponent = ({ item }) => {
                                 style={styles.resultIdText}
                             >{`${item.orderId}`}</Text>
                         </View>
-                        <TouchableOpacity style={styles.locationStyle}>
+                        <TouchableOpacity onPress={()=> addressAlert(item.orderAddress.addressId)} style={styles.locationStyle}>
                             <Entypo
                                 name="location-pin"
                                 size={24}
