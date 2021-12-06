@@ -276,142 +276,16 @@ const ModeratorsScreen = ({ navigation, route }) => {
                             </View>
                         </View>
                     </Collapsible>
-                    <ScrollView
+                    {/* <FlatList
+                        data={clients ? clients.clients : []}
+                        keyExtractor={(item) => item.clientId}
+                        renderItem={({ item }) => <CardComponent item={item} />}
                         style={styles.container}
                         contentContainerStyle={styles.contentStyle}
                         showsVerticalScrollIndicator={false}
-                    >
-                        <View style={styles.resultBox}>
-                            <View style={styles.resultLineBox}>
-                                <View style={styles.resultId}>
-                                    <Text style={styles.resultIdText}>
-                                        {"001523"}
-                                    </Text>
-                                </View>
-                                <TouchableOpacity style={styles.locationStyle}>
-                                    <Entypo
-                                        name="location-pin"
-                                        size={24}
-                                        color="black"
-                                    />
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.resultLineBox}>
-                                <Text style={styles.resultFullName}>
-                                    Hamdamboyev Hudoyberdi
-                                </Text>
-                            </View>
-                            <View style={styles.resultLineBox}>
-                                <Text style={styles.resultPhoneNumbers}>
-                                    +998911000000
-                                </Text>
-                                <Text style={styles.resultPhoneNumbers}>
-                                    +998901111111
-                                </Text>
-                            </View>
-                            <View style={styles.resultLineBox}>
-                                <Text style={styles.tariffText}>
-                                    Tarif:{"    "}
-                                    <Text
-                                        style={{
-                                            ...styles.tariffDynamicText,
-                                            color: "#E50000",
-                                        }}
-                                    >
-                                        {"Navbatsiz".toUpperCase()}
-                                    </Text>
-                                </Text>
-                                <Text style={styles.resultPhoneNumbers}></Text>
-                            </View>
-                            <View style={styles.resultLineBox}>
-                                <TouchableOpacity style={styles.acceptBox}>
-                                    <Feather
-                                        name="check"
-                                        size={24}
-                                        color="#4BCE00"
-                                    />
-                                    <Text style={styles.acceptText}>
-                                        Qabul qilish
-                                    </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.deleteBox}>
-                                    <AntDesign
-                                        name="delete"
-                                        size={24}
-                                        color="black"
-                                    />
-                                    <Text style={styles.deleteText}>
-                                        O'chirish
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-
-                        {/* Fake Data ---------------------------------------------------- */}
-                        <View style={styles.resultBox}>
-                            <View style={styles.resultLineBox}>
-                                <View style={styles.resultId}>
-                                    <Text style={styles.resultIdText}>
-                                        {"001523"}
-                                    </Text>
-                                </View>
-                                <Entypo
-                                    name="location-pin"
-                                    size={24}
-                                    color="black"
-                                />
-                            </View>
-                            <View style={styles.resultLineBox}>
-                                <Text style={styles.resultFullName}>
-                                    Hamdamboyev Hudoyberdi
-                                </Text>
-                            </View>
-                            <View style={styles.resultLineBox}>
-                                <Text style={styles.resultPhoneNumbers}>
-                                    +998911000000
-                                </Text>
-                                <Text style={styles.resultPhoneNumbers}>
-                                    +998901111111
-                                </Text>
-                            </View>
-                            <View style={styles.resultLineBox}>
-                                <Text style={styles.tariffText}>
-                                    Tarif:{"    "}
-                                    <Text
-                                        style={{
-                                            ...styles.tariffDynamicText,
-                                            color: "#007AFF",
-                                        }}
-                                    >
-                                        {"Oddiy".toUpperCase()}
-                                    </Text>
-                                </Text>
-                                <Text style={styles.resultPhoneNumbers}></Text>
-                            </View>
-                            <View style={styles.resultLineBox}>
-                                <TouchableOpacity style={styles.acceptBox}>
-                                    <Feather
-                                        name="check"
-                                        size={24}
-                                        color="#4BCE00"
-                                    />
-                                    <Text style={styles.acceptText}>
-                                        Qabul qilish
-                                    </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.deleteBox}>
-                                    <AntDesign
-                                        name="delete"
-                                        size={24}
-                                        color="black"
-                                    />
-                                    <Text style={styles.deleteText}>
-                                        O'chirish
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </ScrollView>
+                    /> */}
+                        
+                       
                     <TouchableOpacity
                         style={styles.fab}
                         onPress={() => navigation.goBack()}
