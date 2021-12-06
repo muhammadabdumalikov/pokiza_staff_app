@@ -24,23 +24,6 @@ import { sliderStyles, styles } from "./styles";
 const height = Dimensions.get("window").height;
 
 const AddClientScreen = ({ navigation, route }) => {
-    const ALL_CLIENTS_QUERY = `query($clientStatus: Int! = 1, $age: Int = null, $gender: Int = null){
-        clients(clientStatus: $clientStatus, age: $age, gender: $gender ){
-          clientId
-          clientStatus
-          clientSummary
-          clientInfo{
-            userId
-            mainContact
-            secondContact
-            firstName
-            lastName
-            age
-            gender
-            
-          }
-        }
-      }`;
 
     const GET_STATE_QUERY = `{
         states {

@@ -16,58 +16,62 @@ import { Entypo, Ionicons, AntDesign, Feather } from "@expo/vector-icons";
 
 import { styles } from "./styles";
 import { request } from "../../../helpers/request";
+import CardComponent from "./CardComponent";
 
 const height = Dimensions.get("window").height;
 
 const ModeratorsScreen = ({ navigation, route }) => {
     const [collapsed, setCollapsed] = useState(true);
-    let [selectedTariffs, setSelectedTariffs] = useState("");
-    const [selectedState, setSelectedState] = useState();
-    let [isLoading, setLoading] = useState(true);
-    const [stateModalVisible, setStateModalVisible] = useState(false);
+    const [orders, setOrders] = useState();
+    const [selectedTariffs, setSelectedTariffs] = useState();
+    const [selectedBranch, setSelectedBranch] = useState();
+    const [branchModalVisible, setBranchModalVisible] = useState(false);
+    const [tariffModalVisible, setTariffModalVisible] = useState(false);
     const [userToken, setUserToken] = useState();
+    const [isLoading, setLoading] = useState(true);
 
-    let [states, setStates] = useState();
+    const [branches, setBranches] = useState();
 
-    let firstname;
-    let age;
-    let index = 0;
-    let genderIndex = 0;
+    // let firstname;
+    // let age;
+    // let index = 0;
+    // let genderIndex = 0;
 
-    const GET_STATE_QUERY = `{
-        states {
-          stateId
-          stateName
+    const GET_BRANCHES_QUERY = `query{
+        branches{
+          branchId
+          branchName
         }
-      }`;
+      }
+    `;
 
-    const toggleExpanded = () => {
-        setCollapsed(!collapsed);
-    };
-
-    const modalState = ({ item }) => {
-        return (
-            <TouchableOpacity
-                style={{ width: "80%", paddingVertical: 15 }}
-                onPress={() => {
-                    setSelectedState(item);
-                    setStateModalVisible(!stateModalVisible);
-                }}
-            >
-                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
-                    {item.stateName}
-                </Text>
-            </TouchableOpacity>
-        );
-    };
+    const GET_ALL_ORDERS_QUERY = `{
+        orders(orderStatus: 1){
+          orderId
+             orderStatus
+          orderSpecial
+          orderOwner{
+            clientInfo{
+              firstName
+              lastName
+              mainContact
+              secondContact
+            }
+          },
+          orderAddress{
+            addressId
+          }
+        }
+      }
+    `;
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const value = await AsyncStorage.getItem("staff_token");
                 setUserToken(value);
-                // setClients(await request(ALL_CLIENTS_QUERY, null, value));
-                setStates(await request(GET_STATE_QUERY, null, value));
+                setOrders(await request(GET_ALL_ORDERS_QUERY, null, value));
+                setBranches(await request(GET_BRANCHES_QUERY, null, value));
                 setLoading(false);
             } catch (error) {
                 console.log(error);
@@ -75,6 +79,47 @@ const ModeratorsScreen = ({ navigation, route }) => {
         }
         fetchData();
     }, []);
+
+    const tariffs = [
+        { id: "1", tariffName: "Tezkor", value: true },
+        { id: "2", tariffName: "Oddiy", value: false },
+    ];
+
+    const toggleExpanded = () => {
+        setCollapsed(!collapsed);
+    };
+
+    const modalBranch = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedBranch(item);
+                    setBranchModalVisible(!branchModalVisible);
+                }}
+            >
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.branchName}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+
+    const modalTariff = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedTariffs(item);
+                    setTariffModalVisible(!tariffModalVisible);
+                }}
+            >
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.tariffName}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
 
     return (
         <>
@@ -130,20 +175,24 @@ const ModeratorsScreen = ({ navigation, route }) => {
                                 <Modal
                                     animationType="slide"
                                     transparent={true}
-                                    visible={stateModalVisible}
+                                    visible={branchModalVisible}
                                     onRequestClose={() => {
-                                        setStateModalVisible(
-                                            !stateModalVisible
+                                        setBranchModalVisible(
+                                            !branchModalVisible
                                         );
                                     }}
                                 >
                                     <View style={styles.centeredView}>
                                         <View style={styles.modalWrapper}>
                                             <FlatList
-                                                data={states.states}
-                                                renderItem={modalState}
+                                                data={
+                                                    branches
+                                                        ? branches.branches
+                                                        : []
+                                                }
+                                                renderItem={modalBranch}
                                                 keyExtractor={(item) =>
-                                                    item.stateId
+                                                    item.branchId
                                                 }
                                                 contentContainerStyle={
                                                     styles.modalView
@@ -160,8 +209,8 @@ const ModeratorsScreen = ({ navigation, route }) => {
                                                 styles.buttonClose,
                                             ]}
                                             onPress={() =>
-                                                setStateModalVisible(
-                                                    !stateModalVisible
+                                                setBranchModalVisible(
+                                                    !branchModalVisible
                                                 )
                                             }
                                         >
@@ -175,41 +224,39 @@ const ModeratorsScreen = ({ navigation, route }) => {
                                 </Modal>
                                 <Pressable
                                     style={styles.buttonOpen}
-                                    onPress={() => setStateModalVisible(true)}
+                                    onPress={() => setBranchModalVisible(true)}
                                 >
                                     <Text style={styles.textStyle}>
-                                        {selectedState != undefined
-                                            ? selectedState.stateName
+                                        {selectedBranch != undefined
+                                            ? selectedBranch.branchName
                                             : "Filialni tanlash"}
                                     </Text>
                                 </Pressable>
                             </View>
 
-                            {/* Branch input ----------------------------------------------------------- */}
+                            {/* Tariff input ----------------------------------------------------------- */}
                             <View style={styles.pickerWrapper}>
                                 <View style={styles.preTextWrapperStyle}>
                                     <Text style={styles.preText}>
-                                        Filial bo'yicha
+                                        Tarif bo'yicha
                                     </Text>
                                 </View>
                                 <Modal
                                     animationType="slide"
                                     transparent={true}
-                                    visible={stateModalVisible}
+                                    visible={tariffModalVisible}
                                     onRequestClose={() => {
-                                        setStateModalVisible(
-                                            !stateModalVisible
+                                        setTariffModalVisible(
+                                            !tariffModalVisible
                                         );
                                     }}
                                 >
                                     <View style={styles.centeredView}>
                                         <View style={styles.modalWrapper}>
                                             <FlatList
-                                                data={states.states}
-                                                renderItem={modalState}
-                                                keyExtractor={(item) =>
-                                                    item.stateId
-                                                }
+                                                data={tariffs}
+                                                renderItem={modalTariff}
+                                                keyExtractor={(item) => item.id}
                                                 contentContainerStyle={
                                                     styles.modalView
                                                 }
@@ -225,8 +272,8 @@ const ModeratorsScreen = ({ navigation, route }) => {
                                                 styles.buttonClose,
                                             ]}
                                             onPress={() =>
-                                                setStateModalVisible(
-                                                    !stateModalVisible
+                                                setTariffModalVisible(
+                                                    !tariffModalVisible
                                                 )
                                             }
                                         >
@@ -240,11 +287,11 @@ const ModeratorsScreen = ({ navigation, route }) => {
                                 </Modal>
                                 <Pressable
                                     style={styles.buttonOpen}
-                                    onPress={() => setStateModalVisible(true)}
+                                    onPress={() => setTariffModalVisible(true)}
                                 >
                                     <Text style={styles.textStyle}>
-                                        {selectedState != undefined
-                                            ? selectedState.stateName
+                                        {selectedTariffs != undefined
+                                            ? selectedTariffs.tariffName
                                             : "Tarifni tanlash"}
                                     </Text>
                                 </Pressable>
@@ -252,13 +299,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
 
                             {/* Reset Filter Button ------------------------------------------------ */}
                             <View style={styles.resetWrapper}>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        setSelectedTariffs("");
-                                        setSelectedAddress("");
-                                        setSelectedAlphabet("");
-                                    }}
-                                >
+                                <TouchableOpacity onPress={() => {}}>
                                     <Text style={styles.resetText}>
                                         Filterni tozalash
                                     </Text>
@@ -276,16 +317,15 @@ const ModeratorsScreen = ({ navigation, route }) => {
                             </View>
                         </View>
                     </Collapsible>
-                    {/* <FlatList
-                        data={clients ? clients.clients : []}
-                        keyExtractor={(item) => item.clientId}
+                    <FlatList
+                        data={orders ? orders.orders : []}
+                        keyExtractor={(item) => item.orderId}
                         renderItem={({ item }) => <CardComponent item={item} />}
                         style={styles.container}
                         contentContainerStyle={styles.contentStyle}
                         showsVerticalScrollIndicator={false}
-                    /> */}
-                        
-                       
+                    />
+
                     <TouchableOpacity
                         style={styles.fab}
                         onPress={() => navigation.goBack()}

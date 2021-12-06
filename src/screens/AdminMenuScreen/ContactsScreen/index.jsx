@@ -352,7 +352,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                             <Text
                                                 style={styles.hideModalButton}
                                             >
-                                                Hide Modal
+                                                Yopish
                                             </Text>
                                         </Pressable>
                                     </View>
