@@ -145,7 +145,7 @@ export const styles = StyleSheet.create({
     },
     resultPhoneNumbers: {
         flex: 1,
-        
+
         textAlign: "left",
         fontSize: 16,
     },
@@ -163,7 +163,7 @@ export const styles = StyleSheet.create({
         justifyContent: "space-evenly",
         alignItems: "center",
         borderRightColor: colors.gray,
-        borderRightWidth: 1
+        borderRightWidth: 1,
     },
     acceptText: {
         color: "rgb(75,206,0)",
@@ -244,4 +244,61 @@ export const styles = StyleSheet.create({
     hideModalButton: {
         color: "white",
     },
+    clientIdLine: {
+        flexDirection: "row",
+        width: "100%",
+        justifyContent: "space-between",
+        marginVertical: 20
+    },
+    clientIdLineText: {
+        fontSize: 22,
+        fontWeight: "bold",
+    },
+    clientFullname: {
+        marginVertical: 10
+    },
+    clientAddress: {
+        height: 120,
+        borderBottomColor: colors.gray,
+        borderBottomWidth: 1,
+        marginVertical: 1,
+        marginBottom: 20
+    },
+    resultAddress: {
+        flex: 1,
+        justifyContent: "flex-start",
+    },
+    resultAddressText: {
+        fontSize: 16,
+        fontWeight: "bold",
+        marginBottom: 10
+    },
+    resultAddressDynamicText: {
+        width: "60%",
+        fontSize: 13,
+    },
+    resultAddressLocation: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center",
+    },
+    resultAddressLocationDynamicText: {
+        fontSize: 14,
+        fontWeight: "bold",
+    },
+    clientPhonesWrapper: {
+        width: "60%",
+    },
+    clientPhone: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingHorizontal: 10,
+        marginVertical: 5
+    },
+    clientPhoneTxt: {
+        fontSize: 20,
+        textAlign: "left"
+    }
 });

@@ -122,15 +122,15 @@ const MenuStack = ({ navigation, route }) => {
                         height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
-                    headerRight: () => null,
-                    headerLeft: () => null,
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
                 })}
             />
             <Stack.Screen
                 name="ClientFromModerators"
                 component={ClientFromModerators}
                 options={({ route }) => ({
-                    headerTitle: "Moderator bo'limi",
+                    headerTitle: "",
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 18,
@@ -140,11 +140,11 @@ const MenuStack = ({ navigation, route }) => {
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        height: Dimensions.get("window").height / 5.8,
+                        height: Dimensions.get("window").height / 6,
                     },
                     // title: route.params.id,
-                    headerRight: () => null,
-                    headerLeft: () => null,
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
                 })}
             />
             <Stack.Screen

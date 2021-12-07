@@ -37,13 +37,13 @@ const ClientFromModerators = () => {
                     alignItems: "center",
                 },
                 tabBarStyle: {
-                    marginVertical: 16,
+                    marginVertical: 10,
                     height: 35,
                     alignSelf: "center",
                     justifyContent: "center",
                     width: "90%",
                     borderRadius: 8,
-                    borderColor: "blue",
+                    // borderColor: "blue",
                     backgroundColor: "#E5E5E7",
                 },
             }}
