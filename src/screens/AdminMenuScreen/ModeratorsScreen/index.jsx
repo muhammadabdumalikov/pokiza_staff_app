@@ -9,6 +9,7 @@ import {
     Modal,
     ActivityIndicator,
     Pressable,
+    RefreshControl
 } from "react-native";
 import Collapsible from "react-native-collapsible";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -34,10 +35,8 @@ const ModeratorsScreen = ({ navigation, route }) => {
 
     const [branches, setBranches] = useState();
 
-    // let firstname;
-    // let age;
-    // let index = 0;
-    // let genderIndex = 0;
+    const [fetchedData, setFetchedData] = useState(null);
+    const [refreshing, setRefreshing] = useState(false);
 
     const GET_BRANCHES_QUERY = `query{
         branches{
@@ -67,6 +66,26 @@ const ModeratorsScreen = ({ navigation, route }) => {
       }
     `;
 
+    const onRefresh = React.useCallback(async () => {
+        setRefreshing(true);
+        const value = await AsyncStorage.getItem("user_token");
+        let data = await fetch("https://pokiza.herokuapp.com/graphql", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                token: userToken,
+            },
+            body: JSON.stringify({
+                query: GET_ALL_ORDERS_QUERY,
+                variables: null,
+            }),
+        });
+        let jsonData = await data.json();
+
+        setOrders(jsonData.data);
+        setRefreshing(false);
+    }, []);
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -82,6 +101,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
         fetchData();
     }, []);
 
+    console.log(orders)
     const tariffs = [
         { id: "1", tariffName: "Tezkor", value: true },
         { id: "2", tariffName: "Oddiy", value: false },
@@ -326,6 +346,12 @@ const ModeratorsScreen = ({ navigation, route }) => {
                         style={styles.container}
                         contentContainerStyle={styles.contentStyle}
                         showsVerticalScrollIndicator={false}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
                     />
 
                     <TouchableOpacity
