@@ -19,9 +19,8 @@ import { sliderStyles, styles } from "./styles";
 import CardComponent from "./CardComponent";
 
 const ContactsScreen = ({ navigation, route }) => {
-
-    const ALL_CLIENTS_QUERY = `query($clientStatus: Int = null, $branchId: ID = null){
-        clients(clientStatus: $clientStatus, branchId: $branchId){
+    const ALL_CLIENTS_QUERY = `query($clientStatus: Int = null, $branchId: ID = null, $pagination: Pagination){
+        clients(clientStatus: $clientStatus, branchId: $branchId, pagination: $pagination){
           clientId
           clientStatus
           clientSummary
@@ -83,20 +82,59 @@ const ContactsScreen = ({ navigation, route }) => {
     const [searchBtnVisible, setSearchBtnVisible] = useState(false);
     const [searchKey, setSearchKey] = useState();
 
+    const [loadMore, setLoadMore] = useState(false);
+    const [pageCurrent, setPageCurrent] = useState(1);
+
     useEffect(() => {
         async function fetchData() {
             try {
+                setLoadMore(true);
                 const value = await AsyncStorage.getItem("staff_token");
                 setUserToken(value);
-                setClients(await request(ALL_CLIENTS_QUERY, null, value));
+                const { clients } = await request(
+                    ALL_CLIENTS_QUERY,
+                    {
+                        clientStatus: null,
+                        branchId: null,
+                        pagination: { limit: 5, page: 1 },
+                    },
+                    value
+                );
+                setClients(clients);
                 setBranches(await request(GET_ALL_BRANCHES_QUERY, null, value));
                 setLoading(false);
+                setLoadMore(false);
             } catch (error) {
                 console.log(error);
             }
         }
         fetchData();
     }, []);
+    console.log(clients);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                setLoadMore(true);
+                let loadMoreData = await request(
+                    ALL_CLIENTS_QUERY,
+                    {
+                        clientStatus: null,
+                        branchId: null,
+                        pagination: { limit: 5, page: pageCurrent },
+                    },
+                    userToken
+                );
+                // console.log(loadMoreData)
+
+                setClients([...clients, ...loadMoreData.clients]);
+                setLoadMore(false);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
+    }, [pageCurrent]);
 
     useEffect(() => {
         async function fetchData() {
@@ -162,7 +200,13 @@ const ContactsScreen = ({ navigation, route }) => {
                         ...searchedDataFN,
                         ...searchedDataLN,
                     ];
-                    console.log(searchedDataId, searchedDataMC, searchedDataSC, searchedDataFN, searchedDataLN)
+                    console.log(
+                        searchedDataId,
+                        searchedDataMC,
+                        searchedDataSC,
+                        searchedDataFN,
+                        searchedDataLN
+                    );
                     setClients({ clients: searchedData });
                 }
                 if (searchKey && !(selectedStatus && selectedBranch)) {
@@ -235,6 +279,22 @@ const ContactsScreen = ({ navigation, route }) => {
             </TouchableOpacity>
         );
     };
+
+    const renderFooter = () => {
+        return loadMore ? (
+            <View style={styles.loader}>
+                <ActivityIndicator size="large" />
+            </View>
+        ) : null;
+    };
+
+    const handleLoadMore = () => {
+        setTimeout(() => {
+            setPageCurrent(pageCurrent + 1);
+            setLoadMore(true);
+        }, 2000);
+    };
+
     return (
         <>
             {isLoading ? (
@@ -465,12 +525,15 @@ const ContactsScreen = ({ navigation, route }) => {
                     </Collapsible>
 
                     <FlatList
-                        data={clients ? clients.clients : []}
+                        data={clients}
                         keyExtractor={(item) => item.clientId}
                         renderItem={({ item }) => <CardComponent item={item} />}
                         style={styles.container}
                         contentContainerStyle={styles.contentStyle}
                         showsVerticalScrollIndicator={false}
+                        ListFooterComponent={renderFooter}
+                        onEndReached={handleLoadMore}
+                        onEndReachedThreshold={0}
                     />
                     {/* Result box of staffs ------------------------------------------------------- */}
 

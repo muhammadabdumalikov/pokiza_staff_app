@@ -23,8 +23,10 @@ const height = Dimensions.get("window").height;
 const ModeratorsScreen = ({ navigation, route }) => {
     const [collapsed, setCollapsed] = useState(true);
     const [orders, setOrders] = useState();
+
     const [selectedTariffs, setSelectedTariffs] = useState();
     const [selectedBranch, setSelectedBranch] = useState();
+
     const [branchModalVisible, setBranchModalVisible] = useState(false);
     const [tariffModalVisible, setTariffModalVisible] = useState(false);
     const [userToken, setUserToken] = useState();

@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
     },
     contentStyle: {
         paddingVertical: 16,
-        paddingBottom: 100
+        // paddingBottom: 100
     },
     searchBoxWrapper: {
         height: height / 22.55,
@@ -296,4 +296,8 @@ export const styles = StyleSheet.create({
         color: "#fff",
         fontSize: 17,
     },
+    loader: {
+        // marginTop: 10,
+        alignItems: "center"
+    }
 });
