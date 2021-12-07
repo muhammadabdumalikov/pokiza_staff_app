@@ -32,6 +32,7 @@ import CourierAddOrderInfoScreen from "../screens/AdminMenuScreen/TransportScree
 import CallButton from "../components/callButton";
 import LogoImage from "../components/LogoImage";
 import AddClientScreen from "../screens/AdminMenuScreen/ContactsScreen/AddClientScreen";
+import ClientFromModerators from "../screens/AdminMenuScreen/ModeratorsScreen/ClientIndex";
 
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -107,6 +108,27 @@ const MenuStack = ({ navigation, route }) => {
             <Stack.Screen
                 name="ModeratorsScreen"
                 component={ModeratorsScreen}
+                options={({ route }) => ({
+                    headerTitle: "Moderator bo'limi",
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        height: Dimensions.get("window").height / 5.8,
+                    },
+                    // title: route.params.id,
+                    headerRight: () => null,
+                    headerLeft: () => null,
+                })}
+            />
+            <Stack.Screen
+                name="ClientFromModerators"
+                component={ClientFromModerators}
                 options={({ route }) => ({
                     headerTitle: "Moderator bo'limi",
                     headerTitleAlign: "center",

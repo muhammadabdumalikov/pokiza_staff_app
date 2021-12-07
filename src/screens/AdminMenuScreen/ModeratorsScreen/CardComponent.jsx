@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigation } from '@react-navigation/native';
 import { View, TouchableOpacity, Text, Dimensions, Alert } from "react-native";
 import { Entypo, Feather, AntDesign } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -10,6 +11,8 @@ import { request } from "../../../helpers/request";
 const height = Dimensions.get("window").height;
 
 const CardComponent = ({ item }) => {
+    const navigation = useNavigation();
+
     const [userToken, setUserToken] = useState();
 
     const CHANGE_ORDER_STATUS = `mutation($orderId: ID!, $orderStatus: Int){
@@ -105,12 +108,12 @@ const CardComponent = ({ item }) => {
                             />
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.resultLineBox}>
+                    <TouchableOpacity onPress={()=> navigation.navigate("ClientFromModerators")} style={styles.resultLineBox}>
                         <Text style={styles.resultFullName}>
                             {item.orderOwner.clientInfo.firstName}{" "}
                             {item.orderOwner.clientInfo.lastName}
                         </Text>
-                    </View>
+                    </TouchableOpacity>
                     <View style={styles.resultLineBox}>
                         <Text style={styles.resultPhoneNumbers}>
                             {item.orderOwner.clientInfo.mainContact}

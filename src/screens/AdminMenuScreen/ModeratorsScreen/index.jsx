@@ -68,7 +68,6 @@ const ModeratorsScreen = ({ navigation, route }) => {
 
     const onRefresh = React.useCallback(async () => {
         setRefreshing(true);
-        const value = await AsyncStorage.getItem("user_token");
         let data = await fetch("https://pokiza.herokuapp.com/graphql", {
             method: "POST",
             headers: {
@@ -91,6 +90,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
             try {
                 const value = await AsyncStorage.getItem("staff_token");
                 setUserToken(value);
+                console.log(value);
                 setOrders(await request(GET_ALL_ORDERS_QUERY, null, value));
                 setBranches(await request(GET_BRANCHES_QUERY, null, value));
                 setLoading(false);
@@ -141,7 +141,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
             </TouchableOpacity>
         );
     };
-
+    console.log(orders)
     return (
         <>
             {isLoading ? (
