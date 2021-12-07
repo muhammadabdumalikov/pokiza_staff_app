@@ -1,13 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, Text, Dimensions, Alert } from "react-native";
 import { Entypo, Feather, AntDesign } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { colors } from "../../../constants/color";
 import { styles } from "./styles";
+import { request } from "../../../helpers/request";
 
 const height = Dimensions.get("window").height;
 
 const CardComponent = ({ item }) => {
+    const [userToken, setUserToken] = useState();
+
+    const CHANGE_ORDER_STATUS = `mutation($orderId: ID!, $orderStatus: Int){
+        changeOrder(orderId: $orderId, orderStatus: $orderStatus){
+          status
+          message
+          data
+        }
+      }`;
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const value = await AsyncStorage.getItem("staff_token");
+                setUserToken(value);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
+    }, []);
     const addressAlert = (id) => {
         Alert.alert(`${id}`, "", [
             {
@@ -16,7 +39,7 @@ const CardComponent = ({ item }) => {
                 style: "cancel",
             },
         ]);
-    }
+    };
     return (
         <>
             {item.orderId ? (
@@ -27,7 +50,12 @@ const CardComponent = ({ item }) => {
                                 style={styles.resultIdText}
                             >{`${item.orderId}`}</Text>
                         </View>
-                        <TouchableOpacity onPress={()=> addressAlert(item.orderAddress.addressId)} style={styles.locationStyle}>
+                        <TouchableOpacity
+                            onPress={() =>
+                                addressAlert(item.orderAddress.addressId)
+                            }
+                            style={styles.locationStyle}
+                        >
                             <Entypo
                                 name="location-pin"
                                 size={24}
@@ -73,7 +101,17 @@ const CardComponent = ({ item }) => {
                         <Text style={styles.resultPhoneNumbers}></Text>
                     </View>
                     <View style={styles.resultLineBox}>
-                        <TouchableOpacity style={styles.acceptBox}>
+                        <TouchableOpacity
+                            style={styles.acceptBox}
+                            onPress={async () => {
+                                const result = await request(
+                                    CHANGE_ORDER_STATUS,
+                                    { orderId: item.orderId, orderStatus: 2 },
+                                    userToken
+                                );
+                                console.log(result)
+                            }}
+                        >
                             <Feather name="check" size={24} color="#4BCE00" />
                             <Text style={styles.acceptText}>Qabul qilish</Text>
                         </TouchableOpacity>

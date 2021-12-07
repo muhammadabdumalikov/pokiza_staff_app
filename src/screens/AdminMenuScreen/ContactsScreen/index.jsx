@@ -110,7 +110,6 @@ const ContactsScreen = ({ navigation, route }) => {
         }
         fetchData();
     }, []);
-    console.log(clients);
 
     useEffect(() => {
         async function fetchData() {
