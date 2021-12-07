@@ -20,6 +20,14 @@ const CardComponent = ({ item }) => {
         }
       }`;
 
+    const DELETE_ORDER = `mutation($item: itemTypes!, $itemId: ID!){
+        disable(item: $item, itemId: $itemId){
+          status
+          message
+          data
+        }
+      }`;
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -31,12 +39,37 @@ const CardComponent = ({ item }) => {
         }
         fetchData();
     }, []);
+
     const addressAlert = (id) => {
         Alert.alert(`${id}`, "", [
             {
                 text: "Qaytish",
                 onPress: () => null,
                 style: "cancel",
+            },
+        ]);
+    };
+
+    const confirmDeleteOrder = () => {
+        Alert.alert(`Buyurtmani o'chirishni xohlaysizmi?`, "", [
+            {
+                text: "Qaytish",
+                onPress: () => null,
+                style: "cancel",
+            },
+            {
+                text: "O'chirish",
+                onPress: async () => {
+                    const result = await request(
+                        DELETE_ORDER,
+                        {
+                            item: "order",
+                            itemId: item.orderId,
+                        },
+                        userToken
+                    );
+                    console.log(result);
+                },
             },
         ]);
     };
@@ -109,13 +142,16 @@ const CardComponent = ({ item }) => {
                                     { orderId: item.orderId, orderStatus: 2 },
                                     userToken
                                 );
-                                console.log(result)
+                                console.log(result);
                             }}
                         >
                             <Feather name="check" size={24} color="#4BCE00" />
                             <Text style={styles.acceptText}>Qabul qilish</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.deleteBox}>
+                        <TouchableOpacity
+                            style={styles.deleteBox}
+                            onPress={confirmDeleteOrder}
+                        >
                             <AntDesign name="delete" size={24} color="black" />
                             <Text style={styles.deleteText}>O'chirish</Text>
                         </TouchableOpacity>
