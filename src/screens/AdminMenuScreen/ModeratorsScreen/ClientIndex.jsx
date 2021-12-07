@@ -21,7 +21,7 @@ const ClientFromModerators = () => {
                     bottom: "5%",
                     width: "45%",
                     left: "2.5%",
-                    borderRadius: 10,
+                    borderRadius: 6,
                     backgroundColor: "white",
                     elevation: 15, // shadow on Android
                     shadowRadius: 4, // shadow blur on iOS
@@ -38,11 +38,11 @@ const ClientFromModerators = () => {
                 },
                 tabBarStyle: {
                     marginVertical: 16,
-                    height: height/18.45,
+                    height: 35,
                     alignSelf: "center",
                     justifyContent: "center",
                     width: "90%",
-                    borderRadius: 10,
+                    borderRadius: 8,
                     borderColor: "blue",
                     backgroundColor: "#E5E5E7",
                 },
