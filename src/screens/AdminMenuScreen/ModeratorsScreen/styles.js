@@ -125,7 +125,7 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between",
         paddingHorizontal: 16,
         backgroundColor: "white",
-        borderBottomWidth: 0.5,
+        borderBottomWidth: 0.9,
         borderBottomColor: "#EDEDED",
     },
     resultId: {
@@ -145,7 +145,8 @@ export const styles = StyleSheet.create({
     },
     resultPhoneNumbers: {
         flex: 1,
-        textAlign: "center",
+        
+        textAlign: "left",
         fontSize: 16,
     },
     tariffText: {

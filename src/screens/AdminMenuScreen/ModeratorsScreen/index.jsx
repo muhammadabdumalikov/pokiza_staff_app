@@ -101,7 +101,6 @@ const ModeratorsScreen = ({ navigation, route }) => {
         fetchData();
     }, []);
 
-    console.log(orders)
     const tariffs = [
         { id: "1", tariffName: "Tezkor", value: true },
         { id: "2", tariffName: "Oddiy", value: false },

@@ -68,8 +68,17 @@ const CardComponent = ({ item }) => {
                         },
                         userToken
                     );
-                    console.log(result);
                 },
+            },
+        ]);
+    };
+
+    const confirmGetOrder = () => {
+        Alert.alert(`Buyurtma qabul qilindi!`, "", [
+            {
+                text: "Qaytish",
+                onPress: () => null,
+                style: "cancel",
             },
         ]);
     };
@@ -137,12 +146,12 @@ const CardComponent = ({ item }) => {
                         <TouchableOpacity
                             style={styles.acceptBox}
                             onPress={async () => {
-                                const result = await request(
+                                const {changeOrder} = await request(
                                     CHANGE_ORDER_STATUS,
                                     { orderId: item.orderId, orderStatus: 2 },
                                     userToken
                                 );
-                                console.log(result);
+                                if(changeOrder.status) confirmGetOrder();
                             }}
                         >
                             <Feather name="check" size={24} color="#4BCE00" />
