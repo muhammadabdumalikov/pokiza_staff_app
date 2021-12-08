@@ -11,6 +11,7 @@ import {
     Modal,
     Pressable,
     FlatList,
+    Alert
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Collapsible from "react-native-collapsible";
@@ -385,6 +386,26 @@ const AddClientScreen = ({ navigation, route }) => {
         );
     };
 
+    const onSuccess = () => {
+        Alert.alert("Raqam muvaffaqiyatli qo'shildi", "", [
+            {
+                text: "Ok",
+                onPress: () => navigation.goBack(),
+                style: "cancel",
+            },
+        ]);
+    };
+
+    const onError = () => {
+        Alert.alert("Bu raqam band qilingan!", "", [
+            {
+                text: "Qaytish",
+                onPress: () => null,
+                style: "cancel",
+            },
+        ]);
+    };
+
     return (
         <>
             {isLoading ? (
@@ -419,7 +440,7 @@ const AddClientScreen = ({ navigation, route }) => {
                             }
                         >
                             <View style={styles.preTextWrapperStyle}>
-                                <Text style={styles.preText}>Ism</Text>
+                                <Text style={styles.preText}>*Ism</Text>
                             </View>
                             <TextInput
                                 style={styles.input}
@@ -465,7 +486,7 @@ const AddClientScreen = ({ navigation, route }) => {
                         {/* First Phone Num input --------------------------------------------------------------- */}
                         <View style={styles.phoneTxtWrapper}>
                             <Text style={styles.phoneTxt}>
-                                1 - Telefon raqam:
+                               * 1 - Telefon raqam:
                             </Text>
                         </View>
                         <View
@@ -569,7 +590,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 <Text style={styles.textStyle}>
                                     {selectedStatus != undefined
                                         ? selectedStatus.label
-                                        : "Add Status"}
+                                        : "Holatni kiriting"}
                                 </Text>
                             </Pressable>
                         </View>
@@ -713,7 +734,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                     <Text style={styles.textStyle}>
                                         {selectedGender != undefined
                                             ? selectedGender.label
-                                            : "Add Gender"}
+                                            : "Jinsni kiriting"}
                                     </Text>
                                 </Pressable>
                             </View>
@@ -728,7 +749,7 @@ const AddClientScreen = ({ navigation, route }) => {
                         {/* State input ----------------------------------------------------------- */}
                         <View style={styles.pickerWrapper}>
                             <View style={styles.preTextWrapperStyle}>
-                                <Text style={styles.preText}>Viloyat</Text>
+                                <Text style={styles.preText}>*Viloyat</Text>
                             </View>
                             <Modal
                                 animationType="slide"
@@ -777,7 +798,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 <Text style={styles.textStyle}>
                                     {selectedState != undefined
                                         ? selectedState.stateName
-                                        : "Add State"}
+                                        : "Viloyatni"}
                                 </Text>
                             </Pressable>
                         </View>
@@ -785,7 +806,7 @@ const AddClientScreen = ({ navigation, route }) => {
                         {/* Region input -------------------------------------------- */}
                         <View style={styles.pickerWrapper}>
                             <View style={styles.preTextWrapperStyle}>
-                                <Text style={styles.preText}>Shahar/Tuman</Text>
+                                <Text style={styles.preText}>*Shahar/Tuman</Text>
                             </View>
                             <Modal
                                 animationType="slide"
@@ -838,7 +859,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 <Text style={styles.textStyle}>
                                     {selectedRegion != undefined
                                         ? selectedRegion.regionName
-                                        : "Add Region"}
+                                        : "Tumanni kiriting"}
                                 </Text>
                             </Pressable>
                         </View>
@@ -897,7 +918,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 <Text style={styles.textStyle}>
                                     {selectedArea != undefined
                                         ? selectedArea.areaName
-                                        : "Hudud"}
+                                        : "Hudud kiriting"}
                                 </Text>
                             </Pressable>
                         </View>
@@ -1200,8 +1221,11 @@ const AddClientScreen = ({ navigation, route }) => {
                                     },
                                     userToken
                                 );
-                                console.log(selectedFirstName, selectedLastName,selectedMainContact,selectedSecondContact,selectedAge,selectedGender);
-                                console.log(addClientAdmin)
+                                if(addClientAdmin.adminRegisterClient.status == 200){
+                                    onSuccess()
+                                } else {
+                                    onError()
+                                }
                             }}
                             style={styles.confirmBtnWrapper}
                         >
