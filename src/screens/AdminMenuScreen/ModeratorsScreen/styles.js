@@ -130,7 +130,7 @@ export const styles = StyleSheet.create({
     },
     resultId: {
         flexDirection: "row",
-        width: "30%",
+        width: "40%",
         justifyContent: "space-between",
     },
     resultIdText: {

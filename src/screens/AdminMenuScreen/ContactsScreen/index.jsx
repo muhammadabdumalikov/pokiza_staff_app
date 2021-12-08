@@ -91,7 +91,7 @@ const ContactsScreen = ({ navigation, route }) => {
                 setLoadMore(true);
                 const value = await AsyncStorage.getItem("staff_token");
                 setUserToken(value);
-                const { clients } = await request(
+                const clients  = await request(
                     ALL_CLIENTS_QUERY,
                     {
                         clientStatus: null,
@@ -110,7 +110,7 @@ const ContactsScreen = ({ navigation, route }) => {
         }
         fetchData();
     }, []);
-    
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -124,9 +124,10 @@ const ContactsScreen = ({ navigation, route }) => {
                     },
                     userToken
                 );
-                // console.log(loadMoreData)
+                console.log(loadMoreData)
 
-                setClients([...clients, ...loadMoreData.clients]);
+                // setClients({clients: [...clients, ...loadMoreData.clients]});
+                console.log(clients)
                 setLoadMore(false);
             } catch (error) {
                 console.log(error);
@@ -177,56 +178,44 @@ const ContactsScreen = ({ navigation, route }) => {
         async function fetchData() {
             try {
                 if (selectedStatus || selectedBranch) {
-                    let searchedDataId = await clients.clients.filter(
-                        (item) => item.clientId == searchKey
-                    );
-                    let searchedDataMC = await clients.clients.filter(
-                        (item) => item.clientInfo.mainContact == searchKey
-                    );
-                    let searchedDataSC = await clients.clients.filter(
-                        (item) => item.clientInfo.secondContact == searchKey
-                    );
+                    // let searchedDataId = await clients.clients.filter(
+                    //     (item) => item.clientId == searchKey
+                    // );
+                    // let searchedDataMC = await clients.clients.filter(
+                    //     (item) => item.clientInfo.mainContact == searchKey
+                    // );
+                    // let searchedDataSC = await clients.clients.filter(
+                    //     (item) => item.clientInfo.secondContact == searchKey
+                    // );
                     let searchedDataFN = await clients.clients.filter(
                         (item) => item.clientInfo.firstName == searchKey
                     );
                     let searchedDataLN = await clients.clients.filter(
                         (item) => item.clientInfo.lastName == searchKey
                     );
-                    let searchedData = [
-                        ...searchedDataId,
-                        ...searchedDataMC,
-                        ...searchedDataSC,
-                        ...searchedDataFN,
-                        ...searchedDataLN,
-                    ];
-                    console.log(
-                        searchedDataId,
-                        searchedDataMC,
-                        searchedDataSC,
-                        searchedDataFN,
-                        searchedDataLN
-                    );
+                    let searchedData = [...searchedDataFN, ...searchedDataLN];
+                    console.log(searchedData);
                     setClients({ clients: searchedData });
                 }
-                if (searchKey && !(selectedStatus && selectedBranch)) {
-                    setLoading(true);
-                    setClients(
-                        await request(
-                            SEARCH_CLIENT,
-                            { searchKey: searchKey },
-                            userToken
-                        )
-                    );
-                    setCanFilter(false);
-                    setLoading(false);
-                } else {
-                    setLoading(true);
-                    setClients(
-                        await request(ALL_CLIENTS_QUERY, null, userToken)
-                    );
-                    setCanFilter(true);
-                    setLoading(false);
-                }
+                // if (searchKey && !(selectedStatus && selectedBranch)) {
+                //     setLoading(true);
+                //     setClients(
+                //         await request(
+                //             SEARCH_CLIENT,
+                //             { searchKey: searchKey },
+                //             userToken
+                //         )
+                //     );
+                //     setCanFilter(false);
+                //     setLoading(false);
+                // } else {
+                //     setLoading(true);
+                //     setClients(
+                //         await request(ALL_CLIENTS_QUERY, null, userToken)
+                //     );
+                //     setCanFilter(true);
+                //     setLoading(false);
+                // }
             } catch (error) {
                 console.log(error);
             }
@@ -242,7 +231,6 @@ const ContactsScreen = ({ navigation, route }) => {
         { key: "1", label: "Normal", value: 1 },
         { key: "2", label: "Good", value: 2 },
         { key: "3", label: "Favourites", value: 3 },
-        // etc...
         // Can also add additional custom keys which are passed to the onChange callback
         { key: "4", label: "Black-list", value: 4 },
     ];
@@ -291,7 +279,7 @@ const ContactsScreen = ({ navigation, route }) => {
         setTimeout(() => {
             setPageCurrent(pageCurrent + 1);
             setLoadMore(true);
-        }, 2000);
+        }, 1000);
     };
 
     return (
@@ -524,7 +512,7 @@ const ContactsScreen = ({ navigation, route }) => {
                     </Collapsible>
 
                     <FlatList
-                        data={clients}
+                        data={clients? clients.clients : []}
                         keyExtractor={(item) => item.clientId}
                         renderItem={({ item }) => <CardComponent item={item} />}
                         style={styles.container}

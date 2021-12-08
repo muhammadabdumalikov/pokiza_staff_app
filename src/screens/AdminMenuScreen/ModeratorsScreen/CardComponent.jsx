@@ -93,7 +93,7 @@ const CardComponent = ({ item }) => {
                         <View style={styles.resultId}>
                             <Text
                                 style={styles.resultIdText}
-                            >{`${item.orderId}`}</Text>
+                            >Buyurtma ID: #{`${item.orderId}`}</Text>
                         </View>
                         <TouchableOpacity
                             onPress={() =>

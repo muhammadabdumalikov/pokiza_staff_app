@@ -24,13 +24,13 @@ import { sliderStyles, styles } from "./styles";
 const height = Dimensions.get("window").height;
 
 const AddClientScreen = ({ navigation, route }) => {
-
     const GET_STATE_QUERY = `{
         states {
           stateId
           stateName
         }
-      }`;
+      }
+    `;
 
     const GET_REGION_QUERY = `
     query($stateId: ID!){
@@ -38,28 +38,32 @@ const AddClientScreen = ({ navigation, route }) => {
           regionId
           regionName
         }
-      }`;
+      }
+    `;
 
     const GET_AREAS_QUERY = `query($regionId: ID!){
         areas(regionId: $regionId){
           areaId
           areaName
         }
-      }`;
+      }
+    `;
 
     const GET_NEIGHBORHOOD_QUERY = `query($regionId: ID!){
         neighborhoods(regionId: $regionId){
           neighborhoodId
           neighborhoodName
         }
-      }`;
+      }
+    `;
 
     const GET_STREET_QUERY = `query($neighborhoodId: ID!){
         streets(neighborhoodId: $neighborhoodId ){
           streetId
           streetName
         }
-      }`;
+      }
+    `;
 
     const GET_BRANCHES_QUERY = `query($regionId: ID!){
         regions(regionId: $regionId){
@@ -68,7 +72,26 @@ const AddClientScreen = ({ navigation, route }) => {
             branchName
           }
         }
-      }`;
+      }
+    `;
+
+    const ADD_ADDRESS_QUERY = `mutation($stateId:ID!,$regionId:ID!,$neighborhoodId: ID = null,$streetId:ID,$areaId:ID,$target:String,$homeNumber:Int){ 
+        addAddress (stateId:$stateId,regionId:$regionId,neighborhoodId:$neighborhoodId,streetId:$streetId,areaId:$areaId,target:$target,homeNumber:$homeNumber){
+          status
+          message
+          data
+        }
+      }
+    `;
+
+    const ADD_NEW_CLIENT = `mutation($firstName: String!,$lastName: String,$mainContact:String!,$secondContact:String,$age:Int!,$gender:Int!,$branchId:ID!,$addressId:ID!){
+        adminRegisterClient(firstName: $firstName, lastName:$lastName,mainContact:$mainContact,secondContact:$secondContact,age:$age,gender:$gender,branchId:$branchId,addressId:$addressId){
+          status
+          message
+          data
+        }
+      }
+    `;
 
     const [selectedFirstName, setSelectedFirstName] = useState();
     const [selectedLastName, setSelectedLastName] = useState();
@@ -84,6 +107,7 @@ const AddClientScreen = ({ navigation, route }) => {
     const [selectedAge, setSelectedAge] = useState();
     const [selectedStatus, setSelectedStatus] = useState();
     const [selectedGender, setSelectedGender] = useState();
+    const [selectedHomeNumber, setSelectedHomeNumber] = useState();
     const [isLoading, setLoading] = useState(true);
     const [userToken, setUserToken] = useState();
     const [collapsed, setCollapsed] = useState(true);
@@ -105,8 +129,6 @@ const AddClientScreen = ({ navigation, route }) => {
 
     const [statusModalVisible, setStatusModalVisible] = useState(false);
     const [genderModalVisible, setGenderModalVisible] = useState(false);
-
-    const [searchBtnVisible, setSearchBtnVisible] = useState(false);
 
     const [clientSummary, setClientSummary] = useState();
     const [locationSummary, setLocationSummary] = useState();
@@ -145,13 +167,18 @@ const AddClientScreen = ({ navigation, route }) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                setAreas(
-                    await request(
-                        GET_AREAS_QUERY,
-                        { regionId: selectedRegion.regionId },
-                        userToken
-                    )
+                const areasData = await request(
+                    GET_AREAS_QUERY,
+                    { regionId: selectedRegion.regionId },
+                    userToken
                 );
+                const uniqueAddresses = Array.from(
+                    new Set(areasData.areas.map((a) => a.areaId))
+                ).map((id) => {
+                    return areasData.areas.find((a) => a.areaId === id);
+                });
+
+                setAreas({ areas: uniqueAddresses });
             } catch (error) {
                 console.log(error);
             }
@@ -179,13 +206,17 @@ const AddClientScreen = ({ navigation, route }) => {
     useEffect(() => {
         async function fetchStreet() {
             try {
-                setStreets(
-                    await request(
-                        GET_STREET_QUERY,
-                        { neighborhoodId: selectedNeighborhood },
-                        userToken
-                    )
+                const streetsData = await request(
+                    GET_STREET_QUERY,
+                    { neighborhoodId: selectedNeighborhood },
+                    userToken
                 );
+                const uniqueAddresses = Array.from(
+                    new Set(streetsData.streets.map((a) => a.streetId))
+                ).map((id) => {
+                    return streetsData.streets.find((a) => a.streetId === id);
+                });
+                setStreets({ streets: uniqueAddresses });
             } catch (error) {
                 console.log(error);
             }
@@ -275,7 +306,7 @@ const AddClientScreen = ({ navigation, route }) => {
             </TouchableOpacity>
         );
     };
-
+    console.log(neighborhoods);
     const modalArea = ({ item }) => {
         return (
             <TouchableOpacity
@@ -397,7 +428,9 @@ const AddClientScreen = ({ navigation, route }) => {
                                 numberOfLines={1}
                                 placeholder="Ism kiriting"
                                 placeholderTextColor="#B8B8BB"
-                                onChangeText={(value) => setSelectedFirstName(value)}
+                                onChangeText={(value) =>
+                                    setSelectedFirstName(value)
+                                }
                                 keyboardType="default"
                                 // autoFocus={true}
                                 maxLength={9}
@@ -422,7 +455,9 @@ const AddClientScreen = ({ navigation, route }) => {
                                 numberOfLines={1}
                                 placeholder="Familiya kiriting"
                                 placeholderTextColor="#B8B8BB"
-                                onChangeText={(value) => setSelectedLastName(value)}
+                                onChangeText={(value) =>
+                                    setSelectedLastName(value)
+                                }
                                 keyboardType="default"
                                 // autoFocus={true}
                                 maxLength={9}
@@ -450,7 +485,9 @@ const AddClientScreen = ({ navigation, route }) => {
                                 numberOfLines={1}
                                 placeholder="Telefon raqam kiriting"
                                 placeholderTextColor="#B8B8BB"
-                                onChangeText={(value) => setSelectedMainContact(value)}
+                                onChangeText={(value) =>
+                                    setSelectedMainContact(value)
+                                }
                                 keyboardType="phone-pad"
                                 // autoFocus={true}
                                 maxLength={9}
@@ -478,7 +515,9 @@ const AddClientScreen = ({ navigation, route }) => {
                                 numberOfLines={1}
                                 placeholder="Telefon raqam kiriting"
                                 placeholderTextColor="#B8B8BB"
-                                onChangeText={(value) => setSelectedSecondContact(value)}
+                                onChangeText={(value) =>
+                                    setSelectedSecondContact(value)
+                                }
                                 keyboardType="phone-pad"
                                 // autoFocus={true}
                                 maxLength={9}
@@ -558,7 +597,9 @@ const AddClientScreen = ({ navigation, route }) => {
                                 numberOfLines={1}
                                 placeholder="Izoh qoldiring"
                                 placeholderTextColor="#B8B8BB"
-                                onChangeText={(value) => setClientSummary(value)}
+                                onChangeText={(value) =>
+                                    setClientSummary(value)
+                                }
                                 keyboardType="default"
                                 // autoFocus={true}
                                 maxLength={9}
@@ -1009,7 +1050,9 @@ const AddClientScreen = ({ navigation, route }) => {
                                 numberOfLines={1}
                                 placeholder="Uy raqamini kiriting"
                                 placeholderTextColor="#B8B8BB"
-                                onChangeText={(value) => (firstname = value)}
+                                onChangeText={(value) =>
+                                    setSelectedHomeNumber(value)
+                                }
                                 keyboardType="default"
                                 // autoFocus={true}
                                 maxLength={9}
@@ -1099,13 +1142,44 @@ const AddClientScreen = ({ navigation, route }) => {
                                 numberOfLines={1}
                                 placeholder="Izoh qoldiring"
                                 placeholderTextColor="#B8B8BB"
-                                onChangeText={(value) => setLocationSummary(value)}
+                                onChangeText={(value) =>
+                                    setLocationSummary(value)
+                                }
                                 keyboardType="default"
                                 // autoFocus={true}
                                 maxLength={9}
                             />
                         </View>
-                        <TouchableOpacity style={styles.confirmBtnWrapper}>
+                        <TouchableOpacity
+                            onPress={async () => {
+                                let addressID = await request(
+                                    ADD_ADDRESS_QUERY,
+                                    {
+                                        stateId: selectedState.stateId,
+                                        regionId: selectedRegion.regionId,
+                                        neighborhoodId: selectedNeighborhood
+                                            ? selectedNeighborhood
+                                            : null,
+                                        streetId: selectedStreet
+                                            ? selectedStreet
+                                            : null,
+                                        areaId: selectedArea
+                                            ? selectedArea
+                                            : null,
+                                        target: locationSummary
+                                            ? locationSummary
+                                            : null,
+                                        homeNumber: selectedHomeNumber
+                                            ? selectedHomeNumber
+                                            : null,
+                                    },
+                                    userToken
+                                );
+                                console.log(addressID);
+                                console.log(selectedState, selectedRegion)
+                            }}
+                            style={styles.confirmBtnWrapper}
+                        >
                             <Text style={styles.confirmBtnText}>
                                 Mijoz qo'shish
                             </Text>
