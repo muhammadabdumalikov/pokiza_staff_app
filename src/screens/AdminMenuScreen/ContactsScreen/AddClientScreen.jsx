@@ -90,8 +90,7 @@ const AddClientScreen = ({ navigation, route }) => {
           message
           data
         }
-      }
-    `;
+      }`;
 
     const [selectedFirstName, setSelectedFirstName] = useState();
     const [selectedLastName, setSelectedLastName] = useState();
@@ -306,7 +305,6 @@ const AddClientScreen = ({ navigation, route }) => {
             </TouchableOpacity>
         );
     };
-    console.log(neighborhoods);
     const modalArea = ({ item }) => {
         return (
             <TouchableOpacity
@@ -490,7 +488,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 }
                                 keyboardType="phone-pad"
                                 // autoFocus={true}
-                                maxLength={9}
+                                maxLength={12}
                             />
                         </View>
 
@@ -520,7 +518,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 }
                                 keyboardType="phone-pad"
                                 // autoFocus={true}
-                                maxLength={9}
+                                maxLength={12}
                             />
                         </View>
 
@@ -1175,8 +1173,35 @@ const AddClientScreen = ({ navigation, route }) => {
                                     },
                                     userToken
                                 );
-                                console.log(addressID);
-                                console.log(selectedState, selectedRegion)
+                    
+                                setSelectedBranch(
+                                    await request(
+                                        GET_BRANCHES_QUERY,
+                                        { regionId: selectedRegion.regionId },
+                                        userToken
+                                    )
+                                );
+                                console.log(selectedBranch);
+                                let addClientAdmin = await request(
+                                    ADD_NEW_CLIENT,
+                                    {
+                                        firstName: selectedFirstName,
+                                        lastName: selectedLastName,
+                                        mainContact: selectedMainContact,
+                                        secondContact: selectedSecondContact
+                                            ? selectedSecondContact
+                                            : null,
+                                        age: parseInt(selectedAge),
+                                        gender: selectedGender.value,
+                                        branchId: selectedBranch.regions[0].branch.branchId,
+                                        addressId:
+                                            addressID.addAddress.data
+                                                .address_id,
+                                    },
+                                    userToken
+                                );
+                                console.log(selectedFirstName, selectedLastName,selectedMainContact,selectedSecondContact,selectedAge,selectedGender);
+                                console.log(addClientAdmin)
                             }}
                             style={styles.confirmBtnWrapper}
                         >
