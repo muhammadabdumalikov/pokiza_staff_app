@@ -17,6 +17,7 @@ import { AuthContext } from "../../../navigation/AuthProvider";
 import { request } from "../../../helpers/request";
 import { colors } from "../../../constants/color";
 import CardComponentOrders from "./CardComponentOrders";
+import { useRoute } from '@react-navigation/native';
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -35,7 +36,10 @@ const GET_ORDERS = `{
     }
   }`;
 
-const ClientOrders = ({ navigation }) => {
+const ClientOrders = ({ navigation}) => {
+    const route = useRoute();
+    console.log(route)
+
     const [fetchedData, setFetchedData] = useState(null);
     const [userToken, setUserToken] = useState();
     const [isLoading, setLoading] = useState(true);
@@ -47,8 +51,9 @@ const ClientOrders = ({ navigation }) => {
         const fetchData = async () => {
             try {
                 const value = await AsyncStorage.getItem("staff_token");
+                const clientId = await AsyncStorage.getItem("clientId");
                 setUserToken(value);
-                console.log(value)
+                console.log(clientId)
                 let data = await fetch("https://pokiza.herokuapp.com/graphql", {
                     method: "POST",
                     headers: {
@@ -62,7 +67,6 @@ const ClientOrders = ({ navigation }) => {
                 });
 
                 let jsonData = await data.json();
-                console.log(jsonData);
                 if (!cleanupFunction) {
                     setFetchedData(jsonData.data.orders.reverse());
 
@@ -82,7 +86,6 @@ const ClientOrders = ({ navigation }) => {
         fetchData();
         return () => (cleanupFunction = true);
     }, []);
-
 
     const onRefresh = React.useCallback(async () => {
         setRefreshing(true);

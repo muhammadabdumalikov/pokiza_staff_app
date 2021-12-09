@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 import { View, TouchableOpacity, Text, Dimensions, Alert } from "react-native";
 import { Entypo, Feather, AntDesign } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -12,7 +12,7 @@ const height = Dimensions.get("window").height;
 
 const CardComponent = ({ item }) => {
     const navigation = useNavigation();
-
+ 
     const [userToken, setUserToken] = useState();
 
     const CHANGE_ORDER_STATUS = `mutation($orderId: ID!, $orderStatus: Int){
@@ -91,9 +91,9 @@ const CardComponent = ({ item }) => {
                 <View style={styles.resultBox}>
                     <View style={styles.resultLineBox}>
                         <View style={styles.resultId}>
-                            <Text
-                                style={styles.resultIdText}
-                            >Buyurtma ID: #{`${item.orderId}`}</Text>
+                            <Text style={styles.resultIdText}>
+                                Buyurtma ID: #{`${item.orderId}`}
+                            </Text>
                         </View>
                         <TouchableOpacity
                             onPress={() =>
@@ -108,7 +108,15 @@ const CardComponent = ({ item }) => {
                             />
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={()=> navigation.navigate("ClientFromModerators")} style={styles.resultLineBox}>
+                    <TouchableOpacity
+                        onPress={async() => {
+                            // await AsyncStorage.setItem("clientId", item.orderOwner.clientInfo.clientId)
+                            navigation.navigate("ClientFromModerators", {
+                                clientId: item.orderOwner.clientInfo,
+                            });
+                        }}
+                        style={styles.resultLineBox}
+                    >
                         <Text style={styles.resultFullName}>
                             {item.orderOwner.clientInfo.firstName}{" "}
                             {item.orderOwner.clientInfo.lastName}
@@ -149,12 +157,12 @@ const CardComponent = ({ item }) => {
                         <TouchableOpacity
                             style={styles.acceptBox}
                             onPress={async () => {
-                                const {changeOrder} = await request(
+                                const { changeOrder } = await request(
                                     CHANGE_ORDER_STATUS,
                                     { orderId: item.orderId, orderStatus: 2 },
                                     userToken
                                 );
-                                if(changeOrder.status) confirmGetOrder();
+                                if (changeOrder.status) confirmGetOrder();
                             }}
                         >
                             <Feather name="check" size={24} color="#4BCE00" />
