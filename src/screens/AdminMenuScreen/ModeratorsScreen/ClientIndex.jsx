@@ -28,9 +28,9 @@ const ClientFromModerators = () => {
                     shadowOpacity: 0.1, // shadow on iOS,
                 },
                 tabBarLabelStyle: {
-                    textTransform: "capitalize",
+                    textTransform: "none",
                     fontWeight: "bold",
-                    fontSize: 16
+                    fontSize: 14,
                 },
                 tabBarPressColor: "#E5E5E7",
                 tabBarContentContainerStyle: {
@@ -43,13 +43,20 @@ const ClientFromModerators = () => {
                     justifyContent: "center",
                     width: "90%",
                     borderRadius: 8,
-                    // borderColor: "blue",
                     backgroundColor: "#E5E5E7",
                 },
             }}
         >
-            <Tab.Screen name="ClientInfo" component={ClientInfo} />
-            <Tab.Screen name="ClientOrders" component={ClientOrders} />
+            <Tab.Screen
+                name="ClientInfo"
+                component={ClientInfo}
+                options={{ title: "Mijoz ma'lumotlari"}}
+            />
+            <Tab.Screen
+                name="ClientOrders"
+                component={ClientOrders}
+                options={{ title: "Buyurtmalari" }}
+            />
         </Tab.Navigator>
     );
 };
