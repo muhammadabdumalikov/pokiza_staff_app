@@ -85,13 +85,15 @@ const ContactsScreen = ({ navigation, route }) => {
     const [searchBtnVisible, setSearchBtnVisible] = useState(false);
     const [searchKey, setSearchKey] = useState();
 
-    const [loadMore, setLoadMore] = useState(false);
     const [pageCurrent, setPageCurrent] = useState(1);
 
     const [state, setState] = useState({
         data: [],
         page: pageCurrent,
     });
+
+    const [searchedData, setSearchedData] = useState();
+    const [searched, setSearched] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -132,7 +134,9 @@ const ContactsScreen = ({ navigation, route }) => {
                     userToken
                 );
                 setState({
-                    data: state.data.concat(loadMoreData.clients),
+                    data: state.data.concat(
+                        loadMoreData ? loadMoreData.clients : []
+                    ),
                     page: pageCurrent,
                 });
             } catch (error) {
@@ -146,16 +150,16 @@ const ContactsScreen = ({ navigation, route }) => {
         async function fetchData() {
             try {
                 setLoading(true);
-                
+
                 let clients = await request(
-                        ALL_CLIENTS_QUERY,
-                        { branchId: selectedBranch?.branchId },
-                        userToken
-                    )
-                
+                    ALL_CLIENTS_QUERY,
+                    { branchId: selectedBranch?.branchId },
+                    userToken
+                );
+
                 setState({
-                    data: clients ? clients.clients : []
-                })
+                    data: clients ? clients.clients : [],
+                });
                 setLoading(false);
             } catch (error) {
                 console.log(error);
@@ -168,13 +172,14 @@ const ContactsScreen = ({ navigation, route }) => {
         async function fetchData() {
             try {
                 setLoading(true);
-                setClients(
-                    await request(
-                        ALL_CLIENTS_QUERY,
-                        { clientStatus: selectedStatus?.value },
-                        userToken
-                    )
+                let clients = await request(
+                    ALL_CLIENTS_QUERY,
+                    { clientStatus: selectedStatus?.value },
+                    userToken
                 );
+                setState({
+                    data: clients ? clients.clients : [],
+                });
                 setLoading(false);
             } catch (error) {
                 console.log(error);
@@ -187,15 +192,6 @@ const ContactsScreen = ({ navigation, route }) => {
         async function fetchData() {
             try {
                 if (selectedStatus || selectedBranch) {
-                    // let searchedDataId = await clients.clients.filter(
-                    //     (item) => item.clientId == searchKey
-                    // );
-                    // let searchedDataMC = await clients.clients.filter(
-                    //     (item) => item.clientInfo.mainContact == searchKey
-                    // );
-                    // let searchedDataSC = await clients.clients.filter(
-                    //     (item) => item.clientInfo.secondContact == searchKey
-                    // );
                     let searchedDataFN = state.data.filter(
                         (item) => item.clientInfo.firstName == searchKey
                     );
@@ -204,33 +200,41 @@ const ContactsScreen = ({ navigation, route }) => {
                     );
                     let searchedData = [...searchedDataFN, ...searchedDataLN];
                     console.log(searchedData);
-                    setState({ data: searchedData });
+                    // setState({ data: searchedData });
+                    setSearchedData({ data: searchedData });
+
+                    setSearched(true);
                 }
-                // if (searchKey && !(selectedStatus && selectedBranch)) {
-                //     setLoading(true);
-                //     setClients(
-                //         await request(
-                //             SEARCH_CLIENT,
-                //             { searchKey: searchKey },
-                //             userToken
-                //         )
-                //     );
-                //     setCanFilter(false);
-                //     setLoading(false);
-                // } else {
-                //     setLoading(true);
-                //     setClients(
-                //         await request(ALL_CLIENTS_QUERY, null, userToken)
-                //     );
-                //     setCanFilter(true);
-                //     setLoading(false);
-                // }
+                if (searchKey && !(selectedStatus && selectedBranch)) {
+                    setLoading(true);
+
+                    let clients = await request(
+                        SEARCH_CLIENT,
+                        { searchKey: searchKey },
+                        userToken
+                    );
+                    console.log(clients)
+                    setState({
+                        data: clients ? clients.clients : [],
+                    });
+                    setCanFilter(false);
+                    setLoading(false);
+                } else {
+                    setLoading(true);
+                    setClients(
+                        await request(ALL_CLIENTS_QUERY, null, userToken)
+                    );
+                    setCanFilter(true);
+                    setLoading(false);
+                }
             } catch (error) {
                 console.log(error);
             }
         }
         fetchData();
     }, [searchKey]);
+
+    // console.log(searchKey);
 
     const toggleExpanded = () => {
         if (canFilter) setCollapsed(!collapsed);
@@ -284,10 +288,8 @@ const ContactsScreen = ({ navigation, route }) => {
         ) : null;
     };
 
-    const handleOnEndReached = () => {};
-
-    const handleLoadMore = () => {
-        setPageCurrent(pageCurrent + 1);
+    let handleLoadMore = () => {
+        if (!searchKey) setPageCurrent(pageCurrent + 1);
     };
 
     return (
@@ -520,7 +522,7 @@ const ContactsScreen = ({ navigation, route }) => {
                     </Collapsible>
 
                     <FlatList
-                        data={state.data}
+                        data={searched ? searchedData.data : state.data}
                         keyExtractor={(item) => item.clientId}
                         renderItem={({ item }) => <CardComponent item={item} />}
                         style={styles.container}
