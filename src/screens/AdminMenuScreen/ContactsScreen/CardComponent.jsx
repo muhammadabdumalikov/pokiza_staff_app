@@ -45,7 +45,7 @@ const CardComponent = ({ item }) => {
                                   marginHorizontal: 16,
                                   marginBottom: 16,
                                   borderColor: colors.gray,
-                                  borderWidth: 1,
+                                  borderWidth: .5,
                                   overflow: "hidden",
                               }
                     }
@@ -56,7 +56,9 @@ const CardComponent = ({ item }) => {
                                 onPress={() => {
                                     setSelected(!selected);
                                     if(elements.includes(item.clientInfo.userId)){
-                                        
+                                        let index = elements.indexOf(item.clientInfo.userId)
+                                        elements.splice(index, 1)
+                                        return
                                     }
                                     elements.push(item.clientInfo.userId);
                                     console.log(elements)
