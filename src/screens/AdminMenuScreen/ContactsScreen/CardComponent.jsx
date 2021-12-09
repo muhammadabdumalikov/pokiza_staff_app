@@ -26,38 +26,62 @@ const CardComponent = ({ item }) => {
         <>
             {item.clientInfo ? (
                 <TouchableOpacity
-                    style={resultBox}
-                    onLongPress={() => {
-                        setResultBox({
-                            height: height / 3.98,
-                            backgroundColor: "gray",
-                            borderRadius: 15,
-                            marginHorizontal: 16,
-                            marginBottom: 16,
-                            borderColor: colors.blue,
-                            borderWidth: 2,
-                            overflow: "hidden",
-                        });
-                        setSelected(true);
-                        elements.push(item.clientInfo.userId);
-                        console.log(elements);
-                    }}
+                    style={
+                        selected
+                            ? {
+                                  height: height / 3.98,
+                                  backgroundColor: "gray",
+                                  borderRadius: 15,
+                                  marginHorizontal: 16,
+                                  marginBottom: 16,
+                                  borderColor: colors.blue,
+                                  borderWidth: 1.5,
+                                  overflow: "hidden",
+                              }
+                            : {
+                                  height: height / 3.98,
+                                  backgroundColor: "gray",
+                                  borderRadius: 15,
+                                  marginHorizontal: 16,
+                                  marginBottom: 16,
+                                  borderColor: colors.gray,
+                                  borderWidth: 1,
+                                  overflow: "hidden",
+                              }
+                    }
                 >
                     <View style={styles.resultLineBox}>
                         <View style={styles.resultId}>
-                            {selected ? (
-                                <Ionicons
-                                    name="checkbox-outline"
-                                    size={24}
-                                    color={colors.blue}
-                                />
-                            ) : (
-                                <Ionicons
-                                    name="heart"
-                                    size={24}
-                                    color={colors.red}
-                                />
-                            )}
+                            <TouchableOpacity
+                                onPress={() => {
+                                    setSelected(!selected);
+                                    if(elements.includes(item.clientInfo.userId)){
+                                        
+                                    }
+                                    elements.push(item.clientInfo.userId);
+                                    console.log(elements)
+                                }}
+                            >
+                                {selected ? (
+                                    <Ionicons
+                                        name="checkbox-outline"
+                                        size={26}
+                                        color={colors.blue}
+                                    />
+                                ) : (
+                                    <Ionicons
+                                        name="checkbox-outline"
+                                        size={26}
+                                        color={colors.gray}
+                                    />
+                                )}
+                            </TouchableOpacity>
+
+                            <Ionicons
+                                name="heart"
+                                size={24}
+                                color={colors.red}
+                            />
                             <TouchableOpacity>
                                 <Text style={styles.resultIdText}>
                                     {`${item.clientId}`}
