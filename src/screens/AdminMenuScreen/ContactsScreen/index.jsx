@@ -96,7 +96,6 @@ const ContactsScreen = ({ navigation, route }) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                setLoadMore(true);
                 const value = await AsyncStorage.getItem("staff_token");
                 setUserToken(value);
                 const clients = await request(
@@ -104,7 +103,7 @@ const ContactsScreen = ({ navigation, route }) => {
                     {
                         clientStatus: null,
                         branchId: null,
-                        pagination: { limit: 5, page: pageCurrent },
+                        pagination: { limit: 10, page: pageCurrent },
                     },
                     value
                 );
@@ -112,10 +111,7 @@ const ContactsScreen = ({ navigation, route }) => {
                     data: clients ? clients.clients : [],
                     page: pageCurrent,
                 });
-                // console.log(clients);
                 setBranches(await request(GET_ALL_BRANCHES_QUERY, null, value));
-                setLoading(false);
-                setLoadMore(false);
             } catch (error) {
                 console.log(error);
             }
@@ -131,7 +127,7 @@ const ContactsScreen = ({ navigation, route }) => {
                     {
                         clientStatus: null,
                         branchId: null,
-                        pagination: { limit: 5, page: pageCurrent },
+                        pagination: { limit: 10, page: pageCurrent },
                     },
                     userToken
                 );
@@ -145,18 +141,21 @@ const ContactsScreen = ({ navigation, route }) => {
         }
         fetchData();
     }, [pageCurrent]);
-    // console.log(clients)
+
     useEffect(() => {
         async function fetchData() {
             try {
                 setLoading(true);
-                setClients(
-                    await request(
+                
+                let clients = await request(
                         ALL_CLIENTS_QUERY,
                         { branchId: selectedBranch?.branchId },
                         userToken
                     )
-                );
+                
+                setState({
+                    data: clients ? clients.clients : []
+                })
                 setLoading(false);
             } catch (error) {
                 console.log(error);
@@ -197,15 +196,15 @@ const ContactsScreen = ({ navigation, route }) => {
                     // let searchedDataSC = await clients.clients.filter(
                     //     (item) => item.clientInfo.secondContact == searchKey
                     // );
-                    let searchedDataFN = await clients.clients.filter(
+                    let searchedDataFN = state.data.filter(
                         (item) => item.clientInfo.firstName == searchKey
                     );
-                    let searchedDataLN = await clients.clients.filter(
+                    let searchedDataLN = state.data.filter(
                         (item) => item.clientInfo.lastName == searchKey
                     );
                     let searchedData = [...searchedDataFN, ...searchedDataLN];
                     console.log(searchedData);
-                    setClients({ clients: searchedData });
+                    setState({ data: searchedData });
                 }
                 // if (searchKey && !(selectedStatus && selectedBranch)) {
                 //     setLoading(true);
