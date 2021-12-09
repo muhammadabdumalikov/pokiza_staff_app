@@ -255,7 +255,8 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     clientFullname: {
-        marginVertical: 10
+        marginVertical: 10,
+        fontSize: 18
     },
     clientAddress: {
         height: 120,
@@ -288,7 +289,7 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     clientPhonesWrapper: {
-        width: "60%",
+        width: "70%",
     },
     clientPhone: {
         flexDirection: "row",
@@ -298,7 +299,7 @@ export const styles = StyleSheet.create({
         marginVertical: 5
     },
     clientPhoneTxt: {
-        fontSize: 20,
+        fontSize: 22,
         textAlign: "left"
     }
 });

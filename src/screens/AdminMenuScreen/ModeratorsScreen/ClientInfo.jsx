@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { Feather, Entypo, FontAwesome } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { colors } from "../../../constants/color";
+import formatPhoneNumber from "../../../components/phoneNumberFormat";
 
 const ClientInfo = () => {
     return (
@@ -37,11 +38,11 @@ const ClientInfo = () => {
                 <Text style={styles.resultAddressText}>Telefon raqamlar:</Text>
                 <View style={styles.clientPhone}>
                     <FontAwesome name="phone" size={24} color={colors.green} />
-                    <Text style={styles.clientPhoneTxt}>+{`998911011010`}</Text>
+                    <Text style={styles.clientPhoneTxt}>{formatPhoneNumber("998911001010")}</Text>
                 </View>
                 <View style={styles.clientPhone}>
                     <FontAwesome name="phone" size={24} color={colors.green} />
-                    <Text style={styles.clientPhoneTxt}>+{`998911011010`}</Text>
+                    <Text style={styles.clientPhoneTxt}>{formatPhoneNumber("998911001010")}</Text>
                 </View>
             </View>
         </View>
