@@ -61,7 +61,6 @@ const CardComponent = ({ item }) => {
                                         return
                                     }
                                     elements.push(item.clientInfo.userId);
-                                    console.log(elements)
                                 }}
                             >
                                 {selected ? (

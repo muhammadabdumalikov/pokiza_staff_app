@@ -8,7 +8,7 @@ import {
     Modal,
     Pressable,
     FlatList,
-    Alert
+    Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Collapsible from "react-native-collapsible";
@@ -18,6 +18,8 @@ import { Feather } from "@expo/vector-icons";
 import { request } from "../../../helpers/request";
 import { sliderStyles, styles } from "./styles";
 import CardComponent from "./CardComponent";
+
+let stopFetchMore = true;
 
 const ContactsScreen = ({ navigation, route }) => {
     const ALL_CLIENTS_QUERY = `query($clientStatus: Int = null, $branchId: ID = null, $pagination: Pagination){
@@ -86,22 +88,31 @@ const ContactsScreen = ({ navigation, route }) => {
     const [loadMore, setLoadMore] = useState(false);
     const [pageCurrent, setPageCurrent] = useState(1);
 
+    const [state, setState] = useState({
+        data: [],
+        page: pageCurrent,
+    });
+
     useEffect(() => {
         async function fetchData() {
             try {
                 setLoadMore(true);
                 const value = await AsyncStorage.getItem("staff_token");
                 setUserToken(value);
-                const clients  = await request(
+                const clients = await request(
                     ALL_CLIENTS_QUERY,
                     {
                         clientStatus: null,
                         branchId: null,
-                        pagination: { limit: 5, page: 1 },
+                        pagination: { limit: 5, page: pageCurrent },
                     },
                     value
                 );
-                setClients(clients);
+                setState({
+                    data: clients ? clients.clients : [],
+                    page: pageCurrent,
+                });
+                // console.log(clients);
                 setBranches(await request(GET_ALL_BRANCHES_QUERY, null, value));
                 setLoading(false);
                 setLoadMore(false);
@@ -115,7 +126,6 @@ const ContactsScreen = ({ navigation, route }) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                setLoadMore(true);
                 let loadMoreData = await request(
                     ALL_CLIENTS_QUERY,
                     {
@@ -125,18 +135,17 @@ const ContactsScreen = ({ navigation, route }) => {
                     },
                     userToken
                 );
-                console.log(loadMoreData)
-
-                // setClients({clients: [...clients, ...loadMoreData.clients]});
-                console.log(clients)
-                setLoadMore(false);
+                setState({
+                    data: state.data.concat(loadMoreData.clients),
+                    page: pageCurrent,
+                });
             } catch (error) {
                 console.log(error);
             }
         }
         fetchData();
     }, [pageCurrent]);
-
+    // console.log(clients)
     useEffect(() => {
         async function fetchData() {
             try {
@@ -268,19 +277,18 @@ const ContactsScreen = ({ navigation, route }) => {
         );
     };
 
-    const renderFooter = () => {
-        return loadMore ? (
+    const RenderFooterComponent = () => {
+        return stopFetchMore ? (
             <View style={styles.loader}>
                 <ActivityIndicator size="large" />
             </View>
         ) : null;
     };
 
+    const handleOnEndReached = () => {};
+
     const handleLoadMore = () => {
-        setTimeout(() => {
-            setPageCurrent(pageCurrent + 1);
-            setLoadMore(true);
-        }, 1000);
+        setPageCurrent(pageCurrent + 1);
     };
 
     return (
@@ -513,15 +521,15 @@ const ContactsScreen = ({ navigation, route }) => {
                     </Collapsible>
 
                     <FlatList
-                        data={clients? clients.clients : []}
+                        data={state.data}
                         keyExtractor={(item) => item.clientId}
                         renderItem={({ item }) => <CardComponent item={item} />}
                         style={styles.container}
                         contentContainerStyle={styles.contentStyle}
                         showsVerticalScrollIndicator={false}
-                        ListFooterComponent={renderFooter}
+                        ListFooterComponent={() => <RenderFooterComponent />}
                         onEndReached={handleLoadMore}
-                        onEndReachedThreshold={0}
+                        onEndReachedThreshold={0.5}
                     />
                     {/* Result box of staffs ------------------------------------------------------- */}
 
