@@ -11,12 +11,10 @@ import {
 import { AuthContext } from "../../navigation/AuthProvider";
 import { useQuery, useMutation, gql } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+// import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
 import { request } from "../../helpers/request";
-
-const mainContact = "998946209914";
-const mainPassword = "root";
 
 const height = Dimensions.get("window").height;
 
@@ -39,22 +37,23 @@ const LOGIN = gql`
     }
 `;
 
-const SignInScreen = ({ navigation }) => {
+const SignInScreen = ({navigation}) => {
     const [verify, { loading }] = useMutation(LOGIN);
     const [value, setValue] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("998946209914");
-    const [password, setPassword] = useState("root");
+    const [phoneNumber, setPhoneNumber] = useState();
+    const [password, setPassword] = useState();
+    // const navigation = useNavigation()
     // const [loading, setLoading] = useState(true);
 
     const confirmSecondContact = () =>
-    Alert.alert("Xatolik!", "Login yoki parol noto'g'ri kiritilgan!", [
-        {
-            text: "Qaytadan kiritish",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel",
-        },
-        // { text: "Ha, xohlayman", onPress: () => console.log("OK Pressed") },
-    ]);
+        Alert.alert("Xatolik!", "Login yoki parol noto'g'ri kiritilgan!", [
+            {
+                text: "Qaytadan kiritish",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel",
+            },
+            // { text: "Ha, xohlayman", onPress: () => console.log("OK Pressed") },
+        ]);
 
     const handleSubmit = () => {
         verify({
@@ -64,13 +63,13 @@ const SignInScreen = ({ navigation }) => {
             },
         })
             .then(({ data }) => {
-                console.log(data)
+                console.log(data);
                 if (data.loginStaff.status == 200) {
                     AsyncStorage.setItem("staff_token", data.loginStaff.token);
+                    navigation.navigate("AppStack")
                 } else {
-                    confirmSecondContact()
+                    confirmSecondContact();
                 }
-
             })
             .catch((err) => {
                 console.log(err);
@@ -125,7 +124,7 @@ const SignInScreen = ({ navigation }) => {
                         placeholder="Enter phone number"
                         placeholderTextColor="#B8B8BB"
                         value={phoneNumber}
-                        onChangeText={setPhoneNumber}
+                        onChangeText={(value) => setPhoneNumber(value)}
                         keyboardType="phone-pad"
                         // autoFocus={true}
                         maxLength={12}
@@ -144,8 +143,8 @@ const SignInScreen = ({ navigation }) => {
                         placeholder="Enter password"
                         placeholderTextColor="#B8B8BB"
                         value={password}
-                        onChangeText={setPassword}
-                        keyboardType="phone-pad"
+                        onChangeText={(value) => setPassword(value)}
+                        keyboardType="default"
                         // autoFocus={true}
                         maxLength={12}
                     />

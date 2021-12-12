@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text, TouchableOpacity, Dimensions } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
@@ -10,6 +10,7 @@ import {
     AntDesign,
 } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import AdminMenuScreen from "../screens/AdminMenuScreen";
 import ContactsScreen from "../screens/AdminMenuScreen/ContactsScreen";
@@ -33,6 +34,7 @@ import CallButton from "../components/callButton";
 import LogoImage from "../components/LogoImage";
 import AddClientScreen from "../screens/AdminMenuScreen/ContactsScreen/AddClientScreen";
 import ClientFromModerators from "../screens/AdminMenuScreen/ModeratorsScreen/ClientIndex";
+import SignInScreen from "../screens/SignInScreen";
 
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -41,20 +43,30 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 const MenuStack = ({ navigation, route }) => {
+    const [token, setToken] = useState();
+
+    useEffect(() => {
+        async function fetchData() {
+            let value = await AsyncStorage.getItem("staff_token");
+            setToken(value);
+        }
+        fetchData();
+    });
     return (
         <Stack.Navigator
-            screenOptions={{
-            }}
         >
             <Stack.Screen
                 name="AdminMenuScreen"
                 component={AdminMenuScreen}
+                
                 options={({ route }) => ({
+                    headerTitle: "Asosiy sahifa",
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 24,
                         textAlign: "center",
                     },
+                    gestureEnabled: false,
                     headerStyle: {
                         elevation: 0,
                         height: Dimensions.get("window").height / 5.17,

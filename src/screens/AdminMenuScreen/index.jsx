@@ -5,8 +5,9 @@ import {
     MaterialCommunityIcons,
     Ionicons,
     Feather,
-    Entypo
+    Entypo,
 } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { styles } from "./styles";
 import { showDate } from "../../components/DateFormat";
@@ -85,7 +86,10 @@ const AdminMenuScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.menuBox}
-                    onPress={() => navigation.navigate("HistoryScreen")}
+                    onPress={async() => {
+                        // navigation.navigate("HistoryScreen");
+                        await AsyncStorage.removeItem("staff_token")
+                    }}
                 >
                     <Text style={styles.menuText}>Monitoring</Text>
                     <Feather name="clock" size={24} color="black" />
