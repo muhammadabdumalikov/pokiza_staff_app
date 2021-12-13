@@ -55,7 +55,7 @@ const ClientInfo = ({ route }) => {
                 <View style={styles.resultAddressLocation}>
                     <Entypo name="location-pin" size={24} color="#007AFF" />
                     <Text style={styles.resultAddressLocationDynamicText}>
-                        {"Mirobod masjidi"}
+                        {`${client.clientInfo.address.area ? client.clientInfo.address.area.areaName : ``}`}
                     </Text>
                 </View>
             </View>
