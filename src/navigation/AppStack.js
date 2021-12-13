@@ -67,7 +67,7 @@ const MenuStack = ({ navigation, route }) => {
                         fontSize: 24,
                         textAlign: "center",
                     },
-                    gestureEnabled: false,
+                    // gestureEnabled: false,
                     headerStyle: {
                         elevation: 0,
                         height: Dimensions.get("window").height / 5.17,

@@ -35,7 +35,6 @@ const AdminMenuScreen = ({ navigation }) => {
                     onPress={() => navigation.navigate("OrdersScreen")}
                 >
                     <Text style={styles.menuText}>Buyurtmalar</Text>
-                    {/* <AntDesign name="menuunfold" size={24} color="black" /> */}
                     <MaterialCommunityIcons
                         name="order-bool-descending-variant"
                         size={24}
@@ -47,7 +46,6 @@ const AdminMenuScreen = ({ navigation }) => {
                     onPress={() => navigation.navigate("OrdersScreen")}
                 >
                     <Text style={styles.menuText}>Buyumlar</Text>
-                    {/* <AntDesign name="menuunfold" size={24} color="black" /> */}
                     <Entypo name="documents" size={24} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity

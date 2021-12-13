@@ -154,7 +154,7 @@ const CardComponentOrders = ({ item }) => {
             style={styles.orderBox}
             onPress={() =>
                 navigation.navigate("OrderDetailScreen", {
-                    id: "ID: #329304",
+                    id: item.orderId,
                 })
             }
         >
