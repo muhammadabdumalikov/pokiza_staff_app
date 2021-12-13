@@ -12,7 +12,7 @@ const height = Dimensions.get("window").height;
 
 const CardComponent = ({ item }) => {
     const navigation = useNavigation();
- 
+
     const [userToken, setUserToken] = useState();
 
     const CHANGE_ORDER_STATUS = `mutation($orderId: ID!, $orderStatus: Int){
@@ -109,10 +109,14 @@ const CardComponent = ({ item }) => {
                         </TouchableOpacity>
                     </View>
                     <TouchableOpacity
-                        onPress={async() => {
+                        onPress={async () => {
                             // await AsyncStorage.setItem("clientId", item.orderOwner.clientInfo.clientId)
                             navigation.navigate("ClientFromModerators", {
-                                clientId: item.orderOwner.clientInfo,
+                                screen: "ClientInfo",
+                                params: {
+                                    client: item.orderOwner,
+                                    clientId: item.clientId,
+                                },
                             });
                         }}
                         style={styles.resultLineBox}

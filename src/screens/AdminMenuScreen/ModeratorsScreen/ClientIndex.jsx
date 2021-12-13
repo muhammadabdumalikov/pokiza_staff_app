@@ -9,8 +9,7 @@ const Tab = createMaterialTopTabNavigator();
 
 const height = Dimensions.get("window").height;
 
-const ClientFromModerators = ({navigation,route}) => {
-
+const ClientFromModerators = ({navigation}) => {
     return (
         <Tab.Navigator
             screenOptions={{
@@ -51,8 +50,6 @@ const ClientFromModerators = ({navigation,route}) => {
             <Tab.Screen
                 name="ClientInfo"
                 component={ClientInfo}
-                initialParams={{client: route.params}}
-                
                 options={{ title: "Mijoz ma'lumotlari"}}
             />
             <Tab.Screen

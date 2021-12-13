@@ -5,17 +5,20 @@ import { styles } from "./styles";
 import { colors } from "../../../constants/color";
 import formatPhoneNumber from "../../../components/phoneNumberFormat";
 
-const ClientInfo = () => {
+const ClientInfo = ({ route }) => {
+    let client = route.params.client;
     return (
         <View style={{ ...styles.container, paddingHorizontal: 16 }}>
             <View style={styles.clientIdLine}>
-                <Text style={styles.clientIdLineText}>Mijoz - {`1111`}</Text>
+                <Text style={styles.clientIdLineText}>
+                    Mijoz - {client.clientId}
+                </Text>
                 <Feather name="edit" size={24} color={colors.likeBlack} />
             </View>
 
             <Text
                 style={styles.clientFullname}
-            >{`Muhammadaliyev Olimjon`}</Text>
+            >{`${client.clientInfo.firstName} ${client.clientInfo.lastName}`}</Text>
 
             <View style={styles.clientAddress}>
                 <View style={styles.resultAddress}>
@@ -38,12 +41,22 @@ const ClientInfo = () => {
                 <Text style={styles.resultAddressText}>Telefon raqamlar:</Text>
                 <View style={styles.clientPhone}>
                     <FontAwesome name="phone" size={24} color={colors.green} />
-                    <Text style={styles.clientPhoneTxt}>{formatPhoneNumber("998911001010")}</Text>
+                    <Text style={styles.clientPhoneTxt}>
+                        {formatPhoneNumber(client.clientInfo.mainContact)}
+                    </Text>
                 </View>
-                <View style={styles.clientPhone}>
-                    <FontAwesome name="phone" size={24} color={colors.green} />
-                    <Text style={styles.clientPhoneTxt}>{formatPhoneNumber("998911001010")}</Text>
-                </View>
+                {client.clientInfo.secondContact ? (
+                    <View style={styles.clientPhone}>
+                        <FontAwesome
+                            name="phone"
+                            size={24}
+                            color={colors.green}
+                        />
+                        <Text style={styles.clientPhoneTxt}>
+                            {formatPhoneNumber(client.clientInfo.secondContact)}
+                        </Text>
+                    </View>
+                ) : null}
             </View>
         </View>
     );

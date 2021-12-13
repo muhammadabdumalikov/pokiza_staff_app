@@ -51,11 +51,12 @@ const ModeratorsScreen = ({ navigation, route }) => {
              orderStatus
           orderSpecial
           orderOwner{
+            clientId
             clientInfo{
               firstName
               lastName
               mainContact
-              secondContact
+              secondContact 
             }
           },
           orderAddress{
