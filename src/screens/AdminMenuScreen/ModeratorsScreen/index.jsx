@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-    ScrollView,
     Text,
     View,
     TouchableOpacity,
@@ -66,13 +65,28 @@ const ModeratorsScreen = ({ navigation, route }) => {
       }
     `;
 
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const value = await AsyncStorage.getItem("staff_token");
+                setOrders(await request(GET_ALL_ORDERS_QUERY, null, value));
+                setBranches(await request(GET_BRANCHES_QUERY, null, value));
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
+    }, []);
+
     const onRefresh = React.useCallback(async () => {
         setRefreshing(true);
+        const value = await AsyncStorage.getItem("staff_token");
         let data = await fetch("https://pokiza.herokuapp.com/graphql", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                token: userToken,
+                token: value,
             },
             body: JSON.stringify({
                 query: GET_ALL_ORDERS_QUERY,
@@ -83,22 +97,6 @@ const ModeratorsScreen = ({ navigation, route }) => {
 
         setOrders(jsonData.data);
         setRefreshing(false);
-    }, []);
-
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const value = await AsyncStorage.getItem("staff_token");
-                setUserToken(value);
-                console.log(value);
-                setOrders(await request(GET_ALL_ORDERS_QUERY, null, value));
-                setBranches(await request(GET_BRANCHES_QUERY, null, value));
-                setLoading(false);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchData();
     }, []);
 
     const tariffs = [
@@ -141,7 +139,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
             </TouchableOpacity>
         );
     };
-    console.log(orders)
+
     return (
         <>
             {isLoading ? (

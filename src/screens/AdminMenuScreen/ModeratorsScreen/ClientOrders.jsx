@@ -37,8 +37,6 @@ const GET_ORDERS = `{
   }`;
 
 const ClientOrders = ({ navigation}) => {
-    const route = useRoute();
-    console.log(route)
 
     const [fetchedData, setFetchedData] = useState(null);
     const [userToken, setUserToken] = useState();
@@ -89,7 +87,7 @@ const ClientOrders = ({ navigation}) => {
 
     const onRefresh = React.useCallback(async () => {
         setRefreshing(true);
-        const value = await AsyncStorage.getItem("user_token");
+        const value = await AsyncStorage.getItem("staff_token");
         let data = await fetch("https://pokiza.herokuapp.com/graphql", {
             method: "POST",
             headers: {
