@@ -110,12 +110,14 @@ const CardComponent = ({ item }) => {
                     </View>
                     <TouchableOpacity
                         onPress={async () => {
-                            // await AsyncStorage.setItem("clientId", item.orderOwner.clientInfo.clientId)
                             navigation.navigate("ClientFromModerators", {
                                 screen: "ClientInfo",
                                 params: {
                                     client: item.orderOwner,
-                                    clientId: item.clientId,
+                                    screen: "OrderDetailScreen",
+                                    params: {
+                                        orderId: item.orderId,
+                                    },
                                 },
                             });
                         }}

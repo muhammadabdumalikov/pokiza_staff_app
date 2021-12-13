@@ -13,6 +13,21 @@ import { Ionicons } from "@expo/vector-icons";
 import { styles } from "../styles";
 import { CardOrderComponent } from "../CardOrderComponent";
 const OrderDetailScreen = ({ navigation, route }) => {
+    console.log(route)
+
+    const GET_ORDER_QUERY = `{
+        orders{
+          orderId
+          orderStatus
+          orderTotalPrice
+          orderProducts{
+            productId
+            productSize
+            productPrice
+            
+          }
+        }
+      }`
     const DATA = [
         { id: "1", key: "1111" },
         { id: "2", key: "1111" },

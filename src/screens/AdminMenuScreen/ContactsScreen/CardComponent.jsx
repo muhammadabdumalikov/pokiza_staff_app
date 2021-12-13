@@ -57,16 +57,16 @@ const CardComponent = ({ item }) => {
                                     setSelected(!selected);
                                     if (
                                         elements.includes(
-                                            item.clientInfo.userId
+                                            item.clientId
                                         )
                                     ) {
                                         let index = elements.indexOf(
-                                            item.clientInfo.userId
+                                            item.clientId.userId
                                         );
                                         elements.splice(index, 1);
                                         return;
                                     }
-                                    elements.push(item.clientInfo.userId);
+                                    elements.push(item.clientId);
                                 }}
                             >
                                 {selected ? (

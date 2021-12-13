@@ -7,7 +7,6 @@ import formatPhoneNumber from "../../../components/phoneNumberFormat";
 
 const ClientInfo = ({ route }) => {
     let client = route.params.client;
-    console.log(client);
     return (
         <View style={{ ...styles.container, paddingHorizontal: 16 }}>
             <View style={styles.clientIdLine}>
