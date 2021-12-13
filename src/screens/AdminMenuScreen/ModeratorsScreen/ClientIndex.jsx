@@ -9,7 +9,7 @@ const Tab = createMaterialTopTabNavigator();
 
 const height = Dimensions.get("window").height;
 
-const ClientFromModerators = ({navigation}) => {
+const ClientFromModerators = () => {
     return (
         <Tab.Navigator
             screenOptions={{
