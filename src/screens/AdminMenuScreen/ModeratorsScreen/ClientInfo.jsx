@@ -7,6 +7,7 @@ import formatPhoneNumber from "../../../components/phoneNumberFormat";
 
 const ClientInfo = ({ route }) => {
     let client = route.params.client;
+    console.log(client);
     return (
         <View style={{ ...styles.container, paddingHorizontal: 16 }}>
             <View style={styles.clientIdLine}>
@@ -24,9 +25,31 @@ const ClientInfo = ({ route }) => {
                 <View style={styles.resultAddress}>
                     <Text style={styles.resultAddressText}>Manzil: </Text>
                     <Text style={styles.resultAddressDynamicText}>
-                        {
-                            "Mirobod tumani, Rakat mahalla, Xosilot ko'chasi, 76-uy, 42-xonadon"
-                        }
+                        {`${
+                            client.clientInfo.address.state
+                                ? client.clientInfo.address.state.stateName +
+                                  ` viloyati,`
+                                : ``
+                        } ${
+                            client.clientInfo.address.region
+                                ? client.clientInfo.address.region.regionName +
+                                  ` tumani,`
+                                : ``
+                        } ${
+                            client.clientInfo.address.neighborhood
+                                ? client.clientInfo.address.neighborhood
+                                      .neighborhoodName + ` M.F.Y,`
+                                : ``
+                        } ${
+                            client.clientInfo.address.street
+                                ? client.clientInfo.address.street.streetName +
+                                  ` ko'chasi,`
+                                : ``
+                        } ${
+                            client.clientInfo.address.homeNumber
+                                ? client.clientInfo.address.homeNumber + `-uy,`
+                                : ``
+                        }`}
                     </Text>
                 </View>
                 <View style={styles.resultAddressLocation}>

@@ -8,7 +8,7 @@ import {
     Modal,
     ActivityIndicator,
     Pressable,
-    RefreshControl
+    RefreshControl,
 } from "react-native";
 import Collapsible from "react-native-collapsible";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -53,6 +53,26 @@ const ModeratorsScreen = ({ navigation, route }) => {
           orderOwner{
             clientId
             clientInfo{
+              address{
+                 state{
+                  stateName
+                }
+                region{
+                  regionName
+                }
+                neighborhood{
+                  neighborhoodName
+                }
+                street{
+                  streetName
+                }
+                area{
+                  areaName
+                }
+                homeNumber
+                target
+              }
+              userId
               firstName
               lastName
               mainContact
