@@ -111,14 +111,8 @@ const CardComponent = ({ item }) => {
                     <TouchableOpacity
                         onPress={async () => {
                             navigation.navigate("ClientFromModerators", {
-                                screen: "ClientInfo",
-                                params: {
-                                    client: item.orderOwner,
-                                    screen: "OrderDetailScreen",
-                                    params: {
-                                        orderId: item.orderId,
-                                    },
-                                },
+                                client: item.orderOwner,
+                                orderId: item.orderId,
                             });
                         }}
                         style={styles.resultLineBox}

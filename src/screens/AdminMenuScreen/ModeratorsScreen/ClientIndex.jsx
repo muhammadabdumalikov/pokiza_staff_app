@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Dimensions } from "react-native";
 
@@ -9,7 +9,8 @@ const Tab = createMaterialTopTabNavigator();
 
 const height = Dimensions.get("window").height;
 
-const ClientFromModerators = () => {
+const ClientFromModerators = ({ route }) => {
+    console.log(route);
     return (
         <Tab.Navigator
             screenOptions={{
@@ -50,13 +51,17 @@ const ClientFromModerators = () => {
             <Tab.Screen
                 name="ClientInfo"
                 component={ClientInfo}
-                options={{ title: "Mijoz ma'lumotlari"}}
+                options={{ title: "Mijoz ma'lumotlari" }}
+                initialParams={{ client: route.params.client }}
             />
             <Tab.Screen
-
                 name="ClientOrders"
                 component={ClientOrders}
                 options={{ title: "Buyurtmalari" }}
+                initialParams={{
+                    orderId: route.params.orderId,
+                    clientId: route.params.client.clientId,
+                }}
             />
         </Tab.Navigator>
     );
