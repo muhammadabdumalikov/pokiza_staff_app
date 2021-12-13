@@ -15,8 +15,8 @@ import { CardOrderComponent } from "../CardOrderComponent";
 const OrderDetailScreen = ({ navigation, route }) => {
     console.log(route)
 
-    const GET_ORDER_QUERY = `{
-        orders{
+    const GET_ORDER_QUERY = `query($orderId: ID){
+        orders(orderId: $orderId){
           orderId
           orderStatus
           orderTotalPrice
