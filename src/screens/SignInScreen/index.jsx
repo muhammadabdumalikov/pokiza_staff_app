@@ -37,7 +37,7 @@ const LOGIN = gql`
     }
 `;
 
-const SignInScreen = ({navigation}) => {
+const SignInScreen = ({ navigation }) => {
     const [verify, { loading }] = useMutation(LOGIN);
     const [value, setValue] = useState("");
     const [phoneNumber, setPhoneNumber] = useState();
@@ -66,7 +66,14 @@ const SignInScreen = ({navigation}) => {
                 console.log(data);
                 if (data.loginStaff.status == 200) {
                     AsyncStorage.setItem("staff_token", data.loginStaff.token);
-                    navigation.navigate("AppStack")
+                    navigation.reset({
+                        index: 0,
+                        routes: [
+                            {
+                                name: "AppStack",
+                            },
+                        ],
+                    });
                 } else {
                     confirmSecondContact();
                 }
