@@ -385,9 +385,9 @@ const MenuStack = ({ navigation, route }) => {
                         backgroundColor: "#F5F5F5",
                         // height: Dimensions.get("window").height / 5.8,
                     },
-                    // title: route.params.id,
-                    headerRight: () => null,
-                    headerLeft: () => null,
+                    title: "",
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
                 })}
             />
         </Stack.Navigator>

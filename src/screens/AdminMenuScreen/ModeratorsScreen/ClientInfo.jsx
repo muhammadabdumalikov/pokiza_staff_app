@@ -12,7 +12,7 @@ const ClientInfo = ({ route }) => {
         <View style={{ ...styles.container, paddingHorizontal: 16 }}>
             <View style={styles.clientIdLine}>
                 <Text style={styles.clientIdLineText}>
-                    Mijoz - {client.clientId}
+                    Mijoz - @{client.clientId}
                 </Text>
                 <Feather name="edit" size={24} color={colors.likeBlack} />
             </View>
