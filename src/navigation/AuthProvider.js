@@ -19,8 +19,6 @@ export const AuthProvider = ({ children }) => {
                 setCode,
                 transportId,
                 setTransportId,
-                multiClient,
-                setMultiClient
             }}
         >
             <AuthContext.Consumer>{() => children}</AuthContext.Consumer>
