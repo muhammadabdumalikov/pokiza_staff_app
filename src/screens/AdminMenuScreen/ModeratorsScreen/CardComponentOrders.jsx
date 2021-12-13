@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import moment from "moment";
+import { useNavigation } from "@react-navigation/native";
+
 import { colors } from "../../../constants/color";
 import { showDate } from "../../../components/DateFormat";
 
@@ -17,7 +19,8 @@ import { showDate } from "../../../components/DateFormat";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
-const CardComponentOrders = ({ item, navigation }) => {
+const CardComponentOrders = ({ item }) => {
+    const navigation = useNavigation()
     const statusStyles = {
         1: {
             style: {

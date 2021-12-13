@@ -35,6 +35,7 @@ import LogoImage from "../components/LogoImage";
 import AddClientScreen from "../screens/AdminMenuScreen/ContactsScreen/AddClientScreen";
 import ClientFromModerators from "../screens/AdminMenuScreen/ModeratorsScreen/ClientIndex";
 import SignInScreen from "../screens/SignInScreen";
+import OrderDetailScreen from "../components/screens/OrdersComponent";
 
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -350,6 +351,27 @@ const MenuStack = ({ navigation, route }) => {
             <Stack.Screen
                 name="HistoryScreen"
                 component={HistoryScreen}
+                options={({ route }) => ({
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        // top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        backgroundColor: "#F5F5F5",
+                        // height: Dimensions.get("window").height / 5.8,
+                    },
+                    // title: route.params.id,
+                    headerRight: () => null,
+                    headerLeft: () => null,
+                })}
+            />
+               <Stack.Screen
+                name="OrderDetailScreen"
+                component={OrderDetailScreen}
                 options={({ route }) => ({
                     headerTitleAlign: "center",
                     headerTitleStyle: {
