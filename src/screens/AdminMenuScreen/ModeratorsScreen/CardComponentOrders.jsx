@@ -8,8 +8,9 @@ import {
     Dimensions,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import moment from "moment";
 import { colors } from "../../../constants/color";
-
+import { showDate } from "../../../components/DateFormat";
 
 // import { styles } from "./styles";
 
@@ -175,7 +176,9 @@ const CardComponentOrders = ({ item, navigation }) => {
                             Ro'yxatdan o'tgan sana
                         </Text>
                     </View>
-                    <Text style={styles.orderRegisterDate}>18.11.2020</Text>
+                    <Text style={styles.orderRegisterDate}>
+                        {moment(item.orderCreatedAt).format("l")}
+                    </Text>
                 </View>
                 <View style={styles.orderRegisterBox}>
                     <View style={styles.orderRegisterTextWrapper}>
