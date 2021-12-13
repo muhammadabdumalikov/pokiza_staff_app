@@ -6,6 +6,7 @@ export const AuthProvider = ({ children }) => {
     const [transportId, setTransportId] = useState("hech");
     const [lastName, setLastName] = useState();
     const [code, setCode] = useState(null);
+    const [multiClient, setMultiClient] = useState([])
    
     return (
         <AuthContext.Provider
@@ -17,7 +18,9 @@ export const AuthProvider = ({ children }) => {
                 code,
                 setCode,
                 transportId,
-                setTransportId
+                setTransportId,
+                multiClient,
+                setMultiClient
             }}
         >
             <AuthContext.Consumer>{() => children}</AuthContext.Consumer>

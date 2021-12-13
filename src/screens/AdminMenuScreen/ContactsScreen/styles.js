@@ -111,7 +111,7 @@ export const styles = StyleSheet.create({
     addressTxt: {
         color: "black",
         fontSize: 16,
-        fontWeight: "bold"
+        fontWeight: "bold",
     },
     input: {
         width: "100%",
@@ -227,6 +227,17 @@ export const styles = StyleSheet.create({
         right: 24,
         backgroundColor: "#2196F3",
     },
+    fab3: {
+        width: 64,
+        height: 64,
+        borderRadius: 32,
+        justifyContent: "center",
+        alignItems: "center",
+        position: "absolute",
+        bottom: 100,
+        right: 24,
+        backgroundColor: colors.red,
+    },
     centeredView: {
         flex: 1,
         justifyContent: "center",
@@ -298,6 +309,6 @@ export const styles = StyleSheet.create({
     },
     loader: {
         // marginTop: 10,
-        alignItems: "center"
-    }
+        alignItems: "center",
+    },
 });

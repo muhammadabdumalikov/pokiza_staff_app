@@ -12,12 +12,12 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Collapsible from "react-native-collapsible";
-import ModalSelector from "react-native-modal-selector";
-import { Feather } from "@expo/vector-icons";
+import { Feather, AntDesign } from "@expo/vector-icons";
 
 import { request } from "../../../helpers/request";
 import { sliderStyles, styles } from "./styles";
 import CardComponent from "./CardComponent";
+import { colors } from "../../../constants/color";
 
 let stopFetchMore = true;
 
@@ -68,7 +68,6 @@ const ContactsScreen = ({ navigation, route }) => {
         }
       }      
     `;
-
     const [clients, setClients] = useState();
     const [branches, setBranches] = useState();
     const [selectedBranch, setSelectedBranch] = useState();
@@ -213,7 +212,7 @@ const ContactsScreen = ({ navigation, route }) => {
                         { searchKey: searchKey },
                         userToken
                     );
-                    console.log(clients)
+                    console.log(clients);
                     setState({
                         data: clients ? clients.clients : [],
                     });
@@ -233,8 +232,6 @@ const ContactsScreen = ({ navigation, route }) => {
         }
         fetchData();
     }, [searchKey]);
-
-    // console.log(searchKey);
 
     const toggleExpanded = () => {
         if (canFilter) setCollapsed(!collapsed);
@@ -520,36 +517,46 @@ const ContactsScreen = ({ navigation, route }) => {
                             </View>
                         </View>
                     </Collapsible>
-
-                    <FlatList
-                        data={searched ? searchedData.data : state.data}
-                        keyExtractor={(item) => item.clientId}
-                        renderItem={({ item }) => <CardComponent item={item} />}
-                        style={styles.container}
-                        contentContainerStyle={styles.contentStyle}
-                        showsVerticalScrollIndicator={false}
-                        ListFooterComponent={() => <RenderFooterComponent />}
-                        onEndReached={handleLoadMore}
-                        onEndReachedThreshold={0.5}
-                    />
-                    {/* Result box of staffs ------------------------------------------------------- */}
-
-                    {/* // Custom component */}
-                    {/* <ModalSelector
-                    data={data}
-                    ref={(selector) => {
-                        this.selector = selector;
-                    }}
-                    customSelector={
-                        <Switch onValueChange={() => this.selector.open()} />
-                    }
-                /> */}
+                    {!state ? (
+                        <View style={{ flex: 1 }}>
+                            <ActivityIndicator
+                                size="large"
+                                color={colors.blue}
+                            />
+                        </View>
+                    ) : (
+                        <FlatList
+                            data={searched ? searchedData.data : state.data}
+                            keyExtractor={(item) => item.clientId}
+                            renderItem={({ item }) => (
+                                <CardComponent item={item} />
+                            )}
+                            style={styles.container}
+                            contentContainerStyle={styles.contentStyle}
+                            showsVerticalScrollIndicator={false}
+                            ListFooterComponent={() => (
+                                <RenderFooterComponent />
+                            )}
+                            onEndReached={handleLoadMore}
+                            onEndReachedThreshold={0.5}
+                        />
+                    )}
                     <TouchableOpacity
                         style={styles.fab}
                         onPress={() => navigation.goBack()}
                     >
                         <Feather name="arrow-left" size={28} color="white" />
                     </TouchableOpacity>
+                    {/* {multiClient.length > 0 ? (
+                        <TouchableOpacity
+                            style={styles.fab3}
+                            onPress={() =>
+                                navigation.navigate("AddClientScreen")
+                            }
+                        >
+                            <Feather name="trash-2" size={28} color="white" />
+                        </TouchableOpacity>
+                    ) : null} */}
                     <TouchableOpacity
                         style={styles.fab2}
                         onPress={() => navigation.navigate("AddClientScreen")}

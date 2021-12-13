@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, Text, Dimensions } from "react-native";
-import { Entypo, Ionicons } from "@expo/vector-icons";
+import { Entypo, Ionicons, Feather } from "@expo/vector-icons";
 
 import { colors } from "../../../constants/color";
 import { styles } from "./styles";
@@ -45,7 +45,7 @@ const CardComponent = ({ item }) => {
                                   marginHorizontal: 16,
                                   marginBottom: 16,
                                   borderColor: colors.gray,
-                                  borderWidth: .5,
+                                  borderWidth: 0.5,
                                   overflow: "hidden",
                               }
                     }
@@ -55,10 +55,16 @@ const CardComponent = ({ item }) => {
                             <TouchableOpacity
                                 onPress={() => {
                                     setSelected(!selected);
-                                    if(elements.includes(item.clientInfo.userId)){
-                                        let index = elements.indexOf(item.clientInfo.userId)
-                                        elements.splice(index, 1)
-                                        return
+                                    if (
+                                        elements.includes(
+                                            item.clientInfo.userId
+                                        )
+                                    ) {
+                                        let index = elements.indexOf(
+                                            item.clientInfo.userId
+                                        );
+                                        elements.splice(index, 1);
+                                        return;
                                     }
                                     elements.push(item.clientInfo.userId);
                                 }}
@@ -89,13 +95,25 @@ const CardComponent = ({ item }) => {
                                 </Text>
                             </TouchableOpacity>
                         </View>
-                        <TouchableOpacity style={styles.locationStyle}>
-                            <Entypo
-                                name="location-pin"
-                                size={24}
-                                color="black"
-                            />
-                        </TouchableOpacity>
+                        <View>
+                            {selected ? (
+                                <TouchableOpacity>
+                                    <Feather
+                                        name="trash-2"
+                                        size={24}
+                                        color={colors.red}
+                                    />
+                                </TouchableOpacity>
+                            ) : (
+                                <TouchableOpacity style={styles.locationStyle}>
+                                    <Entypo
+                                        name="location-pin"
+                                        size={24}
+                                        color="black"
+                                    />
+                                </TouchableOpacity>
+                            )}
+                        </View>
                     </View>
                     <View
                         style={{
