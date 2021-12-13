@@ -17,16 +17,16 @@ import { AuthContext } from "../../../navigation/AuthProvider";
 import { request } from "../../../helpers/request";
 import { colors } from "../../../constants/color";
 import CardComponentOrders from "./CardComponentOrders";
-import { useRoute } from '@react-navigation/native';
+import { useRoute } from "@react-navigation/native";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
-const GET_ORDERS = `{
+const GET_ORDERS = `query($clientId: ID){
     clients{
         clientId
       }
-    orders{
+    orders(clientId: $clientId){
       orderId
          orderStatus
       orderTotalPrice
@@ -36,7 +36,8 @@ const GET_ORDERS = `{
     }
   }`;
 
-const ClientOrders = ({ navigation, route}) => {
+const ClientOrders = ({ navigation, route }) => {
+    console.log(route);
     const [fetchedData, setFetchedData] = useState(null);
     const [userToken, setUserToken] = useState();
     const [isLoading, setLoading] = useState(true);
@@ -58,7 +59,7 @@ const ClientOrders = ({ navigation, route}) => {
                     },
                     body: JSON.stringify({
                         query: GET_ORDERS,
-                        variables: null,
+                        variables: { clientId: route.params.clientId },
                     }),
                 });
 
