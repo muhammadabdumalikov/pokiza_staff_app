@@ -46,7 +46,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
     `;
 
     const GET_ALL_ORDERS_QUERY = `{
-        orders(orderStatus: 1){
+        orders(orderStatus: 4){
           orderId
              orderStatus
           orderSpecial

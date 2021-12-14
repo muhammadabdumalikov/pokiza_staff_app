@@ -20,7 +20,7 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 const CardComponentOrders = ({ item }) => {
-    const navigation = useNavigation()
+    const navigation = useNavigation();
     const statusStyles = {
         1: {
             style: {
@@ -154,7 +154,7 @@ const CardComponentOrders = ({ item }) => {
             style={styles.orderBox}
             onPress={() =>
                 navigation.navigate("OrderDetailScreen", {
-                    id: item.orderId,
+                    order: item,
                 })
             }
         >
