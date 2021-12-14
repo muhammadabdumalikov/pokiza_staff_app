@@ -36,6 +36,7 @@ import AddClientScreen from "../screens/AdminMenuScreen/ContactsScreen/AddClient
 import ClientFromModerators from "../screens/AdminMenuScreen/ModeratorsScreen/ClientIndex";
 import SignInScreen from "../screens/SignInScreen";
 import OrderDetailScreen from "../components/screens/OrdersComponent";
+import EditClientScreen from "../screens/AdminMenuScreen/ContactsScreen/EditClientScreen";
 
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -54,12 +55,10 @@ const MenuStack = ({ navigation, route }) => {
         fetchData();
     });
     return (
-        <Stack.Navigator
-        >
+        <Stack.Navigator>
             <Stack.Screen
                 name="AdminMenuScreen"
                 component={AdminMenuScreen}
-                
                 options={({ route }) => ({
                     headerTitle: "Asosiy sahifa",
                     headerTitleAlign: "center",
@@ -369,9 +368,30 @@ const MenuStack = ({ navigation, route }) => {
                     headerLeft: () => null,
                 })}
             />
-               <Stack.Screen
+            <Stack.Screen
                 name="OrderDetailScreen"
                 component={OrderDetailScreen}
+                options={({ route }) => ({
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        // top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        backgroundColor: "#F5F5F5",
+                        // height: Dimensions.get("window").height / 5.8,
+                    },
+                    title: "",
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
+                })}
+            />
+             <Stack.Screen
+                name="EditClientScreen"
+                component={EditClientScreen}
                 options={({ route }) => ({
                     headerTitleAlign: "center",
                     headerTitleStyle: {

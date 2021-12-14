@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { View, Text } from "react-native";
-import { Feather, Entypo, FontAwesome } from "@expo/vector-icons";
+import { View, Text, TouchableOpacity } from "react-native";
+import { Feather, Entypo, FontAwesome, Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { colors } from "../../../constants/color";
 import formatPhoneNumber from "../../../components/phoneNumberFormat";
 
-const ClientInfo = ({ route }) => {
+const ClientInfo = ({ navigation, route }) => {
     let client = route.params.client;
     return (
         <View style={{ ...styles.container, paddingHorizontal: 16 }}>
@@ -13,7 +13,9 @@ const ClientInfo = ({ route }) => {
                 <Text style={styles.clientIdLineText}>
                     Mijoz - @{client.clientId}
                 </Text>
-                <Feather name="edit" size={24} color={colors.likeBlack} />
+                <TouchableOpacity onPress={()=> navigation.navigate("EditClientScreen") }>
+                    <Feather name="edit" size={24} color={colors.likeBlack} />
+                </TouchableOpacity>
             </View>
 
             <Text
@@ -54,7 +56,11 @@ const ClientInfo = ({ route }) => {
                 <View style={styles.resultAddressLocation}>
                     <Entypo name="location-pin" size={24} color="#007AFF" />
                     <Text style={styles.resultAddressLocationDynamicText}>
-                        {`${client.clientInfo.address.area ? client.clientInfo.address.area.areaName : ``}`}
+                        {`${
+                            client.clientInfo.address.area
+                                ? client.clientInfo.address.area.areaName
+                                : ``
+                        }`}
                     </Text>
                 </View>
             </View>
@@ -80,6 +86,12 @@ const ClientInfo = ({ route }) => {
                     </View>
                 ) : null}
             </View>
+            <TouchableOpacity
+                style={styles.fab}
+                onPress={() => navigation.goBack()}
+            >
+                <Ionicons name="ios-arrow-back" size={28} color="white" />
+            </TouchableOpacity>
         </View>
     );
 };
