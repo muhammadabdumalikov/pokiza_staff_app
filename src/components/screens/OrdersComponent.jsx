@@ -25,7 +25,10 @@ const OrderDetailScreen = ({ navigation, route }) => {
             productId
             productSize
             productPrice
-            
+            productCount
+            productName
+            productPhoto
+            productStatus
           }
         }
       }`;
