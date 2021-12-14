@@ -9,7 +9,7 @@ import {
     ImageBackground,
     ActivityIndicator,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { styles } from "../styles";
@@ -31,6 +31,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
       }`;
 
     const orderId = route.params.order.orderId;
+    const order = route.params.order;
 
     const [refreshing, setRefreshing] = useState(false);
     const [fetchedData, setFetchedData] = useState();
@@ -165,6 +166,19 @@ const OrderDetailScreen = ({ navigation, route }) => {
         },
     };
 
+    const tariffStyles = {
+        true: {
+            color: colors.red,
+            fontWeight: "bold",
+            fontSize: 14,
+        },
+        false: {
+            color: colors.blue,
+            fontWeight: "bold",
+            fontSize: 14,
+        },
+    };
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -226,24 +240,34 @@ const OrderDetailScreen = ({ navigation, route }) => {
             ) : (
                 <View style={styles.containerAll}>
                     <View style={styles.sumLine}>
-                        <Text style={styles.orderIdText}>Buyurtma - #{orderId}</Text>
-                        <Text style={styles.orderIdText}>#102921</Text>
+                        <Text style={styles.orderIdText}>
+                            Buyurtma - #{orderId}
+                        </Text>
+                        <Feather
+                            name="edit"
+                            size={24}
+                            color={colors.likeBlack}
+                        />
                     </View>
                     <View style={[styles.sumLine, styles.orderBottom]}>
                         <Text style={styles.orderStatus}>Buyurtma holati</Text>
-                        <Text
-                            style={statusStyles[route.params.order.orderStatus].style}
-                        >
-                            {statusStyles[route.params.order.orderStatus].text}
+                        <Text style={statusStyles[order.orderStatus].style}>
+                            {statusStyles[order.orderStatus].text}
                         </Text>
                     </View>
                     <View style={styles.sumLine}>
                         <Text style={styles.sumText}>
-                            Umumiy <Text style={styles.sumNum}>120.000</Text>{" "}
+                            Umumiy{" "}
+                            <Text style={styles.sumNum}>
+                                {order.orderTotalPrice}
+                            </Text>{" "}
                             so'm
                         </Text>
                         <Text style={styles.outOfTurn}>
-                            Tariff: <Text style={styles.outOfTurn}>Tezkor</Text>
+                            Tariff:{" "}
+                            <Text style={tariffStyles[order.orderSpecial]}>
+                                {order.orderSpecial ? "Tezkor" : "Oddiy"}
+                            </Text>
                         </Text>
                     </View>
                     {fetchedData ? (

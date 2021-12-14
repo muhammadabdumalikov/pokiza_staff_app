@@ -164,7 +164,7 @@ const CardComponentOrders = ({ item }) => {
                     <Text style={styles.orderNumberStyle}>#{item.orderId}</Text>
                 </View>
                 <View style={styles.orderStatusWrapper}>
-                    <Text style={styles.orderStatusText}>Buyurma holati</Text>
+                    <Text style={styles.orderStatusText}>Buyurtma holati</Text>
                     <Text style={statusStyles[item.orderStatus].style}>
                         {statusStyles[item.orderStatus].text}
                     </Text>
