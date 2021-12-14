@@ -5,17 +5,6 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 export const sliderStyles = StyleSheet.create({
-    sliderWrapper: {
-        width: "100%",
-        height: height / 18.45,
-        justifyContent: "center",
-        backgroundColor: "#fff",
-        marginBottom: 16,
-    },
-    viewContainer: {
-        justifyContent: "center",
-        alignItems: "center",
-    },
     labelWrapper: {
         flexDirection: "row",
         justifyContent: "space-between",
@@ -23,7 +12,14 @@ export const sliderStyles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     labelText: {
-        fontSize: 18,
+        fontSize: 20,
+        fontWeight: "bold",
+    },
+    labelTxt: {
+        fontSize: 16,
+        fontWeight: "bold",
+        padding: 16,
+        paddingBottom: 0
     },
 });
 

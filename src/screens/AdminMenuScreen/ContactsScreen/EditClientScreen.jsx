@@ -14,13 +14,11 @@ import {
     Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Collapsible from "react-native-collapsible";
-import ModalSelector from "react-native-modal-selector";
-import MultiSlider from "@ptomasroos/react-native-multi-slider";
-import { Entypo, Ionicons, Feather } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 import { request } from "../../../helpers/request";
-import { styles } from "./styles";
+import { styles, sliderStyles } from "./styles";
+import { colors } from "../../../constants/color";
 
 const height = Dimensions.get("window").height;
 
@@ -424,6 +422,21 @@ const EditClientScreen = ({ navigation, route }) => {
                 </View>
             ) : (
                 <>
+                    <View style={sliderStyles.labelWrapper}>
+                        <Text style={sliderStyles.labelText}>
+                            Mijoz - @ {"100322"}
+                        </Text>
+                        <TouchableOpacity>
+                            <Feather
+                                name="trash-2"
+                                size={24}
+                                color={colors.red}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={sliderStyles.labelTxt}>
+                        Ma'lumotlarni tahrirlash:
+                    </Text>
                     <ScrollView
                         style={styles.container}
                         contentContainerStyle={styles.contentStyle}
