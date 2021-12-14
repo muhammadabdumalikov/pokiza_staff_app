@@ -30,6 +30,8 @@ const GET_ORDERS = `query($clientId: ID){
       orderId
          orderStatus
       orderTotalPrice
+      orderCount
+      orderSpecial
       orderBringTime
       orderDeliveryTime
       orderCreatedAt
