@@ -13,7 +13,16 @@ const ClientInfo = ({ navigation, route }) => {
                 <Text style={styles.clientIdLineText}>
                     Mijoz - @{client.clientId}
                 </Text>
-                <TouchableOpacity onPress={()=> navigation.navigate("EditClientScreen") }>
+                <TouchableOpacity
+                    onPress={() =>
+                        navigation.navigate("EditClientScreen", {
+                            client: {
+                                clientId: client.clientId,
+                                userId: client.clientInfo.userId,
+                            },
+                        })
+                    }
+                >
                     <Feather name="edit" size={24} color={colors.likeBlack} />
                 </TouchableOpacity>
             </View>

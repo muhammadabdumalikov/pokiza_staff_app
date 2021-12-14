@@ -19,7 +19,7 @@ export const sliderStyles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
         padding: 16,
-        paddingBottom: 0
+        paddingBottom: 5,
     },
 });
 
@@ -256,12 +256,65 @@ export const styles = StyleSheet.create({
         overflow: "hidden",
         marginBottom: 10,
     },
+    deleteModalWrapper: {
+        width: "80%",
+        height: "20%",
+        shadowColor: "#000",
+        borderRadius: 20,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        backgroundColor: "white",
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        overflow: "hidden",
+        marginBottom: 10,
+    },
     genderModalWrapper: {
         height: "15%",
     },
     contenModalView: {
         flex: 1,
         height: "100%",
+    },
+    deleteModalContent: {
+        flex: 1,
+    },
+    deleteModalText: {
+        height: "66%",
+        width: "100%",
+        textAlign: "center",
+        textAlignVertical: "center",
+        borderBottomColor: colors.gray,
+        borderBottomWidth: 1,
+        fontSize: 16,
+        fontWeight: "bold",
+    },
+    deleteModalBtns: {
+        flexDirection: "row",
+        height: "33%",
+        width: "100%",
+        justifyContent: "space-evenly",
+    },
+    deleteModalBtn: {
+        flex: 1,
+        textAlign: "center",
+        textAlignVertical: "center",
+        fontSize: 14,
+        fontWeight: "bold",
+        color: colors.red,
+        borderLeftColor: colors.gray,
+        borderLeftWidth: 0.5,
+    },
+    cancelModalBtn: {
+        flex: 1,
+        textAlign: "center",
+        textAlignVertical: "center",
+        fontSize: 14,
+        fontWeight: "bold",
+        color: colors.gray,
     },
     modalView: {
         padding: 16,

@@ -23,6 +23,7 @@ import { colors } from "../../../constants/color";
 const height = Dimensions.get("window").height;
 
 const EditClientScreen = ({ navigation, route }) => {
+    const client = route.params.client;
     const GET_STATE_QUERY = `{
         states {
           stateId
@@ -127,6 +128,8 @@ const EditClientScreen = ({ navigation, route }) => {
 
     const [statusModalVisible, setStatusModalVisible] = useState(false);
     const [genderModalVisible, setGenderModalVisible] = useState(false);
+
+    const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
     const [clientSummary, setClientSummary] = useState();
     const [locationSummary, setLocationSummary] = useState();
@@ -424,15 +427,55 @@ const EditClientScreen = ({ navigation, route }) => {
                 <>
                     <View style={sliderStyles.labelWrapper}>
                         <Text style={sliderStyles.labelText}>
-                            Mijoz - @ {"100322"}
+                            Mijoz - @ {client.clientId}
                         </Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setDeleteModalVisible(true)}
+                        >
                             <Feather
                                 name="trash-2"
                                 size={24}
                                 color={colors.red}
                             />
                         </TouchableOpacity>
+                        <Modal
+                            transparent={true}
+                            animationType="slide"
+                            visible={deleteModalVisible}
+                        >
+                            <View style={styles.centeredView}>
+                                <View style={styles.deleteModalWrapper}>
+                                    <View style={styles.deleteModalContent}>
+                                        <Text style={styles.deleteModalText}>
+                                            Mijozni o'chirishni xohlaysizmi?
+                                        </Text>
+                                        <View style={styles.deleteModalBtns}>
+                                            <TouchableOpacity
+                                                style={styles.cancelModalBtn}
+                                                onPress={() => setDeleteModalVisible(false)}
+                                            >
+                                                <Text
+                                                    style={
+                                                        styles.cancelModalBtn
+                                                    }
+                                                >
+                                                    Yo'q
+                                                </Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity
+                                                style={styles.deleteModalBtn}
+                                            >
+                                                <Text
+                                                    style={styles.deleteModalBtn}
+                                                >
+                                                    Ha, xohlayman
+                                                </Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                </View>
+                            </View>
+                        </Modal>
                     </View>
                     <Text style={sliderStyles.labelTxt}>
                         Ma'lumotlarni tahrirlash:
@@ -1250,7 +1293,7 @@ const EditClientScreen = ({ navigation, route }) => {
                             style={styles.confirmBtnWrapper}
                         >
                             <Text style={styles.confirmBtnText}>
-                                Mijoz qo'shish
+                                Tasdiqlash
                             </Text>
                         </TouchableOpacity>
                     </ScrollView>

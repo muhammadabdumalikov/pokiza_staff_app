@@ -237,7 +237,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
     return (
         <>
             {isLoading ? (
-                <View>
+                <View style={{ flex: 1, justifyContent: "center" }}>
                     <ActivityIndicator size="large" color={colors.blue} />
                 </View>
             ) : (
