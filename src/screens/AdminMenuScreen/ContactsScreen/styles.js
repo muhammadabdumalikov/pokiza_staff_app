@@ -235,6 +235,14 @@ export const styles = StyleSheet.create({
         bottom: 100,
         right: 24,
         backgroundColor: "white",
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
     },
     fab4: {
         width: 64,
@@ -248,6 +256,14 @@ export const styles = StyleSheet.create({
         bottom: 28,
         right: 24,
         backgroundColor: "white",
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
     },
     onSelectDel: {
         fontSize: 12,
@@ -294,6 +310,17 @@ export const styles = StyleSheet.create({
         elevation: 5,
         overflow: "hidden",
         marginBottom: 10,
+    },
+    clientAddress: {
+        width: "100%",
+        height: "66%",       
+        backgroundColor: "white",
+        overflow: "hidden",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        paddingHorizontal: 15,
+        borderBottomColor: colors.lightGray,
+        borderBottomWidth: 1
     },
     genderModalWrapper: {
         height: "15%",

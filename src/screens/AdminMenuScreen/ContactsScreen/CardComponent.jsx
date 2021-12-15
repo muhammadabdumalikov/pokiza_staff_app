@@ -118,92 +118,127 @@ const CardComponent = ({ item, elements, setElements }) => {
                                 visible={locationModalVsible}
                             >
                                 <View style={styles.centeredView}>
-                                    <View style={styles.modalWrapper}>
-                                        <View style={styles.clientAddress}>
-                                            <View style={styles.resultAddress}>
-                                                <Text
+                                    <View style={styles.deleteModalWrapper}>
+                                        <View style={styles.deleteModalContent}>
+                                            <View style={styles.clientAddress}>
+                                                <View
+                                                    style={styles.resultAddress}
+                                                >
+                                                    <Text
+                                                        style={
+                                                            styles.resultAddressText
+                                                        }
+                                                    >
+                                                        Manzil:{" "}
+                                                    </Text>
+                                                    <Text
+                                                        style={
+                                                            styles.resultAddressDynamicText
+                                                        }
+                                                    >
+                                                        {`${
+                                                            client.clientInfo
+                                                                .address.state
+                                                                ? client
+                                                                      .clientInfo
+                                                                      .address
+                                                                      .state
+                                                                      .stateName +
+                                                                  ` viloyati,`
+                                                                : ``
+                                                        } ${
+                                                            client.clientInfo
+                                                                .address.region
+                                                                ? client
+                                                                      .clientInfo
+                                                                      .address
+                                                                      .region
+                                                                      .regionName +
+                                                                  ` tumani,`
+                                                                : ``
+                                                        } ${
+                                                            client.clientInfo
+                                                                .address
+                                                                .neighborhood
+                                                                ? client
+                                                                      .clientInfo
+                                                                      .address
+                                                                      .neighborhood
+                                                                      .neighborhoodName +
+                                                                  ` M.F.Y,`
+                                                                : ``
+                                                        } ${
+                                                            client.clientInfo
+                                                                .address.street
+                                                                ? client
+                                                                      .clientInfo
+                                                                      .address
+                                                                      .street
+                                                                      .streetName +
+                                                                  ` ko'chasi,`
+                                                                : ``
+                                                        } ${
+                                                            client.clientInfo
+                                                                .address
+                                                                .homeNumber
+                                                                ? client
+                                                                      .clientInfo
+                                                                      .address
+                                                                      .homeNumber +
+                                                                  `-uy,`
+                                                                : ``
+                                                        }`}
+                                                    </Text>
+                                                </View>
+                                                <View
                                                     style={
-                                                        styles.resultAddressText
+                                                        styles.resultAddressLocation
                                                     }
                                                 >
-                                                    Manzil:{" "}
-                                                </Text>
-                                                <Text
-                                                    style={
-                                                        styles.resultAddressDynamicText
-                                                    }
-                                                >
-                                                    {`${
-                                                        client.clientInfo
-                                                            .address.state
-                                                            ? client.clientInfo
-                                                                  .address.state
-                                                                  .stateName +
-                                                              ` viloyati,`
-                                                            : ``
-                                                    } ${
-                                                        client.clientInfo
-                                                            .address.region
-                                                            ? client.clientInfo
-                                                                  .address
-                                                                  .region
-                                                                  .regionName +
-                                                              ` tumani,`
-                                                            : ``
-                                                    } ${
-                                                        client.clientInfo
-                                                            .address
-                                                            .neighborhood
-                                                            ? client.clientInfo
-                                                                  .address
-                                                                  .neighborhood
-                                                                  .neighborhoodName +
-                                                              ` M.F.Y,`
-                                                            : ``
-                                                    } ${
-                                                        client.clientInfo
-                                                            .address.street
-                                                            ? client.clientInfo
-                                                                  .address
-                                                                  .street
-                                                                  .streetName +
-                                                              ` ko'chasi,`
-                                                            : ``
-                                                    } ${
-                                                        client.clientInfo
-                                                            .address.homeNumber
-                                                            ? client.clientInfo
-                                                                  .address
-                                                                  .homeNumber +
-                                                              `-uy,`
-                                                            : ``
-                                                    }`}
-                                                </Text>
+                                                    <Entypo
+                                                        name="location-pin"
+                                                        size={24}
+                                                        color="#007AFF"
+                                                    />
+                                                    <Text
+                                                        style={
+                                                            styles.resultAddressLocationDynamicText
+                                                        }
+                                                    >
+                                                        {`${
+                                                            client.clientInfo
+                                                                .address.area
+                                                                ? client
+                                                                      .clientInfo
+                                                                      .address
+                                                                      .area
+                                                                      .areaName
+                                                                : ``
+                                                        }`}
+                                                    </Text>
+                                                </View>
                                             </View>
                                             <View
-                                                style={
-                                                    styles.resultAddressLocation
-                                                }
+                                                style={styles.deleteModalBtns}
                                             >
-                                                <Entypo
-                                                    name="location-pin"
-                                                    size={24}
-                                                    color="#007AFF"
-                                                />
-                                                <Text
+                                                <TouchableOpacity
                                                     style={
-                                                        styles.resultAddressLocationDynamicText
+                                                        styles.cancelModalBtn
+                                                    }
+                                                    onPress={() =>
+                                                        setLocationModalVisible(
+                                                            false
+                                                        )
                                                     }
                                                 >
-                                                    {`${
-                                                        client.clientInfo
-                                                            .address.area
-                                                            ? client.clientInfo
-                                                                  .address.area
-                                                                  .areaName
-                                                            : ``
-                                                    }`}
-                                                </Text>
+                                                    <Text
+                                                        style={
+                                                            styles.cancelModalBtn
+                                                        }
+                                                    >
+                                                        OK
+                                                    </Text>
+                                                </TouchableOpacity>
                                             </View>
                                         </View>
                                     </View>
