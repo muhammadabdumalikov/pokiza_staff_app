@@ -22,20 +22,38 @@ import { colors } from "../../../constants/color";
 let stopFetchMore = true;
 
 const ContactsScreen = ({ navigation, route }) => {
-    const ALL_CLIENTS_QUERY = `query($clientStatus: Int = null, $branchId: ID = null, $pagination: Pagination){
+    const ALL_CLIENTS_QUERY = `query($clientStatus: Int, $branchId: ID, $pagination: Pagination){
         clients(clientStatus: $clientStatus, branchId: $branchId, pagination: $pagination){
           clientId
           clientStatus
           clientSummary
           clientInfo{
+            address{
+               state{
+                stateName
+              }
+              region{
+                regionName
+              }
+              neighborhood{
+                neighborhoodName
+              }
+              street{
+                streetName
+              }
+              area{
+                areaName
+              }
+              homeNumber
+              target
+            }
             userId
-            mainContact
-            secondContact
             firstName
             lastName
+            mainContact
+            secondContact 
             age
             gender
-            
           }
         }
       }
@@ -290,7 +308,7 @@ const ContactsScreen = ({ navigation, route }) => {
     let handleLoadMore = () => {
         if (!searchKey) setPageCurrent(pageCurrent + 1);
     };
-    console.log(elements)
+    console.log(elements);
     return (
         <>
             {isLoading ? (
@@ -555,20 +573,32 @@ const ContactsScreen = ({ navigation, route }) => {
                     </TouchableOpacity>
                     {elements.length > 0 ? (
                         <TouchableOpacity style={styles.fab3}>
-                            <Feather name="trash-2" size={28} color="white" />
+                            <Feather
+                                name="trash-2"
+                                size={28}
+                                color={colors.red}
+                            />
+                            <Text style={styles.onSelectDel}>O'chirish</Text>
                         </TouchableOpacity>
                     ) : null}
                     {elements.length > 0 ? (
                         <TouchableOpacity
-                            style={styles.fab2}
+                            style={styles.fab4}
                             onPress={() => null}
                         >
-                            <Feather name="bell" size={24} color="white" />
+                            <Feather
+                                name="bell"
+                                size={24}
+                                color={colors.blue}
+                            />
+                            <Text style={styles.onSelectNot}>Xabar</Text>
                         </TouchableOpacity>
                     ) : (
                         <TouchableOpacity
                             style={styles.fab2}
-                            onPress={() => null}
+                            onPress={() =>
+                                navigation.navigate("AddClientScreen")
+                            }
                         >
                             <Feather name="user-plus" size={28} color="white" />
                         </TouchableOpacity>

@@ -226,13 +226,36 @@ export const styles = StyleSheet.create({
     fab3: {
         width: 64,
         height: 64,
-        borderRadius: 32,
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: colors.lightGray,
         justifyContent: "center",
         alignItems: "center",
         position: "absolute",
         bottom: 100,
         right: 24,
-        backgroundColor: colors.red,
+        backgroundColor: "white",
+    },
+    fab4: {
+        width: 64,
+        height: 64,
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: colors.lightGray,
+        justifyContent: "center",
+        alignItems: "center",
+        position: "absolute",
+        bottom: 28,
+        right: 24,
+        backgroundColor: "white",
+    },
+    onSelectDel: {
+        fontSize: 12,
+        color: colors.red
+    },
+    onSelectNot: {
+        fontSize: 12,
+        color: colors.blue
     },
     centeredView: {
         flex: 1,
