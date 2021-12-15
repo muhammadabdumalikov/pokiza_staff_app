@@ -308,7 +308,7 @@ const EditClientScreen = ({ navigation, route }) => {
         return (
             <TouchableOpacity
                 style={{ width: "80%", paddingVertical: 15 }}
-                onPress={async() => {
+                onPress={async () => {
                     setSelectedArea(item);
                     setAreaModalVisible(!areaModalVisible);
                     setSelectedBranch(
@@ -364,7 +364,7 @@ const EditClientScreen = ({ navigation, route }) => {
             <TouchableOpacity
                 style={{ width: "80%", paddingVertical: 15 }}
                 onPress={() => {
-                    console.log(item)
+                    console.log(item);
                     setSelectedBranch(item);
                     setBranchModalVisible(!branchModalVisible);
                 }}
@@ -457,7 +457,9 @@ const EditClientScreen = ({ navigation, route }) => {
                                         <View style={styles.deleteModalBtns}>
                                             <TouchableOpacity
                                                 style={styles.cancelModalBtn}
-                                                onPress={() => setDeleteModalVisible(false)}
+                                                onPress={() =>
+                                                    setDeleteModalVisible(false)
+                                                }
                                             >
                                                 <Text
                                                     style={
@@ -471,7 +473,9 @@ const EditClientScreen = ({ navigation, route }) => {
                                                 style={styles.deleteModalBtn}
                                             >
                                                 <Text
-                                                    style={styles.deleteModalBtn}
+                                                    style={
+                                                        styles.deleteModalBtn
+                                                    }
                                                 >
                                                     Ha, xohlayman
                                                 </Text>
@@ -916,6 +920,7 @@ const EditClientScreen = ({ navigation, route }) => {
                                 </View>
                             </Modal>
                             <Pressable
+                                disabled={selectedState ? false : true}
                                 style={styles.buttonOpen}
                                 onPress={() => setRegionModalVisible(true)}
                             >
@@ -975,6 +980,7 @@ const EditClientScreen = ({ navigation, route }) => {
                                 </View>
                             </Modal>
                             <Pressable
+                                disabled={selectedRegion ? false : true}
                                 style={styles.buttonOpen}
                                 onPress={() => setAreaModalVisible(true)}
                             >
@@ -1040,6 +1046,7 @@ const EditClientScreen = ({ navigation, route }) => {
                                 </View>
                             </Modal>
                             <Pressable
+                                disabled={selectedArea ? false : true}
                                 style={styles.buttonOpen}
                                 onPress={() =>
                                     setNeighborhoodModalVisible(true)
@@ -1103,6 +1110,7 @@ const EditClientScreen = ({ navigation, route }) => {
                                 </View>
                             </Modal>
                             <Pressable
+                                disabled={selectedNeighborhood ? false : true}
                                 style={styles.buttonOpen}
                                 onPress={() => setStreetModalVisible(true)}
                             >
@@ -1197,7 +1205,8 @@ const EditClientScreen = ({ navigation, route }) => {
                             >
                                 <Text style={styles.textStyle}>
                                     {selectedBranch != undefined
-                                        ? selectedBranch.regions[0].branch.branchName
+                                        ? selectedBranch.regions[0].branch
+                                              .branchName
                                         : "Filialni kiriting"}
                                 </Text>
                             </Pressable>
