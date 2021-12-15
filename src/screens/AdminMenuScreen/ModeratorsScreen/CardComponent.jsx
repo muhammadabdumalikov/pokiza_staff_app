@@ -124,11 +124,13 @@ const CardComponent = ({ item }) => {
                     </TouchableOpacity>
                     <View style={styles.resultLineBox}>
                         <Text style={styles.resultPhoneNumbers}>
-                            {item.orderOwner.clientInfo.mainContact}
+                            +{item.orderOwner.clientInfo.mainContact}
                         </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            {item.orderOwner.clientInfo.secondContact}
-                        </Text>
+                        {item.orderOwner.clientInfo.secondContact ? (
+                            <Text style={styles.resultPhoneNumbers}>
+                                +{item.orderOwner.clientInfo.secondContact}
+                            </Text>
+                        ) : null}
                     </View>
                     <View style={styles.resultLineBox}>
                         <Text style={styles.tariffText}>

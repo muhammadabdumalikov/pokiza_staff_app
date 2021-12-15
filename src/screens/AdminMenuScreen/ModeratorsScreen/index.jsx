@@ -9,6 +9,7 @@ import {
     ActivityIndicator,
     Pressable,
     RefreshControl,
+    TextInput
 } from "react-native";
 import Collapsible from "react-native-collapsible";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -37,6 +38,9 @@ const ModeratorsScreen = ({ navigation, route }) => {
     const [fetchedData, setFetchedData] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
 
+    const [searchBtnVisible, setSearchBtnVisible] = useState(false);
+    const [searchKey, setSearchKey] = useState();
+
     const GET_BRANCHES_QUERY = `query{
         branches{
           branchId
@@ -46,7 +50,7 @@ const ModeratorsScreen = ({ navigation, route }) => {
     `;
 
     const GET_ALL_ORDERS_QUERY = `{
-        orders(orderStatus: 4){
+        orders(orderStatus: 1){
           orderId
              orderStatus
           orderSpecial
@@ -179,6 +183,35 @@ const ModeratorsScreen = ({ navigation, route }) => {
                 </View>
             ) : (
                 <View style={{ height: "100%" }}>
+                    <View style={styles.searchBoxWrapper}>
+                        <View style={styles.searchBox}>
+                            <Feather
+                                name="search"
+                                size={18}
+                                color="black"
+                                style={{ marginRight: 5 }}
+                            />
+                            <TextInput
+                                placeholder="Mijozlar ma'lumotlarini qidirish"
+                                onFocus={() => setSearchBtnVisible(true)}
+                                onSubmitEditing={(value) =>
+                                    setSearchKey(value.nativeEvent.text)
+                                }
+                            />
+                        </View>
+                        {searchBtnVisible ? (
+                            <TouchableOpacity
+                                style={styles.searchBtn}
+                                onPress={() => setSearchBtnVisible(false)}
+                            >
+                                <Feather
+                                    name="x-circle"
+                                    size={18}
+                                    color="black"
+                                />
+                            </TouchableOpacity>
+                        ) : null}
+                    </View>
                     <TouchableOpacity
                         onPress={toggleExpanded}
                         style={styles.filterBox}

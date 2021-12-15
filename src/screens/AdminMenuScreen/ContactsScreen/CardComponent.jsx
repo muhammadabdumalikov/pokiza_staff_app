@@ -55,11 +55,7 @@ const CardComponent = ({ item }) => {
                             <TouchableOpacity
                                 onPress={() => {
                                     setSelected(!selected);
-                                    if (
-                                        elements.includes(
-                                            item.clientId
-                                        )
-                                    ) {
+                                    if (elements.includes(item.clientId)) {
                                         let index = elements.indexOf(
                                             item.clientId.userId
                                         );
@@ -129,11 +125,13 @@ const CardComponent = ({ item }) => {
                     </View>
                     <View style={styles.resultLineBox}>
                         <Text style={styles.resultPhoneNumbers}>
-                            {item.clientInfo.mainContact}
+                            +{item.clientInfo.mainContact}
                         </Text>
-                        <Text style={styles.resultPhoneNumbers}>
-                            {item.clientInfo.secondContact}
-                        </Text>
+                        {item.clientInfo.secondContact ? (
+                            <Text style={styles.resultPhoneNumbers}>
+                                +{item.clientInfo.secondContact}
+                            </Text>
+                        ) : null}
                     </View>
                     <View
                         style={{
