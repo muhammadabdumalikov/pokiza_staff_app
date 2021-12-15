@@ -6,9 +6,15 @@ import { colors } from "../../../constants/color";
 import { styles } from "./styles";
 
 const height = Dimensions.get("window").height;
-const elements = [];
 
-const CardComponent = ({ item }) => {
+function arrayRemove(arr, value) { 
+    
+    return arr.filter(function(ele){ 
+        return ele != value; 
+    });
+}
+
+const CardComponent = ({ item, elements, setElements }) => {
     const [resultBox, setResultBox] = useState({
         height: height / 3.98,
         backgroundColor: "gray",
@@ -56,13 +62,12 @@ const CardComponent = ({ item }) => {
                                 onPress={() => {
                                     setSelected(!selected);
                                     if (elements.includes(item.clientId)) {
-                                        let index = elements.indexOf(
-                                            item.clientId.userId
-                                        );
-                                        elements.splice(index, 1);
+                                        elements = arrayRemove(elements, item.clientId)
+                                        setElements([...elements]);
                                         return;
                                     }
                                     elements.push(item.clientId);
+                                    setElements([...elements]);
                                 }}
                             >
                                 {selected ? (
@@ -91,24 +96,15 @@ const CardComponent = ({ item }) => {
                                 </Text>
                             </TouchableOpacity>
                         </View>
+
                         <View>
-                            {selected ? (
-                                <TouchableOpacity>
-                                    <Feather
-                                        name="trash-2"
-                                        size={24}
-                                        color={colors.red}
-                                    />
-                                </TouchableOpacity>
-                            ) : (
-                                <TouchableOpacity style={styles.locationStyle}>
-                                    <Entypo
-                                        name="location-pin"
-                                        size={24}
-                                        color="black"
-                                    />
-                                </TouchableOpacity>
-                            )}
+                            <TouchableOpacity style={styles.locationStyle}>
+                                <Entypo
+                                    name="location-pin"
+                                    size={24}
+                                    color="black"
+                                />
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View

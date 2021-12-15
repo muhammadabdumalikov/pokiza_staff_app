@@ -93,6 +93,8 @@ const ContactsScreen = ({ navigation, route }) => {
 
     const [searchedData, setSearchedData] = useState();
     const [searched, setSearched] = useState(false);
+    const [elements, setElements] = useState([]);
+    // console.log(elements)
 
     useEffect(() => {
         async function fetchData() {
@@ -288,7 +290,7 @@ const ContactsScreen = ({ navigation, route }) => {
     let handleLoadMore = () => {
         if (!searchKey) setPageCurrent(pageCurrent + 1);
     };
-
+    console.log(elements)
     return (
         <>
             {isLoading ? (
@@ -529,7 +531,11 @@ const ContactsScreen = ({ navigation, route }) => {
                             data={searched ? searchedData.data : state.data}
                             keyExtractor={(item) => item.clientId}
                             renderItem={({ item }) => (
-                                <CardComponent item={item} />
+                                <CardComponent
+                                    item={item}
+                                    elements={elements}
+                                    setElements={setElements}
+                                />
                             )}
                             style={styles.container}
                             contentContainerStyle={styles.contentStyle}
@@ -547,22 +553,26 @@ const ContactsScreen = ({ navigation, route }) => {
                     >
                         <Feather name="arrow-left" size={28} color="white" />
                     </TouchableOpacity>
-                    {/* {multiClient.length > 0 ? (
-                        <TouchableOpacity
-                            style={styles.fab3}
-                            onPress={() =>
-                                navigation.navigate("AddClientScreen")
-                            }
-                        >
+                    {elements.length > 0 ? (
+                        <TouchableOpacity style={styles.fab3}>
                             <Feather name="trash-2" size={28} color="white" />
                         </TouchableOpacity>
-                    ) : null} */}
-                    <TouchableOpacity
-                        style={styles.fab2}
-                        onPress={() => navigation.navigate("AddClientScreen")}
-                    >
-                        <Feather name="user-plus" size={28} color="white" />
-                    </TouchableOpacity>
+                    ) : null}
+                    {elements.length > 0 ? (
+                        <TouchableOpacity
+                            style={styles.fab2}
+                            onPress={() => null}
+                        >
+                            <Feather name="bell" size={24} color="white" />
+                        </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity
+                            style={styles.fab2}
+                            onPress={() => null}
+                        >
+                            <Feather name="user-plus" size={28} color="white" />
+                        </TouchableOpacity>
+                    )}
                 </View>
             )}
         </>
