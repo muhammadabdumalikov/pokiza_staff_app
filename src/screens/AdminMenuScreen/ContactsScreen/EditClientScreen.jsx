@@ -231,7 +231,7 @@ const EditClientScreen = ({ navigation, route }) => {
                 setBranches(
                     await request(
                         GET_BRANCHES_QUERY,
-                        { regionId: selectedRegion },
+                        { regionId: selectedRegion.regionId },
                         userToken
                     )
                 );
@@ -241,10 +241,6 @@ const EditClientScreen = ({ navigation, route }) => {
         }
         fetchBranches();
     }, [selectedRegion]);
-
-    const toggleExpanded = () => {
-        setCollapsed(!collapsed);
-    };
 
     const genderData = [
         { key: "1", label: "Male", value: 1 },
@@ -307,13 +303,21 @@ const EditClientScreen = ({ navigation, route }) => {
             </TouchableOpacity>
         );
     };
+
     const modalArea = ({ item }) => {
         return (
             <TouchableOpacity
                 style={{ width: "80%", paddingVertical: 15 }}
-                onPress={() => {
+                onPress={async() => {
                     setSelectedArea(item);
                     setAreaModalVisible(!areaModalVisible);
+                    setSelectedBranch(
+                        await request(
+                            GET_BRANCHES_QUERY,
+                            { regionId: selectedRegion.regionId },
+                            userToken
+                        )
+                    );
                 }}
             >
                 <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
@@ -360,6 +364,7 @@ const EditClientScreen = ({ navigation, route }) => {
             <TouchableOpacity
                 style={{ width: "80%", paddingVertical: 15 }}
                 onPress={() => {
+                    console.log(item)
                     setSelectedBranch(item);
                     setBranchModalVisible(!branchModalVisible);
                 }}
@@ -1154,7 +1159,7 @@ const EditClientScreen = ({ navigation, route }) => {
                                         <FlatList
                                             data={
                                                 branches != undefined
-                                                    ? branches.branches
+                                                    ? branches.regions
                                                     : []
                                             }
                                             renderItem={modalBranch}
@@ -1188,11 +1193,11 @@ const EditClientScreen = ({ navigation, route }) => {
                             <Pressable
                                 style={styles.buttonOpen}
                                 onPress={() => setBranchModalVisible(true)}
-                                disabled={true}
+                                // disabled={false}
                             >
                                 <Text style={styles.textStyle}>
                                     {selectedBranch != undefined
-                                        ? selectedBranch.branchName
+                                        ? selectedBranch.regions[0].branch.branchName
                                         : "Filialni kiriting"}
                                 </Text>
                             </Pressable>
@@ -1260,7 +1265,7 @@ const EditClientScreen = ({ navigation, route }) => {
                                         userToken
                                     )
                                 );
-                                console.log(selectedBranch);
+
                                 let addClientAdmin = await request(
                                     ADD_NEW_CLIENT,
                                     {
