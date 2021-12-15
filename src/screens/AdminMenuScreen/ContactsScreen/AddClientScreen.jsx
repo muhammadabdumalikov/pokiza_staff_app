@@ -11,20 +11,18 @@ import {
     Modal,
     Pressable,
     FlatList,
-    Alert
+    Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Collapsible from "react-native-collapsible";
-import ModalSelector from "react-native-modal-selector";
-import MultiSlider from "@ptomasroos/react-native-multi-slider";
-import { Entypo, Ionicons, Feather } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 import { request } from "../../../helpers/request";
-import { sliderStyles, styles } from "./styles";
+import { styles, sliderStyles } from "./styles";
+import { colors } from "../../../constants/color";
 
 const height = Dimensions.get("window").height;
 
-const AddClientScreen = ({ navigation, route }) => {
+const AddClientScreen = ({ navigation }) => {
     const GET_STATE_QUERY = `{
         states {
           stateId
@@ -76,7 +74,7 @@ const AddClientScreen = ({ navigation, route }) => {
       }
     `;
 
-    const ADD_ADDRESS_QUERY = `mutation($stateId:ID!,$regionId:ID!,$neighborhoodId: ID = null,$streetId:ID,$areaId:ID,$target:String,$homeNumber:Int){ 
+    const ADD_ADDRESS_QUERY = `mutation($stateId:ID!,$regionId:ID!,$neighborhoodId: ID,$streetId:ID,$areaId:ID,$target:String,$homeNumber:Int){ 
         addAddress (stateId:$stateId,regionId:$regionId,neighborhoodId:$neighborhoodId,streetId:$streetId,areaId:$areaId,target:$target,homeNumber:$homeNumber){
           status
           message
@@ -110,7 +108,6 @@ const AddClientScreen = ({ navigation, route }) => {
     const [selectedHomeNumber, setSelectedHomeNumber] = useState();
     const [isLoading, setLoading] = useState(true);
     const [userToken, setUserToken] = useState();
-    const [collapsed, setCollapsed] = useState(true);
 
     let [states, setStates] = useState();
     let [branches, setBranches] = useState();
@@ -129,6 +126,8 @@ const AddClientScreen = ({ navigation, route }) => {
 
     const [statusModalVisible, setStatusModalVisible] = useState(false);
     const [genderModalVisible, setGenderModalVisible] = useState(false);
+
+    const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
     const [clientSummary, setClientSummary] = useState();
     const [locationSummary, setLocationSummary] = useState();
@@ -230,7 +229,7 @@ const AddClientScreen = ({ navigation, route }) => {
                 setBranches(
                     await request(
                         GET_BRANCHES_QUERY,
-                        { regionId: selectedRegion },
+                        { regionId: selectedRegion.regionId },
                         userToken
                     )
                 );
@@ -240,10 +239,6 @@ const AddClientScreen = ({ navigation, route }) => {
         }
         fetchBranches();
     }, [selectedRegion]);
-
-    const toggleExpanded = () => {
-        setCollapsed(!collapsed);
-    };
 
     const genderData = [
         { key: "1", label: "Male", value: 1 },
@@ -306,13 +301,21 @@ const AddClientScreen = ({ navigation, route }) => {
             </TouchableOpacity>
         );
     };
+
     const modalArea = ({ item }) => {
         return (
             <TouchableOpacity
                 style={{ width: "80%", paddingVertical: 15 }}
-                onPress={() => {
+                onPress={async () => {
                     setSelectedArea(item);
                     setAreaModalVisible(!areaModalVisible);
+                    setSelectedBranch(
+                        await request(
+                            GET_BRANCHES_QUERY,
+                            { regionId: selectedRegion.regionId },
+                            userToken
+                        )
+                    );
                 }}
             >
                 <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
@@ -359,6 +362,7 @@ const AddClientScreen = ({ navigation, route }) => {
             <TouchableOpacity
                 style={{ width: "80%", paddingVertical: 15 }}
                 onPress={() => {
+                    console.log(item);
                     setSelectedBranch(item);
                     setBranchModalVisible(!branchModalVisible);
                 }}
@@ -486,7 +490,7 @@ const AddClientScreen = ({ navigation, route }) => {
                         {/* First Phone Num input --------------------------------------------------------------- */}
                         <View style={styles.phoneTxtWrapper}>
                             <Text style={styles.phoneTxt}>
-                               * 1 - Telefon raqam:
+                                * 1 - Telefon raqam:
                             </Text>
                         </View>
                         <View
@@ -806,7 +810,9 @@ const AddClientScreen = ({ navigation, route }) => {
                         {/* Region input -------------------------------------------- */}
                         <View style={styles.pickerWrapper}>
                             <View style={styles.preTextWrapperStyle}>
-                                <Text style={styles.preText}>*Shahar/Tuman</Text>
+                                <Text style={styles.preText}>
+                                    *Shahar/Tuman
+                                </Text>
                             </View>
                             <Modal
                                 animationType="slide"
@@ -853,6 +859,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 </View>
                             </Modal>
                             <Pressable
+                                disabled={selectedState ? false : true}
                                 style={styles.buttonOpen}
                                 onPress={() => setRegionModalVisible(true)}
                             >
@@ -912,6 +919,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 </View>
                             </Modal>
                             <Pressable
+                                disabled={selectedRegion ? false : true}
                                 style={styles.buttonOpen}
                                 onPress={() => setAreaModalVisible(true)}
                             >
@@ -977,6 +985,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 </View>
                             </Modal>
                             <Pressable
+                                disabled={selectedArea ? false : true}
                                 style={styles.buttonOpen}
                                 onPress={() =>
                                     setNeighborhoodModalVisible(true)
@@ -1040,6 +1049,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                 </View>
                             </Modal>
                             <Pressable
+                                disabled={selectedNeighborhood ? false : true}
                                 style={styles.buttonOpen}
                                 onPress={() => setStreetModalVisible(true)}
                             >
@@ -1096,7 +1106,7 @@ const AddClientScreen = ({ navigation, route }) => {
                                         <FlatList
                                             data={
                                                 branches != undefined
-                                                    ? branches.branches
+                                                    ? branches.regions
                                                     : []
                                             }
                                             renderItem={modalBranch}
@@ -1130,11 +1140,12 @@ const AddClientScreen = ({ navigation, route }) => {
                             <Pressable
                                 style={styles.buttonOpen}
                                 onPress={() => setBranchModalVisible(true)}
-                                disabled={true}
+                                // disabled={false}
                             >
                                 <Text style={styles.textStyle}>
                                     {selectedBranch != undefined
-                                        ? selectedBranch.branchName
+                                        ? selectedBranch.regions[0].branch
+                                              .branchName
                                         : "Filialni kiriting"}
                                 </Text>
                             </Pressable>
@@ -1194,15 +1205,8 @@ const AddClientScreen = ({ navigation, route }) => {
                                     },
                                     userToken
                                 );
-                    
-                                setSelectedBranch(
-                                    await request(
-                                        GET_BRANCHES_QUERY,
-                                        { regionId: selectedRegion.regionId },
-                                        userToken
-                                    )
-                                );
-                                console.log(selectedBranch);
+                                console.log(userToken)
+
                                 let addClientAdmin = await request(
                                     ADD_NEW_CLIENT,
                                     {
@@ -1214,23 +1218,28 @@ const AddClientScreen = ({ navigation, route }) => {
                                             : null,
                                         age: parseInt(selectedAge),
                                         gender: selectedGender.value,
-                                        branchId: selectedBranch.regions[0].branch.branchId,
+                                        branchId:
+                                            selectedBranch.regions[0].branch
+                                                .branchId,
                                         addressId:
                                             addressID.addAddress.data
                                                 .address_id,
                                     },
                                     userToken
                                 );
-                                if(addClientAdmin.adminRegisterClient.status == 200){
-                                    onSuccess()
+                                if (
+                                    addClientAdmin.adminRegisterClient.status ==
+                                    200
+                                ) {
+                                    onSuccess();
                                 } else {
-                                    onError()
+                                    onError();
                                 }
                             }}
                             style={styles.confirmBtnWrapper}
                         >
                             <Text style={styles.confirmBtnText}>
-                                Mijoz qo'shish
+                                Tasdiqlash
                             </Text>
                         </TouchableOpacity>
                     </ScrollView>
