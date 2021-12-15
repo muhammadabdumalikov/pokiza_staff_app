@@ -233,6 +233,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
         setFetchedData(jsonData.data.orders);
         setRefreshing(false);
     }, []);
+    console.log(fetchedData)
 
     return (
         <>
@@ -273,7 +274,7 @@ const OrderDetailScreen = ({ navigation, route }) => {
                             </Text>
                         </Text>
                     </View>
-                    {fetchedData ? (
+                    {fetchedData[0].orderProducts.length > 0 ? (
                         <FlatList
                             data={
                                 fetchedData ? fetchedData[0].orderProducts : []
