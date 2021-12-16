@@ -7,6 +7,7 @@ import {
     ScrollView,
     Dimensions,
     Alert,
+    ActivityIndicator,
 } from "react-native";
 import { AuthContext } from "../../navigation/AuthProvider";
 import { useQuery, useMutation, gql } from "@apollo/client";
@@ -42,6 +43,8 @@ const SignInScreen = ({ navigation }) => {
     const [value, setValue] = useState("");
     const [phoneNumber, setPhoneNumber] = useState();
     const [password, setPassword] = useState();
+    const [send, setSend] = useState(false);
+
     // const navigation = useNavigation()
     // const [loading, setLoading] = useState(true);
 
@@ -56,6 +59,8 @@ const SignInScreen = ({ navigation }) => {
         ]);
 
     const handleSubmit = () => {
+        setSend(true);
+
         verify({
             variables: {
                 mainContact: phoneNumber,
@@ -63,7 +68,6 @@ const SignInScreen = ({ navigation }) => {
             },
         })
             .then(({ data }) => {
-                console.log(data);
                 if (data.loginStaff.status == 200) {
                     AsyncStorage.setItem("staff_token", data.loginStaff.token);
                     navigation.reset({
@@ -74,6 +78,7 @@ const SignInScreen = ({ navigation }) => {
                             },
                         ],
                     });
+                    setSend(false);
                 } else {
                     confirmSecondContact();
                 }
@@ -83,38 +88,15 @@ const SignInScreen = ({ navigation }) => {
             });
     };
 
-    // if (isLoading) return null;
-    // console.log(data, loading, error);
-
-    // if (isLoading) {
-    //     return (
-    //         <View
-    //             style={{
-    //                 flex: 1,
-    //                 justifyContent: "center",
-    //                 alignItems: "center",
-    //             }}
-    //         >
-    //             <ActivityIndicator animating={true} size="large" color="blue" />
-    //         </View>
-    //     );
-    // }
-
-    // data = await request(LOGIN, {
-    //     mainContact: username,
-    //     password: password,
-    // });
-
     return (
         <ScrollView
             style={styles.container}
             contentContainerStyle={styles.content}
         >
             <View style={styles.logoBox}>
-                <Text style={styles.signIn}>Sign In</Text>
+                <Text style={styles.signIn}>Tizimga kirish</Text>
                 <Text style={styles.signInDescription}>
-                    But I must explain to you how all this mistaken idea of
-                    denouncing pleasure
+                    Tizimga kirish uchun telefon raqamingizni kiriting.
                 </Text>
             </View>
             <View style={styles.signInBox}>
@@ -123,46 +105,73 @@ const SignInScreen = ({ navigation }) => {
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
                     <View style={styles.preTextWrapperStyle}>
-                        <Text style={styles.preText}>Number</Text>
+                        <Text style={styles.preText}>Telefon Raqam:</Text>
                     </View>
-                    <TextInput
-                        style={styles.input}
-                        numberOfLines={1}
-                        placeholder="Enter phone number"
-                        placeholderTextColor="#B8B8BB"
-                        value={phoneNumber}
-                        onChangeText={(value) => setPhoneNumber(value)}
-                        keyboardType="phone-pad"
-                        // autoFocus={true}
-                        maxLength={12}
-                    />
+                    <View style={styles.inputWrapper}>
+                        <Text
+                            style={{
+                                fontSize: 18,
+                                color: "black",
+                                textAlignVertical: "center",
+                                paddingLeft: 10,
+                            }}
+                        >
+                            +998
+                        </Text>
+                        <TextInput
+                            style={styles.input}
+                            numberOfLines={1}
+                            placeholderTextColor="#B8B8BB"
+                            onChangeText={(number) =>
+                                setPhoneNumber(`998${number}`)
+                            }
+                            keyboardType="phone-pad"
+                            maxLength={9}
+                        />
+                    </View>
                 </View>
                 <View
-                    style={{ ...styles.inputContainer, bottom: height / 4.3 }}
+                    style={styles.inputContainer}
                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                 >
                     <View style={styles.preTextWrapperStyle}>
-                        <Text style={styles.preText}>Password</Text>
+                        <Text style={styles.preText}>Parol:</Text>
                     </View>
-                    <TextInput
-                        style={styles.input}
-                        numberOfLines={1}
-                        placeholder="Enter password"
-                        placeholderTextColor="#B8B8BB"
-                        value={password}
-                        onChangeText={(value) => setPassword(value)}
-                        keyboardType="default"
-                        // autoFocus={true}
-                        maxLength={12}
-                    />
+                    <View style={styles.inputWrapper}>
+                        <TextInput
+                            style={styles.input}
+                            numberOfLines={1}
+                            placeholderTextColor="#B8B8BB"
+                            placeholder="Parolni kiriting"
+                            onChangeText={(value) => setPassword(value)}
+                            keyboardType="default"
+                            maxLength={9}
+                        />
+                    </View>
                 </View>
 
                 <TouchableOpacity
                     style={styles.sendCodeWrapper}
                     onPress={handleSubmit}
-                    // disabled={loading}
+                    disabled={loading}
                 >
-                    <Text style={styles.sendCodeText}>Send code</Text>
+                    {send ? (
+                        <View
+                            style={{
+                                flex: 1,
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+                            <ActivityIndicator
+                                size="large"
+                                color="white"
+                                style={{ alignSelf: "center" }}
+                            />
+                        </View>
+                    ) : (
+                        <Text style={styles.sendCodeText}>Davom etish</Text>
+                    )}
                 </TouchableOpacity>
             </View>
         </ScrollView>

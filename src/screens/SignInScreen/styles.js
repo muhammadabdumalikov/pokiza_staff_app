@@ -1,5 +1,6 @@
 import { Dimensions, StyleSheet,  Platform } from "react-native";
 import Constants from "expo-constants";
+import { colors } from "../../constants/color";
 
 const statusBarHeight = Constants.statusBarHeight;
 const width = Dimensions.get("window").width;
@@ -23,7 +24,7 @@ export default StyleSheet.create({
     },
     signIn: {
         top: height / 2.96,
-        width: 80,
+        width: "70%",
         height: 32,
         fontWeight: "bold",
         fontSize: 24,
@@ -40,43 +41,48 @@ export default StyleSheet.create({
         textAlign: "center",
     },
     signInBox: {
+        marginTop: 30,
         backgroundColor: "#fff",
         alignItems: "center",
         position: "relative",
         height: height*.55,
     },
     inputContainer: {
-        position: "absolute",
-        bottom: height / 3.25,
         marginTop: 5,
         marginBottom: 10,
         width: "100%",
-        height: height / 15,
+        height: height / 9,
+        backgroundColor: "#fff",
+        paddingHorizontal: 24,
         borderBottomColor: "#ccc",
         borderRadius: 3,
         borderBottomWidth: 1,
-        flexDirection: "row",
-        alignItems: "center",
-        backgroundColor: "#fff",
+
     },
     preTextWrapperStyle: {
-        padding: 10,
-        height: "100%",
+        height: "50%",
         justifyContent: "center",
-        alignItems: "center",
-        width: "30%",
+        alignItems: "flex-start",
+        width: "40%",
     },
     preText: {
         fontSize: 16,
+        color: colors.gray
+    },
+    inputWrapper: {
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "row"
     },
     input: {
         width: "100%",
         padding: 10,
         flex: 1,
-        fontSize: 16,
+        fontSize: 18,
         color: "#666",
         justifyContent: "center",
         alignItems: "center",
+       
     },
     inputField: {
         padding: 10,
