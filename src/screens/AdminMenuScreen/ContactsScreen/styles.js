@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     },
     contentStyle: {
         paddingVertical: 16,
-        paddingBottom: 100
+        paddingBottom: 100,
     },
     searchBoxWrapper: {
         height: height / 22.55,
@@ -186,6 +186,10 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
     },
+    resultAddressText: {
+        fontWeight: "bold",
+        fontSize: 16,
+    },
     locationStyle: {
         padding: 2,
         borderWidth: 1,
@@ -267,17 +271,17 @@ export const styles = StyleSheet.create({
     },
     onSelectDel: {
         fontSize: 12,
-        color: colors.red
+        color: colors.red,
     },
     onSelectNot: {
         fontSize: 12,
-        color: colors.blue
+        color: colors.blue,
     },
     centeredView: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: 'rgba(0,0,0,0.5)'
+        backgroundColor: "rgba(0,0,0,0.5)",
     },
     modalWrapper: {
         width: "70%",
@@ -313,14 +317,14 @@ export const styles = StyleSheet.create({
     },
     clientAddress: {
         width: "100%",
-        height: "66%",       
+        height: "75%",
         backgroundColor: "white",
         overflow: "hidden",
         justifyContent: "center",
         alignItems: "flex-start",
         paddingHorizontal: 15,
         borderBottomColor: colors.lightGray,
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
     },
     genderModalWrapper: {
         height: "15%",
@@ -345,6 +349,12 @@ export const styles = StyleSheet.create({
     deleteModalBtns: {
         flexDirection: "row",
         height: "33%",
+        width: "100%",
+        justifyContent: "space-evenly",
+    },
+    okBtn: {
+        flexDirection: "row",
+        height: "25%",
         width: "100%",
         justifyContent: "space-evenly",
     },
@@ -409,5 +419,8 @@ export const styles = StyleSheet.create({
     loader: {
         // marginTop: 10,
         alignItems: "center",
+    },
+    requiredLine: {
+        color: colors.red,
     },
 });

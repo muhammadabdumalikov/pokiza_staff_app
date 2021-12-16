@@ -131,11 +131,17 @@ const CardComponent = ({ item, elements, setElements }) => {
                                                     >
                                                         Manzil:{" "}
                                                     </Text>
+
                                                     <Text
                                                         style={
                                                             styles.resultAddressDynamicText
                                                         }
                                                     >
+                                                        <Entypo
+                                                            name="location-pin"
+                                                            size={24}
+                                                            color="#007AFF"
+                                                        />
                                                         {`${
                                                             client.clientInfo
                                                                 .address.state
@@ -195,11 +201,6 @@ const CardComponent = ({ item, elements, setElements }) => {
                                                         styles.resultAddressLocation
                                                     }
                                                 >
-                                                    <Entypo
-                                                        name="location-pin"
-                                                        size={24}
-                                                        color="#007AFF"
-                                                    />
                                                     <Text
                                                         style={
                                                             styles.resultAddressLocationDynamicText
@@ -218,9 +219,7 @@ const CardComponent = ({ item, elements, setElements }) => {
                                                     </Text>
                                                 </View>
                                             </View>
-                                            <View
-                                                style={styles.deleteModalBtns}
-                                            >
+                                            <View style={styles.okBtn}>
                                                 <TouchableOpacity
                                                     style={
                                                         styles.cancelModalBtn

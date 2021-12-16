@@ -211,7 +211,7 @@ export const styles = StyleSheet.create({
         position: "absolute",
         bottom: 28,
         left: 24,
-        backgroundColor: "#007AFF",
+        backgroundColor: colors.blue,
     },
     centeredView: {
         flex: 1,

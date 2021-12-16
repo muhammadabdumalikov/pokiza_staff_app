@@ -32,7 +32,7 @@ const AdminMenuScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.menuBox}
-                    onPress={() => navigation.navigate("OrdersScreen")}
+                    // onPress={() => navigation.navigate("OrdersScreen")}
                 >
                     <Text style={styles.menuText}>Buyurtmalar</Text>
                     <MaterialCommunityIcons
@@ -43,14 +43,14 @@ const AdminMenuScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.menuBox}
-                    onPress={() => navigation.navigate("OrdersScreen")}
+                    // onPress={() => navigation.navigate("OrdersScreen")}
                 >
                     <Text style={styles.menuText}>Buyumlar</Text>
                     <Entypo name="documents" size={24} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.menuBox}
-                    onPress={() => navigation.navigate("TransportScreen")}
+                    // onPress={() => navigation.navigate("TransportScreen")}
                 >
                     <Text style={styles.menuText}>Transportlar</Text>
                     <Ionicons name="ios-car-outline" size={24} color="black" />
@@ -60,14 +60,14 @@ const AdminMenuScreen = ({ navigation }) => {
             <View style={styles.secondBox}>
                 <TouchableOpacity
                     style={styles.menuBox}
-                    onPress={() => navigation.navigate("CourierAddOrder")}
+                    // onPress={() => navigation.navigate("CourierAddOrder")}
                 >
                     <Text style={styles.menuText}>Moliya bo'limi</Text>
                     <Feather name="dollar-sign" size={24} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.menuBox}
-                    onPress={() => navigation.navigate("StatisticsScreen")}
+                    // onPress={() => navigation.navigate("StatisticsScreen")}
                 >
                     <Text style={styles.menuText}>Statistika bo'limi</Text>
                     <Feather name="trending-up" size={24} color="black" />
@@ -77,7 +77,7 @@ const AdminMenuScreen = ({ navigation }) => {
             <View style={styles.secondBox}>
                 <TouchableOpacity
                     style={styles.menuBox}
-                    onPress={() => navigation.navigate("StaffsScreen")}
+                    // onPress={() => navigation.navigate("StaffsScreen")}
                 >
                     <Text style={styles.menuText}>Jamoa</Text>
                     <Feather name="users" size={24} color="black" />

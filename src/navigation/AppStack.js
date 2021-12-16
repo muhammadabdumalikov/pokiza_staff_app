@@ -588,7 +588,7 @@ const AppStack = (route) => {
             }}
         >
             <StaffTab.Screen
-                name="Notice"
+                name="Xabarnoma"
                 component={NoticesStack}
                 options={({ route }) => ({
                     tabBarIcon: ({ color, size }) => (
@@ -597,7 +597,7 @@ const AppStack = (route) => {
                 })}
             />
             <StaffTab.Screen
-                name="Search"
+                name="Qidiruv"
                 component={SearchStack}
                 options={({ route }) => ({
                     tabBarIcon: ({ color, size }) => (
@@ -628,8 +628,8 @@ const AppStack = (route) => {
                 })}
             />
             <StaffTab.Screen
-                name="Settings"
-                component={SettingsStack}
+                name="Sozlamalar"
+                component={NoticesScreen}
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <Feather name="settings" size={24} color={color} />

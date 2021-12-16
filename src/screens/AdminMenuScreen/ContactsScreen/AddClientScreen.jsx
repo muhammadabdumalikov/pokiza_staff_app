@@ -444,7 +444,10 @@ const AddClientScreen = ({ navigation }) => {
                             }
                         >
                             <View style={styles.preTextWrapperStyle}>
-                                <Text style={styles.preText}>*Ism</Text>
+                                <Text style={styles.preText}>
+                                    <Text style={styles.requiredLine}>* </Text>
+                                    Ism
+                                </Text>
                             </View>
                             <TextInput
                                 style={styles.input}
@@ -654,7 +657,7 @@ const AddClientScreen = ({ navigation }) => {
                                 }
                             >
                                 <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Age</Text>
+                                    <Text style={styles.preText}>Yosh</Text>
                                 </View>
                                 <TextInput
                                     style={styles.input}
@@ -678,7 +681,7 @@ const AddClientScreen = ({ navigation }) => {
                                 }}
                             >
                                 <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Gender</Text>
+                                    <Text style={styles.preText}>Jins</Text>
                                 </View>
                                 <Modal
                                     animationType="slide"
@@ -753,7 +756,10 @@ const AddClientScreen = ({ navigation }) => {
                         {/* State input ----------------------------------------------------------- */}
                         <View style={styles.pickerWrapper}>
                             <View style={styles.preTextWrapperStyle}>
-                                <Text style={styles.preText}>*Viloyat</Text>
+                                <Text style={styles.preText}>
+                                    <Text style={styles.requiredLine}>* </Text>
+                                    Viloyat
+                                </Text>
                             </View>
                             <Modal
                                 animationType="slide"
@@ -811,7 +817,8 @@ const AddClientScreen = ({ navigation }) => {
                         <View style={styles.pickerWrapper}>
                             <View style={styles.preTextWrapperStyle}>
                                 <Text style={styles.preText}>
-                                    *Shahar/Tuman
+                                    <Text style={styles.requiredLine}>* </Text>
+                                    Shahar/Tuman
                                 </Text>
                             </View>
                             <Modal
@@ -1181,61 +1188,60 @@ const AddClientScreen = ({ navigation }) => {
                             />
                         </View>
                         <TouchableOpacity
-                            onPress={async () => {
-                                let addressID = await request(
-                                    ADD_ADDRESS_QUERY,
-                                    {
-                                        stateId: selectedState.stateId,
-                                        regionId: selectedRegion.regionId,
-                                        neighborhoodId: selectedNeighborhood
-                                            ? selectedNeighborhood
-                                            : null,
-                                        streetId: selectedStreet
-                                            ? selectedStreet
-                                            : null,
-                                        areaId: selectedArea
-                                            ? selectedArea
-                                            : null,
-                                        target: locationSummary
-                                            ? locationSummary
-                                            : null,
-                                        homeNumber: selectedHomeNumber
-                                            ? selectedHomeNumber
-                                            : null,
-                                    },
-                                    userToken
-                                );
-                                console.log(userToken)
+                            // onPress={async () => {
+                            //     let addressID = await request(
+                            //         ADD_ADDRESS_QUERY,
+                            //         {
+                            //             stateId: selectedState.stateId,
+                            //             regionId: selectedRegion.regionId,
+                            //             neighborhoodId: selectedNeighborhood
+                            //                 ? selectedNeighborhood
+                            //                 : null,
+                            //             streetId: selectedStreet
+                            //                 ? selectedStreet
+                            //                 : null,
+                            //             areaId: selectedArea
+                            //                 ? selectedArea
+                            //                 : null,
+                            //             target: locationSummary
+                            //                 ? locationSummary
+                            //                 : null,
+                            //             homeNumber: selectedHomeNumber
+                            //                 ? selectedHomeNumber
+                            //                 : null,
+                            //         },
+                            //         userToken
+                            //     );
 
-                                let addClientAdmin = await request(
-                                    ADD_NEW_CLIENT,
-                                    {
-                                        firstName: selectedFirstName,
-                                        lastName: selectedLastName,
-                                        mainContact: selectedMainContact,
-                                        secondContact: selectedSecondContact
-                                            ? selectedSecondContact
-                                            : null,
-                                        age: parseInt(selectedAge),
-                                        gender: selectedGender.value,
-                                        branchId:
-                                            selectedBranch.regions[0].branch
-                                                .branchId,
-                                        addressId:
-                                            addressID.addAddress.data
-                                                .address_id,
-                                    },
-                                    userToken
-                                );
-                                if (
-                                    addClientAdmin.adminRegisterClient.status ==
-                                    200
-                                ) {
-                                    onSuccess();
-                                } else {
-                                    onError();
-                                }
-                            }}
+                            //     let addClientAdmin = await request(
+                            //         ADD_NEW_CLIENT,
+                            //         {
+                            //             firstName: selectedFirstName,
+                            //             lastName: selectedLastName,
+                            //             mainContact: selectedMainContact,
+                            //             secondContact: selectedSecondContact
+                            //                 ? selectedSecondContact
+                            //                 : null,
+                            //             age: parseInt(selectedAge),
+                            //             gender: selectedGender.value,
+                            //             branchId:
+                            //                 selectedBranch.regions[0].branch
+                            //                     .branchId,
+                            //             addressId:
+                            //                 addressID.addAddress.data
+                            //                     .address_id,
+                            //         },
+                            //         userToken
+                            //     );
+                            //     if (
+                            //         addClientAdmin.adminRegisterClient.status ==
+                            //         200
+                            //     ) {
+                            //         onSuccess();
+                            //     } else {
+                            //         onError();
+                            //     }
+                            // }}
                             style={styles.confirmBtnWrapper}
                         >
                             <Text style={styles.confirmBtnText}>
