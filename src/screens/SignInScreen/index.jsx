@@ -48,15 +48,16 @@ const SignInScreen = ({ navigation }) => {
     // const navigation = useNavigation()
     // const [loading, setLoading] = useState(true);
 
-    const confirmSecondContact = () =>
+    const confirmSecondContact = () => {
+        setSend(false);
         Alert.alert("Xatolik!", "Login yoki parol noto'g'ri kiritilgan!", [
             {
                 text: "Qaytadan kiritish",
-                onPress: () => console.log("Cancel Pressed"),
+                onPress: () => null,
                 style: "cancel",
             },
-            // { text: "Ha, xohlayman", onPress: () => console.log("OK Pressed") },
         ]);
+    };
 
     const handleSubmit = () => {
         setSend(true);
@@ -95,9 +96,6 @@ const SignInScreen = ({ navigation }) => {
         >
             <View style={styles.logoBox}>
                 <Text style={styles.signIn}>Tizimga kirish</Text>
-                <Text style={styles.signInDescription}>
-                    Tizimga kirish uchun telefon raqamingizni kiriting.
-                </Text>
             </View>
             <View style={styles.signInBox}>
                 <View

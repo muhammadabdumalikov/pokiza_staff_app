@@ -23,7 +23,7 @@ export default StyleSheet.create({
         backgroundColor: "#F5F5F5",
     },
     signIn: {
-        top: height / 2.96,
+        top: height / 2.8,
         width: "70%",
         height: 32,
         fontWeight: "bold",
@@ -31,14 +31,6 @@ export default StyleSheet.create({
         color: "#007AFF",
         textAlign: "center",
         marginBottom: 12,
-    },
-    signInDescription: {
-        position: "absolute",
-        top: height / 2.56,
-        width: 223,
-        height: 32,
-        fontSize: 12,
-        textAlign: "center",
     },
     signInBox: {
         marginTop: 30,
