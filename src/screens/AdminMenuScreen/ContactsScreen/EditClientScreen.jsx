@@ -243,8 +243,8 @@ const EditClientScreen = ({ navigation, route }) => {
     }, [selectedRegion]);
 
     const genderData = [
-        { key: "1", label: "Male", value: 1 },
-        { key: "2", label: "Female", value: 2 },
+        { key: "1", label: "Erkak", value: 1 },
+        { key: "2", label: "Ayol", value: 2 },
     ];
 
     const clientStatus = [
@@ -505,7 +505,10 @@ const EditClientScreen = ({ navigation, route }) => {
                             }
                         >
                             <View style={styles.preTextWrapperStyle}>
-                                <Text style={styles.preText}>*Ism</Text>
+                                <Text style={styles.preText}>
+                                    <Text style={styles.requiredLine}>* </Text>
+                                    Ism
+                                </Text>
                             </View>
                             <TextInput
                                 style={styles.input}
@@ -715,7 +718,7 @@ const EditClientScreen = ({ navigation, route }) => {
                                 }
                             >
                                 <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Age</Text>
+                                    <Text style={styles.preText}>Yosh</Text>
                                 </View>
                                 <TextInput
                                     style={styles.input}
@@ -739,7 +742,7 @@ const EditClientScreen = ({ navigation, route }) => {
                                 }}
                             >
                                 <View style={styles.preTextWrapperStyle}>
-                                    <Text style={styles.preText}>Gender</Text>
+                                    <Text style={styles.preText}>Jins</Text>
                                 </View>
                                 <Modal
                                     animationType="slide"
@@ -814,7 +817,10 @@ const EditClientScreen = ({ navigation, route }) => {
                         {/* State input ----------------------------------------------------------- */}
                         <View style={styles.pickerWrapper}>
                             <View style={styles.preTextWrapperStyle}>
-                                <Text style={styles.preText}>*Viloyat</Text>
+                                <Text style={styles.preText}>
+                                    <Text style={styles.requiredLine}>* </Text>
+                                    Viloyat
+                                </Text>
                             </View>
                             <Modal
                                 animationType="slide"
@@ -872,7 +878,8 @@ const EditClientScreen = ({ navigation, route }) => {
                         <View style={styles.pickerWrapper}>
                             <View style={styles.preTextWrapperStyle}>
                                 <Text style={styles.preText}>
-                                    *Shahar/Tuman
+                                    <Text style={styles.requiredLine}>* </Text>
+                                    Shahar/Tuman
                                 </Text>
                             </View>
                             <Modal
@@ -1242,68 +1249,68 @@ const EditClientScreen = ({ navigation, route }) => {
                             />
                         </View>
                         <TouchableOpacity
-                            onPress={async () => {
-                                let addressID = await request(
-                                    ADD_ADDRESS_QUERY,
-                                    {
-                                        stateId: selectedState.stateId,
-                                        regionId: selectedRegion.regionId,
-                                        neighborhoodId: selectedNeighborhood
-                                            ? selectedNeighborhood
-                                            : null,
-                                        streetId: selectedStreet
-                                            ? selectedStreet
-                                            : null,
-                                        areaId: selectedArea
-                                            ? selectedArea
-                                            : null,
-                                        target: locationSummary
-                                            ? locationSummary
-                                            : null,
-                                        homeNumber: selectedHomeNumber
-                                            ? selectedHomeNumber
-                                            : null,
-                                    },
-                                    userToken
-                                );
+                            // onPress={async () => {
+                            //     let addressID = await request(
+                            //         ADD_ADDRESS_QUERY,
+                            //         {
+                            //             stateId: selectedState.stateId,
+                            //             regionId: selectedRegion.regionId,
+                            //             neighborhoodId: selectedNeighborhood
+                            //                 ? selectedNeighborhood
+                            //                 : null,
+                            //             streetId: selectedStreet
+                            //                 ? selectedStreet
+                            //                 : null,
+                            //             areaId: selectedArea
+                            //                 ? selectedArea
+                            //                 : null,
+                            //             target: locationSummary
+                            //                 ? locationSummary
+                            //                 : null,
+                            //             homeNumber: selectedHomeNumber
+                            //                 ? selectedHomeNumber
+                            //                 : null,
+                            //         },
+                            //         userToken
+                            //     );
 
-                                setSelectedBranch(
-                                    await request(
-                                        GET_BRANCHES_QUERY,
-                                        { regionId: selectedRegion.regionId },
-                                        userToken
-                                    )
-                                );
+                            //     setSelectedBranch(
+                            //         await request(
+                            //             GET_BRANCHES_QUERY,
+                            //             { regionId: selectedRegion.regionId },
+                            //             userToken
+                            //         )
+                            //     );
 
-                                let addClientAdmin = await request(
-                                    ADD_NEW_CLIENT,
-                                    {
-                                        firstName: selectedFirstName,
-                                        lastName: selectedLastName,
-                                        mainContact: selectedMainContact,
-                                        secondContact: selectedSecondContact
-                                            ? selectedSecondContact
-                                            : null,
-                                        age: parseInt(selectedAge),
-                                        gender: selectedGender.value,
-                                        branchId:
-                                            selectedBranch.regions[0].branch
-                                                .branchId,
-                                        addressId:
-                                            addressID.addAddress.data
-                                                .address_id,
-                                    },
-                                    userToken
-                                );
-                                if (
-                                    addClientAdmin.adminRegisterClient.status ==
-                                    200
-                                ) {
-                                    onSuccess();
-                                } else {
-                                    onError();
-                                }
-                            }}
+                            //     let addClientAdmin = await request(
+                            //         ADD_NEW_CLIENT,
+                            //         {
+                            //             firstName: selectedFirstName,
+                            //             lastName: selectedLastName,
+                            //             mainContact: selectedMainContact,
+                            //             secondContact: selectedSecondContact
+                            //                 ? selectedSecondContact
+                            //                 : null,
+                            //             age: parseInt(selectedAge),
+                            //             gender: selectedGender.value,
+                            //             branchId:
+                            //                 selectedBranch.regions[0].branch
+                            //                     .branchId,
+                            //             addressId:
+                            //                 addressID.addAddress.data
+                            //                     .address_id,
+                            //         },
+                            //         userToken
+                            //     );
+                            //     if (
+                            //         addClientAdmin.adminRegisterClient.status ==
+                            //         200
+                            //     ) {
+                            //         onSuccess();
+                            //     } else {
+                            //         onError();
+                            //     }
+                            // }}
                             style={styles.confirmBtnWrapper}
                         >
                             <Text style={styles.confirmBtnText}>

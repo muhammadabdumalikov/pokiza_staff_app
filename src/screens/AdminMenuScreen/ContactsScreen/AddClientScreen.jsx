@@ -241,8 +241,8 @@ const AddClientScreen = ({ navigation }) => {
     }, [selectedRegion]);
 
     const genderData = [
-        { key: "1", label: "Male", value: 1 },
-        { key: "2", label: "Female", value: 2 },
+        { key: "1", label: "Erkak", value: 1 },
+        { key: "2", label: "Ayol", value: 2 },
     ];
 
     const clientStatus = [
