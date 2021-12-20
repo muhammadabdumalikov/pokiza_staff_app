@@ -127,7 +127,6 @@ export const styles = StyleSheet.create({
         height: height / 3.98,
         backgroundColor: "gray",
         borderRadius: 15,
-        marginHorizontal: 16,
         marginBottom: 16,
         borderColor: "#EDEDED",
         borderWidth: 1,
@@ -222,4 +221,19 @@ export const styles = StyleSheet.create({
         left: 24,
         backgroundColor: "#007AFF",
     },
+    stickOrder: {
+        width: "80%",
+        height: 60,
+        borderRadius: 10,
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "center",
+        position: "absolute",
+        bottom: 28,
+        backgroundColor: "#007AFF", 
+    },
+    stickOrderTxt: {
+        color: "white",
+        fontSize: 17
+    }
 });

@@ -67,6 +67,7 @@ const OrderListScreen = ({ navigation, route }) => {
     const [streetModalVisible, setStreetModalVisible] = useState(false);
 
     const [isLoading, setLoading] = useState(true);
+    const [elements, setElements] = useState([]);
 
     let firstname;
     let age;
@@ -274,7 +275,9 @@ const OrderListScreen = ({ navigation, route }) => {
                 </View>
                 <Text style={styles.filterItem1}>Tanlandi: {`${3}`}</Text>
                 {orders ? (
-                    <Text style={styles.filterItem2}>{`${orders.orders.length}`}</Text>
+                    <Text
+                        style={styles.filterItem2}
+                    >{`${orders.orders.length}`}</Text>
                 ) : null}
             </TouchableOpacity>
             <Collapsible
@@ -905,18 +908,31 @@ const OrderListScreen = ({ navigation, route }) => {
                     contentContainerStyle={styles.contentStyle}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => (
-                        <AllOrderCardComponent item={item} />
+                        <AllOrderCardComponent
+                            item={item}
+                            elements={elements}
+                            setElements={setElements}
+                        />
                     )}
                     keyExtractor={(item) => item.orderId}
                 />
             )}
 
-            <TouchableOpacity
-                style={styles.fab}
-                onPress={() => navigation.goBack()}
-            >
-                <Ionicons name="ios-arrow-back" size={28} color="white" />
-            </TouchableOpacity>
+            {elements.length > 0 ? (
+                <TouchableOpacity
+                    style={styles.stickOrder}
+                    onPress={() => navigation.goBack()}
+                >
+                    <Text style={styles.stickOrderTxt}>Transportga biriktirish</Text>
+                </TouchableOpacity>
+            ) : (
+                <TouchableOpacity
+                    style={styles.fab}
+                    onPress={() => navigation.goBack()}
+                >
+                    <Ionicons name="ios-arrow-back" size={28} color="white" />
+                </TouchableOpacity>
+            )}
         </View>
     );
 };
