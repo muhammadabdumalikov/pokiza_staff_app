@@ -7,6 +7,9 @@ import {
     TextInput,
     Dimensions,
     Platform,
+    Modal,
+    FlatList,
+    Pressable,
 } from "react-native";
 import Collapsible from "react-native-collapsible";
 import ModalSelector from "react-native-modal-selector";
@@ -26,7 +29,8 @@ import { showDate } from "../../../components/DateFormat";
 const height = Dimensions.get("window").height;
 
 const OrderListScreen = ({ navigation, route }) => {
-    const [collapsed, setCollapsed] = useState(true);
+    const [mainCollapsed, setMainCollapsed] = useState(true);
+    const [addressCollapsed, setAddressCollapsed] = useState(true);
     let [selectedFromDate, setSelectedFromDate] = useState(new Date());
     let [selectedToDate, setSelectedToDate] = useState(new Date());
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -36,13 +40,124 @@ const OrderListScreen = ({ navigation, route }) => {
     let [selectedStatus, setSelectedStatus] = useState("");
     let [selectedTimeRemaining, setSelectedTimeRemaining] = useState("");
 
+    const [selectedState, setSelectedState] = useState();
+    const [selectedRegion, setSelectedRegion] = useState();
+    const [selectedArea, setSelectedArea] = useState();
+    const [selectedNeighborhood, setSelectedNeighborhood] = useState();
+    const [selectedStreet, setSelectedStreet] = useState();
+
+    let [states, setStates] = useState([]);
+    let [branches, setBranches] = useState([]);
+    let [regions, setRegions] = useState([]);
+    let [areas, setAreas] = useState([]);
+    let [neighborhoods, setNeighborhoods] = useState([]);
+    let [streets, setStreets] = useState([]);
+
+    const [stateModalVisible, setStateModalVisible] = useState(false);
+    const [regionModalVisible, setRegionModalVisible] = useState(false);
+    const [areaModalVisible, setAreaModalVisible] = useState(false);
+    const [neighborhoodModalVisible, setNeighborhoodModalVisible] =
+        useState(false);
+    const [streetModalVisible, setStreetModalVisible] = useState(false);
+
     let firstname;
     let age;
     let index = 0;
     let genderIndex = 0;
 
-    const toggleExpanded = () => {
-        setCollapsed(!collapsed);
+    const toggleMainExpanded = () => {
+        setMainCollapsed(!mainCollapsed);
+    };
+
+    const toggleAddressExpanded = () => {
+        setAddressCollapsed(!addressCollapsed);
+    };
+
+    const modalState = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedState(item);
+                    setStateModalVisible(!stateModalVisible);
+                }}
+            >
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.stateName}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+
+    const modalRegion = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedRegion(item);
+                    setRegionModalVisible(!regionModalVisible);
+                }}
+            >
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.regionName}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+
+    const modalArea = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={async () => {
+                    setSelectedArea(item);
+                    setAreaModalVisible(!areaModalVisible);
+                    setSelectedBranch(
+                        await request(
+                            GET_BRANCHES_QUERY,
+                            { regionId: selectedRegion.regionId },
+                            userToken
+                        )
+                    );
+                }}
+            >
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.areaName}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+
+    const modalNeighborhood = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedNeighborhood(item);
+                    setNeighborhoodModalVisible(!neighborhoodModalVisible);
+                }}
+            >
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.neighborhoodName}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+
+    const modalStreet = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedStreet(item);
+                    setStreetModalVisible(!streetModalVisible);
+                }}
+            >
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.streetName}
+                </Text>
+            </TouchableOpacity>
+        );
     };
 
     const genderData = [
@@ -66,7 +181,10 @@ const OrderListScreen = ({ navigation, route }) => {
 
     return (
         <View style={{ height: "100%" }}>
-            <TouchableOpacity onPress={toggleExpanded} style={styles.filterBox}>
+            <TouchableOpacity
+                onPress={toggleMainExpanded}
+                style={styles.filterBox}
+            >
                 <View style={styles.filterIconWrapper}>
                     <AntDesign name="filter" size={22} color="black" />
                     <Text style={styles.headerText}>Filter</Text>
@@ -77,7 +195,7 @@ const OrderListScreen = ({ navigation, route }) => {
             </TouchableOpacity>
             <Collapsible
                 style={styles.hiddenContent}
-                collapsed={collapsed}
+                collapsed={mainCollapsed}
                 align="center"
             >
                 <ScrollView
@@ -321,16 +439,344 @@ const OrderListScreen = ({ navigation, route }) => {
                         </ModalSelector>
                     </View>
 
+                    <TouchableOpacity
+                        onPress={toggleAddressExpanded}
+                        style={styles.filterBox}
+                    >
+                        <View style={styles.filterIconWrapper}>
+                            <AntDesign name="filter" size={22} color="black" />
+                            <Text style={styles.headerText}>
+                                Manzil bo'yicha filter
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+
+                    <Collapsible
+                        style={styles.hiddenContent}
+                        collapsed={addressCollapsed}
+                        align="center"
+                    >
+                        {/* State input ----------------------------------------------------------- */}
+                        <View style={styles.pickerWrapper}>
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>
+                                    <Text style={styles.requiredLine}>* </Text>
+                                    Viloyat
+                                </Text>
+                            </View>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={stateModalVisible}
+                                onRequestClose={() => {
+                                    setStateModalVisible(!stateModalVisible);
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalWrapper}>
+                                        <FlatList
+                                            data={states.states}
+                                            renderItem={modalState}
+                                            keyExtractor={(item) =>
+                                                item.stateId
+                                            }
+                                            contentContainerStyle={
+                                                styles.modalView
+                                            }
+                                            style={styles.contenModalView}
+                                            showsVerticalScrollIndicator={false}
+                                        />
+                                    </View>
+                                    <Pressable
+                                        style={[
+                                            styles.button,
+                                            styles.buttonClose,
+                                        ]}
+                                        onPress={() =>
+                                            setStateModalVisible(
+                                                !stateModalVisible
+                                            )
+                                        }
+                                    >
+                                        <Text style={styles.hideModalButton}>
+                                            Hide Modal
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            </Modal>
+                            <Pressable
+                                style={styles.buttonOpen}
+                                onPress={() => setStateModalVisible(true)}
+                            >
+                                <Text style={styles.textStyle}>
+                                    {selectedState != undefined
+                                        ? selectedState.stateName
+                                        : "Viloyatni"}
+                                </Text>
+                            </Pressable>
+                        </View>
+
+                        {/* Region input -------------------------------------------- */}
+                        <View style={styles.pickerWrapper}>
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>
+                                    <Text style={styles.requiredLine}>* </Text>
+                                    Shahar/Tuman
+                                </Text>
+                            </View>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={regionModalVisible}
+                                onRequestClose={() => {
+                                    setRegionModalVisible(!regionModalVisible);
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalWrapper}>
+                                        <FlatList
+                                            data={
+                                                regions != undefined
+                                                    ? regions.regions
+                                                    : []
+                                            }
+                                            renderItem={modalRegion}
+                                            keyExtractor={(item) =>
+                                                item.regionId
+                                            }
+                                            contentContainerStyle={
+                                                styles.modalView
+                                            }
+                                            style={styles.contenModalView}
+                                            showsVerticalScrollIndicator={false}
+                                        />
+                                    </View>
+                                    <Pressable
+                                        style={[
+                                            styles.button,
+                                            styles.buttonClose,
+                                        ]}
+                                        onPress={() =>
+                                            setRegionModalVisible(
+                                                !regionModalVisible
+                                            )
+                                        }
+                                    >
+                                        <Text style={styles.hideModalButton}>
+                                            Hide Modal
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            </Modal>
+                            <Pressable
+                                disabled={selectedState ? false : true}
+                                style={styles.buttonOpen}
+                                onPress={() => setRegionModalVisible(true)}
+                            >
+                                <Text style={styles.textStyle}>
+                                    {selectedRegion != undefined
+                                        ? selectedRegion.regionName
+                                        : "Tumanni kiriting"}
+                                </Text>
+                            </Pressable>
+                        </View>
+
+                        {/* Area input -------------------------------------------- */}
+                        <View style={styles.pickerWrapper}>
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>Mo'ljal</Text>
+                            </View>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={areaModalVisible}
+                                onRequestClose={() => {
+                                    setAreaModalVisible(!areaModalVisible);
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalWrapper}>
+                                        <FlatList
+                                            data={
+                                                areas != undefined
+                                                    ? areas.areas
+                                                    : []
+                                            }
+                                            renderItem={modalArea}
+                                            keyExtractor={(item) => item.areaId}
+                                            contentContainerStyle={
+                                                styles.modalView
+                                            }
+                                            style={styles.contenModalView}
+                                            showsVerticalScrollIndicator={false}
+                                        />
+                                    </View>
+                                    <Pressable
+                                        style={[
+                                            styles.button,
+                                            styles.buttonClose,
+                                        ]}
+                                        onPress={() =>
+                                            setAreaModalVisible(
+                                                !areaModalVisible
+                                            )
+                                        }
+                                    >
+                                        <Text style={styles.hideModalButton}>
+                                            Hide Modal
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            </Modal>
+                            <Pressable
+                                disabled={selectedRegion ? false : true}
+                                style={styles.buttonOpen}
+                                onPress={() => setAreaModalVisible(true)}
+                            >
+                                <Text style={styles.textStyle}>
+                                    {selectedArea != undefined
+                                        ? selectedArea.areaName
+                                        : "Hudud kiriting"}
+                                </Text>
+                            </Pressable>
+                        </View>
+
+                        {/* Neighborhood input -------------------------------------------- */}
+                        <View style={styles.pickerWrapper}>
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>
+                                    Mahalla/Qishloq
+                                </Text>
+                            </View>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={neighborhoodModalVisible}
+                                onRequestClose={() => {
+                                    setNeighborhoodModalVisible(
+                                        !neighborhoodModalVisible
+                                    );
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalWrapper}>
+                                        <FlatList
+                                            data={
+                                                neighborhoods != undefined
+                                                    ? neighborhoods.neighborhoods
+                                                    : []
+                                            }
+                                            renderItem={modalNeighborhood}
+                                            keyExtractor={(item) =>
+                                                item.neighborhoodId
+                                            }
+                                            contentContainerStyle={
+                                                styles.modalView
+                                            }
+                                            style={styles.contenModalView}
+                                            showsVerticalScrollIndicator={false}
+                                        />
+                                    </View>
+                                    <Pressable
+                                        style={[
+                                            styles.button,
+                                            styles.buttonClose,
+                                        ]}
+                                        onPress={() =>
+                                            setNeighborhoodModalVisible(
+                                                !neighborhoodModalVisible
+                                            )
+                                        }
+                                    >
+                                        <Text style={styles.hideModalButton}>
+                                            Hide Modal
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            </Modal>
+                            <Pressable
+                                disabled={selectedArea ? false : true}
+                                style={styles.buttonOpen}
+                                onPress={() =>
+                                    setNeighborhoodModalVisible(true)
+                                }
+                            >
+                                <Text style={styles.textStyle}>
+                                    {selectedNeighborhood != undefined
+                                        ? selectedNeighborhood.neighborhoodName
+                                        : "Mahallani kiriting"}
+                                </Text>
+                            </Pressable>
+                        </View>
+                        {/* Street input -------------------------------------------- */}
+                        <View style={styles.pickerWrapper}>
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>Ko'cha</Text>
+                            </View>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={streetModalVisible}
+                                onRequestClose={() => {
+                                    setStreetModalVisible(!streetModalVisible);
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalWrapper}>
+                                        <FlatList
+                                            data={
+                                                streets != undefined
+                                                    ? streets.streets
+                                                    : []
+                                            }
+                                            renderItem={modalStreet}
+                                            keyExtractor={(item) =>
+                                                item.streetId
+                                            }
+                                            contentContainerStyle={
+                                                styles.modalView
+                                            }
+                                            style={styles.contenModalView}
+                                            showsVerticalScrollIndicator={false}
+                                        />
+                                    </View>
+                                    <Pressable
+                                        style={[
+                                            styles.button,
+                                            styles.buttonClose,
+                                        ]}
+                                        onPress={() =>
+                                            setStreetModalVisible(
+                                                !streetModalVisible
+                                            )
+                                        }
+                                    >
+                                        <Text style={styles.hideModalButton}>
+                                            Hide Modal
+                                        </Text>
+                                    </Pressable>
+                                </View>
+                            </Modal>
+                            <Pressable
+                                disabled={selectedNeighborhood ? false : true}
+                                style={styles.buttonOpen}
+                                onPress={() => setStreetModalVisible(true)}
+                            >
+                                <Text style={styles.textStyle}>
+                                    {selectedStreet != undefined
+                                        ? selectedStreet.streetName
+                                        : "Ko'chani kiriting"}
+                                </Text>
+                            </Pressable>
+                        </View>
+                    </Collapsible>
+
                     {/* Reset Filter Button ------------------------------------------------ */}
                     <View style={styles.resetWrapper}>
                         <TouchableOpacity
                             onPress={() => {
-                                setSelectedFromDate(
-                                    new Date().toLocaleDateString()
-                                );
-                                setSelectedToDate(
-                                    new Date().toLocaleDateString()
-                                );
+                                setSelectedFromDate(new Date());
+                                setSelectedToDate(new Date());
                                 setSelectedTariff("");
                                 setSelectedStatus("");
                                 setSelectedTimeRemaining("");
@@ -341,10 +787,12 @@ const OrderListScreen = ({ navigation, route }) => {
                     </View>
                     {/* Hide Filter Button ------------------------------------------------------ */}
                     <View style={styles.hideButtonWrapper}>
-                        <TouchableOpacity onPress={toggleExpanded}>
-                            <Text style={styles.hideButtonText}>
-                                Hide Filter
-                            </Text>
+                        <TouchableOpacity onPress={toggleMainExpanded}>
+                            <Feather
+                                name="chevron-up"
+                                size={28}
+                                color="black"
+                            />
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
