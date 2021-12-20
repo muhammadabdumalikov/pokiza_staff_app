@@ -21,6 +21,7 @@ import {
 import moment from "moment";
 
 import { styles } from "./styles";
+import { showDate } from "../../../components/DateFormat";
 
 const height = Dimensions.get("window").height;
 
@@ -31,7 +32,7 @@ const OrderListScreen = ({ navigation, route }) => {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [isDatePickerVisibleTwo, setDatePickerVisibilityTwo] =
         useState(false);
-    let [selectedType, setSelectedType] = useState("");
+    let [selectedTariff, setSelectedTariff] = useState("");
     let [selectedStatus, setSelectedStatus] = useState("");
     let [selectedTimeRemaining, setSelectedTimeRemaining] = useState("");
 
@@ -79,7 +80,11 @@ const OrderListScreen = ({ navigation, route }) => {
                 collapsed={collapsed}
                 align="center"
             >
-                <View style={styles.content}>
+                <ScrollView
+                    style={styles.container}
+                    contentContainerStyle={styles.content}
+                    showsVerticalScrollIndicator={false}
+                >
                     {/* Date input ------------------------------------------------------- */}
                     <View
                         style={{ ...styles.pickerWrapper, height: height / 11 }}
@@ -91,23 +96,23 @@ const OrderListScreen = ({ navigation, route }) => {
                                 flex: 3,
                             }}
                         >
-                            <Text style={styles.preText}>Date</Text>
+                            <Text style={styles.preText}>Vaqt bo'yicha</Text>
                             <Text style={styles.addressPlaceholder}>
-                                {moment(selectedFromDate).format("l")}-
-                                {moment(selectedToDate).format("l")}
+                                {showDate(selectedFromDate, false)}-{` `}
+                                {showDate(selectedToDate, false)}
                             </Text>
                         </View>
                         <TouchableOpacity
                             style={styles.datePicker}
                             onPress={() => setDatePickerVisibility(true)}
                         >
-                            <Text>From</Text>
+                            <Text>* dan</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.datePicker}
                             onPress={() => setDatePickerVisibilityTwo(true)}
                         >
-                            <Text>To</Text>
+                            <Text>* gacha</Text>
                         </TouchableOpacity>
 
                         {/* Modal DatePickers -------------------------------------------- */}
@@ -116,7 +121,7 @@ const OrderListScreen = ({ navigation, route }) => {
                             mode="date"
                             onCancel={() => setDatePickerVisibility(false)}
                             onConfirm={(date) => {
-                                setSelectedFromDate(date.toLocaleDateString());
+                                setSelectedFromDate(date);
                                 setDatePickerVisibility(false);
                             }}
                         />
@@ -125,13 +130,13 @@ const OrderListScreen = ({ navigation, route }) => {
                             mode="date"
                             onCancel={() => setDatePickerVisibilityTwo(false)}
                             onConfirm={(date) => {
-                                setSelectedToDate(date.toLocaleDateString());
+                                setSelectedToDate(date);
                                 setDatePickerVisibilityTwo(false);
                             }}
                         />
                     </View>
 
-                    {/* Type input ----------------------------------------------------------- */}
+                    {/* Tariff input ----------------------------------------------------------- */}
                     <View
                         style={{
                             ...styles.pickerWrapper,
@@ -139,7 +144,7 @@ const OrderListScreen = ({ navigation, route }) => {
                         }}
                     >
                         <View style={styles.preTextWrapperStyle}>
-                            <Text style={styles.preText}>Type</Text>
+                            <Text style={styles.preText}>Tarif bo'yicha</Text>
                         </View>
                         <ModalSelector
                             data={genderData}
@@ -159,7 +164,7 @@ const OrderListScreen = ({ navigation, route }) => {
                             scrollViewAccessibilityLabel={"Scrollable options"}
                             cancelButtonAccessibilityLabel={"Cancel Button"}
                             onChange={(option) => {
-                                setSelectedType(option.label);
+                                setSelectedTariff(option.label);
                             }}
                         >
                             <TextInput
@@ -170,14 +175,14 @@ const OrderListScreen = ({ navigation, route }) => {
                                 }}
                                 editable={true}
                                 placeholder={
-                                    selectedType ? selectedType : "A-Z"
+                                    selectedTariff ? selectedTariff : "A-Z"
                                 }
-                                value={selectedType}
+                                value={selectedTariff}
                             />
                         </ModalSelector>
                     </View>
 
-                    {/* Alphabet input -------------------------------------------------------------- */}
+                    {/* Status input -------------------------------------------------------------- */}
                     <View
                         style={{
                             ...styles.pickerWrapper,
@@ -185,7 +190,7 @@ const OrderListScreen = ({ navigation, route }) => {
                         }}
                     >
                         <View style={styles.preTextWrapperStyle}>
-                            <Text style={styles.preText}>Status</Text>
+                            <Text style={styles.preText}>Holati</Text>
                         </View>
                         <ModalSelector
                             data={genderData}
@@ -231,7 +236,7 @@ const OrderListScreen = ({ navigation, route }) => {
                         }}
                     >
                         <View style={styles.preTextWrapperStyle}>
-                            <Text style={styles.preText}>Time Remaining</Text>
+                            <Text style={styles.preText}>Tugatilish vaqti</Text>
                         </View>
                         <ModalSelector
                             data={genderData}
@@ -271,6 +276,51 @@ const OrderListScreen = ({ navigation, route }) => {
                         </ModalSelector>
                     </View>
 
+                    <View
+                        style={{
+                            ...styles.pickerWrapper,
+                            marginBottom: 24,
+                        }}
+                    >
+                        <View style={styles.preTextWrapperStyle}>
+                            <Text style={styles.preText}>Holati</Text>
+                        </View>
+                        <ModalSelector
+                            data={genderData}
+                            initValue="Select something yummy!"
+                            supportedOrientations={["portrait"]}
+                            overlayStyle={{
+                                flex: 1,
+                                padding: "5%",
+                                justifyContent: "center",
+                                backgroundColor: "rgba(0,0,0,0.5)",
+                            }}
+                            selectTextStyle={{
+                                color: "#fff",
+                            }}
+                            touchableActiveOpacity={0.5}
+                            accessible={true}
+                            scrollViewAccessibilityLabel={"Scrollable options"}
+                            cancelButtonAccessibilityLabel={"Cancel Button"}
+                            onChange={(option) => {
+                                setSelectedStatus(option.label);
+                            }}
+                        >
+                            <TextInput
+                                style={{
+                                    color: "#A5A5A8",
+                                    padding: 10,
+                                    height: "100%",
+                                }}
+                                editable={true}
+                                placeholder={
+                                    selectedStatus ? selectedStatus : "A-Z"
+                                }
+                                value={selectedStatus}
+                            />
+                        </ModalSelector>
+                    </View>
+
                     {/* Reset Filter Button ------------------------------------------------ */}
                     <View style={styles.resetWrapper}>
                         <TouchableOpacity
@@ -281,7 +331,7 @@ const OrderListScreen = ({ navigation, route }) => {
                                 setSelectedToDate(
                                     new Date().toLocaleDateString()
                                 );
-                                setSelectedType("");
+                                setSelectedTariff("");
                                 setSelectedStatus("");
                                 setSelectedTimeRemaining("");
                             }}
@@ -297,7 +347,7 @@ const OrderListScreen = ({ navigation, route }) => {
                             </Text>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </ScrollView>
             </Collapsible>
             <ScrollView
                 style={styles.container}
