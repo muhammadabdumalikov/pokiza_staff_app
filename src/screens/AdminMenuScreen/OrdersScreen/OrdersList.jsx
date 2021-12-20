@@ -261,6 +261,7 @@ const OrderListScreen = ({ navigation, route }) => {
         // Can also add additional custom keys which are passed to the onChange callback
         { key: index++, label: "Vegetable", customKey: "Not a fruit" },
     ];
+
     return (
         <View style={{ height: "100%" }}>
             <TouchableOpacity
@@ -272,8 +273,9 @@ const OrderListScreen = ({ navigation, route }) => {
                     <Text style={styles.headerText}>Filter</Text>
                 </View>
                 <Text style={styles.filterItem1}>Tanlandi: {`${3}`}</Text>
-
-                <Text style={styles.filterItem2}>{`${126}`}</Text>
+                {orders ? (
+                    <Text style={styles.filterItem2}>{`${orders.orders.length}`}</Text>
+                ) : null}
             </TouchableOpacity>
             <Collapsible
                 style={styles.hiddenContent}
@@ -902,7 +904,9 @@ const OrderListScreen = ({ navigation, route }) => {
                     style={styles.container}
                     contentContainerStyle={styles.contentStyle}
                     showsVerticalScrollIndicator={false}
-                    renderItem={({item}) => <AllOrderCardComponent item={item}/>}
+                    renderItem={({ item }) => (
+                        <AllOrderCardComponent item={item} />
+                    )}
                     keyExtractor={(item) => item.orderId}
                 />
             )}

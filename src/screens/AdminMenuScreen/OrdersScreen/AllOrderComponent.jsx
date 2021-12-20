@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View, TouchableOpacity, Text, Dimensions, Alert } from "react-native";
+import {
+    View,
+    TouchableOpacity,
+    Text,
+    Dimensions,
+    Alert,
+    StyleSheet,
+} from "react-native";
 import {
     Entypo,
     MaterialIcons,
@@ -91,10 +98,26 @@ const AllOrderCardComponent = ({ item }) => {
             },
         ]);
     };
+
+    const own = StyleSheet.create({
+        resultBox: {
+            height: height / 3.98,
+            backgroundColor: "gray",
+            borderRadius: 15,
+            marginHorizontal: 16,
+            marginBottom: 16,
+            borderColor: "#EDEDED",
+            borderWidth: 1,
+            overflow: "hidden",
+            borderTopColor: colors.red,
+            borderTopWidth: 4
+        },
+    });
+
     return (
         <>
             {item.orderId ? (
-                <View style={styles.resultBox}>
+                <View style={item.orderSpecial ? own.resultBox : styles.resultBox}>
                     <View style={styles.resultLineBox}>
                         <View style={styles.resultId}>
                             <Text>Buyurtma: </Text>
