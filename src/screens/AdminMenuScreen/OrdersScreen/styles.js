@@ -203,7 +203,7 @@ export const styles = StyleSheet.create({
         padding: 3,
         borderColor: colors.lightGray,
         borderWidth: 1,
-        borderRadius: 5
+        borderRadius: 3
     },
     deleteBox: {
         flex: 1,

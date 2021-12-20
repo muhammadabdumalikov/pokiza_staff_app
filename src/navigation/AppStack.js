@@ -174,7 +174,7 @@ const MenuStack = ({ navigation, route }) => {
                         elevation: 0,
                         // height: Dimensions.get("window").height / 5.8,
                     },
-                    // title: route.params.id,
+                    title: "Buyurtmalar",
                     headerRight: () => null,
                     headerLeft: () => null,
                 })}
