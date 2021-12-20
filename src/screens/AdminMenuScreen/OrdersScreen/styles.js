@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { colors } from "../../../constants/color";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -36,7 +37,7 @@ export const styles = StyleSheet.create({
     headerText: {
         textAlign: "center",
         fontSize: 16,
-        fontWeight: "500",
+        fontWeight: "bold",
     },
     hiddenContent: {
         height: height/1.9,
@@ -198,14 +199,17 @@ export const styles = StyleSheet.create({
     acceptText: {
         color: "rgb(75,206,0)",
     },
+    cardIcon: {
+        padding: 3,
+        borderColor: colors.lightGray,
+        borderWidth: 1,
+        borderRadius: 5
+    },
     deleteBox: {
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-evenly",
         alignItems: "center",
-    },
-    deleteText: {
-        // color: "#E50000"
     },
     fab: {
         width: 64,

@@ -25,6 +25,7 @@ import moment from "moment";
 
 import { styles } from "./styles";
 import { showDate } from "../../../components/DateFormat";
+import { colors } from "../../../constants/color";
 
 const height = Dimensions.get("window").height;
 
@@ -708,6 +709,7 @@ const OrderListScreen = ({ navigation, route }) => {
                                 </Text>
                             </Pressable>
                         </View>
+
                         {/* Street input -------------------------------------------- */}
                         <View style={styles.pickerWrapper}>
                             <View style={styles.preTextWrapperStyle}>
@@ -782,7 +784,7 @@ const OrderListScreen = ({ navigation, route }) => {
                                 setSelectedTimeRemaining("");
                             }}
                         >
-                            <Text style={styles.resetText}>Reset Filter</Text>
+                            <Text style={styles.resetText}>Filterni tozalash</Text>
                         </TouchableOpacity>
                     </View>
                     {/* Hide Filter Button ------------------------------------------------------ */}
@@ -805,41 +807,59 @@ const OrderListScreen = ({ navigation, route }) => {
                 <View style={styles.resultBox}>
                     <View style={styles.resultLineBox}>
                         <View style={styles.resultId}>
-                            <Text>Order ID: </Text>
+                            <Text>Buyurtma: </Text>
                             <Text style={styles.resultIdText}>{"#001523"}</Text>
                         </View>
-                        <Entypo name="location-pin" size={24} color="black" />
                     </View>
                     <View style={styles.resultLineBox}>
                         <Text style={styles.resultFullName}>
                             Hamdamboyev Hudoyberdi
                         </Text>
+                        <Text>{`09:41`}</Text>
                     </View>
                     <View style={styles.resultLineBox}>
                         <Text style={styles.timeText}>
-                            Time:{" "}
+                            Vaqt:{" "}
                             <Text style={styles.timeDynamicText}>
                                 1d 23h 51m
                             </Text>
                         </Text>
                         <View style={styles.timeText}>
-                            <Text style={styles.timeStatus}>
-                                {"In the Drive"}
-                            </Text>
+                            <Text style={styles.timeStatus}>{`Omborda`}</Text>
                         </View>
                     </View>
                     <View style={styles.resultLineBox}>
                         <TouchableOpacity style={styles.deleteBox}>
                             <MaterialIcons
-                                name="comment"
-                                size={24}
-                                color="#007AFF"
+                                name="phone"
+                                size={22}
+                                color={colors.lighGreen}
+                                style={styles.cardIcon}
                             />
-                            <Text style={styles.deleteText}>Comment</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.acceptBox}>
-                            <Feather name="check" size={24} color="#4BCE00" />
-                            <Text style={styles.acceptText}>Accept</Text>
+                            <Entypo
+                                name="location-pin"
+                                size={22}
+                                color="black"
+                                style={styles.cardIcon}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.acceptBox}>
+                            <MaterialIcons
+                                name="comment"
+                                size={22}
+                                color={colors.blue}
+                                style={styles.cardIcon}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.acceptBox}>
+                            <Ionicons
+                                name="car-outline"
+                                size={22}
+                                color="black"
+                                style={styles.cardIcon}
+                            />
                         </TouchableOpacity>
                     </View>
                 </View>
