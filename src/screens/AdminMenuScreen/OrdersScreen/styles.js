@@ -15,9 +15,24 @@ export const styles = StyleSheet.create({
     },
     filterBox: {
         height: height / 20,
-        width: width / 5,
-        justifyContent: "center",
+        width: "100%",
+        paddingHorizontal: 16,
+        flexDirection: "row",
+        justifyContent: "space-between",
         alignItems: "center",
+    },
+    filterIconWrapper: {
+        flex: 1,
+        justifyContent: "flex-start",
+        flexDirection: "row",
+    },
+    filterItem1: {
+        flex: 1,
+        textAlign: "center"
+    },
+    filterItem2: {
+        flex: 1,
+        textAlign: "right"
     },
     headerText: {
         textAlign: "center",
@@ -75,7 +90,7 @@ export const styles = StyleSheet.create({
         marginBottom: 16,
     },
     datePicker: {
-        flex: 1
+        flex: 1,
     },
     resetWrapper: {
         height: height / 15,
@@ -133,7 +148,7 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         width: "30%",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
     },
     resultIdText: {
         fontSize: 16,
@@ -154,26 +169,26 @@ export const styles = StyleSheet.create({
         flex: 1,
         fontSize: 16,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     timeDynamicText: {
         fontSize: 16,
         fontWeight: "bold",
     },
     timeStatus: {
-        width: width/3.4,
-        height: height/25.37,
+        width: width / 3.4,
+        height: height / 25.37,
         textAlign: "center",
         textAlignVertical: "center",
         borderRadius: 5,
         fontSize: 12,
         fontWeight: "bold",
         color: "gray",
-        backgroundColor: "#F5F5F5"
+        backgroundColor: "#F5F5F5",
     },
     productNameText: {
         color: "#007AFF",
-        fontWeight: "bold"
+        fontWeight: "bold",
     },
     acceptBox: {
         flex: 1,

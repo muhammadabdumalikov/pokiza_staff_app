@@ -18,6 +18,7 @@ import {
     Feather,
     MaterialIcons,
 } from "@expo/vector-icons";
+import moment from "moment";
 
 import { styles } from "./styles";
 
@@ -25,12 +26,8 @@ const height = Dimensions.get("window").height;
 
 const OrderListScreen = ({ navigation, route }) => {
     const [collapsed, setCollapsed] = useState(true);
-    let [selectedFromDate, setSelectedFromDate] = useState(
-        new Date().toLocaleDateString()
-    );
-    let [selectedToDate, setSelectedToDate] = useState(
-        new Date().toLocaleDateString()
-    );
+    let [selectedFromDate, setSelectedFromDate] = useState(new Date());
+    let [selectedToDate, setSelectedToDate] = useState(new Date());
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [isDatePickerVisibleTwo, setDatePickerVisibilityTwo] =
         useState(false);
@@ -69,8 +66,13 @@ const OrderListScreen = ({ navigation, route }) => {
     return (
         <View style={{ height: "100%" }}>
             <TouchableOpacity onPress={toggleExpanded} style={styles.filterBox}>
-                <Text style={styles.headerText}>Filter by</Text>
-                {/*Heading of Single Collapsible*/}
+                <View style={styles.filterIconWrapper}>
+                    <AntDesign name="filter" size={22} color="black" />
+                    <Text style={styles.headerText}>Filter</Text>
+                </View>
+                <Text style={styles.filterItem1}>Tanlandi: {`${3}`}</Text>
+
+                <Text style={styles.filterItem2}>{`${126}`}</Text>
             </TouchableOpacity>
             <Collapsible
                 style={styles.hiddenContent}
@@ -91,7 +93,8 @@ const OrderListScreen = ({ navigation, route }) => {
                         >
                             <Text style={styles.preText}>Date</Text>
                             <Text style={styles.addressPlaceholder}>
-                                {selectedFromDate}-{selectedToDate}
+                                {moment(selectedFromDate).format("l")}-
+                                {moment(selectedToDate).format("l")}
                             </Text>
                         </View>
                         <TouchableOpacity

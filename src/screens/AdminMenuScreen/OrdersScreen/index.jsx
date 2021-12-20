@@ -21,35 +21,34 @@ const OrdersScreen = () => {
                     bottom: "5%",
                     width: "45%",
                     left: "2.5%",
-                    borderRadius: 10,
+                    borderRadius: 6,
                     backgroundColor: "white",
                     elevation: 15, // shadow on Android
                     shadowRadius: 4, // shadow blur on iOS
                     shadowOpacity: 0.1, // shadow on iOS,
                 },
                 tabBarLabelStyle: {
-                    textTransform: "capitalize",
+                    textTransform: "none",
                     fontWeight: "bold",
-                    fontSize: 16
+                    fontSize: 14,
                 },
                 tabBarPressColor: "#E5E5E7",
                 tabBarContentContainerStyle: {
                     alignItems: "center",
                 },
                 tabBarStyle: {
-                    marginVertical: 16,
-                    height: height/18.45,
+                    marginVertical: 10,
+                    height: 35,
                     alignSelf: "center",
                     justifyContent: "center",
                     width: "90%",
-                    borderRadius: 10,
-                    borderColor: "blue",
+                    borderRadius: 8,
                     backgroundColor: "#E5E5E7",
                 },
             }}
         >
-            <Tab.Screen name="Order List" component={OrderListScreen} />
-            <Tab.Screen name="Product List" component={ProductListScreen} />
+            <Tab.Screen name="Boshqalar" component={OrderListScreen} />
+            <Tab.Screen name="Yetkazildi" component={ProductListScreen} />
         </Tab.Navigator>
     );
 };

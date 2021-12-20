@@ -32,7 +32,7 @@ const AdminMenuScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.menuBox}
-                    // onPress={() => navigation.navigate("OrdersScreen")}
+                    onPress={() => navigation.navigate("OrdersScreen")}
                 >
                     <Text style={styles.menuText}>Buyurtmalar</Text>
                     <MaterialCommunityIcons
