@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     ScrollView,
     Text,
@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     TextInput,
     Dimensions,
-    Platform,
+    ActivityIndicator,
     Modal,
     FlatList,
     Pressable,
@@ -22,10 +22,13 @@ import {
     MaterialIcons,
 } from "@expo/vector-icons";
 import moment from "moment";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { request } from "../../../helpers/request";
 import { styles } from "./styles";
 import { showDate } from "../../../components/DateFormat";
 import { colors } from "../../../constants/color";
+import AllOrderCardComponent from "./AllOrderComponent";
 
 const height = Dimensions.get("window").height;
 
@@ -54,6 +57,8 @@ const OrderListScreen = ({ navigation, route }) => {
     let [neighborhoods, setNeighborhoods] = useState([]);
     let [streets, setStreets] = useState([]);
 
+    const [orders, setOrders] = useState();
+
     const [stateModalVisible, setStateModalVisible] = useState(false);
     const [regionModalVisible, setRegionModalVisible] = useState(false);
     const [areaModalVisible, setAreaModalVisible] = useState(false);
@@ -61,10 +66,87 @@ const OrderListScreen = ({ navigation, route }) => {
         useState(false);
     const [streetModalVisible, setStreetModalVisible] = useState(false);
 
+    const [isLoading, setLoading] = useState(true);
+
     let firstname;
     let age;
     let index = 0;
     let genderIndex = 0;
+
+    const GET_ALL_ORDERS_QUERY = `{
+        orders{
+          orderId
+             orderStatus
+          orderSpecial
+          orderOwner{
+            clientId
+            clientInfo{
+              address{
+                 state{
+                  stateName
+                }
+                region{
+                  regionName
+                }
+                neighborhood{
+                  neighborhoodName
+                }
+                street{
+                  streetName
+                }
+                area{
+                  areaName
+                }
+                homeNumber
+                target
+              }
+              userId
+              firstName
+              lastName
+              mainContact
+              secondContact 
+            }
+          },
+          orderAddress{
+            addressId
+          }
+        }
+      }
+    `;
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const value = await AsyncStorage.getItem("staff_token");
+                setOrders(await request(GET_ALL_ORDERS_QUERY, null, value));
+                // setBranches(await request(GET_BRANCHES_QUERY, null, value));
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
+    }, []);
+
+    const onRefresh = React.useCallback(async () => {
+        setRefreshing(true);
+        const value = await AsyncStorage.getItem("staff_token");
+        let data = await fetch("https://pokiza.herokuapp.com/graphql", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                token: value,
+            },
+            body: JSON.stringify({
+                query: GET_ALL_ORDERS_QUERY,
+                variables: null,
+            }),
+        });
+        let jsonData = await data.json();
+
+        setOrders(jsonData.data);
+        setRefreshing(false);
+    }, []);
 
     const toggleMainExpanded = () => {
         setMainCollapsed(!mainCollapsed);
@@ -179,7 +261,6 @@ const OrderListScreen = ({ navigation, route }) => {
         // Can also add additional custom keys which are passed to the onChange callback
         { key: index++, label: "Vegetable", customKey: "Not a fruit" },
     ];
-
     return (
         <View style={{ height: "100%" }}>
             <TouchableOpacity
@@ -784,7 +865,9 @@ const OrderListScreen = ({ navigation, route }) => {
                                 setSelectedTimeRemaining("");
                             }}
                         >
-                            <Text style={styles.resetText}>Filterni tozalash</Text>
+                            <Text style={styles.resetText}>
+                                Filterni tozalash
+                            </Text>
                         </TouchableOpacity>
                     </View>
                     {/* Hide Filter Button ------------------------------------------------------ */}
@@ -799,120 +882,31 @@ const OrderListScreen = ({ navigation, route }) => {
                     </View>
                 </ScrollView>
             </Collapsible>
-            <ScrollView
-                style={styles.container}
-                contentContainerStyle={styles.contentStyle}
-                showsVerticalScrollIndicator={false}
-            >
-                <View style={styles.resultBox}>
-                    <View style={styles.resultLineBox}>
-                        <View style={styles.resultId}>
-                            <Text>Buyurtma: </Text>
-                            <Text style={styles.resultIdText}>{"#001523"}</Text>
-                        </View>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultFullName}>
-                            Hamdamboyev Hudoyberdi
-                        </Text>
-                        <Text>{`09:41`}</Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.timeText}>
-                            Vaqt:{" "}
-                            <Text style={styles.timeDynamicText}>
-                                1d 23h 51m
-                            </Text>
-                        </Text>
-                        <View style={styles.timeText}>
-                            <Text style={styles.timeStatus}>{`Omborda`}</Text>
-                        </View>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <TouchableOpacity style={styles.deleteBox}>
-                            <MaterialIcons
-                                name="phone"
-                                size={22}
-                                color={colors.lighGreen}
-                                style={styles.cardIcon}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.acceptBox}>
-                            <Entypo
-                                name="location-pin"
-                                size={22}
-                                color="black"
-                                style={styles.cardIcon}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.acceptBox}>
-                            <MaterialIcons
-                                name="comment"
-                                size={22}
-                                color={colors.blue}
-                                style={styles.cardIcon}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.acceptBox}>
-                            <Ionicons
-                                name="car-outline"
-                                size={22}
-                                color="black"
-                                style={styles.cardIcon}
-                            />
-                        </TouchableOpacity>
-                    </View>
+            {isLoading ? (
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <ActivityIndicator
+                        size="large"
+                        color="#2196F3"
+                        style={{ alignSelf: "center" }}
+                    />
                 </View>
+            ) : (
+                <FlatList
+                    data={orders ? orders.orders : []}
+                    style={styles.container}
+                    contentContainerStyle={styles.contentStyle}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({item}) => <AllOrderCardComponent item={item}/>}
+                    keyExtractor={(item) => item.orderId}
+                />
+            )}
 
-                {/* Fake Data ---------------------------------------------------- */}
-                <View style={styles.resultBox}>
-                    <View style={styles.resultLineBox}>
-                        <View style={styles.resultId}>
-                            <Text>Order ID: </Text>
-                            <Text style={styles.resultIdText}>{"#001523"}</Text>
-                        </View>
-                        <Entypo name="location-pin" size={24} color="black" />
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.resultFullName}>
-                            Hamdamboyev Hudoyberdi
-                        </Text>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <Text style={styles.timeText}>
-                            Time:{" "}
-                            <Text style={styles.timeDynamicText}>
-                                1d 23h 51m
-                            </Text>
-                        </Text>
-                        <View style={styles.timeText}>
-                            <Text
-                                style={{
-                                    ...styles.timeStatus,
-                                    backgroundColor: "#FFECB3",
-                                    color: "#FFA000",
-                                }}
-                            >
-                                {"Drying"}
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.resultLineBox}>
-                        <TouchableOpacity style={styles.deleteBox}>
-                            <MaterialIcons
-                                name="comment"
-                                size={24}
-                                color="#007AFF"
-                            />
-                            <Text style={styles.deleteText}>Comment</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.acceptBox}>
-                            <Feather name="check" size={24} color="#4BCE00" />
-                            <Text style={styles.acceptText}>Accept</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </ScrollView>
             <TouchableOpacity
                 style={styles.fab}
                 onPress={() => navigation.goBack()}
