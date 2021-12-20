@@ -112,7 +112,6 @@ const ContactsScreen = ({ navigation, route }) => {
     const [searchedData, setSearchedData] = useState();
     const [searched, setSearched] = useState(false);
     const [elements, setElements] = useState([]);
-    // console.log(elements)
 
     useEffect(() => {
         async function fetchData() {
