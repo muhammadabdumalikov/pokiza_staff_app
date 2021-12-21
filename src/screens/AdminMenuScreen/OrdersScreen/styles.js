@@ -159,11 +159,6 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
     },
-    resultPhoneNumbers: {
-        flex: 1,
-        textAlign: "center",
-        fontSize: 16,
-    },
     timeText: {
         flex: 1,
         fontSize: 16,

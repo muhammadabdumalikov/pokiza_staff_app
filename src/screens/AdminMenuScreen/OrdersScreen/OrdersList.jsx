@@ -273,7 +273,11 @@ const OrderListScreen = ({ navigation, route }) => {
                     <AntDesign name="filter" size={22} color="black" />
                     <Text style={styles.headerText}>Filter</Text>
                 </View>
-                <Text style={styles.filterItem1}>Tanlandi: {`${3}`}</Text>
+                {elements.length > 0 ? (
+                    <Text style={styles.filterItem1}>Tanlandi: {`${elements.length}`}</Text>
+                ) : (
+                    <></>
+                )}
                 {orders ? (
                     <Text
                         style={styles.filterItem2}
@@ -923,7 +927,9 @@ const OrderListScreen = ({ navigation, route }) => {
                     style={styles.stickOrder}
                     onPress={() => navigation.goBack()}
                 >
-                    <Text style={styles.stickOrderTxt}>Transportga biriktirish</Text>
+                    <Text style={styles.stickOrderTxt}>
+                        Transportga biriktirish
+                    </Text>
                 </TouchableOpacity>
             ) : (
                 <TouchableOpacity

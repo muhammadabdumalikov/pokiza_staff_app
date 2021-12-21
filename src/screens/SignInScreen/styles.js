@@ -1,8 +1,6 @@
 import { Dimensions, StyleSheet,  Platform } from "react-native";
-import Constants from "expo-constants";
 import { colors } from "../../constants/color";
 
-const statusBarHeight = Constants.statusBarHeight;
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
@@ -14,7 +12,6 @@ export default StyleSheet.create({
     },
     content: {
         width: width,
-        paddingTop: Platform.OS === "android" ? statusBarHeight : 0,
     },
     logoBox: {
         height: height*.45,

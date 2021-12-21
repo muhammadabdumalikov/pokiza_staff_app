@@ -8,14 +8,12 @@ import {
     Alert,
     StyleSheet,
     Modal,
-    Pressable,
+    Linking,
 } from "react-native";
 import {
     Entypo,
     MaterialIcons,
     Ionicons,
-    Feather,
-    AntDesign,
 } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -125,6 +123,135 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
         },
     });
 
+    const statusStyles = {
+        1: {
+            style: {
+                fontSize: 14,
+                textAlign: "center",
+                textAlignVertical: "center",
+                padding: 5,
+                borderColor: "black",
+                borderWidth: 1,
+                borderRadius: 5,
+                backgroundColor: "white",
+                color: "black",
+            },
+            text: "Moderator",
+        },
+        2: {
+            style: {
+                fontSize: 14,
+                textAlign: "center",
+                textAlignVertical: "center",
+                padding: 5,
+                borderColor: "gray",
+                borderWidth: 1,
+                borderRadius: 5,
+                backgroundColor: "white",
+                color: "gray",
+            },
+            text: "Kutilmoqda",
+        },
+        3: {
+            style: {
+                fontSize: 14,
+                textAlign: "center",
+                textAlignVertical: "center",
+                padding: 5,
+                borderColor: "#7B1FA2",
+                borderWidth: 1,
+                borderRadius: 5,
+                backgroundColor: "#E1BEE7",
+                color: "#7B1FA2",
+            },
+            text: "Biriktirilgan",
+        },
+        4: {
+            style: {
+                fontSize: 14,
+                textAlign: "center",
+                textAlignVertical: "center",
+                padding: 5,
+                borderColor: "black",
+                borderWidth: 1,
+                borderRadius: 5,
+                backgroundColor: "#B0B2B2",
+                color: "black",
+            },
+            text: "Haydovchida",
+        },
+        5: {
+            style: {
+                fontSize: 14,
+                textAlign: "center",
+                textAlignVertical: "center",
+                padding: 5,
+                borderColor: "#6A5E12",
+                borderWidth: 1,
+                borderRadius: 5,
+                backgroundColor: "#F6E04C",
+                color: "#6A5E12",
+            },
+            text: "Jarayonda",
+        },
+        6: {
+            style: {
+                fontSize: 14,
+                textAlign: "center",
+                textAlignVertical: "center",
+                padding: 5,
+                borderColor: "#4D9950",
+                borderWidth: 1,
+                borderRadius: 5,
+                backgroundColor: "#C8E6C9",
+                color: "#4D9950",
+            },
+            text: "Tayyor",
+        },
+        7: {
+            style: {
+                fontSize: 14,
+                textAlign: "center",
+                textAlignVertical: "center",
+                padding: 5,
+                borderColor: "#455A64",
+                borderWidth: 1,
+                borderRadius: 5,
+                backgroundColor: "#CFD8DC",
+                color: "#455A64",
+            },
+            text: "Yuklangan",
+        },
+        8: {
+            style: {
+                fontSize: 14,
+                textAlign: "center",
+                textAlignVertical: "center",
+                padding: 5,
+                borderColor: "#455A64",
+                borderWidth: 1,
+                borderRadius: 5,
+                backgroundColor: "#CFD8DC",
+                color: "#455A64",
+            },
+            text: "Yetkazib berishda",
+        },
+        9: {
+            style: {
+                fontSize: 14,
+                textAlign: "center",
+                textAlignVertical: "center",
+                padding: 5,
+                borderColor: "#244726",
+                borderWidth: 1,
+                borderRadius: 5,
+                backgroundColor: "#388E3C",
+                color: "white",
+            },
+            text: "Yetkazilgan",
+        },
+    };
+
     return (
         <>
             {item.orderId ? (
@@ -219,12 +346,15 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                             </Text>
                             <View style={styles.timeText}>
                                 <Text
-                                    style={styles.timeStatus}
-                                >{`Omborda`}</Text>
+                                    style={statusStyles[9].style}
+                                >{`${statusStyles[9].text}`}</Text>
                             </View>
                         </View>
                         <View style={styles.resultLineBox}>
-                            <TouchableOpacity style={styles.deleteBox}>
+                            <TouchableOpacity
+                                style={styles.deleteBox}
+                                onPress={() => Linking.openURL(`tel:${1221}`)}
+                            >
                                 <MaterialIcons
                                     name="phone"
                                     size={22}
@@ -274,9 +404,13 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                 <View style={styles.centeredView}>
                     <View style={styles.modalWrapper}>
                         <View style={styles.modalFB}>
-                            <Text style={styles.modalTxt}>Olib ketgan haydovchi:</Text>
+                            <Text style={styles.modalTxt}>
+                                Olib ketgan haydovchi:
+                            </Text>
                             <Text style={styles.modalTimeTxt}>{`2134`}</Text>
-                            <Text style={styles.modalTxt}>{`${item.orderOwner.clientInfo.firstName} ${item.orderOwner.clientInfo.lastName}`}</Text>
+                            <Text
+                                style={styles.modalTxt}
+                            >{`${item.orderOwner.clientInfo.firstName} ${item.orderOwner.clientInfo.lastName}`}</Text>
                             <View style={styles.carMod}>
                                 <Text style={styles.carModTxt}>FORD</Text>
                                 <Text style={styles.carModTxt}>01 714 PA</Text>
@@ -284,9 +418,13 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                         </View>
 
                         <View style={styles.modalFB}>
-                            <Text style={styles.modalTxt}>Olib ketgan haydovchi:</Text>
+                            <Text style={styles.modalTxt}>
+                                Olib ketgan haydovchi:
+                            </Text>
                             <Text style={styles.modalTimeTxt}>{`2134`}</Text>
-                            <Text style={styles.modalTxt}>{`${item.orderOwner.clientInfo.firstName} ${item.orderOwner.clientInfo.lastName}`}</Text>
+                            <Text
+                                style={styles.modalTxt}
+                            >{`${item.orderOwner.clientInfo.firstName} ${item.orderOwner.clientInfo.lastName}`}</Text>
                             <View style={styles.carMod}>
                                 <Text style={styles.carModTxt}>FORD</Text>
                                 <Text style={styles.carModTxt}>01 714 PA</Text>
