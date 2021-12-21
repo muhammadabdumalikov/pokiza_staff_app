@@ -38,6 +38,7 @@ import SignInScreen from "../screens/SignInScreen";
 import OrderDetailScreen from "../components/screens/OrdersComponent";
 import EditClientScreen from "../screens/AdminMenuScreen/ContactsScreen/EditClientScreen";
 import ProductsScreen from "../screens/AdminMenuScreen/ProductsScreen";
+import ProductInfoScreen from "../screens/AdminMenuScreen/ProductsScreen/ProductInfoScreen";
 
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -173,7 +174,6 @@ const MenuStack = ({ navigation, route }) => {
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        // height: Dimensions.get("window").height / 5.8,
                     },
                     title: "Buyurtmalar",
                     headerRight: () => null,
@@ -193,7 +193,25 @@ const MenuStack = ({ navigation, route }) => {
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        // height: Dimensions.get("window").height / 5.8,
+                    },
+                    title: "Buyurtmalar",
+                    headerRight: () => null,
+                    headerLeft: () => null,
+                })}
+            />
+            <Stack.Screen
+                name="ProductInfoScreen"
+                component={ProductInfoScreen}
+                options={({ route }) => ({
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        // top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
                     },
                     title: "Buyurtmalar",
                     headerRight: () => null,
@@ -214,7 +232,6 @@ const MenuStack = ({ navigation, route }) => {
                         shadowColor: "#fff",
                         elevation: 0,
                         backgroundColor: "#F5F5F5",
-                        // height: Dimensions.get("window").height / 5.8,
                     },
                     // title: route.params.id,
                     headerRight: () => null,
