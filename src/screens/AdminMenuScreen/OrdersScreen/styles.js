@@ -223,7 +223,7 @@ export const styles = StyleSheet.create({
     },
     stickOrder: {
         width: "80%",
-        height: 60,
+        height: 50,
         borderRadius: 10,
         justifyContent: "center",
         alignItems: "center",
@@ -235,5 +235,49 @@ export const styles = StyleSheet.create({
     stickOrderTxt: {
         color: "white",
         fontSize: 17
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "rgba(0,0,0,0.5)",
+    },
+    modalWrapper: {
+        width: "90%",
+        height: "55%",
+        backgroundColor: "white",
+        borderRadius: 10,
+    },
+    modalFB: {
+        flex: 3,
+        padding: 15,
+        justifyContent: "space-around",
+        borderBottomColor: colors.lightGray,
+        borderBottomWidth: 1
+    },
+    carMod: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    carModTxt: {
+        fontSize: 20,
+        color: colors.blue,
+        fontWeight: "bold"
+    },
+    modalTxt: {
+        fontSize: 17
+    },
+    modalTimeTxt: {
+        color: colors.gray
+    },
+    modalSB: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    modalSBTxt: {
+        color: colors.blue,
+        fontSize: 16,
+        fontWeight: "bold"
     }
 });

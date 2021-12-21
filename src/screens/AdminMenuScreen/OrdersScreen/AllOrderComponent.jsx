@@ -7,6 +7,8 @@ import {
     Dimensions,
     Alert,
     StyleSheet,
+    Modal,
+    Pressable,
 } from "react-native";
 import {
     Entypo,
@@ -20,6 +22,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { colors } from "../../../constants/color";
 import { styles } from "./styles";
 import { request } from "../../../helpers/request";
+import { showDate } from "../../../components/DateFormat";
 
 const height = Dimensions.get("window").height;
 
@@ -229,7 +232,12 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                                     style={styles.cardIcon}
                                 />
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.acceptBox}>
+                            <TouchableOpacity
+                                style={styles.acceptBox}
+                                onPress={() => {
+                                    setLocationModalVisible(true);
+                                }}
+                            >
                                 <Entypo
                                     name="location-pin"
                                     size={22}
@@ -257,6 +265,43 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                     </View>
                 </TouchableOpacity>
             ) : null}
+            <Modal
+                visible={locationModalVsible}
+                transparent={true}
+                animationType="slide"
+                onRequestClose={() => setLocationModalVisible(false)}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalWrapper}>
+                        <View style={styles.modalFB}>
+                            <Text style={styles.modalTxt}>Olib ketgan haydovchi:</Text>
+                            <Text style={styles.modalTimeTxt}>{`2134`}</Text>
+                            <Text style={styles.modalTxt}>{`${item.orderOwner.clientInfo.firstName} ${item.orderOwner.clientInfo.lastName}`}</Text>
+                            <View style={styles.carMod}>
+                                <Text style={styles.carModTxt}>FORD</Text>
+                                <Text style={styles.carModTxt}>01 714 PA</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.modalFB}>
+                            <Text style={styles.modalTxt}>Olib ketgan haydovchi:</Text>
+                            <Text style={styles.modalTimeTxt}>{`2134`}</Text>
+                            <Text style={styles.modalTxt}>{`${item.orderOwner.clientInfo.firstName} ${item.orderOwner.clientInfo.lastName}`}</Text>
+                            <View style={styles.carMod}>
+                                <Text style={styles.carModTxt}>FORD</Text>
+                                <Text style={styles.carModTxt}>01 714 PA</Text>
+                            </View>
+                        </View>
+
+                        <TouchableOpacity
+                            onPress={() => setLocationModalVisible(false)}
+                            style={styles.modalSB}
+                        >
+                            <Text style={styles.modalSBTxt}>Orqaga</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         </>
     );
 };
