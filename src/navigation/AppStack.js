@@ -133,7 +133,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        height: Dimensions.get("window").height / 5.8,
+                        height: height * 0.15,
                     },
                     // title: route.params.id,
                     headerRight: () => <CallButton />,
@@ -154,7 +154,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        height: Dimensions.get("window").height / 6,
+                        height: height * 0.15,
                     },
                     // title: route.params.id,
                     headerRight: () => <CallButton />,
@@ -176,7 +176,7 @@ const MenuStack = ({ navigation, route }) => {
                         backgroundColor: "#F4F4F5",
                         shadowColor: "#fff",
                         elevation: 0,
-                        height: height * 0.18,
+                        height: height * 0.15,
                     },
                     headerRight: () => <CallButton />,
                     headerLeft: () => <LogoImage />,
@@ -197,7 +197,7 @@ const MenuStack = ({ navigation, route }) => {
                         backgroundColor: "#F4F4F5",
                         shadowColor: "#fff",
                         elevation: 0,
-                        height: height * 0.18,
+                        height: height * 0.15,
                     },
                     headerRight: () => <CallButton />,
                     headerLeft: () => <LogoImage />,
@@ -208,17 +208,11 @@ const MenuStack = ({ navigation, route }) => {
                 component={ProductInfoScreen}
                 options={({ route }) => ({
                     headerTitle: "",
-                    headerTitleAlign: "center",
-                    headerTitleStyle: {
-                        fontSize: 18,
-                        top: 35,
-                        textAlign: "center",
-                    },
                     headerStyle: {
                         backgroundColor: "#F4F4F5",
                         shadowColor: "#fff",
                         elevation: 0,
-                        height: height * 0.18,
+                        height: height * 0.14,
                     },
                     headerRight: () => <CallButton />,
                     headerLeft: () => <LogoImage />,
