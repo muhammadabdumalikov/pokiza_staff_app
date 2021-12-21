@@ -122,6 +122,15 @@ export const styles = StyleSheet.create({
         marginHorizontal: 16,
         marginVertical: 24,
     },
+    resultBox: {
+        height: "100%",
+        backgroundColor: "gray",
+        borderRadius: 15,
+        marginBottom: 16,
+        borderColor: "#EDEDED",
+        borderWidth: 1,
+        overflow: "hidden",
+    },
     resultLineBox: {
         width: "100%",
         flex: 1,
@@ -135,8 +144,8 @@ export const styles = StyleSheet.create({
     },
     resultId: {
         flexDirection: "row",
-        width: "30%",
-        justifyContent: "space-between",
+        width: "100%",
+        justifyContent: "flex-start",
         alignItems: "center",
     },
     resultIdText: {

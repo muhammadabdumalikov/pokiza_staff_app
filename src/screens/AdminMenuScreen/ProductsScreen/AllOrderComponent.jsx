@@ -281,6 +281,7 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                         <View style={styles.resultLineBox}>
                             <View style={styles.resultId}>
                                 <TouchableOpacity
+                                    style={{marginRight: 5}}
                                     onPress={() => {
                                         setSelected(!selected);
                                         if (elements.includes(item.orderId)) {
@@ -309,10 +310,17 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                                         />
                                     )}
                                 </TouchableOpacity>
-                                <Text>Buyum: </Text>
-                                <Text style={styles.resultIdText}>
-                                    #{`${item.orderId}`}
-                                </Text>
+                                <TouchableOpacity
+                                    onPress={() =>
+                                        navigation.navigate("ProductInfoScreen")
+                                    }
+                                    style={{ flexDirection: "row" }}
+                                >
+                                    <Text>Buyum: </Text>
+                                    <Text style={styles.resultIdText}>
+                                        #{`${item.orderId}`}
+                                    </Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <TouchableOpacity style={styles.resultLineBox}>
