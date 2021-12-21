@@ -14,13 +14,7 @@ import {
 import Collapsible from "react-native-collapsible";
 import ModalSelector from "react-native-modal-selector";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import {
-    Entypo,
-    Ionicons,
-    AntDesign,
-    Feather,
-    MaterialIcons,
-} from "@expo/vector-icons";
+import { Entypo, Ionicons, AntDesign, Feather } from "@expo/vector-icons";
 import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -273,7 +267,13 @@ const ProductListScreen = ({ navigation, route }) => {
                     <AntDesign name="filter" size={22} color="black" />
                     <Text style={styles.headerText}>Filter</Text>
                 </View>
-                <Text style={styles.filterItem1}>Tanlandi: {`${3}`}</Text>
+                {elements.length > 0 ? (
+                    <Text style={styles.filterItem1}>
+                        Tanlandi: {`${elements.length}`}
+                    </Text>
+                ) : (
+                    <></>
+                )}
                 {orders ? (
                     <Text
                         style={styles.filterItem2}

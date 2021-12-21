@@ -122,8 +122,7 @@ export const styles = StyleSheet.create({
     reset: {
         height: height / 15,
         width: "100%",
-        borderColor: colors.red,
-        borderWidth: 1,
+        backgroundColor: colors.blue,
         borderRadius: 5,
         alignSelf: "center",
         justifyContent: "center",
@@ -132,24 +131,8 @@ export const styles = StyleSheet.create({
     },
     resetTxt: {
         fontSize: 16,
-        color: colors.red,
-        fontWeight: "bold",
-    },
-    addTxt: {
-        fontSize: 16,
         color: "white",
-        fontWeight: "bold"
-    },
-    add: {
-        height: height / 15,
-        width: "100%",
-        backgroundColor: colors.lighGreen,
-        borderRadius: 5,
-        alignSelf: "center",
-        justifyContent: "center",
-        alignItems: "center",
-        marginBottom: 15,
-        marginTop: 15,
+        fontWeight: "bold",
     },
     centeredView: {
         flex: 1,
@@ -208,5 +191,16 @@ export const styles = StyleSheet.create({
     },
     hideModalButton: {
         color: "white",
+    },
+    fab: {
+        width: 64,
+        height: 64,
+        borderRadius: 32,
+        justifyContent: "center",
+        alignItems: "center",
+        position: "absolute",
+        bottom: 28,
+        left: 24,
+        backgroundColor: "#007AFF",
     },
 });

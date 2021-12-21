@@ -165,57 +165,63 @@ const MenuStack = ({ navigation, route }) => {
                 name="OrdersScreen"
                 component={OrdersScreen}
                 options={({ route }) => ({
+                    headerTitle: "Buyurtmalar",
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 18,
-                        // top: 25,
+                        top: 35,
                         textAlign: "center",
                     },
                     headerStyle: {
+                        backgroundColor: "#F4F4F5",
                         shadowColor: "#fff",
                         elevation: 0,
+                        height: height * 0.18,
                     },
-                    title: "Buyurtmalar",
-                    headerRight: () => null,
-                    headerLeft: () => null,
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
                 })}
             />
              <Stack.Screen
                 name="ProductsScreen"
                 component={ProductsScreen}
                 options={({ route }) => ({
+                    headerTitle: "Buyumlar",
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 18,
-                        // top: 25,
+                        top: 35,
                         textAlign: "center",
                     },
                     headerStyle: {
+                        backgroundColor: "#F4F4F5",
                         shadowColor: "#fff",
                         elevation: 0,
+                        height: height * 0.18,
                     },
-                    title: "Buyurtmalar",
-                    headerRight: () => null,
-                    headerLeft: () => null,
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
                 })}
             />
             <Stack.Screen
                 name="ProductInfoScreen"
                 component={ProductInfoScreen}
                 options={({ route }) => ({
+                    headerTitle: "",
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 18,
-                        // top: 25,
+                        top: 35,
                         textAlign: "center",
                     },
                     headerStyle: {
+                        backgroundColor: "#F4F4F5",
                         shadowColor: "#fff",
                         elevation: 0,
+                        height: height * 0.18,
                     },
-                    title: "Buyurtmalar",
-                    headerRight: () => null,
-                    headerLeft: () => null,
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
                 })}
             />
             <Stack.Screen

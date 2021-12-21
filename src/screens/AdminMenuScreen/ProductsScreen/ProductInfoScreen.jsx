@@ -13,7 +13,7 @@ import {
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Camera } from "expo-camera";
 
-import {styles} from "./PISstyles"
+import { styles } from "./PISstyles";
 
 const ProductInfoScreen = ({ navigation }) => {
     let [selectedStatus, setSelectedStatus] = useState();
@@ -125,98 +125,44 @@ const ProductInfoScreen = ({ navigation }) => {
     };
 
     return (
-        <ScrollView
-            style={styles.container}
-            contentContainerStyle={styles.contentStyle}
-            showsVerticalScrollIndicator={false}
-        >
-            {/* Product input ------------------------------------------------- */}
-            <View style={styles.pickerWrapper}>
-                <View style={styles.preTextWrapperStyle}>
-                    <Text style={styles.preText}>Product</Text>
-                </View>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={statusModalVisible}
-                    onRequestClose={() => {
-                        setStatusModalVisible(!statusModalVisible);
-                    }}
-                >
-                    <View style={styles.centeredView}>
-                        <View
-                            style={[
-                                styles.modalWrapper,
-                                styles.genderModalWrapper,
-                            ]}
-                        >
-                            <FlatList
-                                data={productsList}
-                                renderItem={modalStatus}
-                                keyExtractor={(item) => item.id}
-                                contentContainerStyle={styles.modalView}
-                                style={styles.contenModalView}
-                                showsVerticalScrollIndicator={false}
-                            />
+        <>
+            <ScrollView
+                style={styles.container}
+                contentContainerStyle={styles.contentStyle}
+                showsVerticalScrollIndicator={false}
+            >
+                <View style={styles.photoBox}>
+                    {capturedImage ? (
+                        <ImageBackground
+                            source={{ uri: capturedImage && capturedImage.uri }}
+                            imageStyle={{ resizeMode: "contain" }}
+                            style={{ flex: 1 }}
+                        />
+                    ) : (
+                        <View style={styles.cameraBtn}>
+                            <TouchableOpacity
+                                onPress={() => setUseCamera(true)}
+                            >
+                                <Ionicons
+                                    name="camera"
+                                    size={48}
+                                    color="black"
+                                />
+                            </TouchableOpacity>
                         </View>
-                        <Pressable
-                            style={styles.buttonClose}
-                            onPress={() =>
-                                setStatusModalVisible(!statusModalVisible)
-                            }
-                        >
-                            <Text style={styles.hideModalButton}>
-                                Hide Modal
-                            </Text>
-                        </Pressable>
-                    </View>
-                </Modal>
-                <Pressable
-                    style={styles.buttonOpen}
-                    onPress={() => setStatusModalVisible(true)}
-                >
-                    <Text style={styles.textStyle}>
-                        {selectedStatus != undefined
-                            ? selectedStatus.name
-                            : "Add Status"}
-                    </Text>
-                </Pressable>
-            </View>
-
-            {/* Size input ------------------------------------- */}
-            <View style={styles.prductInfo}>
-                <View style={styles.inputContainer}>
-                    <View style={styles.productSize}>
-                        <Text style={styles.sizeText}>Eni</Text>
-                        <TextInput
-                            style={styles.sizeInput}
-                            placeholder="Add size"
-                        />
-                    </View>
-                    <View style={styles.productSize}>
-                        <Text style={styles.sizeText}>Bo'y</Text>
-                        <TextInput
-                            style={styles.sizeInput}
-                            placeholder="Add size"
-                        />
-                    </View>
+                    )}
                 </View>
-
-                {/* Surface input ------------------------------------- */}
-                <View style={styles.infoLine}>
-                    <Text>Yuza</Text>
-                    <TextInput placeholder="Add size" />
-                </View>
-
-                {/* Tariff input ------------------------------------- */}
-                <View style={styles.infoLine}>
-                    <Text>Tariff turi</Text>
+                {/* Product input ------------------------------------------------- */}
+                <View style={styles.pickerWrapper}>
+                    <View style={styles.preTextWrapperStyle}>
+                        <Text style={styles.preText}>Buyum</Text>
+                    </View>
                     <Modal
                         animationType="slide"
                         transparent={true}
-                        visible={tariffModalVisible}
+                        visible={statusModalVisible}
                         onRequestClose={() => {
-                            setTariffModalVisible(!tariffModalVisible);
+                            setStatusModalVisible(!statusModalVisible);
                         }}
                     >
                         <View style={styles.centeredView}>
@@ -227,8 +173,8 @@ const ProductInfoScreen = ({ navigation }) => {
                                 ]}
                             >
                                 <FlatList
-                                    data={tariffList}
-                                    renderItem={modalTariff}
+                                    data={productsList}
+                                    renderItem={modalStatus}
                                     keyExtractor={(item) => item.id}
                                     contentContainerStyle={styles.modalView}
                                     style={styles.contenModalView}
@@ -238,134 +184,199 @@ const ProductInfoScreen = ({ navigation }) => {
                             <Pressable
                                 style={styles.buttonClose}
                                 onPress={() =>
-                                    setTariffModalVisible(!tariffModalVisible)
+                                    setStatusModalVisible(!statusModalVisible)
                                 }
                             >
                                 <Text style={styles.hideModalButton}>
-                                    Hide Modal
+                                    Yopish
                                 </Text>
                             </Pressable>
                         </View>
                     </Modal>
                     <Pressable
                         style={styles.buttonOpen}
-                        onPress={() => setTariffModalVisible(true)}
+                        onPress={() => setStatusModalVisible(true)}
                     >
                         <Text style={styles.textStyle}>
-                            {selectedTariff != undefined
-                                ? selectedTariff.name
-                                : "Add Tariff"}
+                            {selectedStatus != undefined
+                                ? selectedStatus.name
+                                : "Buyum turi"}
                         </Text>
                     </Pressable>
                 </View>
 
-                {/* Total Price input ------------------------------------- */}
-                <View style={styles.infoLine}>
-                    <Text>Narxi</Text>
-                    <TextInput placeholder="Yuza * 10.000" />
-                </View>
-            </View>
+                {/* Size input ------------------------------------- */}
+                <View style={styles.prductInfo}>
+                    <View style={styles.inputContainer}>
+                        <View style={styles.productSize}>
+                            <Text style={styles.sizeText}>Eni</Text>
+                            <TextInput
+                                style={styles.sizeInput}
+                                placeholder="En"
+                            />
+                        </View>
+                        <View style={styles.productSize}>
+                            <Text style={styles.sizeText}>Bo'y</Text>
+                            <TextInput
+                                style={styles.sizeInput}
+                                placeholder="Bo'y"
+                            />
+                        </View>
+                    </View>
 
-            <Modal style={styles.cameraBox} visible={useCamera}>
-                <View style={styles.camera}>
-                    {previewVisible && capturedImage ? (
-                        <CameraPreview
-                            photo={capturedImage}
-                            savePhoto={() => setUseCamera(!useCamera)}
-                            retakePicture={retakePicture}
-                        />
-                    ) : (
-                        <Camera
-                            type={cameraType}
-                            flashMode={flashMode}
-                            style={{ flex: 1 }}
-                            ref={(r) => {
-                                camera = r;
+                    {/* Surface input ------------------------------------- */}
+                    <View style={styles.infoLine}>
+                        <Text>Yuza</Text>
+                        <TextInput placeholder="Yuza" />
+                    </View>
+
+                    {/* Tariff input ------------------------------------- */}
+                    <View style={styles.infoLine}>
+                        <Text>Tariff turi</Text>
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={tariffModalVisible}
+                            onRequestClose={() => {
+                                setTariffModalVisible(!tariffModalVisible);
                             }}
                         >
-                            <View
-                                style={{
-                                    flex: 1,
-                                    width: "100%",
-                                    backgroundColor: "transparent",
-                                    flexDirection: "row",
+                            <View style={styles.centeredView}>
+                                <View
+                                    style={[
+                                        styles.modalWrapper,
+                                        styles.genderModalWrapper,
+                                    ]}
+                                >
+                                    <FlatList
+                                        data={tariffList}
+                                        renderItem={modalTariff}
+                                        keyExtractor={(item) => item.id}
+                                        contentContainerStyle={styles.modalView}
+                                        style={styles.contenModalView}
+                                        showsVerticalScrollIndicator={false}
+                                    />
+                                </View>
+                                <Pressable
+                                    style={styles.buttonClose}
+                                    onPress={() =>
+                                        setTariffModalVisible(
+                                            !tariffModalVisible
+                                        )
+                                    }
+                                >
+                                    <Text style={styles.hideModalButton}>
+                                        Hide Modal
+                                    </Text>
+                                </Pressable>
+                            </View>
+                        </Modal>
+                        <Pressable
+                            style={styles.buttonOpen}
+                            onPress={() => setTariffModalVisible(true)}
+                        >
+                            <Text style={styles.textStyle}>
+                                {selectedTariff != undefined
+                                    ? selectedTariff.name
+                                    : "Tarif turi"}
+                            </Text>
+                        </Pressable>
+                    </View>
+
+                    {/* Total Price input ------------------------------------- */}
+                    <View style={styles.infoLine}>
+                        <Text>Narxi</Text>
+                        <TextInput placeholder="Yuza * 10.000" />
+                    </View>
+                </View>
+
+                <Modal style={styles.cameraBox} visible={useCamera}>
+                    <View style={styles.camera}>
+                        {previewVisible && capturedImage ? (
+                            <CameraPreview
+                                photo={capturedImage}
+                                savePhoto={() => setUseCamera(!useCamera)}
+                                retakePicture={retakePicture}
+                            />
+                        ) : (
+                            <Camera
+                                type={cameraType}
+                                flashMode={flashMode}
+                                style={{ flex: 1 }}
+                                ref={(r) => {
+                                    camera = r;
                                 }}
-                            ></View>
-                        </Camera>
-                    )}
-                </View>
+                            >
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        width: "100%",
+                                        backgroundColor: "transparent",
+                                        flexDirection: "row",
+                                    }}
+                                ></View>
+                            </Camera>
+                        )}
+                    </View>
 
-                <View style={styles.cameraOptions}>
-                    <TouchableOpacity
-                        style={styles.cameraOption}
-                        onPress={() => setUseCamera(false)}
-                    >
-                        <Ionicons
-                            name="md-save-sharp"
-                            size={32}
-                            color="black"
-                        />
-                    </TouchableOpacity>
+                    <View style={styles.cameraOptions}>
+                        <TouchableOpacity
+                            style={styles.cameraOption}
+                            onPress={() => setUseCamera(false)}
+                        >
+                            <Ionicons
+                                name="md-save-sharp"
+                                size={32}
+                                color="black"
+                            />
+                        </TouchableOpacity>
 
-                    <TouchableOpacity
-                        style={styles.cameraOption}
-                        onPress={__takePicture}
-                    >
-                        <View style={styles.shot}></View>
-                    </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.cameraOption}
+                            onPress={__takePicture}
+                        >
+                            <View style={styles.shot}></View>
+                        </TouchableOpacity>
 
-                    <TouchableOpacity
-                        style={styles.cameraOption}
-                        onPress={() => {
-                            setCameraType(
-                                cameraType === Camera.Constants.Type.back
-                                    ? Camera.Constants.Type.front
-                                    : Camera.Constants.Type.back
-                            );
-                        }}
-                    >
-                        <Ionicons
-                            name="camera-reverse"
-                            size={32}
-                            color="black"
-                        />
-                    </TouchableOpacity>
-                </View>
-            </Modal>
-
-            <View style={styles.photoBox}>
-                {capturedImage ? (
-                    <ImageBackground
-                        source={{ uri: capturedImage && capturedImage.uri }}
-                        imageStyle={{ resizeMode: "contain" }}
-                        style={{ flex: 1 }}
-                    />
-                ) : (
-                    <View style={styles.cameraBtn}>
-                        <TouchableOpacity onPress={() => setUseCamera(true)}>
-                            <Ionicons name="camera" size={48} color="black" />
+                        <TouchableOpacity
+                            style={styles.cameraOption}
+                            onPress={() => {
+                                setCameraType(
+                                    cameraType === Camera.Constants.Type.back
+                                        ? Camera.Constants.Type.front
+                                        : Camera.Constants.Type.back
+                                );
+                            }}
+                        >
+                            <Ionicons
+                                name="camera-reverse"
+                                size={32}
+                                color="black"
+                            />
                         </TouchableOpacity>
                     </View>
-                )}
-            </View>
+                </Modal>
 
-            <View style={styles.comment}>
-                <Text style={styles.fontSize}>Izoh</Text>
-                <TextInput
-                    placeholder="Izoh yozish uchun joy"
-                    multiline={true}
-                    style={styles.txtInput}
-                />
-            </View>
+                <View style={styles.comment}>
+                    <Text style={styles.fontSize}>Izoh</Text>
+                    <TextInput
+                        placeholder="Izoh yozish uchun joy"
+                        multiline={true}
+                        style={styles.txtInput}
+                    />
+                </View>
 
-            <TouchableOpacity style={styles.reset}>
-                <Text style={styles.resetTxt}>Reset Forms</Text>
+                <TouchableOpacity style={styles.reset}>
+                    <Text style={styles.resetTxt}>Tasdiqlash</Text>
+                </TouchableOpacity>
+            </ScrollView>
+            <TouchableOpacity
+                style={styles.fab}
+                onPress={() => navigation.goBack()}
+            >
+                <Ionicons name="ios-arrow-back" size={28} color="white" />
             </TouchableOpacity>
-
-            <TouchableOpacity style={styles.add}>
-                <Text style={styles.addTxt}>Buyurtmani qabul qilish</Text>
-            </TouchableOpacity>
-        </ScrollView>
+        </>
     );
 };
 

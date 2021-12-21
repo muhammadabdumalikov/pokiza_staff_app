@@ -274,7 +274,9 @@ const OrderListScreen = ({ navigation, route }) => {
                     <Text style={styles.headerText}>Filter</Text>
                 </View>
                 {elements.length > 0 ? (
-                    <Text style={styles.filterItem1}>Tanlandi: {`${elements.length}`}</Text>
+                    <Text style={styles.filterItem1}>
+                        Tanlandi: {`${elements.length}`}
+                    </Text>
                 ) : (
                     <></>
                 )}
