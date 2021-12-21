@@ -43,7 +43,7 @@ const AdminMenuScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.menuBox}
-                    // onPress={() => navigation.navigate("OrdersScreen")}
+                    onPress={() => navigation.navigate("ProductsScreen")}
                 >
                     <Text style={styles.menuText}>Buyumlar</Text>
                     <Entypo name="documents" size={24} color="black" />

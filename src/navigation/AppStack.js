@@ -37,6 +37,7 @@ import ClientFromModerators from "../screens/AdminMenuScreen/ModeratorsScreen/Cl
 import SignInScreen from "../screens/SignInScreen";
 import OrderDetailScreen from "../components/screens/OrdersComponent";
 import EditClientScreen from "../screens/AdminMenuScreen/ContactsScreen/EditClientScreen";
+import ProductsScreen from "../screens/AdminMenuScreen/ProductsScreen";
 
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -162,6 +163,26 @@ const MenuStack = ({ navigation, route }) => {
             <Stack.Screen
                 name="OrdersScreen"
                 component={OrdersScreen}
+                options={({ route }) => ({
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        // top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        // height: Dimensions.get("window").height / 5.8,
+                    },
+                    title: "Buyurtmalar",
+                    headerRight: () => null,
+                    headerLeft: () => null,
+                })}
+            />
+             <Stack.Screen
+                name="ProductsScreen"
+                component={ProductsScreen}
                 options={({ route }) => ({
                     headerTitleAlign: "center",
                     headerTitleStyle: {

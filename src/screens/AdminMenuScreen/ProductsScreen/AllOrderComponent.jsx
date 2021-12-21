@@ -10,11 +10,7 @@ import {
     Modal,
     Linking,
 } from "react-native";
-import {
-    Entypo,
-    MaterialIcons,
-    Ionicons,
-} from "@expo/vector-icons";
+import { Entypo, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { colors } from "../../../constants/color";
@@ -111,8 +107,7 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
 
     const own = StyleSheet.create({
         resultBox: {
-            height: height / 3.98,
-            backgroundColor: "gray",
+            height: "100%",
             borderRadius: 15,
             marginBottom: 16,
             borderColor: "#EDEDED",
@@ -259,8 +254,7 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                     style={
                         selected
                             ? {
-                                  height: height / 3.98,
-                                  backgroundColor: "gray",
+                                  height: height / 3.3,
                                   borderRadius: 15,
                                   marginHorizontal: 16,
                                   marginBottom: 16,
@@ -269,8 +263,7 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                                   overflow: "hidden",
                               }
                             : {
-                                  height: height / 3.98,
-                                  backgroundColor: "gray",
+                                  height: height / 3.3,
                                   borderRadius: 15,
                                   marginHorizontal: 16,
                                   marginBottom: 16,
@@ -316,12 +309,20 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                                         />
                                     )}
                                 </TouchableOpacity>
-                                <Text>Buyurtma: </Text>
+                                <Text>Buyum: </Text>
                                 <Text style={styles.resultIdText}>
                                     #{`${item.orderId}`}
                                 </Text>
                             </View>
                         </View>
+                        <TouchableOpacity style={styles.resultLineBox}>
+                            <View style={styles.resultId}>
+                                <Text>Buyurtma: </Text>
+                                <Text style={styles.resultIdText}>
+                                    #{`${item.orderId}`}
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.resultLineBox}
                             onPress={async () => {
