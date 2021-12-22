@@ -74,52 +74,70 @@ const OrderListScreen = ({ navigation, route }) => {
     let index = 0;
     let genderIndex = 0;
 
-    const GET_ALL_ORDERS_QUERY = `{
-        orders{
-          orderId
-             orderStatus
-          orderSpecial
-          orderOwner{
-            clientId
-            clientInfo{
-              address{
-                 state{
-                  stateName
-                }
-                region{
-                  regionName
-                }
-                neighborhood{
-                  neighborhoodName
-                }
-                street{
-                  streetName
-                }
-                area{
-                  areaName
-                }
-                homeNumber
-                target
-              }
-              userId
-              firstName
-              lastName
-              mainContact
-              secondContact 
+    const GET_ALL_PRODUCTS_QUERY = `{
+        products{
+          productId
+          productStatus
+          order{
+            orderId
+            orderSpecial
+            orderAddress{
+              state{
+                        stateName
+                      }
+                      region{
+                        regionName
+                      }
+                      neighborhood{
+                        neighborhoodName
+                      }
+                      street{
+                        streetName
+                      }
+                      area{
+                        areaName
+                      }
+                      homeNumber
+                      target
             }
-          },
-          orderAddress{
-            addressId
+            orderOwner{
+                clientId
+                clientInfo{
+                  address{
+                     state{
+                      stateName
+                    }
+                    region{
+                      regionName
+                    }
+                    neighborhood{
+                      neighborhoodName
+                    }
+                    street{
+                      streetName
+                    }
+                    area{
+                      areaName
+                    }
+                    homeNumber
+                    target
+                  }
+                  userId
+                  firstName
+                  lastName
+                  mainContact
+                  secondContact 
+              }
+            },
           }
         }
-      }
-    `;
+      }`;
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const value = await AsyncStorage.getItem("staff_token");
-                setOrders(await request(GET_ALL_ORDERS_QUERY, null, value));
+                setOrders(await request(GET_ALL_PRODUCTS_QUERY, null, value));
                 // setBranches(await request(GET_BRANCHES_QUERY, null, value));
                 setLoading(false);
             } catch (error) {
@@ -128,6 +146,8 @@ const OrderListScreen = ({ navigation, route }) => {
         }
         fetchData();
     }, []);
+
+    console.log(orders)
 
     const onRefresh = React.useCallback(async () => {
         setRefreshing(true);
@@ -139,7 +159,7 @@ const OrderListScreen = ({ navigation, route }) => {
                 token: value,
             },
             body: JSON.stringify({
-                query: GET_ALL_ORDERS_QUERY,
+                query: GET_ALL_PRODUCTS_QUERY,
                 variables: null,
             }),
         });
@@ -243,7 +263,7 @@ const OrderListScreen = ({ navigation, route }) => {
             </TouchableOpacity>
         );
     };
-
+    
     const genderData = [
         { key: genderIndex++, label: "Male" },
         { key: genderIndex++, label: "Female" },
@@ -283,7 +303,7 @@ const OrderListScreen = ({ navigation, route }) => {
                 {orders ? (
                     <Text
                         style={styles.filterItem2}
-                    >{`${orders.orders.length}`}</Text>
+                    >{`${orders.products.length}`}</Text>
                 ) : null}
             </TouchableOpacity>
             <Collapsible
@@ -909,7 +929,7 @@ const OrderListScreen = ({ navigation, route }) => {
                 </View>
             ) : (
                 <FlatList
-                    data={orders ? orders.orders : []}
+                    data={orders ? orders.products : []}
                     style={styles.container}
                     contentContainerStyle={styles.contentStyle}
                     showsVerticalScrollIndicator={false}
@@ -920,7 +940,7 @@ const OrderListScreen = ({ navigation, route }) => {
                             setElements={setElements}
                         />
                     )}
-                    keyExtractor={(item) => item.orderId}
+                    keyExtractor={(item) => item.productId}
                 />
             )}
 

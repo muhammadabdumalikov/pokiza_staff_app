@@ -14,7 +14,13 @@ import {
 import Collapsible from "react-native-collapsible";
 import ModalSelector from "react-native-modal-selector";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Entypo, Ionicons, AntDesign, Feather } from "@expo/vector-icons";
+import {
+    Entypo,
+    Ionicons,
+    AntDesign,
+    Feather,
+    MaterialIcons,
+} from "@expo/vector-icons";
 import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -26,7 +32,7 @@ import AllOrderCardComponent from "./AllOrderComponent";
 
 const height = Dimensions.get("window").height;
 
-const ProductListScreen = ({ navigation, route }) => {
+const OrderListScreen = ({ navigation, route }) => {
     const [mainCollapsed, setMainCollapsed] = useState(true);
     const [addressCollapsed, setAddressCollapsed] = useState(true);
     let [selectedFromDate, setSelectedFromDate] = useState(new Date());
@@ -68,52 +74,70 @@ const ProductListScreen = ({ navigation, route }) => {
     let index = 0;
     let genderIndex = 0;
 
-    const GET_ALL_ORDERS_QUERY = `{
-        orders{
-          orderId
-             orderStatus
-          orderSpecial
-          orderOwner{
-            clientId
-            clientInfo{
-              address{
-                 state{
-                  stateName
-                }
-                region{
-                  regionName
-                }
-                neighborhood{
-                  neighborhoodName
-                }
-                street{
-                  streetName
-                }
-                area{
-                  areaName
-                }
-                homeNumber
-                target
-              }
-              userId
-              firstName
-              lastName
-              mainContact
-              secondContact 
+    const GET_ALL_PRODUCTS_QUERY = `{
+        products{
+          productId
+          productStatus
+          order{
+            orderId
+            orderSpecial
+            orderAddress{
+              state{
+                        stateName
+                      }
+                      region{
+                        regionName
+                      }
+                      neighborhood{
+                        neighborhoodName
+                      }
+                      street{
+                        streetName
+                      }
+                      area{
+                        areaName
+                      }
+                      homeNumber
+                      target
             }
-          },
-          orderAddress{
-            addressId
+            orderOwner{
+                clientId
+                clientInfo{
+                  address{
+                     state{
+                      stateName
+                    }
+                    region{
+                      regionName
+                    }
+                    neighborhood{
+                      neighborhoodName
+                    }
+                    street{
+                      streetName
+                    }
+                    area{
+                      areaName
+                    }
+                    homeNumber
+                    target
+                  }
+                  userId
+                  firstName
+                  lastName
+                  mainContact
+                  secondContact 
+              }
+            },
           }
         }
-      }
-    `;
+      }`;
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const value = await AsyncStorage.getItem("staff_token");
-                setOrders(await request(GET_ALL_ORDERS_QUERY, null, value));
+                setOrders(await request(GET_ALL_PRODUCTS_QUERY, null, value));
                 // setBranches(await request(GET_BRANCHES_QUERY, null, value));
                 setLoading(false);
             } catch (error) {
@@ -133,7 +157,7 @@ const ProductListScreen = ({ navigation, route }) => {
                 token: value,
             },
             body: JSON.stringify({
-                query: GET_ALL_ORDERS_QUERY,
+                query: GET_ALL_PRODUCTS_QUERY,
                 variables: null,
             }),
         });
@@ -277,7 +301,7 @@ const ProductListScreen = ({ navigation, route }) => {
                 {orders ? (
                     <Text
                         style={styles.filterItem2}
-                    >{`${orders.orders.length}`}</Text>
+                    >{`${orders.products.length}`}</Text>
                 ) : null}
             </TouchableOpacity>
             <Collapsible
@@ -903,7 +927,7 @@ const ProductListScreen = ({ navigation, route }) => {
                 </View>
             ) : (
                 <FlatList
-                    data={orders ? orders.orders : []}
+                    data={orders ? orders.products : []}
                     style={styles.container}
                     contentContainerStyle={styles.contentStyle}
                     showsVerticalScrollIndicator={false}
@@ -914,7 +938,7 @@ const ProductListScreen = ({ navigation, route }) => {
                             setElements={setElements}
                         />
                     )}
-                    keyExtractor={(item) => item.orderId}
+                    keyExtractor={(item) => item.productId}
                 />
             )}
 
@@ -939,4 +963,4 @@ const ProductListScreen = ({ navigation, route }) => {
     );
 };
 
-export default ProductListScreen;
+export default OrderListScreen;

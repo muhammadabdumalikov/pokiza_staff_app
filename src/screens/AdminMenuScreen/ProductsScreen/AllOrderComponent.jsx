@@ -28,22 +28,6 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
     const [locationModalVsible, setLocationModalVisible] = useState(false);
     const client = item;
 
-    const CHANGE_ORDER_STATUS = `mutation($orderId: ID!, $orderStatus: Int){
-        changeOrder(orderId: $orderId, orderStatus: $orderStatus){
-          status
-          message
-          data
-        }
-      }`;
-
-    const DELETE_ORDER = `mutation($item: itemTypes!, $itemId: ID!){
-        disable(item: $item, itemId: $itemId){
-          status
-          message
-          data
-        }
-      }`;
-
     useEffect(() => {
         async function fetchData() {
             try {
@@ -61,49 +45,6 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
             return ele != value;
         });
     }
-
-    const addressAlert = (id) => {
-        Alert.alert(`${id}`, "", [
-            {
-                text: "Qaytish",
-                onPress: () => null,
-                style: "cancel",
-            },
-        ]);
-    };
-
-    const confirmDeleteOrder = () => {
-        Alert.alert(`Buyurtmani o'chirishni xohlaysizmi?`, "", [
-            {
-                text: "Qaytish",
-                onPress: () => null,
-                style: "cancel",
-            },
-            {
-                text: "O'chirish",
-                onPress: async () => {
-                    const result = await request(
-                        DELETE_ORDER,
-                        {
-                            item: "order",
-                            itemId: item.orderId,
-                        },
-                        userToken
-                    );
-                },
-            },
-        ]);
-    };
-
-    const confirmGetOrder = () => {
-        Alert.alert(`Buyurtma qabul qilindi!`, "", [
-            {
-                text: "Qaytish",
-                onPress: () => null,
-                style: "cancel",
-            },
-        ]);
-    };
 
     const own = StyleSheet.create({
         resultBox: {
@@ -249,7 +190,7 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
 
     return (
         <>
-            {item.orderId ? (
+            {item.productId ? (
                 <TouchableOpacity
                     style={
                         selected
@@ -275,24 +216,26 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                 >
                     <View
                         style={
-                            item.orderSpecial ? own.resultBox : styles.resultBox
+                            item.order.orderSpecial
+                                ? own.resultBox
+                                : styles.resultBox
                         }
                     >
                         <View style={styles.resultLineBox}>
                             <View style={styles.resultId}>
                                 <TouchableOpacity
-                                    style={{marginRight: 5}}
+                                    style={{ marginRight: 5 }}
                                     onPress={() => {
                                         setSelected(!selected);
-                                        if (elements.includes(item.orderId)) {
+                                        if (elements.includes(item.productId)) {
                                             elements = arrayRemove(
                                                 elements,
-                                                item.orderId
+                                                item.productId
                                             );
                                             setElements([...elements]);
                                             return;
                                         }
-                                        elements.push(item.orderId);
+                                        elements.push(item.productId);
                                         setElements([...elements]);
                                     }}
                                 >
@@ -318,7 +261,7 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                                 >
                                     <Text>Buyum: </Text>
                                     <Text style={styles.resultIdText}>
-                                        #{`${item.orderId}`}
+                                        #{`${item.productId}`}
                                     </Text>
                                 </TouchableOpacity>
                             </View>
@@ -327,7 +270,7 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                             <View style={styles.resultId}>
                                 <Text>Buyurtma: </Text>
                                 <Text style={styles.resultIdText}>
-                                    #{`${item.orderId}`}
+                                    #{`${item.order.orderId}`}
                                 </Text>
                             </View>
                         </TouchableOpacity>
@@ -335,14 +278,14 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                             style={styles.resultLineBox}
                             onPress={async () => {
                                 navigation.navigate("ClientFromModerators", {
-                                    client: item.orderOwner,
-                                    orderId: item.orderId,
+                                    client: item.order.orderOwner,
+                                    orderId: item.order.orderId,
                                 });
                             }}
                         >
                             <Text style={styles.resultFullName}>
-                                {item.orderOwner.clientInfo.firstName}{" "}
-                                {item.orderOwner.clientInfo.lastName}{" "}
+                                {item.order.orderOwner.clientInfo.firstName}{" "}
+                                {item.order.orderOwner.clientInfo.lastName}{" "}
                             </Text>
                             <Text style={styles.resultFullName}>{`09:41`}</Text>
                         </TouchableOpacity>
@@ -355,8 +298,12 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                             </Text>
                             <View style={styles.timeText}>
                                 <Text
-                                    style={statusStyles[9].style}
-                                >{`${statusStyles[9].text}`}</Text>
+                                    style={
+                                        statusStyles[item.productStatus].style
+                                    }
+                                >{`${
+                                    statusStyles[item.productStatus].text
+                                }`}</Text>
                             </View>
                         </View>
                         <View style={styles.resultLineBox}>
@@ -419,7 +366,7 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                             <Text style={styles.modalTimeTxt}>{`2134`}</Text>
                             <Text
                                 style={styles.modalTxt}
-                            >{`${item.orderOwner.clientInfo.firstName} ${item.orderOwner.clientInfo.lastName}`}</Text>
+                            >{`${item.order.orderOwner.clientInfo.firstName} ${item.order.orderOwner.clientInfo.lastName}`}</Text>
                             <View style={styles.carMod}>
                                 <Text style={styles.carModTxt}>FORD</Text>
                                 <Text style={styles.carModTxt}>01 714 PA</Text>
@@ -433,7 +380,7 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                             <Text style={styles.modalTimeTxt}>{`2134`}</Text>
                             <Text
                                 style={styles.modalTxt}
-                            >{`${item.orderOwner.clientInfo.firstName} ${item.orderOwner.clientInfo.lastName}`}</Text>
+                            >{`${item.order.orderOwner.clientInfo.firstName} ${item.order.orderOwner.clientInfo.lastName}`}</Text>
                             <View style={styles.carMod}>
                                 <Text style={styles.carModTxt}>FORD</Text>
                                 <Text style={styles.carModTxt}>01 714 PA</Text>
