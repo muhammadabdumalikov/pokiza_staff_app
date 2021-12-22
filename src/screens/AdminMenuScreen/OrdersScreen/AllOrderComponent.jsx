@@ -381,9 +381,12 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                                     style={styles.cardIcon}
                                 />
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.acceptBox} onPress={()=>{
-                                setDriverModalVisible(true)
-                            }}>
+                            <TouchableOpacity
+                                style={styles.acceptBox}
+                                onPress={() => {
+                                    setDriverModalVisible(true);
+                                }}
+                            >
                                 <Ionicons
                                     name="car-outline"
                                     size={22}
@@ -418,35 +421,40 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                                             color="#007AFF"
                                         />
                                         {`${
-                                            item.orderOwner.clientInfo.address.state
-                                                ? item.orderOwner.clientInfo.address
-                                                      .state.stateName +
+                                            item.orderOwner.clientInfo.address
+                                                .state
+                                                ? item.orderOwner.clientInfo
+                                                      .address.state.stateName +
                                                   ` viloyati,`
                                                 : ``
                                         } ${
-                                            item.orderOwner.clientInfo.address.region
-                                                ? item.orderOwner.clientInfo.address
-                                                      .region.regionName +
-                                                  ` tumani,`
+                                            item.orderOwner.clientInfo.address
+                                                .region
+                                                ? item.orderOwner.clientInfo
+                                                      .address.region
+                                                      .regionName + ` tumani,`
                                                 : ``
                                         } ${
                                             item.orderOwner.clientInfo.address
                                                 .neighborhood
-                                                ? item.orderOwner.clientInfo.address
-                                                      .neighborhood
+                                                ? item.orderOwner.clientInfo
+                                                      .address.neighborhood
                                                       .neighborhoodName +
                                                   ` M.F.Y,`
                                                 : ``
                                         } ${
-                                            item.orderOwner.clientInfo.address.street
-                                                ? item.orderOwner.clientInfo.address
-                                                      .street.streetName +
-                                                  ` ko'chasi,`
+                                            item.orderOwner.clientInfo.address
+                                                .street
+                                                ? item.orderOwner.clientInfo
+                                                      .address.street
+                                                      .streetName + ` ko'chasi,`
                                                 : ``
                                         } ${
-                                            item.orderOwner.clientInfo.address.homeNumber
-                                                ? item.orderOwner.clientInfo.address
-                                                      .homeNumber + `-uy,`
+                                            item.orderOwner.clientInfo.address
+                                                .homeNumber
+                                                ? item.orderOwner.clientInfo
+                                                      .address.homeNumber +
+                                                  `-uy,`
                                                 : ``
                                         }`}
                                     </Text>
@@ -458,9 +466,10 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                                         }
                                     >
                                         {`${
-                                            item.orderOwner.clientInfo.address.area
-                                                ? item.orderOwner.clientInfo.address.area
-                                                      .areaName
+                                            item.orderOwner.clientInfo.address
+                                                .area
+                                                ? item.orderOwner.clientInfo
+                                                      .address.area.areaName
                                                 : ``
                                         }`}
                                     </Text>
