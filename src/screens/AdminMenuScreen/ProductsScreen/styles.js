@@ -28,11 +28,11 @@ export const styles = StyleSheet.create({
     },
     filterItem1: {
         flex: 1,
-        textAlign: "center"
+        textAlign: "center",
     },
     filterItem2: {
         flex: 1,
-        textAlign: "right"
+        textAlign: "right",
     },
     headerText: {
         textAlign: "center",
@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     hiddenContent: {
-        height: height/1.9,
+        height: height / 1.9,
         backgroundColor: "#F5F5F5",
     },
     picker: {
@@ -196,7 +196,7 @@ export const styles = StyleSheet.create({
         padding: 3,
         borderColor: colors.lightGray,
         borderWidth: 1,
-        borderRadius: 3
+        borderRadius: 3,
     },
     deleteBox: {
         flex: 1,
@@ -224,11 +224,11 @@ export const styles = StyleSheet.create({
         alignSelf: "center",
         position: "absolute",
         bottom: 28,
-        backgroundColor: "#007AFF", 
+        backgroundColor: "#007AFF",
     },
     stickOrderTxt: {
         color: "white",
-        fontSize: 17
+        fontSize: 17,
     },
     centeredView: {
         flex: 1,
@@ -247,7 +247,7 @@ export const styles = StyleSheet.create({
         padding: 15,
         justifyContent: "space-around",
         borderBottomColor: colors.lightGray,
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
     },
     carMod: {
         flexDirection: "row",
@@ -256,22 +256,89 @@ export const styles = StyleSheet.create({
     carModTxt: {
         fontSize: 20,
         color: colors.blue,
-        fontWeight: "bold"
+        fontWeight: "bold",
     },
     modalTxt: {
-        fontSize: 17
+        fontSize: 17,
     },
     modalTimeTxt: {
-        color: colors.gray
+        color: colors.gray,
     },
     modalSB: {
         flex: 1,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     modalSBTxt: {
         color: colors.blue,
         fontSize: 16,
-        fontWeight: "bold"
-    }
+        fontWeight: "bold",
+    },
+    deleteModalWrapper: {
+        width: "80%",
+        height: "20%",
+        shadowColor: "#000",
+        borderRadius: 20,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        backgroundColor: "white",
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        overflow: "hidden",
+        marginBottom: 10,
+    },
+    clientAddress: {
+        width: "100%",
+        height: "75%",
+        backgroundColor: "white",
+        overflow: "hidden",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        paddingHorizontal: 15,
+        borderBottomColor: colors.lightGray,
+        borderBottomWidth: 1,
+    },
+    deleteModalText: {
+        height: "66%",
+        width: "100%",
+        textAlign: "center",
+        textAlignVertical: "center",
+        borderBottomColor: colors.gray,
+        borderBottomWidth: 1,
+        fontSize: 16,
+        fontWeight: "bold",
+    },
+    deleteModalBtns: {
+        flexDirection: "row",
+        height: "33%",
+        width: "100%",
+        justifyContent: "space-evenly",
+    },
+    okBtn: {
+        flexDirection: "row",
+        height: "25%",
+        width: "100%",
+        justifyContent: "space-evenly",
+    },
+    deleteModalBtn: {
+        flex: 1,
+        textAlign: "center",
+        textAlignVertical: "center",
+        fontSize: 14,
+        fontWeight: "bold",
+        color: colors.red,
+        borderLeftColor: colors.gray,
+        borderLeftWidth: 0.5,
+    },
+    cancelModalBtn: {
+        flex: 1,
+        textAlign: "center",
+        textAlignVertical: "center",
+        fontSize: 14,
+        fontWeight: "bold",
+        color: colors.gray,
+    },
 });

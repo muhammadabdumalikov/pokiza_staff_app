@@ -26,6 +26,8 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
     const [userToken, setUserToken] = useState();
     const [selected, setSelected] = useState(false);
     const [locationModalVsible, setLocationModalVisible] = useState(false);
+    const [driverModalVsible, setDriverModalVisible] = useState(false);
+
     const client = item;
 
     useEffect(() => {
@@ -339,7 +341,10 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                                     style={styles.cardIcon}
                                 />
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.acceptBox}>
+                            <TouchableOpacity
+                                style={styles.acceptBox}
+                                onPress={() => setDriverModalVisible(true)}
+                            >
                                 <Ionicons
                                     name="car-outline"
                                     size={22}
@@ -352,10 +357,105 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                 </TouchableOpacity>
             ) : null}
             <Modal
-                visible={locationModalVsible}
                 transparent={true}
                 animationType="slide"
-                onRequestClose={() => setLocationModalVisible(false)}
+                visible={locationModalVsible}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.deleteModalWrapper}>
+                        <View style={styles.deleteModalContent}>
+                            <View style={styles.clientAddress}>
+                                <View style={styles.resultAddress}>
+                                    <Text style={styles.resultAddressText}>
+                                        Manzil:{" "}
+                                    </Text>
+
+                                    <Text
+                                        style={styles.resultAddressDynamicText}
+                                    >
+                                        <Entypo
+                                            name="location-pin"
+                                            size={24}
+                                            color="#007AFF"
+                                        />
+                                        {`${
+                                            item.order.orderOwner.clientInfo
+                                                .address.state
+                                                ? item.order.orderOwner
+                                                      .clientInfo.address.state
+                                                      .stateName + ` viloyati,`
+                                                : ``
+                                        } ${
+                                            item.order.orderOwner.clientInfo
+                                                .address.region
+                                                ? item.order.orderOwner
+                                                      .clientInfo.address.region
+                                                      .regionName + ` tumani,`
+                                                : ``
+                                        } ${
+                                            item.order.orderOwner.clientInfo
+                                                .address.neighborhood
+                                                ? item.order.orderOwner
+                                                      .clientInfo.address
+                                                      .neighborhood
+                                                      .neighborhoodName +
+                                                  ` M.F.Y,`
+                                                : ``
+                                        } ${
+                                            item.order.orderOwner.clientInfo
+                                                .address.street
+                                                ? item.order.orderOwner
+                                                      .clientInfo.address.street
+                                                      .streetName + ` ko'chasi,`
+                                                : ``
+                                        } ${
+                                            item.order.orderOwner.clientInfo
+                                                .address.homeNumber
+                                                ? item.order.orderOwner
+                                                      .clientInfo.address
+                                                      .homeNumber + `-uy,`
+                                                : ``
+                                        }`}
+                                    </Text>
+                                </View>
+                                <View style={styles.resultAddressLocation}>
+                                    <Text
+                                        style={
+                                            styles.resultAddressLocationDynamicText
+                                        }
+                                    >
+                                        {`${
+                                            item.order.orderOwner.clientInfo
+                                                .address.area
+                                                ? item.order.orderOwner
+                                                      .clientInfo.address.area
+                                                      .areaName
+                                                : ``
+                                        }`}
+                                    </Text>
+                                </View>
+                            </View>
+                            <View style={styles.okBtn}>
+                                <TouchableOpacity
+                                    style={styles.cancelModalBtn}
+                                    onPress={() =>
+                                        setLocationModalVisible(false)
+                                    }
+                                >
+                                    <Text style={styles.cancelModalBtn}>
+                                        OK
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+            <Modal
+                visible={driverModalVsible}
+                transparent={true}
+                animationType="slide"
+                onRequestClose={() => setDriverModalVisible(false)}
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalWrapper}>
@@ -388,7 +488,7 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                         </View>
 
                         <TouchableOpacity
-                            onPress={() => setLocationModalVisible(false)}
+                            onPress={() => setDriverModalVisible(false)}
                             style={styles.modalSB}
                         >
                             <Text style={styles.modalSBTxt}>Orqaga</Text>

@@ -147,7 +147,6 @@ const OrderListScreen = ({ navigation, route }) => {
         fetchData();
     }, []);
 
-    console.log(orders)
 
     const onRefresh = React.useCallback(async () => {
         setRefreshing(true);
