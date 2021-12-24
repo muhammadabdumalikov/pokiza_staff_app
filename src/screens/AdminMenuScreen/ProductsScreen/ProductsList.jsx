@@ -953,7 +953,7 @@ const OrderListScreen = ({ navigation, route }) => {
                 </TouchableOpacity>
             ) : (
                 <TouchableOpacity
-                    style={styles.fab}
+                     style={styles.fab}
                     onPress={() => navigation.goBack()}
                 >
                     <Ionicons name="ios-arrow-back" size={28} color="white" />
