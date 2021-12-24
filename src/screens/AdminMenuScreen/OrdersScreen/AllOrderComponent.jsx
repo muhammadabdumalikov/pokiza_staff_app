@@ -344,8 +344,8 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                             </Text>
                             <View style={styles.timeText}>
                                 <Text
-                                    style={statusStyles[9].style}
-                                >{`${statusStyles[9].text}`}</Text>
+                                    style={statusStyles[item.orderStatus].style}
+                                >{`${statusStyles[item.orderStatus].text}`}</Text>
                             </View>
                         </View>
                         <View style={styles.resultLineBox}>

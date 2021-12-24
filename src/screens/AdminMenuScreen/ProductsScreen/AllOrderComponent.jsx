@@ -257,7 +257,13 @@ const AllOrderCardComponent = ({ item, elements, setElements }) => {
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     onPress={() =>
-                                        navigation.navigate("ProductInfoScreen")
+                                        navigation.navigate(
+                                            "ProductInfoScreen",
+                                            {
+                                                status: item.productStatus,
+                                                productId: item.productId,
+                                            }
+                                        )
                                     }
                                     style={{ flexDirection: "row" }}
                                 >

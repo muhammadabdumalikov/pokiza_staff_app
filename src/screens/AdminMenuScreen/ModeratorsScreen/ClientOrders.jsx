@@ -39,7 +39,6 @@ const GET_ORDERS = `query($clientId: ID){
   }`;
 
 const ClientOrders = ({ navigation, route }) => {
-    console.log(route);
     const [fetchedData, setFetchedData] = useState(null);
     const [userToken, setUserToken] = useState();
     const [isLoading, setLoading] = useState(true);

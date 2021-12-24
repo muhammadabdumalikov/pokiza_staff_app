@@ -5,6 +5,12 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 export const styles = StyleSheet.create({
+    productId: {
+        fontSize: 20,
+        textAlign: "center",
+        fontWeight: "bold",
+        paddingBottom: 5
+    },
     container: {
         flex: 1,
         backgroundColor: "white",

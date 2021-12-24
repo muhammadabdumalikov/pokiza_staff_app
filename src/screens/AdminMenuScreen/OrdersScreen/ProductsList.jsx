@@ -75,7 +75,7 @@ const ProductListScreen = ({ navigation, route }) => {
     let genderIndex = 0;
 
     const GET_ALL_ORDERS_QUERY = `{
-        orders{
+        orders(orderStatus: 9){
           orderId
              orderStatus
           orderSpecial

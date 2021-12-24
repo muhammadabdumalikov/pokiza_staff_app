@@ -20,6 +20,7 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 const CardComponentOrders = ({ item }) => {
+    console.log(item)
     const navigation = useNavigation();
     const statusStyles = {
         1: {

@@ -15,7 +15,8 @@ import { Camera } from "expo-camera";
 
 import { styles } from "./PISstyles";
 
-const ProductInfoScreen = ({ navigation }) => {
+const ProductInfoScreen = ({ navigation, route }) => {
+    const status = route.params.status;
     let [selectedStatus, setSelectedStatus] = useState();
     let [selectedTariff, setSelectedTariff] = useState();
     let [statusModalVisible, setStatusModalVisible] = useState(false);
@@ -126,6 +127,11 @@ const ProductInfoScreen = ({ navigation }) => {
 
     return (
         <>
+            <View>
+                <Text style={styles.productId}>
+                    Buyum - #{`${route.params.productId}`}
+                </Text>
+            </View>
             <ScrollView
                 style={styles.container}
                 contentContainerStyle={styles.contentStyle}
