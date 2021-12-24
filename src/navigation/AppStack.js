@@ -182,7 +182,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerLeft: () => <LogoImage />,
                 })}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="ProductsScreen"
                 component={ProductsScreen}
                 options={({ route }) => ({
@@ -222,20 +222,21 @@ const MenuStack = ({ navigation, route }) => {
                 name="TransportScreen"
                 component={TransportScreen}
                 options={({ route }) => ({
+                    headerTitle: "Transportlar",
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 18,
-                        // top: 25,
+                        top: 25,
                         textAlign: "center",
                     },
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        backgroundColor: "#F5F5F5",
+                        height: height * 0.15,
                     },
                     // title: route.params.id,
-                    headerRight: () => null,
-                    headerLeft: () => null,
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
                 })}
             />
             <Stack.Screen
@@ -427,7 +428,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerLeft: () => <LogoImage />,
                 })}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="EditClientScreen"
                 component={EditClientScreen}
                 options={({ route }) => ({

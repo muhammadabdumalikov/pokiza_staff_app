@@ -6,25 +6,138 @@ const height = Dimensions.get("window").height;
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white",
     },
-    dateWrapper: {
-        width: width,
+    filterBox: {
+        height: height / 20,
+        width: "100%",
+        paddingHorizontal: 16,
         flexDirection: "row",
-        backgroundColor: "white",
-        padding: 16,
+        justifyContent: "space-between",
+        alignItems: "center",
     },
-    dateText: {
-        fontSize: 18,
+    filterIconWrapper: {
+        flex: 1,
+        justifyContent: "flex-start",
+        flexDirection: "row",
     },
-    dateDynamicText: {
-        fontSize: 18,
+    filterItem1: {
+        flex: 1,
+        textAlign: "center",
+    },
+    filterItem2: {
+        flex: 1,
+        textAlign: "right",
+    },
+    headerText: {
+        textAlign: "center",
+        fontSize: 16,
         fontWeight: "bold",
+    },
+    hiddenContent: {
+        height: height / 4.5,
+        backgroundColor: "#F5F5F5",
+    },
+    pickerWrapper: {
+        height: height / 15,
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        backgroundColor: "#fff",
+        paddingHorizontal: 16,
+        marginBottom: 16,
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22,
+    },
+    modalWrapper: {
+        width: "70%",
+        height: "30%",
+        shadowColor: "#000",
+        borderRadius: 20,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        backgroundColor: "white",
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        overflow: "hidden",
+        marginBottom: 10,
+    },
+    contenModalView: {
+        flex: 1,
+        height: "100%",
+    },
+    modalView: {
+        padding: 16,
+        alignItems: "center",
+    },
+    buttonOpen: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+        height: 30,
+        width: "33%",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 15,
+        elevation: 2,
+    },
+    textStyle: {
+        color: "gray",
+        textAlign: "center",
+    },
+    modalText: {
+        textAlign: "center",
+    },
+    hideModalButton: {
+        color: "white",
+    },
+    resetWrapper: {
+        height: height / 15,
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#fff",
+        paddingHorizontal: 16,
+    },
+    resetText: {
+        fontSize: 16,
+        color: "#E50000",
+    },
+    hideButtonWrapper: {
+        height: height / 15,
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        paddingHorizontal: 16,
+    },
+    hideButtonText: {
+        fontSize: 16,
+        color: "#E50000",
+    },
+    preTextWrapperStyle: {
+        flex: 1,
+        height: "100%",
+        justifyContent: "center",
+        width: width * 0.3,
+    },
+    preText: {
+        fontSize: 16,
     },
     scrollBox: {
         flex: 1,
         backgroundColor: "#fff",
         paddingHorizontal: 16,
+        paddingTop: 10
     },
     loadingIndicator: {
         flex: 1,
