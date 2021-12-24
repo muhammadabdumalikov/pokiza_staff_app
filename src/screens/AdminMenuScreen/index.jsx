@@ -50,7 +50,7 @@ const AdminMenuScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.menuBox}
-                    // onPress={() => navigation.navigate("TransportScreen")}
+                    onPress={() => navigation.navigate("TransportScreen")}
                 >
                     <Text style={styles.menuText}>Transportlar</Text>
                     <Ionicons name="ios-car-outline" size={24} color="black" />
