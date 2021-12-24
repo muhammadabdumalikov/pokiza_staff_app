@@ -154,11 +154,11 @@ const TransportScreen = ({ navigation }) => {
                         ) : (
                             <></>
                         )}
-                        {/* {orders ? (
+                        {data ? (
                             <Text
                                 style={styles.filterItem2}
-                            >{`${orders.products.length}`}</Text>
-                        ) : null} */}
+                            >{`${data.transports.length}`}</Text>
+                        ) : null}
                     </TouchableOpacity>
                     <Collapsible
                         style={styles.hiddenContent}
