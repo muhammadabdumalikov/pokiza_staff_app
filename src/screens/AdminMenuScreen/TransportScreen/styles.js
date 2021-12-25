@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { colors } from "../../../constants/color";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -134,6 +135,7 @@ export const styles = StyleSheet.create({
         fontSize: 16,
     },
     scrollBox: {
+        
         flex: 1,
         backgroundColor: "#fff",
         paddingHorizontal: 16,
@@ -145,8 +147,7 @@ export const styles = StyleSheet.create({
         alignItems: "center",
     },
     resultBox: {
-        height: height / 7.18,
-        flexDirection: "row",
+        height: height/2,
         borderColor: "#EDEDED",
         borderWidth: 1,
         overflow: "hidden",
@@ -162,6 +163,16 @@ export const styles = StyleSheet.create({
         height: "100%",
         resizeMode: "contain",
     },
+    isEmpty: {
+        paddingHorizontal: 15,
+        borderBottomLeftRadius: 5,
+        paddingVertical: 5,
+        color: "white",
+        backgroundColor: colors.red,
+        position: "absolute",
+        right: 0,
+        top: 0
+    },
     resultDetailBox: {
         flex: 3,
         padding: 14,
@@ -169,8 +180,18 @@ export const styles = StyleSheet.create({
     resultDetailLine: {
         flex: 1,
         flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        paddingHorizontal: 10,
+    },
+    resultDriverInfo: {
+        flex: 2,
         justifyContent: "space-around",
-        fontSize: 14,
+        alignItems: "flex-start",
+        paddingHorizontal: 10,
+    },
+    transportDateInfo:{ 
+        color: colors.gray
     },
     carModelText: {
         fontSize: 18,
@@ -178,13 +199,18 @@ export const styles = StyleSheet.create({
     },
     carNumberText: {
         fontSize: 14,
-        color: "#E50000",
+        color: colors.blue,
+    },
+    textStyle: {
+        fontSize: 16
     },
     waitingText: {
         color: "#007AFF",
+        fontSize: 16
     },
     readyText: {
         color: "#4BCE00",
+        fontSize: 16
     },
     fab: {
         width: 64,

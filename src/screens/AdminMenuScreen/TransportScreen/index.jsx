@@ -7,7 +7,7 @@ import {
     Image,
     ActivityIndicator,
     FlatList,
-    Pressable
+    Pressable,
 } from "react-native";
 import { Ionicons, AntDesign, Feather } from "@expo/vector-icons";
 import Collapsible from "react-native-collapsible";
@@ -36,6 +36,12 @@ const TransportScreen = ({ navigation }) => {
                 transportId
                 transportModel
                 transportNumber
+                transportDriver{
+                    staffInfo{
+                      firstName
+                      lastName
+                    }
+                }
             }
         }
     `;
@@ -80,6 +86,7 @@ const TransportScreen = ({ navigation }) => {
     };
 
     const renderItem = ({ item }) => {
+        console.log(item);
         return (
             <TouchableOpacity
                 style={styles.resultBox}
@@ -89,6 +96,7 @@ const TransportScreen = ({ navigation }) => {
                 }}
             >
                 <View style={styles.resultImageBox}>
+                    <Text style={styles.isEmpty}>Band</Text>
                     <Image
                         style={styles.image}
                         source={require("../../../../assets/damas.png")}
@@ -96,7 +104,7 @@ const TransportScreen = ({ navigation }) => {
                     {/* <DamasSvg/> */}
                 </View>
                 <View style={styles.resultDetailBox}>
-                    <View style={styles.resultDetailLine}>
+                    <View style={{...styles.resultDetailLine, justifyContent: "space-between"}}>
                         <Text style={styles.carModelText}>
                             {item.transportModel}
                         </Text>
@@ -104,13 +112,21 @@ const TransportScreen = ({ navigation }) => {
                             {item.transportNumber}
                         </Text>
                     </View>
-                    <View style={styles.resultDetailLine}>
-                        <Text style={styles.waitingText}>Waiting: </Text>
-                        <Text>{"10"} orders</Text>
+                    <View style={styles.resultDriverInfo}>
+                        <Text>
+                            {item.transportDriver
+                                ? `${item.transportDriver.firstName} ${item.transportDriver.lastName}`
+                                : "----------------------"}
+                        </Text>
+                        <Text style={styles.transportDateInfo}>Sana: {item.transportDriver ? `${1234567}` : `--.--.----`}</Text>
                     </View>
                     <View style={styles.resultDetailLine}>
-                        <Text style={styles.readyText}>Ready: </Text>
-                        <Text>{"5"} orders</Text>
+                        <Text style={styles.waitingText}>Kutilayotgan: </Text>
+                        <Text style={styles.textStyle}>{"10"} ta buyurtma / buyum</Text>
+                    </View>
+                    <View style={styles.resultDetailLine}>
+                        <Text style={styles.readyText}>Tayyor: </Text>
+                        <Text style={styles.textStyle}>{"10"} ta buyurtma / buyum</Text>
                     </View>
                 </View>
             </TouchableOpacity>
