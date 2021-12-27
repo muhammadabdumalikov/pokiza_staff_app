@@ -47,8 +47,8 @@ const TransportDetailScreen = ({navigation, route}) => {
                 },
             }}
         >
-            <Tab.Screen name="Waiting" component={WaitingScreen} />
-            <Tab.Screen name="Ready" component={ReadyScreen} />
+            <Tab.Screen name="Kutilayotgan" component={WaitingScreen} />
+            <Tab.Screen name="Tayyor" component={ReadyScreen} />
         </Tab.Navigator>
     );
 };
