@@ -134,8 +134,7 @@ export const styles = StyleSheet.create({
     preText: {
         fontSize: 16,
     },
-    scrollBox: {
-        
+    scrollBox: {  
         flex: 1,
         backgroundColor: "#fff",
         paddingHorizontal: 16,
