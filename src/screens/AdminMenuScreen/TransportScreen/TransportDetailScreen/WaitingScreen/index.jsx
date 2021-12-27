@@ -12,6 +12,7 @@ import {
 import { Entypo, Ionicons, Feather, AntDesign } from "@expo/vector-icons";
 import Collapsible from "react-native-collapsible";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { request } from "../../../../../helpers/request";
 
 
 import { styles } from "./styles";
@@ -24,10 +25,12 @@ const data = [];
 const WaitingScreen = ({ navigation, route }) => {
     const { transportId } = useContext(AuthContext);
     const [userToken, setUserToken] = useState()
-    const [branchModalVisible, setBranchModalVisible] = useState(false);
-    const [branches, setBranches] = useState();
+    const [addressModalVisible, setAddressModalVisible] = useState(false);
+    const [tariffModalVisible, setTariffModalVisible] = useState(false);
+    const [address, setAddress] = useState();
     const [mainCollapsed, setMainCollapsed] = useState(true);
-    const [selectedBranch, setSelectedBranch] = useState();
+    const [selectedAddress, setSelectedAddress] = useState();
+    const [selectedTariff, setSelectedTariff] = useState();
 
     const [isLoading, setLoading] = useState(true);
 
@@ -39,13 +42,17 @@ const WaitingScreen = ({ navigation, route }) => {
       }
     `;
 
+    const tariffs = [
+        { id: "1", tariffName: "Tezkor", value: true },
+        { id: "2", tariffName: "Oddiy", value: false },
+    ];
+
     useEffect(() => {
         async function fetchData() {
             try {
                 const value = await AsyncStorage.getItem("staff_token");
                 setUserToken(value);
-                setData(await request(QUERY, null, value));
-                setBranches(await request(GET_BRANCHES_QUERY, null, value));
+                setAddress(await request(GET_BRANCHES_QUERY, null, value));
                 setLoading(false);
             } catch (error) {
                 console.log(error);
@@ -58,18 +65,33 @@ const WaitingScreen = ({ navigation, route }) => {
         setMainCollapsed(!mainCollapsed);
     };
 
-    console.log(branches)
-    const modalBranch = ({ item }) => {
+    const modalAddress = ({ item }) => {
         return (
             <TouchableOpacity
                 style={{ width: "80%", paddingVertical: 15 }}
                 onPress={() => {
-                    setSelectedBranch(item);
-                    setBranchModalVisible(!branchModalVisible);
+                    setSelectedAddress(item);
+                    setAddressModalVisible(!addressModalVisible);
                 }}
             >
                 <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
                     {item.branchName}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+
+    const modalTariff = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedTariff(item);
+                    setTariffModalVisible(!tariffModalVisible);
+                }}
+            >
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.tariffName}
                 </Text>
             </TouchableOpacity>
         );
@@ -104,25 +126,25 @@ const WaitingScreen = ({ navigation, route }) => {
                 align="center"
             >
                 <View style={styles.content}>
-                    {/* Branch input ----------------------------------------------------------- */}
+                    {/* Tariff input ----------------------------------------------------------- */}
                     <View style={styles.pickerWrapper}>
                         <View style={styles.preTextWrapperStyle}>
-                            <Text style={styles.preText}>Filial bo'yicha</Text>
+                            <Text style={styles.preText}>Tarif bo'yicha</Text>
                         </View>
                         <Modal
                             animationType="slide"
                             transparent={true}
-                            visible={branchModalVisible}
+                            visible={tariffModalVisible}
                             onRequestClose={() => {
-                                setBranchModalVisible(!branchModalVisible);
+                                setTariffModalVisible(!tariffModalVisible);
                             }}
                         >
                             <View style={styles.centeredView}>
                                 <View style={styles.modalWrapper}>
                                     <FlatList
-                                        data={branches ? branches.branches : []}
-                                        renderItem={modalBranch}
-                                        keyExtractor={(item) => item.branchId}
+                                        data={tariffs}
+                                        renderItem={modalTariff}
+                                        keyExtractor={(item) => item.id}
                                         contentContainerStyle={styles.modalView}
                                         style={styles.contenModalView}
                                         showsVerticalScrollIndicator={false}
@@ -131,8 +153,8 @@ const WaitingScreen = ({ navigation, route }) => {
                                 <Pressable
                                     style={[styles.button, styles.buttonClose]}
                                     onPress={() =>
-                                        setBranchModalVisible(
-                                            !branchModalVisible
+                                        setTariffModalVisible(
+                                            !tariffModalVisible
                                         )
                                     }
                                 >
@@ -144,12 +166,62 @@ const WaitingScreen = ({ navigation, route }) => {
                         </Modal>
                         <Pressable
                             style={styles.buttonOpen}
-                            onPress={() => setBranchModalVisible(true)}
+                            onPress={() => setTariffModalVisible(true)}
                         >
                             <Text style={styles.textStyle}>
-                                {selectedBranch != undefined
-                                    ? selectedBranch.branchName
-                                    : "Filialni tanlash"}
+                                {selectedTariff != undefined
+                                    ? selectedTariff.tariffName
+                                    : "Barcha tariflar"}
+                            </Text>
+                        </Pressable>
+                    </View>
+
+                    {/* Address input ----------------------------------------------------------- */}
+                    <View style={styles.pickerWrapper}>
+                        <View style={styles.preTextWrapperStyle}>
+                            <Text style={styles.preText}>Manzil bo'yicha</Text>
+                        </View>
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={addressModalVisible}
+                            onRequestClose={() => {
+                                setAddressModalVisible(!addressModalVisible);
+                            }}
+                        >
+                            <View style={styles.centeredView}>
+                                <View style={styles.modalWrapper}>
+                                    <FlatList
+                                        data={address ? address.branches : []}
+                                        renderItem={modalAddress}
+                                        keyExtractor={(item) => item.branchId}
+                                        contentContainerStyle={styles.modalView}
+                                        style={styles.contenModalView}
+                                        showsVerticalScrollIndicator={false}
+                                    />
+                                </View>
+                                <Pressable
+                                    style={[styles.button, styles.buttonClose]}
+                                    onPress={() =>
+                                        setAddressModalVisible(
+                                            !addressModalVisible
+                                        )
+                                    }
+                                >
+                                    <Text style={styles.hideModalButton}>
+                                        Yopish
+                                    </Text>
+                                </Pressable>
+                            </View>
+                        </Modal>
+                        <Pressable
+                            style={styles.buttonOpen}
+                            onPress={() => setAddressModalVisible(true)}
+                        >
+                            <Text style={styles.textStyle}>
+                                {selectedAddress != undefined
+                                    ? selectedAddress.branchName
+                                    : "Hudud"}
                             </Text>
                         </Pressable>
                     </View>

@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     hiddenContent: {
-        height: height / 4.5,
+        height: height / 3.5,
         backgroundColor: "#F5F5F5",
     },
     pickerWrapper: {
