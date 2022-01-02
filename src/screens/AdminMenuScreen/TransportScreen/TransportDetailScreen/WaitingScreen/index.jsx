@@ -154,6 +154,11 @@ const WaitingScreen = ({ navigation, route }) => {
                 ) : (
                     <></>
                 )}
+                {orders ? (
+                    <Text
+                        style={styles.filterItem2}
+                    >{`${orders.orders.length}`}</Text>
+                ) : null}
                 {/* {data ? (
                     <Text
                         style={styles.filterItem2}
@@ -307,12 +312,13 @@ const WaitingScreen = ({ navigation, route }) => {
                     contentContainerStyle={styles.contentStyle}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => {
-                        console.log(item)
-                        return <AllOrderCardComponent
-                            item={item}
-                            elements={elements}
-                            setElements={setElements}
-                        />;
+                        return (
+                            <AllOrderCardComponent
+                                item={item}
+                                elements={elements}
+                                setElements={setElements}
+                            />
+                        );
                     }}
                     keyExtractor={(item) => item.orderId}
                 />
