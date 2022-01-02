@@ -7,8 +7,6 @@ import OrderListScreen from "./OrdersList";
 
 const Tab = createMaterialTopTabNavigator();
 
-const height = Dimensions.get("window").height;
-
 const OrdersScreen = () => {
     return (
         <Tab.Navigator

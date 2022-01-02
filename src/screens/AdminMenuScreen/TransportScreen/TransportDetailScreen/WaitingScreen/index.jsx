@@ -42,6 +42,47 @@ const WaitingScreen = ({ navigation, route }) => {
       }
     `;
 
+    const GET_ALL_ORDERS_QUERY = `{
+        orders{
+          orderId
+             orderStatus
+          orderSpecial
+          orderOwner{
+            clientId
+            clientInfo{
+              address{
+                 state{
+                  stateName
+                }
+                region{
+                  regionName
+                }
+                neighborhood{
+                  neighborhoodName
+                }
+                street{
+                  streetName
+                }
+                area{
+                  areaName
+                }
+                homeNumber
+                target
+              }
+              userId
+              firstName
+              lastName
+              mainContact
+              secondContact 
+            }
+          },
+          orderAddress{
+            addressId
+          }
+        }
+      }
+    `;
+
     const tariffs = [
         { id: "1", tariffName: "Tezkor", value: true },
         { id: "2", tariffName: "Oddiy", value: false },
