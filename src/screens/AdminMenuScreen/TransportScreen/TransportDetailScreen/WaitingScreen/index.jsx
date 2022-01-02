@@ -86,8 +86,6 @@ const WaitingScreen = ({ navigation, route }) => {
         { id: "2", tariffName: "Oddiy", value: false },
     ];
 
-    console.log(orders)
-
     useEffect(() => {
         async function fetchData() {
             try {
@@ -309,7 +307,8 @@ const WaitingScreen = ({ navigation, route }) => {
                     contentContainerStyle={styles.contentStyle}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => {
-                        <AllOrderCardComponent
+                        console.log(item)
+                        return <AllOrderCardComponent
                             item={item}
                             elements={elements}
                             setElements={setElements}
