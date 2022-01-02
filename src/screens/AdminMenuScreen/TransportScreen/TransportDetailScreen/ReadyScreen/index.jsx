@@ -1,68 +1,412 @@
-import React from "react";
-import { View, ScrollView, Text, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import React, { useContext, useState, useEffect } from "react";
+import {
+    ScrollView,
+    Text,
+    View,
+    TouchableOpacity,
+    FlatList,
+    Pressable,
+    Dimensions,
+    Modal,
+} from "react-native";
+import { Entypo, Ionicons, Feather, AntDesign } from "@expo/vector-icons";
+import Collapsible from "react-native-collapsible";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { request } from "../../../../../helpers/request";
+
 
 import { styles } from "./styles";
+import { AuthContext } from "../../../../../navigation/AuthProvider";
 
-const ReadyScreen = ({navigation}) => {
+const height = Dimensions.get("window").height;
+const elements = [];
+const data = [];
+
+const ReadyScreen = ({ navigation, route }) => {
+    const { transportId } = useContext(AuthContext);
+    const [userToken, setUserToken] = useState()
+    const [addressModalVisible, setAddressModalVisible] = useState(false);
+    const [tariffModalVisible, setTariffModalVisible] = useState(false);
+    const [address, setAddress] = useState();
+    const [mainCollapsed, setMainCollapsed] = useState(true);
+    const [selectedAddress, setSelectedAddress] = useState();
+    const [selectedTariff, setSelectedTariff] = useState();
+
+    const [isLoading, setLoading] = useState(true);
+
+    const GET_BRANCHES_QUERY = `query{
+        branches{
+          branchId
+          branchName
+        }
+      }
+    `;
+
+    const tariffs = [
+        { id: "1", tariffName: "Tezkor", value: true },
+        { id: "2", tariffName: "Oddiy", value: false },
+    ];
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const value = await AsyncStorage.getItem("staff_token");
+                setUserToken(value);
+                setAddress(await request(GET_BRANCHES_QUERY, null, value));
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
+    }, []);
+
+    const toggleMainExpanded = () => {
+        setMainCollapsed(!mainCollapsed);
+    };
+
+    const modalAddress = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedAddress(item);
+                    setAddressModalVisible(!addressModalVisible);
+                }}
+            >
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.branchName}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+
+    const modalTariff = ({ item }) => {
+        return (
+            <TouchableOpacity
+                style={{ width: "80%", paddingVertical: 15 }}
+                onPress={() => {
+                    setSelectedTariff(item);
+                    setTariffModalVisible(!tariffModalVisible);
+                }}
+            >
+                <Text style={{ flex: 1, fontSize: 15, color: "#2196F3" }}>
+                    {item.tariffName}
+                </Text>
+            </TouchableOpacity>
+        );
+    };
+
     return (
         <View style={{ height: "100%" }}>
-            <View style={styles.dateAndTransport}>
-                <Text>Date: {"10.08.2021"}</Text>
-                <Text style={styles.transportName}>{"Damas"}</Text>
-            </View>
+            <TouchableOpacity
+                onPress={toggleMainExpanded}
+                style={styles.filterBox}
+            >
+                <View style={styles.filterIconWrapper}>
+                    <AntDesign name="filter" size={22} color="black" />
+                    <Text style={styles.headerText}>Filter</Text>
+                </View>
+                {elements.length > 0 ? (
+                    <Text style={styles.filterItem1}>
+                        Tanlandi: {`${elements.length}`}
+                    </Text>
+                ) : (
+                    <></>
+                )}
+                {/* {data ? (
+                    <Text
+                        style={styles.filterItem2}
+                    >{`${data.transports.length}`}</Text>
+                ) : null} */}
+            </TouchableOpacity>
+            <Collapsible
+                style={styles.hiddenContent}
+                collapsed={mainCollapsed}
+                align="center"
+            >
+                <View style={styles.content}>
+                    {/* Tariff input ----------------------------------------------------------- */}
+                    <View style={styles.pickerWrapper}>
+                        <View style={styles.preTextWrapperStyle}>
+                            <Text style={styles.preText}>Tarif bo'yicha</Text>
+                        </View>
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={tariffModalVisible}
+                            onRequestClose={() => {
+                                setTariffModalVisible(!tariffModalVisible);
+                            }}
+                        >
+                            <View style={styles.centeredView}>
+                                <View style={styles.modalWrapper}>
+                                    <FlatList
+                                        data={tariffs}
+                                        renderItem={modalTariff}
+                                        keyExtractor={(item) => item.id}
+                                        contentContainerStyle={styles.modalView}
+                                        style={styles.contenModalView}
+                                        showsVerticalScrollIndicator={false}
+                                    />
+                                </View>
+                                <Pressable
+                                    style={[styles.button, styles.buttonClose]}
+                                    onPress={() =>
+                                        setTariffModalVisible(
+                                            !tariffModalVisible
+                                        )
+                                    }
+                                >
+                                    <Text style={styles.hideModalButton}>
+                                        Yopish
+                                    </Text>
+                                </Pressable>
+                            </View>
+                        </Modal>
+                        <Pressable
+                            style={styles.buttonOpen}
+                            onPress={() => setTariffModalVisible(true)}
+                        >
+                            <Text style={styles.textStyle}>
+                                {selectedTariff != undefined
+                                    ? selectedTariff.tariffName
+                                    : "Barcha tariflar"}
+                            </Text>
+                        </Pressable>
+                    </View>
+
+                    {/* Address input ----------------------------------------------------------- */}
+                    <View style={styles.pickerWrapper}>
+                        <View style={styles.preTextWrapperStyle}>
+                            <Text style={styles.preText}>Manzil bo'yicha</Text>
+                        </View>
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={addressModalVisible}
+                            onRequestClose={() => {
+                                setAddressModalVisible(!addressModalVisible);
+                            }}
+                        >
+                            <View style={styles.centeredView}>
+                                <View style={styles.modalWrapper}>
+                                    <FlatList
+                                        data={address ? address.branches : []}
+                                        renderItem={modalAddress}
+                                        keyExtractor={(item) => item.branchId}
+                                        contentContainerStyle={styles.modalView}
+                                        style={styles.contenModalView}
+                                        showsVerticalScrollIndicator={false}
+                                    />
+                                </View>
+                                <Pressable
+                                    style={[styles.button, styles.buttonClose]}
+                                    onPress={() =>
+                                        setAddressModalVisible(
+                                            !addressModalVisible
+                                        )
+                                    }
+                                >
+                                    <Text style={styles.hideModalButton}>
+                                        Yopish
+                                    </Text>
+                                </Pressable>
+                            </View>
+                        </Modal>
+                        <Pressable
+                            style={styles.buttonOpen}
+                            onPress={() => setAddressModalVisible(true)}
+                        >
+                            <Text style={styles.textStyle}>
+                                {selectedAddress != undefined
+                                    ? selectedAddress.branchName
+                                    : "Hudud"}
+                            </Text>
+                        </Pressable>
+                    </View>
+
+                    {/* Reset Filter Button ------------------------------------------------ */}
+                    <View style={styles.resetWrapper}>
+                        <TouchableOpacity onPress={() => {}}>
+                            <Text style={styles.resetText}>
+                                Filterni tozalash
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    {/* Hide Filter Button ------------------------------------------------------ */}
+                    <View style={styles.hideButtonWrapper}>
+                        <TouchableOpacity onPress={toggleMainExpanded}>
+                            <Feather
+                                name="chevron-up"
+                                size={28}
+                                color="black"
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Collapsible>
             <ScrollView
                 style={styles.container}
                 contentContainerStyle={styles.contentStyle}
+                showsVerticalScrollIndicator={false}
             >
-                <TouchableOpacity style={styles.orderBox} onPress={()=> navigation.navigate("ReadyProductDetailScreen")}>
-                    <View style={styles.orderBoxContent}>
-                        <View style={styles.orderNumber}>
-                            <Text style={styles.orderNumberStyle}>
-                                3 pcs.
-                                <Text style={styles.productNameStyle}>
-                                    {" "}
-                                    carpet
-                                </Text>
+                <View style={styles.resultBox}>
+                    <View style={styles.resultName}>
+                        <Text style={styles.resultNameText}>
+                            {"Abdujalilov Abdulaziz"}
+                        </Text>
+                    </View>
+                    <View style={styles.resultOrderId}>
+                        <Text style={styles.resultOrderIdText}>
+                            Order ID:{" "}
+                            <Text style={styles.resultOrderIdDynamicText}>
+                                #{"100174"}
                             </Text>
-                            <Text>
-                                Size:
-                                <Text style={styles.orderNumberStyle}>
-                                    {" "}
-                                    37 m.kv
-                                </Text>
-                            </Text>
-                        </View>
-                        <View style={styles.orderNumber}>
-                            <Text style={styles.orderNumberStyle}>
-                                Price: 185.000{" "}
-                                <Text style={{ fontSize: 12 }}>sum</Text>
-                            </Text>
-                            <Text style={styles.finishedProduct}>
-                                1<Text style={{ color: "black" }}>/3</Text>
-                            </Text>
+                        </Text>
+                    </View>
+                    <View style={styles.resultAddress}>
+                        <Text style={styles.resultAddressText}>Address: </Text>
+                        <Text style={styles.resultAddressDynamicText}>
+                            {
+                                "Mirobod tumani, Rakat mahalla, Xosilot ko'chasi, 76-uy, 42-xonadon"
+                            }
+                        </Text>
+                    </View>
+                    <View style={styles.resultAddressLocation}>
+                        <Entypo name="location-pin" size={24} color="#007AFF" />
+                        <Text style={styles.resultAddressLocationDynamicText}>
+                            {"Mirobod masjidi"}
+                        </Text>
+                    </View>
+                    <View style={styles.resultPhoneNumbers}>
+                        <Text style={styles.resultAddressText}>
+                            Phone Numbers:
+                        </Text>
+                        <View>
+                            <Text>{"+998911234567"}</Text>
+                            <Text>{"+998911234567"}</Text>
                         </View>
                     </View>
-                    <View
-                        style={{
-                            width: "100%",
-                            height: 4,
-                            backgroundColor: "#F8F8F8",
-                        }}
-                    >
-                        <View
-                            style={{
-                                height: "100%",
-                                width: "100%",
-                                backgroundColor: "#3DA700",
-                            }}
-                        ></View>
+                </View>
+                <View style={styles.resultBox}>
+                    <View style={styles.resultName}>
+                        <Text style={styles.resultNameText}>
+                            {"Abdujalilov Abdulaziz"}
+                        </Text>
                     </View>
-                </TouchableOpacity>
+                    <View style={styles.resultOrderId}>
+                        <Text style={styles.resultOrderIdText}>
+                            Order ID:{" "}
+                            <Text style={styles.resultOrderIdDynamicText}>
+                                #{"100174"}
+                            </Text>
+                        </Text>
+                    </View>
+                    <View style={styles.resultAddress}>
+                        <Text style={styles.resultAddressText}>Address: </Text>
+                        <Text style={styles.resultAddressDynamicText}>
+                            {
+                                "Mirobod tumani, Rakat mahalla, Xosilot ko'chasi, 76-uy, 42-xonadon"
+                            }
+                        </Text>
+                    </View>
+                    <View style={styles.resultAddressLocation}>
+                        <Entypo name="location-pin" size={24} color="#007AFF" />
+                        <Text style={styles.resultAddressLocationDynamicText}>
+                            {"Mirobod masjidi"}
+                        </Text>
+                    </View>
+                    <View style={styles.resultPhoneNumbers}>
+                        <Text style={styles.resultAddressText}>
+                            Phone Numbers:
+                        </Text>
+                        <View>
+                            <Text>{"+998911234567"}</Text>
+                            <Text>{"+998911234567"}</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.resultBox}>
+                    <View style={styles.resultName}>
+                        <Text style={styles.resultNameText}>
+                            {"Abdujalilov Abdulaziz"}
+                        </Text>
+                    </View>
+                    <View style={styles.resultOrderId}>
+                        <Text style={styles.resultOrderIdText}>
+                            Order ID:{" "}
+                            <Text style={styles.resultOrderIdDynamicText}>
+                                #{"100174"}
+                            </Text>
+                        </Text>
+                    </View>
+                    <View style={styles.resultAddress}>
+                        <Text style={styles.resultAddressText}>Address: </Text>
+                        <Text style={styles.resultAddressDynamicText}>
+                            {
+                                "Mirobod tumani, Rakat mahalla, Xosilot ko'chasi, 76-uy, 42-xonadon"
+                            }
+                        </Text>
+                    </View>
+                    <View style={styles.resultAddressLocation}>
+                        <Entypo name="location-pin" size={24} color="#007AFF" />
+                        <Text style={styles.resultAddressLocationDynamicText}>
+                            {"Mirobod masjidi"}
+                        </Text>
+                    </View>
+                    <View style={styles.resultPhoneNumbers}>
+                        <Text style={styles.resultAddressText}>
+                            Phone Numbers:
+                        </Text>
+                        <View>
+                            <Text>{"+998911234567"}</Text>
+                            <Text>{"+998911234567"}</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.resultBox}>
+                    <View style={styles.resultName}>
+                        <Text style={styles.resultNameText}>
+                            {"Abdujalilov Abdulaziz"}
+                        </Text>
+                    </View>
+                    <View style={styles.resultOrderId}>
+                        <Text style={styles.resultOrderIdText}>
+                            Order ID:{" "}
+                            <Text style={styles.resultOrderIdDynamicText}>
+                                #{"100174"}
+                            </Text>
+                        </Text>
+                    </View>
+                    <View style={styles.resultAddress}>
+                        <Text style={styles.resultAddressText}>Address: </Text>
+                        <Text style={styles.resultAddressDynamicText}>
+                            {
+                                "Mirobod tumani, Rakat mahalla, Xosilot ko'chasi, 76-uy, 42-xonadon"
+                            }
+                        </Text>
+                    </View>
+                    <View style={styles.resultAddressLocation}>
+                        <Entypo name="location-pin" size={24} color="#007AFF" />
+                        <Text style={styles.resultAddressLocationDynamicText}>
+                            {"Mirobod masjidi"}
+                        </Text>
+                    </View>
+                    <View style={styles.resultPhoneNumbers}>
+                        <Text style={styles.resultAddressText}>
+                            Phone Numbers:
+                        </Text>
+                        <View>
+                            <Text>{"+998911234567"}</Text>
+                            <Text>{"+998911234567"}</Text>
+                        </View>
+                    </View>
+                </View>
             </ScrollView>
             <TouchableOpacity
                 style={styles.fab}
-                onPress={() => navigation.navigate("TransportScreen")}
+                onPress={() => navigation.goBack()}
             >
                 <Ionicons name="ios-arrow-back" size={28} color="white" />
             </TouchableOpacity>

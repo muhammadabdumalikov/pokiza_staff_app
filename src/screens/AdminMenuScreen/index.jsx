@@ -43,14 +43,19 @@ const AdminMenuScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.menuBox}
-                    onPress={() => navigation.navigate("ProductsScreen")}
+                    onPress={() => {
+                        navigation.navigate("ProductsScreen");
+                        console.log("1111");
+                    }}
                 >
                     <Text style={styles.menuText}>Buyumlar</Text>
                     <Entypo name="documents" size={24} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.menuBox}
-                    onPress={() => navigation.navigate("TransportScreen")}
+                    onPress={() => {
+                        navigation.navigate("TransportScreen");
+                    }}
                 >
                     <Text style={styles.menuText}>Transportlar</Text>
                     <Ionicons name="ios-car-outline" size={24} color="black" />
@@ -84,9 +89,9 @@ const AdminMenuScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.menuBox}
-                    onPress={async() => {
+                    onPress={async () => {
                         // navigation.navigate("HistoryScreen");
-                        await AsyncStorage.removeItem("staff_token")
+                        await AsyncStorage.removeItem("staff_token");
                     }}
                 >
                     <Text style={styles.menuText}>Monitoring</Text>
