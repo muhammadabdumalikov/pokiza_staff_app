@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     FlatList,
     Pressable,
-    Dimensions,
+    ActivityIndicator,
     Modal,
 } from "react-native";
 import { Entypo, Ionicons, Feather, AntDesign } from "@expo/vector-icons";
@@ -14,30 +14,69 @@ import Collapsible from "react-native-collapsible";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { request } from "../../../../../helpers/request";
 
-
 import { styles } from "./styles";
 import { AuthContext } from "../../../../../navigation/AuthProvider";
+import AllOrderCardComponent from "../../../OrdersScreen/AllOrderComponent";
 
-const height = Dimensions.get("window").height;
-const elements = [];
-const data = [];
-
-const ReadyScreen = ({ navigation, route }) => {
+const WaitingScreen = ({ navigation, route }) => {
     const { transportId } = useContext(AuthContext);
-    const [userToken, setUserToken] = useState()
+    const [userToken, setUserToken] = useState();
     const [addressModalVisible, setAddressModalVisible] = useState(false);
     const [tariffModalVisible, setTariffModalVisible] = useState(false);
     const [address, setAddress] = useState();
+    const [orders, setOrders] = useState();
     const [mainCollapsed, setMainCollapsed] = useState(true);
     const [selectedAddress, setSelectedAddress] = useState();
     const [selectedTariff, setSelectedTariff] = useState();
 
+    const [elements, setElements] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
     const GET_BRANCHES_QUERY = `query{
         branches{
           branchId
           branchName
+        }
+      }
+    `;
+
+    const GET_ALL_ORDERS_QUERY = `{
+        orders(orderStatus: 7){
+          orderId
+             orderStatus
+          orderSpecial
+          orderOwner{
+            clientId
+            clientInfo{
+              address{
+                 state{
+                  stateName
+                }
+                region{
+                  regionName
+                }
+                neighborhood{
+                  neighborhoodName
+                }
+                street{
+                  streetName
+                }
+                area{
+                  areaName
+                }
+                homeNumber
+                target
+              }
+              userId
+              firstName
+              lastName
+              mainContact
+              secondContact 
+            }
+          },
+          orderAddress{
+            addressId
+          }
         }
       }
     `;
@@ -53,6 +92,7 @@ const ReadyScreen = ({ navigation, route }) => {
                 const value = await AsyncStorage.getItem("staff_token");
                 setUserToken(value);
                 setAddress(await request(GET_BRANCHES_QUERY, null, value));
+                setOrders(await request(GET_ALL_ORDERS_QUERY, null, value));
                 setLoading(false);
             } catch (error) {
                 console.log(error);
@@ -114,6 +154,11 @@ const ReadyScreen = ({ navigation, route }) => {
                 ) : (
                     <></>
                 )}
+                {orders ? (
+                    <Text
+                        style={styles.filterItem2}
+                    >{`${orders.orders.length}`}</Text>
+                ) : null}
                 {/* {data ? (
                     <Text
                         style={styles.filterItem2}
@@ -246,164 +291,39 @@ const ReadyScreen = ({ navigation, route }) => {
                     </View>
                 </View>
             </Collapsible>
-            <ScrollView
-                style={styles.container}
-                contentContainerStyle={styles.contentStyle}
-                showsVerticalScrollIndicator={false}
-            >
-                <View style={styles.resultBox}>
-                    <View style={styles.resultName}>
-                        <Text style={styles.resultNameText}>
-                            {"Abdujalilov Abdulaziz"}
-                        </Text>
-                    </View>
-                    <View style={styles.resultOrderId}>
-                        <Text style={styles.resultOrderIdText}>
-                            Order ID:{" "}
-                            <Text style={styles.resultOrderIdDynamicText}>
-                                #{"100174"}
-                            </Text>
-                        </Text>
-                    </View>
-                    <View style={styles.resultAddress}>
-                        <Text style={styles.resultAddressText}>Address: </Text>
-                        <Text style={styles.resultAddressDynamicText}>
-                            {
-                                "Mirobod tumani, Rakat mahalla, Xosilot ko'chasi, 76-uy, 42-xonadon"
-                            }
-                        </Text>
-                    </View>
-                    <View style={styles.resultAddressLocation}>
-                        <Entypo name="location-pin" size={24} color="#007AFF" />
-                        <Text style={styles.resultAddressLocationDynamicText}>
-                            {"Mirobod masjidi"}
-                        </Text>
-                    </View>
-                    <View style={styles.resultPhoneNumbers}>
-                        <Text style={styles.resultAddressText}>
-                            Phone Numbers:
-                        </Text>
-                        <View>
-                            <Text>{"+998911234567"}</Text>
-                            <Text>{"+998911234567"}</Text>
-                        </View>
-                    </View>
+            {isLoading ? (
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <ActivityIndicator
+                        size="large"
+                        color="#2196F3"
+                        style={{ alignSelf: "center" }}
+                    />
                 </View>
-                <View style={styles.resultBox}>
-                    <View style={styles.resultName}>
-                        <Text style={styles.resultNameText}>
-                            {"Abdujalilov Abdulaziz"}
-                        </Text>
-                    </View>
-                    <View style={styles.resultOrderId}>
-                        <Text style={styles.resultOrderIdText}>
-                            Order ID:{" "}
-                            <Text style={styles.resultOrderIdDynamicText}>
-                                #{"100174"}
-                            </Text>
-                        </Text>
-                    </View>
-                    <View style={styles.resultAddress}>
-                        <Text style={styles.resultAddressText}>Address: </Text>
-                        <Text style={styles.resultAddressDynamicText}>
-                            {
-                                "Mirobod tumani, Rakat mahalla, Xosilot ko'chasi, 76-uy, 42-xonadon"
-                            }
-                        </Text>
-                    </View>
-                    <View style={styles.resultAddressLocation}>
-                        <Entypo name="location-pin" size={24} color="#007AFF" />
-                        <Text style={styles.resultAddressLocationDynamicText}>
-                            {"Mirobod masjidi"}
-                        </Text>
-                    </View>
-                    <View style={styles.resultPhoneNumbers}>
-                        <Text style={styles.resultAddressText}>
-                            Phone Numbers:
-                        </Text>
-                        <View>
-                            <Text>{"+998911234567"}</Text>
-                            <Text>{"+998911234567"}</Text>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.resultBox}>
-                    <View style={styles.resultName}>
-                        <Text style={styles.resultNameText}>
-                            {"Abdujalilov Abdulaziz"}
-                        </Text>
-                    </View>
-                    <View style={styles.resultOrderId}>
-                        <Text style={styles.resultOrderIdText}>
-                            Order ID:{" "}
-                            <Text style={styles.resultOrderIdDynamicText}>
-                                #{"100174"}
-                            </Text>
-                        </Text>
-                    </View>
-                    <View style={styles.resultAddress}>
-                        <Text style={styles.resultAddressText}>Address: </Text>
-                        <Text style={styles.resultAddressDynamicText}>
-                            {
-                                "Mirobod tumani, Rakat mahalla, Xosilot ko'chasi, 76-uy, 42-xonadon"
-                            }
-                        </Text>
-                    </View>
-                    <View style={styles.resultAddressLocation}>
-                        <Entypo name="location-pin" size={24} color="#007AFF" />
-                        <Text style={styles.resultAddressLocationDynamicText}>
-                            {"Mirobod masjidi"}
-                        </Text>
-                    </View>
-                    <View style={styles.resultPhoneNumbers}>
-                        <Text style={styles.resultAddressText}>
-                            Phone Numbers:
-                        </Text>
-                        <View>
-                            <Text>{"+998911234567"}</Text>
-                            <Text>{"+998911234567"}</Text>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.resultBox}>
-                    <View style={styles.resultName}>
-                        <Text style={styles.resultNameText}>
-                            {"Abdujalilov Abdulaziz"}
-                        </Text>
-                    </View>
-                    <View style={styles.resultOrderId}>
-                        <Text style={styles.resultOrderIdText}>
-                            Order ID:{" "}
-                            <Text style={styles.resultOrderIdDynamicText}>
-                                #{"100174"}
-                            </Text>
-                        </Text>
-                    </View>
-                    <View style={styles.resultAddress}>
-                        <Text style={styles.resultAddressText}>Address: </Text>
-                        <Text style={styles.resultAddressDynamicText}>
-                            {
-                                "Mirobod tumani, Rakat mahalla, Xosilot ko'chasi, 76-uy, 42-xonadon"
-                            }
-                        </Text>
-                    </View>
-                    <View style={styles.resultAddressLocation}>
-                        <Entypo name="location-pin" size={24} color="#007AFF" />
-                        <Text style={styles.resultAddressLocationDynamicText}>
-                            {"Mirobod masjidi"}
-                        </Text>
-                    </View>
-                    <View style={styles.resultPhoneNumbers}>
-                        <Text style={styles.resultAddressText}>
-                            Phone Numbers:
-                        </Text>
-                        <View>
-                            <Text>{"+998911234567"}</Text>
-                            <Text>{"+998911234567"}</Text>
-                        </View>
-                    </View>
-                </View>
-            </ScrollView>
+            ) : (
+                <FlatList
+                    data={orders ? orders.orders : []}
+                    style={styles.container}
+                    contentContainerStyle={styles.contentStyle}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({ item }) => {
+                        return (
+                            <AllOrderCardComponent
+                                item={item}
+                                elements={elements}
+                                setElements={setElements}
+                            />
+                        );
+                    }}
+                    keyExtractor={(item) => item.orderId}
+                />
+            )}
+
             <TouchableOpacity
                 style={styles.fab}
                 onPress={() => navigation.goBack()}
@@ -414,4 +334,4 @@ const ReadyScreen = ({ navigation, route }) => {
     );
 };
 
-export default ReadyScreen;
+export default WaitingScreen;

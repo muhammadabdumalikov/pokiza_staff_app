@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
         height: "100%",
     },
     contentStyle: {
-        padding: 16,
         paddingBottom: 100,
     },
     filterBox: {
