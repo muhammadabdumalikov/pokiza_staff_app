@@ -369,21 +369,21 @@ const MenuStack = ({ navigation, route }) => {
                 name="StaffsScreen"
                 component={StaffsScreen}
                 options={({ route }) => ({
+                    headerTitle: "Jamoa bo'limi",
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 18,
-                        // top: 25,
+                        top: 25,
                         textAlign: "center",
                     },
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        backgroundColor: "#F5F5F5",
-                        // height: Dimensions.get("window").height / 5.8,
+                        height: height * 0.15,
                     },
                     // title: route.params.id,
-                    headerRight: () => null,
-                    headerLeft: () => null,
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
                 })}
             />
             <Stack.Screen

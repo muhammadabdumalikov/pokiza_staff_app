@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import {
     AntDesign,
-    MaterialCommunityIcons,
     Ionicons,
     Feather,
     Entypo,
@@ -35,11 +34,7 @@ const AdminMenuScreen = ({ navigation }) => {
                     onPress={() => navigation.navigate("OrdersScreen")}
                 >
                     <Text style={styles.menuText}>Buyurtmalar</Text>
-                    <MaterialCommunityIcons
-                        name="order-bool-descending-variant"
-                        size={24}
-                        color="black"
-                    />
+                    <Feather name="menu" size={24} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.menuBox}
@@ -82,7 +77,7 @@ const AdminMenuScreen = ({ navigation }) => {
             <View style={styles.secondBox}>
                 <TouchableOpacity
                     style={styles.menuBox}
-                    // onPress={() => navigation.navigate("StaffsScreen")}
+                    onPress={() => navigation.navigate("StaffsScreen")}
                 >
                     <Text style={styles.menuText}>Jamoa</Text>
                     <Feather name="users" size={24} color="black" />
