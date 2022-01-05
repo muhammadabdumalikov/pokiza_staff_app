@@ -65,16 +65,18 @@ const MenuStack = ({ navigation, route }) => {
                     headerTitle: "Asosiy sahifa",
                     headerTitleAlign: "center",
                     headerTitleStyle: {
-                        fontSize: 24,
+                        fontSize: 18,
+                        top: 25,
                         textAlign: "center",
                     },
-                    // gestureEnabled: false,
                     headerStyle: {
+                        shadowColor: "#fff",
                         elevation: 0,
-                        height: Dimensions.get("window").height / 5.17,
+                        height: height * 0.15,
                     },
-                    title: "Super Admin's Menu",
-                    headerLeft: () => null,
+                    // title: route.params.id,
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
                 })}
             />
             <Stack.Screen
