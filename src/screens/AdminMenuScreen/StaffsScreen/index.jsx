@@ -471,7 +471,7 @@ const ContactsScreen = ({ navigation, route }) => {
                         <TouchableOpacity
                             style={styles.fab2}
                             onPress={() =>
-                                navigation.navigate("AddClientScreen")
+                                navigation.navigate("AddStaffScreen")
                             }
                         >
                             <Feather name="user-plus" size={28} color="white" />

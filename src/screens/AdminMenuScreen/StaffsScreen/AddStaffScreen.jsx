@@ -17,7 +17,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Feather } from "@expo/vector-icons";
 
 import { request } from "../../../helpers/request";
-import { styles } from "./stylesASS";
+import { styles } from "./styles";
 import { colors } from "../../../constants/color";
 
 const height = Dimensions.get("window").height;
@@ -493,7 +493,8 @@ const AddStaffScreen = ({ navigation }) => {
                         {/* First Phone Num input --------------------------------------------------------------- */}
                         <View style={styles.phoneTxtWrapper}>
                             <Text style={styles.phoneTxt}>
-                                * 1 - Telefon raqam:
+                            <Text style={styles.requiredLine}>* </Text>
+                                1 - Telefon raqam:
                             </Text>
                         </View>
                         <View

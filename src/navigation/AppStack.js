@@ -39,6 +39,7 @@ import OrderDetailScreen from "../components/screens/OrdersComponent";
 import EditClientScreen from "../screens/AdminMenuScreen/ContactsScreen/EditClientScreen";
 import ProductsScreen from "../screens/AdminMenuScreen/ProductsScreen";
 import ProductInfoScreen from "../screens/AdminMenuScreen/ProductsScreen/ProductInfoScreen";
+import AddStaffScreen from "../screens/AdminMenuScreen/StaffsScreen/AddStaffScreen";
 
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -372,6 +373,27 @@ const MenuStack = ({ navigation, route }) => {
                 component={StaffsScreen}
                 options={({ route }) => ({
                     headerTitle: "Jamoa bo'limi",
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        height: height * 0.15,
+                    },
+                    // title: route.params.id,
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
+                })}
+            />
+             <Stack.Screen
+                name="AddStaffScreen"
+                component={AddStaffScreen}
+                options={({ route }) => ({
+                    headerTitle: "Jamoa a'zosini qo'shish",
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 18,
