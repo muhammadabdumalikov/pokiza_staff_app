@@ -17,7 +17,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Feather } from "@expo/vector-icons";
 
 import { request } from "../../../helpers/request";
-import { styles, sliderStyles } from "./styles";
+import { styles } from "./styles";
 import { colors } from "../../../constants/color";
 
 const height = Dimensions.get("window").height;
