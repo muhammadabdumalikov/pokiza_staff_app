@@ -27,9 +27,6 @@ const CardComponent = ({ item, elements, setElements }) => {
 
     const [selected, setSelected] = useState(false);
     const [locationModalVsible, setLocationModalVisible] = useState(false);
-    const client = item;
-
-    console.log(item)
 
     return (
         <>
