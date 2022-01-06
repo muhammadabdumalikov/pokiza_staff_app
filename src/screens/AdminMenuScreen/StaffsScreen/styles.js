@@ -134,11 +134,11 @@ export const styles = StyleSheet.create({
     preText: {
         fontSize: 16,
     },
-    scrollBox: {  
+    scrollBox: {
         flex: 1,
         backgroundColor: "#fff",
         paddingHorizontal: 16,
-        paddingTop: 10
+        paddingTop: 10,
     },
     loadingIndicator: {
         flex: 1,
@@ -156,9 +156,15 @@ export const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: "#EDEDED",
     },
+    staffIdWrapper: {
+        flexDirection: "row",
+    },
+    staffId: {
+        fontSize: 17,
+    },
     resultId: {
         flexDirection: "row",
-        width: "30%",
+        width: "40%",
         justifyContent: "space-between",
     },
     resultIdText: {
@@ -201,7 +207,7 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.red,
         position: "absolute",
         right: 0,
-        top: 0
+        top: 0,
     },
     resultDetailBox: {
         flex: 3,
@@ -214,8 +220,8 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         paddingHorizontal: 10,
     },
-    transportDateInfo:{ 
-        color: colors.gray
+    transportDateInfo: {
+        color: colors.gray,
     },
     carModelText: {
         fontSize: 18,
@@ -226,15 +232,15 @@ export const styles = StyleSheet.create({
         color: colors.blue,
     },
     textStyle: {
-        fontSize: 16
+        fontSize: 16,
     },
     waitingText: {
         color: "#007AFF",
-        fontSize: 16
+        fontSize: 16,
     },
     readyText: {
         color: "#4BCE00",
-        fontSize: 16
+        fontSize: 16,
     },
     fab: {
         width: 64,

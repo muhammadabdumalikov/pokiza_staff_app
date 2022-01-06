@@ -89,14 +89,10 @@ const CardComponent = ({ item, elements, setElements }) => {
                                 )}
                             </TouchableOpacity>
 
-                            <Ionicons
-                                name="heart"
-                                size={24}
-                                color={colors.red}
-                            />
-                            <TouchableOpacity>
+                            <TouchableOpacity style={styles.staffIdWrapper}>
+                                <Text style={styles.staffId}>Jamoa ID:</Text>
                                 <Text style={styles.resultIdText}>
-                                    {`${item.staffId}`}
+                                    {` ${item.staffId}`}
                                 </Text>
                             </TouchableOpacity>
                         </View>
