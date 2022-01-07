@@ -449,5 +449,12 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 5,
         margin: 2,
+    },
+    permissionsList: {
+        height: "100%",
+        paddingBottom: 100
+    },
+    permissionEl: {
+        margin: 5
     }
 });

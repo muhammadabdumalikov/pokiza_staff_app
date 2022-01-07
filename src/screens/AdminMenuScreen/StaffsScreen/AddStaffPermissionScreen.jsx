@@ -31,11 +31,13 @@ const AddPermissonScreen = ({ navigation }) => {
     const permission = () => {
         return (
             <BouncyCheckbox
-                size={25}
-                fillColor="red"
+                style={styles.permissionEl}
+                size={30}
+                textStyle={{textDecorationLine: "none"}}
+                fillColor={colors.green}
                 unfillColor="#FFFFFF"
                 text="Custom Checkbox"
-                iconStyle={{ borderColor: colors.green, borderRadius: 3 }}
+                iconStyle={{ borderColor: colors.green, borderRadius: 5 }}
                 onPress={(isChecked) => {}}
             />
         );
@@ -113,6 +115,7 @@ const AddPermissonScreen = ({ navigation }) => {
             <Text>Huquqlar</Text>
 
             <FlatList
+                style={styles.permissionsList}
                 data={data}
                 renderItem={permission}
                 keyExtractor={(item) => item.id}
