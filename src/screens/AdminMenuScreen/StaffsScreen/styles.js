@@ -27,6 +27,7 @@ export const styles = StyleSheet.create({
     },
     horizontalCityText: {
         fontSize: 20,
+        fontFamily: "Roboto-Regular",
         fontWeight: "400"
     },
     contentStyle: {

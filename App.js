@@ -6,11 +6,10 @@ import {
     createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import FontManager from "react-native-font-weight";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFonts } from 'expo-font';
 
 import Providers from "./src/navigation";
-import getEnvVars from "./config";
 
 const httpLink = createHttpLink({
     uri: "https://pokiza.herokuapp.com/graphql",
@@ -35,10 +34,14 @@ const client = new ApolloClient({
 });
 
 export default function App() {
-    useEffect(() => {
-        FontManager.init();
-    }, []);
+    const [loaded] = useFonts({
+        RobotoRegular: require("./assets/fonts/Roboto-Regular.ttf"),
+    });
 
+    if (!loaded) {
+        return null;
+    }
+   
     return (
         <ApolloProvider client={client}>
             <Providers />
