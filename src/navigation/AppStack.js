@@ -40,6 +40,7 @@ import EditClientScreen from "../screens/AdminMenuScreen/ContactsScreen/EditClie
 import ProductsScreen from "../screens/AdminMenuScreen/ProductsScreen";
 import ProductInfoScreen from "../screens/AdminMenuScreen/ProductsScreen/ProductInfoScreen";
 import AddStaffScreen from "../screens/AdminMenuScreen/StaffsScreen/AddStaffScreen";
+import AddPermissonScreen from "../screens/AdminMenuScreen/StaffsScreen/AddStaffPermissionScreen";
 
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -394,6 +395,27 @@ const MenuStack = ({ navigation, route }) => {
                 component={AddStaffScreen}
                 options={({ route }) => ({
                     headerTitle: "Jamoa a'zosini qo'shish",
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        height: height * 0.15,
+                    },
+                    // title: route.params.id,
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
+                })}
+            />
+             <Stack.Screen
+                name="AddPermissonsScreen"
+                component={AddPermissonScreen}
+                options={({ route }) => ({
+                    headerTitle: "Huquqlar qo'shish",
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 18,

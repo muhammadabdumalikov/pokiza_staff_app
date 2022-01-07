@@ -610,7 +610,7 @@ const AddStaffScreen = ({ navigation }) => {
                             </View>
                             <Pressable
                                 style={styles.buttonOpen}
-                                onPress={() => null}
+                                onPress={() => navigation.navigate("AddPermissonsScreen")}
                             >
                                 <Text style={styles.textStyle}>Huquqlar</Text>
                             </Pressable>
