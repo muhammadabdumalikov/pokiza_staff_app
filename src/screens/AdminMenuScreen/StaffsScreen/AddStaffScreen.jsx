@@ -493,8 +493,8 @@ const AddStaffScreen = ({ navigation }) => {
                         {/* First Phone Num input --------------------------------------------------------------- */}
                         <View style={styles.phoneTxtWrapper}>
                             <Text style={styles.phoneTxt}>
-                            <Text style={styles.requiredLine}>* </Text>
-                                1 - Telefon raqam:
+                                <Text style={styles.requiredLine}>* </Text>1 -
+                                Telefon raqam:
                             </Text>
                         </View>
                         <View
@@ -554,7 +554,7 @@ const AddStaffScreen = ({ navigation }) => {
                         {/* Status input --------------------------------------------------------- */}
                         <View style={styles.pickerWrapper}>
                             <View style={styles.preTextWrapperStyle}>
-                                <Text style={styles.preText}>Holati</Text>
+                                <Text style={styles.preText}>Filial</Text>
                             </View>
                             <Modal
                                 animationType="slide"
@@ -586,7 +586,7 @@ const AddStaffScreen = ({ navigation }) => {
                                         }
                                     >
                                         <Text style={styles.hideModalButton}>
-                                            Hide Modal
+                                            Yopish
                                         </Text>
                                     </Pressable>
                                 </View>
@@ -598,16 +598,22 @@ const AddStaffScreen = ({ navigation }) => {
                                 <Text style={styles.textStyle}>
                                     {selectedStatus != undefined
                                         ? selectedStatus.label
-                                        : "Holatni kiriting"}
+                                        : "Filialni kiriting"}
                                 </Text>
                             </Pressable>
                         </View>
 
-                        {/* Client comment input --------------------------------------------------------------- */}
-                        <View style={styles.phoneTxtWrapper}>
-                            <Text style={{ color: "black", fontSize: 16 }}>
-                                Mijoz haqida izoh
-                            </Text>
+                        {/* Staff permissions input --------------------------------------------------------------- */}
+                        <View style={styles.pickerWrapper}>
+                            <View style={styles.preTextWrapperStyle}>
+                                <Text style={styles.preText}>Huquqlari</Text>
+                            </View>
+                            <Pressable
+                                style={styles.buttonOpen}
+                                onPress={() => null}
+                            >
+                                <Text style={styles.textStyle}>Huquqlar</Text>
+                            </Pressable>
                         </View>
                         <View
                             style={{
@@ -730,7 +736,7 @@ const AddStaffScreen = ({ navigation }) => {
                                             <Text
                                                 style={styles.hideModalButton}
                                             >
-                                                Hide Modal
+                                                Yopish
                                             </Text>
                                         </Pressable>
                                     </View>
@@ -797,7 +803,7 @@ const AddStaffScreen = ({ navigation }) => {
                                         }
                                     >
                                         <Text style={styles.hideModalButton}>
-                                            Hide Modal
+                                            Yopish
                                         </Text>
                                     </Pressable>
                                 </View>
@@ -861,7 +867,7 @@ const AddStaffScreen = ({ navigation }) => {
                                         }
                                     >
                                         <Text style={styles.hideModalButton}>
-                                            Hide Modal
+                                            Yopish
                                         </Text>
                                     </Pressable>
                                 </View>
@@ -921,7 +927,7 @@ const AddStaffScreen = ({ navigation }) => {
                                         }
                                     >
                                         <Text style={styles.hideModalButton}>
-                                            Hide Modal
+                                            Yopish
                                         </Text>
                                     </Pressable>
                                 </View>
@@ -987,7 +993,7 @@ const AddStaffScreen = ({ navigation }) => {
                                         }
                                     >
                                         <Text style={styles.hideModalButton}>
-                                            Hide Modal
+                                            Yopish
                                         </Text>
                                     </Pressable>
                                 </View>
@@ -1051,7 +1057,7 @@ const AddStaffScreen = ({ navigation }) => {
                                         }
                                     >
                                         <Text style={styles.hideModalButton}>
-                                            Hide Modal
+                                            Yopish
                                         </Text>
                                     </Pressable>
                                 </View>
@@ -1140,7 +1146,7 @@ const AddStaffScreen = ({ navigation }) => {
                                         }
                                     >
                                         <Text style={styles.hideModalButton}>
-                                            Hide Modal
+                                            Yopish
                                         </Text>
                                     </Pressable>
                                 </View>
