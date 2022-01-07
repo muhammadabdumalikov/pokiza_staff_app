@@ -7,6 +7,7 @@ import { styles } from "./styles";
 
 const AddPermissonScreen = ({ navigation }) => {
     const [permissions, setPermissions] = useState([]);
+    const [selected, setSelected] = useState(false);
     const data = [
         { id: 1, value: "Huquq" },
         { id: 2, value: "Huquq" },
@@ -28,12 +29,25 @@ const AddPermissonScreen = ({ navigation }) => {
         { id: 18, value: "Huquq" },
     ];
 
+    const selectedPermission = {
+        borderWidth: 1,
+        borderColor: colors.blue,
+        maxWidth: 120,
+        maxHeight: 30,
+        padding: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 5,
+        margin: 2,
+        backgroundColor: colors.blue,
+    };
+
     const permission = () => {
         return (
             <BouncyCheckbox
                 style={styles.permissionEl}
                 size={30}
-                textStyle={{textDecorationLine: "none"}}
+                textStyle={{ textDecorationLine: "none" }}
                 fillColor={colors.green}
                 unfillColor="#FFFFFF"
                 text="Custom Checkbox"
@@ -77,7 +91,10 @@ const AddPermissonScreen = ({ navigation }) => {
 
             {/* Staff permissions ------------------------------------------------------- */}
             <View style={styles.permissionsBox}>
-                <Pressable style={styles.permissionBtn}>
+                <Pressable
+                    style={selected ? selectedPermission : styles.permissionBtn}
+                    onPress={() => setSelected(!selected)}
+                >
                     <Text>Moderator</Text>
                 </Pressable>
                 <Pressable style={styles.permissionBtn}>
