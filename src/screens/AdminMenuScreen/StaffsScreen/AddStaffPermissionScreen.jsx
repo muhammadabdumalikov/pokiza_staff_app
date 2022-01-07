@@ -1,12 +1,41 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
+
+import { styles } from "./styles";
 
 const AddPermissonScreen = ({ navigation }) => {
-    return(
+    return (
         <View>
-            <Text>AddPermissonScreen</Text>
+            <ScrollView
+                horizontal={true}
+                style={styles.horizontalScroll}
+                containerStyle={styles.horizontalScrollContent}
+                showsHorizontalScrollIndicator={false}
+            >
+                <Pressable style={styles.horizontalCity}>
+                    <Text style={styles.horizontalCityText}>Toshkent</Text>
+                </Pressable>
+                <Pressable style={styles.horizontalCity}>
+                    <Text style={styles.horizontalCityText}>Toshkent</Text>
+                </Pressable>
+                <Pressable style={styles.horizontalCity}>
+                    <Text style={styles.horizontalCityText}>Toshkent</Text>
+                </Pressable>
+                <Pressable style={styles.horizontalCity}>
+                    <Text style={styles.horizontalCityText}>Toshkent</Text>
+                </Pressable>
+                <Pressable style={styles.horizontalCity}>
+                    <Text style={styles.horizontalCityText}>Toshkent</Text>
+                </Pressable>
+                <Pressable style={styles.horizontalCity}>
+                    <Text style={styles.horizontalCityText}>Toshkent</Text>
+                </Pressable>
+                <Pressable style={styles.horizontalCity}>
+                    <Text style={styles.horizontalCityText}>Toshkent</Text>
+                </Pressable>
+            </ScrollView>
         </View>
-    )
+    );
 };
 
 export default AddPermissonScreen;

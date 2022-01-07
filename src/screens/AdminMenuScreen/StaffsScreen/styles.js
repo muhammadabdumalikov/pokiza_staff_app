@@ -8,7 +8,26 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         height: "100%",
-        paddingHorizontal: 16
+        paddingHorizontal: 16,
+    },
+    horizontalScroll: {
+        height: 70,
+        width: "100%",
+        borderBottomColor: colors.gray,
+        borderBottomWidth: 1
+    },
+    horizontalScrollContent: {
+        height: "100%",
+    },
+    horizontalCity: {
+        height: "100%",
+        width: 100,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    horizontalCityText: {
+        fontSize: 20,
+        fontWeight: "400"
     },
     contentStyle: {
         paddingVertical: 16,
