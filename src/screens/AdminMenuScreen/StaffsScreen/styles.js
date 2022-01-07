@@ -14,7 +14,8 @@ export const styles = StyleSheet.create({
         height: 80,
         width: "100%",
         borderBottomColor: colors.gray,
-        borderBottomWidth: .8
+        borderBottomWidth: .8,
+        marginBottom: 10
     },
     horizontalScrollContent: {
         height: "100%",
@@ -432,7 +433,11 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
         flexDirection: "row",
         flexWrap: "wrap",
-        alignItems: "center"
+        alignItems: "center",
+        marginTop: 10,
+        paddingBottom: 30,
+        borderBottomColor: colors.lightGray,
+        borderBottomWidth: 1,
     },
     permissionBtn: {
         borderWidth: 1,
