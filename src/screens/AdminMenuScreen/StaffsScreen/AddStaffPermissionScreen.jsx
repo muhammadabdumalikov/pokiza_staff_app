@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { colors } from "../../../constants/color";
 
 import { styles } from "./styles";
 
 const AddPermissonScreen = ({ navigation }) => {
+    const [permissions, setPermissions] = useState([]);
     const data = [
         { id: 1, value: "Huquq" },
         { id: 2, value: "Huquq" },
@@ -26,8 +29,17 @@ const AddPermissonScreen = ({ navigation }) => {
     ];
 
     const permission = () => {
-        
-    }
+        return (
+            <BouncyCheckbox
+                size={25}
+                fillColor="red"
+                unfillColor="#FFFFFF"
+                text="Custom Checkbox"
+                iconStyle={{ borderColor: colors.green, borderRadius: 3 }}
+                onPress={(isChecked) => {}}
+            />
+        );
+    };
     return (
         <View>
             <ScrollView
