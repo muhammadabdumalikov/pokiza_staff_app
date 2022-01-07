@@ -11,10 +11,10 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     horizontalScroll: {
-        height: 70,
+        height: 80,
         width: "100%",
         borderBottomColor: colors.gray,
-        borderBottomWidth: 1
+        borderBottomWidth: .8
     },
     horizontalScrollContent: {
         height: "100%",
@@ -27,8 +27,7 @@ export const styles = StyleSheet.create({
     },
     horizontalCityText: {
         fontSize: 20,
-        fontFamily: "Roboto-Regular",
-        fontWeight: "400"
+        fontWeight: "bold"
     },
     contentStyle: {
         paddingVertical: 16,
@@ -429,4 +428,13 @@ export const styles = StyleSheet.create({
     requiredLine: {
         color: colors.red,
     },
+    permissionBtn: {
+        borderWidth: .5,
+        borderColor: colors.lightGray,
+        maxWidth: 120,
+        padding: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 5
+    }
 });

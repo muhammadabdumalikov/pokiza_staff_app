@@ -34,6 +34,12 @@ const AddPermissonScreen = ({ navigation }) => {
                     <Text style={styles.horizontalCityText}>Toshkent</Text>
                 </Pressable>
             </ScrollView>
+            <Text>Guruhlar</Text>
+            <View style={{paddingHorizontal: 16}}>
+                <Pressable style={styles.permissionBtn}>
+                    <Text>Moderator</Text>
+                </Pressable>
+            </View>
         </View>
     );
 };
