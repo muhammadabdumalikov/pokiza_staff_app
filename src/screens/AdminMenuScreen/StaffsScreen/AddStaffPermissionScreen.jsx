@@ -35,9 +35,21 @@ const AddPermissonScreen = ({ navigation }) => {
                 </Pressable>
             </ScrollView>
             <Text>Guruhlar</Text>
-            <View style={{paddingHorizontal: 16}}>
+            <View style={styles.permissionsBox}>
                 <Pressable style={styles.permissionBtn}>
                     <Text>Moderator</Text>
+                </Pressable>
+                <Pressable style={styles.permissionBtn}>
+                    <Text>Moderator</Text>
+                </Pressable>
+                <Pressable style={styles.permissionBtn}>
+                    <Text>Moderator</Text>
+                </Pressable>
+                <Pressable style={styles.permissionBtn}>
+                    <Text>Mode</Text>
+                </Pressable>
+                <Pressable style={styles.permissionBtn}>
+                    <Text>Moderatosdadakjdlajdjakdkadahjdr</Text>
                 </Pressable>
             </View>
         </View>
