@@ -428,13 +428,21 @@ export const styles = StyleSheet.create({
     requiredLine: {
         color: colors.red,
     },
+    permissionsBox: {
+        paddingHorizontal: 16,
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignItems: "center"
+    },
     permissionBtn: {
-        borderWidth: .5,
+        borderWidth: 1,
         borderColor: colors.lightGray,
         maxWidth: 120,
+        maxHeight: 30,
         padding: 5,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 5
+        borderRadius: 5,
+        margin: 2,
     }
 });
