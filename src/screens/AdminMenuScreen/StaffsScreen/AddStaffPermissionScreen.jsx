@@ -76,7 +76,7 @@ const AddPermissonScreen = ({ navigation }) => {
     };
     return (
         <>
-            <View style={{height: 80}}>
+            <View style={{ height: 80 }}>
                 <ScrollView
                     horizontal={true}
                     style={styles.horizontalScroll}
@@ -106,7 +106,10 @@ const AddPermissonScreen = ({ navigation }) => {
                     </Pressable>
                 </ScrollView>
             </View>
-            <ScrollView style={styles.verticalScroll}>
+            <ScrollView
+                style={styles.verticalScroll}
+                showsVerticalScrollIndicator={false}
+            >
                 <Text style={styles.title}>Guruhlar</Text>
 
                 <View style={styles.permissionsBox}>
@@ -162,6 +165,237 @@ const AddPermissonScreen = ({ navigation }) => {
 
                 <Text style={styles.title}>Huquqlar</Text>
 
+                <BouncyCheckbox
+                    style={styles.permissionEl}
+                    size={30}
+                    textStyle={{ textDecorationLine: "none", color: "black" }}
+                    fillColor={colors.green}
+                    unfillColor="#FFFFFF"
+                    text="Huquq nomi"
+                    iconStyle={{
+                        borderColor: colors.lightGray,
+                        borderRadius: 5,
+                        backgroundColor: "white",
+                    }}
+                    onPress={(isChecked) => {}}
+                    ImageComponent={() => (
+                        <Ionicons
+                            name="ios-checkmark"
+                            size={24}
+                            color={colors.green}
+                        />
+                    )}
+                />
+                <BouncyCheckbox
+                    style={styles.permissionEl}
+                    size={30}
+                    textStyle={{ textDecorationLine: "none", color: "black" }}
+                    fillColor={colors.green}
+                    unfillColor="#FFFFFF"
+                    text="Huquq nomi"
+                    iconStyle={{
+                        borderColor: colors.lightGray,
+                        borderRadius: 5,
+                        backgroundColor: "white",
+                    }}
+                    onPress={(isChecked) => {}}
+                    ImageComponent={() => (
+                        <Ionicons
+                            name="ios-checkmark"
+                            size={24}
+                            color={colors.green}
+                        />
+                    )}
+                />
+                <BouncyCheckbox
+                    style={styles.permissionEl}
+                    size={30}
+                    textStyle={{ textDecorationLine: "none", color: "black" }}
+                    fillColor={colors.green}
+                    unfillColor="#FFFFFF"
+                    text="Huquq nomi"
+                    iconStyle={{
+                        borderColor: colors.lightGray,
+                        borderRadius: 5,
+                        backgroundColor: "white",
+                    }}
+                    onPress={(isChecked) => {}}
+                    ImageComponent={() => (
+                        <Ionicons
+                            name="ios-checkmark"
+                            size={24}
+                            color={colors.green}
+                        />
+                    )}
+                />
+                <BouncyCheckbox
+                    style={styles.permissionEl}
+                    size={30}
+                    textStyle={{ textDecorationLine: "none", color: "black" }}
+                    fillColor={colors.green}
+                    unfillColor="#FFFFFF"
+                    text="Huquq nomi"
+                    iconStyle={{
+                        borderColor: colors.lightGray,
+                        borderRadius: 5,
+                        backgroundColor: "white",
+                    }}
+                    onPress={(isChecked) => {}}
+                    ImageComponent={() => (
+                        <Ionicons
+                            name="ios-checkmark"
+                            size={24}
+                            color={colors.green}
+                        />
+                    )}
+                />
+                <BouncyCheckbox
+                    style={styles.permissionEl}
+                    size={30}
+                    textStyle={{ textDecorationLine: "none", color: "black" }}
+                    fillColor={colors.green}
+                    unfillColor="#FFFFFF"
+                    text="Huquq nomi"
+                    iconStyle={{
+                        borderColor: colors.lightGray,
+                        borderRadius: 5,
+                        backgroundColor: "white",
+                    }}
+                    onPress={(isChecked) => {}}
+                    ImageComponent={() => (
+                        <Ionicons
+                            name="ios-checkmark"
+                            size={24}
+                            color={colors.green}
+                        />
+                    )}
+                />
+                <BouncyCheckbox
+                    style={styles.permissionEl}
+                    size={30}
+                    textStyle={{ textDecorationLine: "none", color: "black" }}
+                    fillColor={colors.green}
+                    unfillColor="#FFFFFF"
+                    text="Huquq nomi"
+                    iconStyle={{
+                        borderColor: colors.lightGray,
+                        borderRadius: 5,
+                        backgroundColor: "white",
+                    }}
+                    onPress={(isChecked) => {}}
+                    ImageComponent={() => (
+                        <Ionicons
+                            name="ios-checkmark"
+                            size={24}
+                            color={colors.green}
+                        />
+                    )}
+                />
+                <BouncyCheckbox
+                    style={styles.permissionEl}
+                    size={30}
+                    textStyle={{ textDecorationLine: "none", color: "black" }}
+                    fillColor={colors.green}
+                    unfillColor="#FFFFFF"
+                    text="Huquq nomi"
+                    iconStyle={{
+                        borderColor: colors.lightGray,
+                        borderRadius: 5,
+                        backgroundColor: "white",
+                    }}
+                    onPress={(isChecked) => {}}
+                    ImageComponent={() => (
+                        <Ionicons
+                            name="ios-checkmark"
+                            size={24}
+                            color={colors.green}
+                        />
+                    )}
+                />
+                <BouncyCheckbox
+                    style={styles.permissionEl}
+                    size={30}
+                    textStyle={{ textDecorationLine: "none", color: "black" }}
+                    fillColor={colors.green}
+                    unfillColor="#FFFFFF"
+                    text="Huquq nomi"
+                    iconStyle={{
+                        borderColor: colors.lightGray,
+                        borderRadius: 5,
+                        backgroundColor: "white",
+                    }}
+                    onPress={(isChecked) => {}}
+                    ImageComponent={() => (
+                        <Ionicons
+                            name="ios-checkmark"
+                            size={24}
+                            color={colors.green}
+                        />
+                    )}
+                />
+                <BouncyCheckbox
+                    style={styles.permissionEl}
+                    size={30}
+                    textStyle={{ textDecorationLine: "none", color: "black" }}
+                    fillColor={colors.green}
+                    unfillColor="#FFFFFF"
+                    text="Huquq nomi"
+                    iconStyle={{
+                        borderColor: colors.lightGray,
+                        borderRadius: 5,
+                        backgroundColor: "white",
+                    }}
+                    onPress={(isChecked) => {}}
+                    ImageComponent={() => (
+                        <Ionicons
+                            name="ios-checkmark"
+                            size={24}
+                            color={colors.green}
+                        />
+                    )}
+                />
+                <BouncyCheckbox
+                    style={styles.permissionEl}
+                    size={30}
+                    textStyle={{ textDecorationLine: "none", color: "black" }}
+                    fillColor={colors.green}
+                    unfillColor="#FFFFFF"
+                    text="Huquq nomi"
+                    iconStyle={{
+                        borderColor: colors.lightGray,
+                        borderRadius: 5,
+                        backgroundColor: "white",
+                    }}
+                    onPress={(isChecked) => {}}
+                    ImageComponent={() => (
+                        <Ionicons
+                            name="ios-checkmark"
+                            size={24}
+                            color={colors.green}
+                        />
+                    )}
+                />
+                <BouncyCheckbox
+                    style={styles.permissionEl}
+                    size={30}
+                    textStyle={{ textDecorationLine: "none", color: "black" }}
+                    fillColor={colors.green}
+                    unfillColor="#FFFFFF"
+                    text="Huquq nomi"
+                    iconStyle={{
+                        borderColor: colors.lightGray,
+                        borderRadius: 5,
+                        backgroundColor: "white",
+                    }}
+                    onPress={(isChecked) => {}}
+                    ImageComponent={() => (
+                        <Ionicons
+                            name="ios-checkmark"
+                            size={24}
+                            color={colors.green}
+                        />
+                    )}
+                />
                 <BouncyCheckbox
                     style={styles.permissionEl}
                     size={30}

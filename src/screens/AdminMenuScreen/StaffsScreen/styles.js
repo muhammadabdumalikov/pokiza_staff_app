@@ -465,7 +465,7 @@ export const styles = StyleSheet.create({
     },
     permissionEl: {
         margin: 5,
-        height: 100,
+        height: 35,
     },
     title: {
         paddingVertical: 16,
