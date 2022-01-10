@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, Text, Dimensions, Modal } from "react-native";
 import { Entypo, Ionicons, Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import { colors } from "../../../constants/color";
 import { styles } from "./styles";
@@ -14,6 +15,7 @@ function arrayRemove(arr, value) {
 }
 
 const CardComponent = ({ item, elements, setElements }) => {
+    const navigation = useNavigation()
     const [resultBox, setResultBox] = useState({
         height: height / 3.98,
         backgroundColor: "gray",
@@ -244,7 +246,13 @@ const CardComponent = ({ item, elements, setElements }) => {
                             borderBottomWidth: 0,
                         }}
                     >
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                navigation.navigate("StaffIndex", {
+                                    staffId: item.staffId,
+                                });
+                            }}
+                        >
                             <Text style={styles.resultFullName}>
                                 {`${item.staffInfo.firstName} ${item.staffInfo.lastName}`}
                             </Text>
@@ -270,8 +278,7 @@ const CardComponent = ({ item, elements, setElements }) => {
                             Yoshi: {`22`}
                         </Text>
                         <Text style={styles.resultPhoneNumbers}>
-                            Jinsi:{" "}
-                            {`Default`}
+                            Jinsi: {`Default`}
                             {/* {item.clientInfo.gender == 1 ? "Erkak" : "Ayol"} */}
                         </Text>
                     </View>

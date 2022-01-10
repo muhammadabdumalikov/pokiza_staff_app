@@ -41,6 +41,8 @@ import ProductsScreen from "../screens/AdminMenuScreen/ProductsScreen";
 import ProductInfoScreen from "../screens/AdminMenuScreen/ProductsScreen/ProductInfoScreen";
 import AddStaffScreen from "../screens/AdminMenuScreen/StaffsScreen/AddStaffScreen";
 import AddPermissonScreen from "../screens/AdminMenuScreen/StaffsScreen/AddStaffPermissionScreen";
+import StaffInfo from "../screens/AdminMenuScreen/StaffsScreen/StaffInfo";
+import StaffIndex from "../screens/AdminMenuScreen/StaffsScreen/StaffIndex";
 
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -390,7 +392,7 @@ const MenuStack = ({ navigation, route }) => {
                     headerLeft: () => <LogoImage />,
                 })}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="AddStaffScreen"
                 component={AddStaffScreen}
                 options={({ route }) => ({
@@ -411,9 +413,51 @@ const MenuStack = ({ navigation, route }) => {
                     headerLeft: () => <LogoImage />,
                 })}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="AddPermissonsScreen"
                 component={AddPermissonScreen}
+                options={({ route }) => ({
+                    headerTitle: "Huquqlar qo'shish",
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        height: height * 0.15,
+                    },
+                    // title: route.params.id,
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
+                })}
+            />
+            <Stack.Screen
+                name="StaffIndex"
+                component={StaffIndex}
+                options={({ route }) => ({
+                    headerTitle: "Huquqlar qo'shish",
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        height: height * 0.15,
+                    },
+                    // title: route.params.id,
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
+                })}
+            />
+            <Stack.Screen
+                name="StaffInfo"
+                component={StaffInfo}
                 options={({ route }) => ({
                     headerTitle: "Huquqlar qo'shish",
                     headerTitleAlign: "center",

@@ -76,7 +76,7 @@ const AddPermissonScreen = ({ navigation }) => {
     };
     return (
         <>
-            <View>
+            <View style={{height: 80}}>
                 <ScrollView
                     horizontal={true}
                     style={styles.horizontalScroll}
@@ -138,25 +138,25 @@ const AddPermissonScreen = ({ navigation }) => {
                         <Text>Mode</Text>
                     </Pressable>
                     <Pressable style={styles.permissionBtn}>
-                        <Text>Moderatosdadakjdlajdjakdkadahjdr</Text>
+                        <Text>Moderatosr</Text>
                     </Pressable>
                     <Pressable style={styles.permissionBtn}>
                         <Text>Mode</Text>
                     </Pressable>
                     <Pressable style={styles.permissionBtn}>
-                        <Text>Moderatosdadakjdlajdjakdkadahjdr</Text>
+                        <Text>Moderatosdadakjdl</Text>
                     </Pressable>
                     <Pressable style={styles.permissionBtn}>
                         <Text>Mode</Text>
                     </Pressable>
                     <Pressable style={styles.permissionBtn}>
-                        <Text>Moderatosdadakjdlajdjakdkadahjdr</Text>
+                        <Text>Moderatosdadakjd</Text>
                     </Pressable>
                     <Pressable style={styles.permissionBtn}>
                         <Text>Mode</Text>
                     </Pressable>
                     <Pressable style={styles.permissionBtn}>
-                        <Text>Moderatosdadakjdlajdjakdkadahjdr</Text>
+                        <Text>Moderatosdada</Text>
                     </Pressable>
                 </View>
 

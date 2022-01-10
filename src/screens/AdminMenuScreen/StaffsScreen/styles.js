@@ -14,8 +14,8 @@ export const styles = StyleSheet.create({
         height: 100,
         width: "100%",
         borderBottomColor: colors.gray,
-        borderBottomWidth: .8,
-        marginBottom: 10
+        borderBottomWidth: 0.8,
+        marginBottom: 10,
     },
     horizontalScrollContent: {
         flex: 1,
@@ -24,16 +24,16 @@ export const styles = StyleSheet.create({
         height: "100%",
         width: 100,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     horizontalCityText: {
         fontSize: 20,
-        fontWeight: "bold"
+        fontWeight: "bold",
     },
     verticalScroll: {
         height: "100%",
         width: "100%",
-        paddingHorizontal: 16
+        paddingHorizontal: 16,
     },
     contentStyle: {
         paddingVertical: 16,
@@ -456,7 +456,7 @@ export const styles = StyleSheet.create({
     },
     permissionBtnTxt: {
         fontWeight: "bold",
-        color: "black"
+        color: "black",
     },
     permissionsList: {
         height: 400,
@@ -465,9 +465,67 @@ export const styles = StyleSheet.create({
     },
     permissionEl: {
         margin: 5,
-        height: 100
+        height: 100,
     },
     title: {
         paddingVertical: 16,
-    }
+    },
+    clientIdLine: {
+        flexDirection: "row",
+        width: "100%",
+        justifyContent: "space-between",
+        marginVertical: 20,
+    },
+    clientIdLineText: {
+        fontSize: 22,
+        fontWeight: "bold",
+    },
+    clientFullname: {
+        marginVertical: 10,
+        fontSize: 18,
+    },
+    clientAddress: {
+        height: 120,
+        borderBottomColor: colors.gray,
+        borderBottomWidth: 1,
+        marginVertical: 1,
+        marginBottom: 20,
+    },
+    resultAddress: {
+        flex: 1,
+        justifyContent: "flex-start",
+    },
+    resultAddressText: {
+        fontSize: 16,
+        fontWeight: "bold",
+        marginBottom: 10,
+    },
+    resultAddressDynamicText: {
+        width: "60%",
+        fontSize: 13,
+    },
+    resultAddressLocation: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center",
+    },
+    resultAddressLocationDynamicText: {
+        fontSize: 14,
+        fontWeight: "bold",
+    },
+    clientPhonesWrapper: {
+        width: "70%",
+    },
+    clientPhone: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingHorizontal: 10,
+        marginVertical: 5,
+    },
+    clientPhoneTxt: {
+        fontSize: 22,
+        textAlign: "left",
+    },
 });
