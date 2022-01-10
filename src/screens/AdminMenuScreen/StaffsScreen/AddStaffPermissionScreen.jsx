@@ -168,7 +168,7 @@ const AddPermissonScreen = ({ navigation }) => {
                     textStyle={{ textDecorationLine: "none", color: "black" }}
                     fillColor={colors.green}
                     unfillColor="#FFFFFF"
-                    text="Custom Checkbox"
+                    text="Huquq nomi"
                     iconStyle={{
                         borderColor: colors.lightGray,
                         borderRadius: 5,
