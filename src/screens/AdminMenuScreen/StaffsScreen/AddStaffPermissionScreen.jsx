@@ -1,7 +1,14 @@
 import React, { useState } from "react";
-import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
+import {
+    FlatList,
+    Pressable,
+    ScrollView,
+    Text,
+    View,
+    TouchableOpacity,
+} from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
 
 import { colors } from "../../../constants/color";
 import { styles } from "./styles";
@@ -131,35 +138,95 @@ const AddPermissonScreen = ({ navigation }) => {
                             ModeratorModerator
                         </Text>
                     </Pressable>
-                    <Pressable style={styles.permissionBtn}>
-                        <Text style={styles.permissionBtnTxt}>Moderator</Text>
+                    <Pressable
+                        style={
+                            selected
+                                ? selectedPermission.box
+                                : styles.permissionBtn
+                        }
+                        onPress={() => setSelected(!selected)}
+                    >
+                        <Text
+                            style={
+                                selected
+                                    ? selectedPermission.text
+                                    : styles.permissionBtnTxt
+                            }
+                        >
+                            ModeratorModerator
+                        </Text>
                     </Pressable>
-                    <Pressable style={styles.permissionBtn}>
-                        <Text>Moderator</Text>
+                    <Pressable
+                        style={
+                            selected
+                                ? selectedPermission.box
+                                : styles.permissionBtn
+                        }
+                        onPress={() => setSelected(!selected)}
+                    >
+                        <Text
+                            style={
+                                selected
+                                    ? selectedPermission.text
+                                    : styles.permissionBtnTxt
+                            }
+                        >
+                            ModeratorModerator
+                        </Text>
                     </Pressable>
-                    <Pressable style={styles.permissionBtn}>
-                        <Text>Mode</Text>
+                    <Pressable
+                        style={
+                            selected
+                                ? selectedPermission.box
+                                : styles.permissionBtn
+                        }
+                        onPress={() => setSelected(!selected)}
+                    >
+                        <Text
+                            style={
+                                selected
+                                    ? selectedPermission.text
+                                    : styles.permissionBtnTxt
+                            }
+                        >
+                            ModeratorModerator
+                        </Text>
                     </Pressable>
-                    <Pressable style={styles.permissionBtn}>
-                        <Text>Moderatosr</Text>
+                    <Pressable
+                        style={
+                            selected
+                                ? selectedPermission.box
+                                : styles.permissionBtn
+                        }
+                        onPress={() => setSelected(!selected)}
+                    >
+                        <Text
+                            style={
+                                selected
+                                    ? selectedPermission.text
+                                    : styles.permissionBtnTxt
+                            }
+                        >
+                            ModeratorModerator
+                        </Text>
                     </Pressable>
-                    <Pressable style={styles.permissionBtn}>
-                        <Text>Mode</Text>
-                    </Pressable>
-                    <Pressable style={styles.permissionBtn}>
-                        <Text>Moderatosdadakjdl</Text>
-                    </Pressable>
-                    <Pressable style={styles.permissionBtn}>
-                        <Text>Mode</Text>
-                    </Pressable>
-                    <Pressable style={styles.permissionBtn}>
-                        <Text>Moderatosdadakjd</Text>
-                    </Pressable>
-                    <Pressable style={styles.permissionBtn}>
-                        <Text>Mode</Text>
-                    </Pressable>
-                    <Pressable style={styles.permissionBtn}>
-                        <Text>Moderatosdada</Text>
+                    <Pressable
+                        style={
+                            selected
+                                ? selectedPermission.box
+                                : styles.permissionBtn
+                        }
+                        onPress={() => setSelected(!selected)}
+                    >
+                        <Text
+                            style={
+                                selected
+                                    ? selectedPermission.text
+                                    : styles.permissionBtnTxt
+                            }
+                        >
+                            ModeratorModerator
+                        </Text>
                     </Pressable>
                 </View>
 
@@ -425,6 +492,12 @@ const AddPermissonScreen = ({ navigation }) => {
                     keyExtractor={(item) => item.id}
                 /> */}
             </ScrollView>
+            <TouchableOpacity
+                style={styles.fab}
+                onPress={() => navigation.goBack()}
+            >
+                <Feather name="arrow-left" size={28} color="white" />
+            </TouchableOpacity>
         </>
     );
 };

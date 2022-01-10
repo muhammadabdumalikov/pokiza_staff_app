@@ -15,7 +15,6 @@ export const styles = StyleSheet.create({
         width: "100%",
         borderBottomColor: colors.gray,
         borderBottomWidth: 0.8,
-        marginBottom: 10,
     },
     horizontalScrollContent: {
         flex: 1,
@@ -438,7 +437,6 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap",
         alignItems: "center",
-        marginTop: 10,
         paddingBottom: 30,
         borderBottomColor: colors.lightGray,
         borderBottomWidth: 1,
