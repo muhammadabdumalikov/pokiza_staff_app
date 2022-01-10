@@ -30,16 +30,24 @@ const AddPermissonScreen = ({ navigation }) => {
     ];
 
     const selectedPermission = {
-        borderWidth: 1,
-        borderColor: colors.blue,
-        maxWidth: 120,
-        maxHeight: 30,
-        padding: 5,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 5,
-        margin: 2,
-        backgroundColor: colors.blue,
+        box: {
+            borderWidth: 1,
+            borderColor: colors.blue,
+            maxWidth: 120,
+            maxHeight: 30,
+            padding: 5,
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 5,
+            margin: 2,
+            backgroundColor: colors.blue,
+        },
+        text: {
+            color: "white",
+        },
+        white: {
+            color: "black"
+        }
     };
 
     const permission = () => {
@@ -92,10 +100,14 @@ const AddPermissonScreen = ({ navigation }) => {
             {/* Staff permissions ------------------------------------------------------- */}
             <View style={styles.permissionsBox}>
                 <Pressable
-                    style={selected ? selectedPermission : styles.permissionBtn}
+                    style={
+                        selected ? selectedPermission.box : styles.permissionBtn
+                    }
                     onPress={() => setSelected(!selected)}
                 >
-                    <Text>Moderator</Text>
+                    <Text style={selected ? selectedPermission.text : selectedPermission.white}>
+                        Moderator
+                    </Text>
                 </Pressable>
                 <Pressable style={styles.permissionBtn}>
                     <Text>Moderator</Text>
