@@ -11,14 +11,14 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     horizontalScroll: {
-        height: 80,
+        height: height/10,
         width: "100%",
         borderBottomColor: colors.gray,
         borderBottomWidth: .8,
         marginBottom: 10
     },
     horizontalScrollContent: {
-        height: "100%",
+        flex: 1,
     },
     horizontalCity: {
         height: "100%",
@@ -451,15 +451,15 @@ export const styles = StyleSheet.create({
         margin: 2,
     },
     permissionsList: {
-        height: "100%",
+        height: 400,
+        marginBottom: 100,
         paddingBottom: 100,
-        paddingHorizontal: 16,
-        
+        paddingHorizontal: 20,
     },
     permissionEl: {
         margin: 5,
     },
     title: {
-        padding: 10    
+        padding: 16,
     }
 });

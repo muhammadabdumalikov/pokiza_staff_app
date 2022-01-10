@@ -60,106 +60,118 @@ const AddPermissonScreen = ({ navigation }) => {
                 fillColor={colors.green}
                 unfillColor="#FFFFFF"
                 text="Custom Checkbox"
-                iconStyle={{ borderColor: colors.lightGray, borderRadius: 5, backgroundColor: "white" }}
+                iconStyle={{
+                    borderColor: colors.lightGray,
+                    borderRadius: 5,
+                    backgroundColor: "white",
+                }}
                 onPress={(isChecked) => {}}
                 ImageComponent={() => (
-                    <Ionicons name="ios-checkmark" size={24} color={colors.green} />
+                    <Ionicons
+                        name="ios-checkmark"
+                        size={24}
+                        color={colors.green}
+                    />
                 )}
             />
         );
     };
     return (
-        <View>
-            <ScrollView
-                horizontal={true}
-                style={styles.horizontalScroll}
-                containerStyle={styles.horizontalScrollContent}
-                showsHorizontalScrollIndicator={false}
-            >
-                <Pressable style={styles.horizontalCity}>
-                    <Text style={styles.horizontalCityText}>Toshkent</Text>
-                </Pressable>
-                <Pressable style={styles.horizontalCity}>
-                    <Text style={styles.horizontalCityText}>Toshkent</Text>
-                </Pressable>
-                <Pressable style={styles.horizontalCity}>
-                    <Text style={styles.horizontalCityText}>Toshkent</Text>
-                </Pressable>
-                <Pressable style={styles.horizontalCity}>
-                    <Text style={styles.horizontalCityText}>Toshkent</Text>
-                </Pressable>
-                <Pressable style={styles.horizontalCity}>
-                    <Text style={styles.horizontalCityText}>Toshkent</Text>
-                </Pressable>
-                <Pressable style={styles.horizontalCity}>
-                    <Text style={styles.horizontalCityText}>Toshkent</Text>
-                </Pressable>
-                <Pressable style={styles.horizontalCity}>
-                    <Text style={styles.horizontalCityText}>Toshkent</Text>
-                </Pressable>
-            </ScrollView>
-
-            <Text style={styles.title}>Guruhlar</Text>
-
-            {/* Staff permissions ------------------------------------------------------- */}
-            <View style={styles.permissionsBox}>
-                <Pressable
-                    style={
-                        selected ? selectedPermission.box : styles.permissionBtn
-                    }
-                    onPress={() => setSelected(!selected)}
+        <>
+            <View >
+                <ScrollView
+                    horizontal={true}
+                    style={styles.horizontalScroll}
+                    containerStyle={styles.horizontalScrollContent}
+                    showsHorizontalScrollIndicator={false}
                 >
-                    <Text
+                    <Pressable style={styles.horizontalCity}>
+                        <Text style={styles.horizontalCityText}>Toshkent</Text>
+                    </Pressable>
+                    <Pressable style={styles.horizontalCity}>
+                        <Text style={styles.horizontalCityText}>Toshkent</Text>
+                    </Pressable>
+                    <Pressable style={styles.horizontalCity}>
+                        <Text style={styles.horizontalCityText}>Toshkent</Text>
+                    </Pressable>
+                    <Pressable style={styles.horizontalCity}>
+                        <Text style={styles.horizontalCityText}>Toshkent</Text>
+                    </Pressable>
+                    <Pressable style={styles.horizontalCity}>
+                        <Text style={styles.horizontalCityText}>Toshkent</Text>
+                    </Pressable>
+                    <Pressable style={styles.horizontalCity}>
+                        <Text style={styles.horizontalCityText}>Toshkent</Text>
+                    </Pressable>
+                    <Pressable style={styles.horizontalCity}>
+                        <Text style={styles.horizontalCityText}>Toshkent</Text>
+                    </Pressable>
+                </ScrollView>
+            </View>
+            <View>
+                <Text style={styles.title}>Guruhlar</Text>
+
+                <View style={styles.permissionsBox}>
+                    <Pressable
                         style={
                             selected
-                                ? selectedPermission.text
-                                : selectedPermission.white
+                                ? selectedPermission.box
+                                : styles.permissionBtn
                         }
+                        onPress={() => setSelected(!selected)}
                     >
-                        Moderator
-                    </Text>
-                </Pressable>
-                <Pressable style={styles.permissionBtn}>
-                    <Text>Moderator</Text>
-                </Pressable>
-                <Pressable style={styles.permissionBtn}>
-                    <Text>Moderator</Text>
-                </Pressable>
-                <Pressable style={styles.permissionBtn}>
-                    <Text>Mode</Text>
-                </Pressable>
-                <Pressable style={styles.permissionBtn}>
-                    <Text>Moderatosdadakjdlajdjakdkadahjdr</Text>
-                </Pressable>
-                <Pressable style={styles.permissionBtn}>
-                    <Text>Mode</Text>
-                </Pressable>
-                <Pressable style={styles.permissionBtn}>
-                    <Text>Moderatosdadakjdlajdjakdkadahjdr</Text>
-                </Pressable>
-                <Pressable style={styles.permissionBtn}>
-                    <Text>Mode</Text>
-                </Pressable>
-                <Pressable style={styles.permissionBtn}>
-                    <Text>Moderatosdadakjdlajdjakdkadahjdr</Text>
-                </Pressable>
-                <Pressable style={styles.permissionBtn}>
-                    <Text>Mode</Text>
-                </Pressable>
-                <Pressable style={styles.permissionBtn}>
-                    <Text>Moderatosdadakjdlajdjakdkadahjdr</Text>
-                </Pressable>
+                        <Text
+                            style={
+                                selected
+                                    ? selectedPermission.text
+                                    : selectedPermission.white
+                            }
+                        >
+                            Moderator
+                        </Text>
+                    </Pressable>
+                    <Pressable style={styles.permissionBtn}>
+                        <Text>Moderator</Text>
+                    </Pressable>
+                    <Pressable style={styles.permissionBtn}>
+                        <Text>Moderator</Text>
+                    </Pressable>
+                    <Pressable style={styles.permissionBtn}>
+                        <Text>Mode</Text>
+                    </Pressable>
+                    <Pressable style={styles.permissionBtn}>
+                        <Text>Moderatosdadakjdlajdjakdkadahjdr</Text>
+                    </Pressable>
+                    <Pressable style={styles.permissionBtn}>
+                        <Text>Mode</Text>
+                    </Pressable>
+                    <Pressable style={styles.permissionBtn}>
+                        <Text>Moderatosdadakjdlajdjakdkadahjdr</Text>
+                    </Pressable>
+                    <Pressable style={styles.permissionBtn}>
+                        <Text>Mode</Text>
+                    </Pressable>
+                    <Pressable style={styles.permissionBtn}>
+                        <Text>Moderatosdadakjdlajdjakdkadahjdr</Text>
+                    </Pressable>
+                    <Pressable style={styles.permissionBtn}>
+                        <Text>Mode</Text>
+                    </Pressable>
+                    <Pressable style={styles.permissionBtn}>
+                        <Text>Moderatosdadakjdlajdjakdkadahjdr</Text>
+                    </Pressable>
+                </View>
+
+                <Text style={styles.title}>Huquqlar</Text>
+
+                <FlatList
+                    style={styles.permissionsList}
+                    data={data}
+                    renderItem={permission}
+                    keyExtractor={(item) => item.id}
+                />
             </View>
-
-            <Text style={styles.title}>Huquqlar</Text>
-
-            <FlatList
-                style={styles.permissionsList}
-                data={data}
-                renderItem={permission}
-                keyExtractor={(item) => item.id}
-            />
-        </View>
+        </>
     );
 };
 
