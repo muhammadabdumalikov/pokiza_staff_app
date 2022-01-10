@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import { colors } from "../../../constants/color";
+import { Ionicons } from "@expo/vector-icons";
 
+import { colors } from "../../../constants/color";
 import { styles } from "./styles";
 
 const AddPermissonScreen = ({ navigation }) => {
@@ -46,8 +47,8 @@ const AddPermissonScreen = ({ navigation }) => {
             color: "white",
         },
         white: {
-            color: "black"
-        }
+            color: "black",
+        },
     };
 
     const permission = () => {
@@ -55,12 +56,15 @@ const AddPermissonScreen = ({ navigation }) => {
             <BouncyCheckbox
                 style={styles.permissionEl}
                 size={30}
-                textStyle={{ textDecorationLine: "none" }}
+                textStyle={{ textDecorationLine: "none", color: "black" }}
                 fillColor={colors.green}
                 unfillColor="#FFFFFF"
                 text="Custom Checkbox"
-                iconStyle={{ borderColor: colors.green, borderRadius: 5 }}
+                iconStyle={{ borderColor: colors.lightGray, borderRadius: 5, backgroundColor: "white" }}
                 onPress={(isChecked) => {}}
+                ImageComponent={() => (
+                    <Ionicons name="ios-checkmark" size={24} color={colors.green} />
+                )}
             />
         );
     };
@@ -95,7 +99,7 @@ const AddPermissonScreen = ({ navigation }) => {
                 </Pressable>
             </ScrollView>
 
-            <Text>Guruhlar</Text>
+            <Text style={styles.title}>Guruhlar</Text>
 
             {/* Staff permissions ------------------------------------------------------- */}
             <View style={styles.permissionsBox}>
@@ -105,7 +109,13 @@ const AddPermissonScreen = ({ navigation }) => {
                     }
                     onPress={() => setSelected(!selected)}
                 >
-                    <Text style={selected ? selectedPermission.text : selectedPermission.white}>
+                    <Text
+                        style={
+                            selected
+                                ? selectedPermission.text
+                                : selectedPermission.white
+                        }
+                    >
                         Moderator
                     </Text>
                 </Pressable>
@@ -141,7 +151,7 @@ const AddPermissonScreen = ({ navigation }) => {
                 </Pressable>
             </View>
 
-            <Text>Huquqlar</Text>
+            <Text style={styles.title}>Huquqlar</Text>
 
             <FlatList
                 style={styles.permissionsList}
