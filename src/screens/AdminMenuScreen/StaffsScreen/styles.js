@@ -452,9 +452,14 @@ export const styles = StyleSheet.create({
     },
     permissionsList: {
         height: "100%",
-        paddingBottom: 100
+        paddingBottom: 100,
+        paddingHorizontal: 16,
+        
     },
     permissionEl: {
-        margin: 5
+        margin: 5,
+    },
+    title: {
+        padding: 10    
     }
 });
