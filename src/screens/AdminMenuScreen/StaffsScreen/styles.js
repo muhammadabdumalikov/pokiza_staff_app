@@ -482,7 +482,10 @@ export const styles = StyleSheet.create({
     },
     clientFullname: {
         marginVertical: 10,
+        paddingBottom: 10,
         fontSize: 18,
+        borderBottomColor: colors.lightGray,
+        borderBottomWidth: 1
     },
     clientAddress: {
         height: 120,
