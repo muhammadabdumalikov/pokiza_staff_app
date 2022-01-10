@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     horizontalScroll: {
-        height: height/10,
+        height: 100,
         width: "100%",
         borderBottomColor: colors.gray,
         borderBottomWidth: .8,
@@ -29,6 +29,11 @@ export const styles = StyleSheet.create({
     horizontalCityText: {
         fontSize: 20,
         fontWeight: "bold"
+    },
+    verticalScroll: {
+        height: "100%",
+        width: "100%",
+        paddingHorizontal: 16
     },
     contentStyle: {
         paddingVertical: 16,
@@ -430,7 +435,6 @@ export const styles = StyleSheet.create({
         color: colors.red,
     },
     permissionsBox: {
-        paddingHorizontal: 16,
         flexDirection: "row",
         flexWrap: "wrap",
         alignItems: "center",
@@ -442,24 +446,28 @@ export const styles = StyleSheet.create({
     permissionBtn: {
         borderWidth: 1,
         borderColor: colors.lightGray,
-        maxWidth: 120,
-        maxHeight: 30,
+        maxWidth: 150,
+        height: 40,
         padding: 5,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 5,
         margin: 2,
     },
+    permissionBtnTxt: {
+        fontWeight: "bold",
+        color: "black"
+    },
     permissionsList: {
         height: 400,
         marginBottom: 100,
         paddingBottom: 100,
-        paddingHorizontal: 20,
     },
     permissionEl: {
         margin: 5,
+        height: 100
     },
     title: {
-        padding: 16,
+        paddingVertical: 16,
     }
 });

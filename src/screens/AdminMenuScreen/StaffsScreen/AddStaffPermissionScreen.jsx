@@ -34,8 +34,8 @@ const AddPermissonScreen = ({ navigation }) => {
         box: {
             borderWidth: 1,
             borderColor: colors.blue,
-            maxWidth: 120,
-            maxHeight: 30,
+            maxWidth: 150,
+            height: 40,
             padding: 5,
             justifyContent: "center",
             alignItems: "center",
@@ -45,9 +45,7 @@ const AddPermissonScreen = ({ navigation }) => {
         },
         text: {
             color: "white",
-        },
-        white: {
-            color: "black",
+            fontWeight: "bold",
         },
     };
 
@@ -78,7 +76,7 @@ const AddPermissonScreen = ({ navigation }) => {
     };
     return (
         <>
-            <View >
+            <View>
                 <ScrollView
                     horizontal={true}
                     style={styles.horizontalScroll}
@@ -108,7 +106,7 @@ const AddPermissonScreen = ({ navigation }) => {
                     </Pressable>
                 </ScrollView>
             </View>
-            <View>
+            <ScrollView style={styles.verticalScroll}>
                 <Text style={styles.title}>Guruhlar</Text>
 
                 <View style={styles.permissionsBox}>
@@ -124,14 +122,14 @@ const AddPermissonScreen = ({ navigation }) => {
                             style={
                                 selected
                                     ? selectedPermission.text
-                                    : selectedPermission.white
+                                    : styles.permissionBtnTxt
                             }
                         >
-                            Moderator
+                            ModeratorModerator
                         </Text>
                     </Pressable>
                     <Pressable style={styles.permissionBtn}>
-                        <Text>Moderator</Text>
+                        <Text style={styles.permissionBtnTxt}>Moderator</Text>
                     </Pressable>
                     <Pressable style={styles.permissionBtn}>
                         <Text>Moderator</Text>
@@ -164,13 +162,35 @@ const AddPermissonScreen = ({ navigation }) => {
 
                 <Text style={styles.title}>Huquqlar</Text>
 
-                <FlatList
+                <BouncyCheckbox
+                    style={styles.permissionEl}
+                    size={30}
+                    textStyle={{ textDecorationLine: "none", color: "black" }}
+                    fillColor={colors.green}
+                    unfillColor="#FFFFFF"
+                    text="Custom Checkbox"
+                    iconStyle={{
+                        borderColor: colors.lightGray,
+                        borderRadius: 5,
+                        backgroundColor: "white",
+                    }}
+                    onPress={(isChecked) => {}}
+                    ImageComponent={() => (
+                        <Ionicons
+                            name="ios-checkmark"
+                            size={24}
+                            color={colors.green}
+                        />
+                    )}
+                />
+
+                {/* <FlatList
                     style={styles.permissionsList}
                     data={data}
                     renderItem={permission}
                     keyExtractor={(item) => item.id}
-                />
-            </View>
+                /> */}
+            </ScrollView>
         </>
     );
 };
