@@ -108,7 +108,7 @@ const ContactsScreen = ({ navigation, route }) => {
                     null,
                     value
                 );
-                setStaffs(staffs)
+                setStaffs(staffs);
                 // setStaffs({
                 //     data: staffs ? staffs.staffs : [],
                 //     page: pageCurrent,
@@ -272,7 +272,7 @@ const ContactsScreen = ({ navigation, route }) => {
                                 style={{ marginRight: 5 }}
                             />
                             <TextInput
-                                placeholder="Mijozlar ma'lumotlarini qidirish"
+                                placeholder="Jamoa ma'lumotlarini qidirish"
                                 onFocus={() => setSearchBtnVisible(true)}
                                 onSubmitEditing={(value) =>
                                     setSearchKey(value.nativeEvent.text)
@@ -297,19 +297,18 @@ const ContactsScreen = ({ navigation, route }) => {
                         style={styles.filterBox}
                     >
                         <Text style={styles.headerText}>Filter</Text>
-                        {collapsed ? (
-                            <Feather
-                                name="chevron-down"
-                                size={28}
-                                color="black"
-                            />
+                        {elements.length > 0 ? (
+                            <Text style={styles.filterItem1}>
+                                Tanlandi: {`${elements.length}`}
+                            </Text>
                         ) : (
-                            <Feather
-                                name="chevron-up"
-                                size={28}
-                                color="black"
-                            />
+                            <></>
                         )}
+                        {staffs ? (
+                            <Text
+                                style={styles.filterItem2}
+                            >{`${staffs.staffs.length}`}</Text>
+                        ) : null}
                         {/*Heading of Single Collapsible*/}
                     </TouchableOpacity>
                     <Collapsible
@@ -433,7 +432,7 @@ const ContactsScreen = ({ navigation, route }) => {
                             contentContainerStyle={styles.contentStyle}
                             showsVerticalScrollIndicator={false}
                             // ListFooterComponent={() => (
-                                // <RenderFooterComponent />
+                            // <RenderFooterComponent />
                             // )}
                             // onEndReached={handleLoadMore}
                             // onEndReachedThreshold={0.5}
