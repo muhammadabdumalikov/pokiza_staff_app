@@ -57,7 +57,7 @@ const StaffIndex = ({ route }) => {
             <Tab.Screen
                 name="AddPermissonScreen"
                 component={AddPermissonScreen}
-                options={{ title: "Buyurtmalari" }}
+                options={{ title: "Huquqlari" }}
                 initialParams={{ staffId: route.params.staffId }}
             />
         </Tab.Navigator>

@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     horizontalScroll: {
-        height: 100,
+        height: 80,
         width: "100%",
         borderBottomColor: colors.gray,
         borderBottomWidth: 0.8,
