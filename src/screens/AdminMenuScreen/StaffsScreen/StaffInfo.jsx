@@ -74,11 +74,11 @@ const StaffInfo = ({ navigation, route }) => {
                 <View style={{ ...styles.container, paddingHorizontal: 16 }}>
                     <View style={styles.clientIdLine}>
                         <Text style={styles.clientIdLineText}>
-                            Mijoz - @{staffId}
+                            Jamoa - @{staffId}
                         </Text>
                         <TouchableOpacity
                             onPress={() =>
-                                navigation.navigate("EditClientScreen", {
+                                navigation.navigate("EditStaffScreen", {
                                     client: {
                                         clientId: staff[0].staffId,
                                         userId: staff[0].staffInfo.userId,

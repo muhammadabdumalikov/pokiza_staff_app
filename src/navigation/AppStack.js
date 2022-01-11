@@ -43,6 +43,7 @@ import AddStaffScreen from "../screens/AdminMenuScreen/StaffsScreen/AddStaffScre
 import AddPermissonScreen from "../screens/AdminMenuScreen/StaffsScreen/AddStaffPermissionScreen";
 import StaffInfo from "../screens/AdminMenuScreen/StaffsScreen/StaffInfo";
 import StaffIndex from "../screens/AdminMenuScreen/StaffsScreen/StaffIndex";
+import EditStaffScreen from "../screens/AdminMenuScreen/StaffsScreen/EditStaffScreen";
 
 const StaffTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -458,6 +459,27 @@ const MenuStack = ({ navigation, route }) => {
             <Stack.Screen
                 name="StaffInfo"
                 component={StaffInfo}
+                options={({ route }) => ({
+                    headerTitle: "Huquqlar qo'shish",
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                        fontSize: 18,
+                        top: 25,
+                        textAlign: "center",
+                    },
+                    headerStyle: {
+                        shadowColor: "#fff",
+                        elevation: 0,
+                        height: height * 0.15,
+                    },
+                    // title: route.params.id,
+                    headerRight: () => <CallButton />,
+                    headerLeft: () => <LogoImage />,
+                })}
+            />
+            <Stack.Screen
+                name="EditStaffScreen"
+                component={EditStaffScreen}
                 options={({ route }) => ({
                     headerTitle: "Huquqlar qo'shish",
                     headerTitleAlign: "center",

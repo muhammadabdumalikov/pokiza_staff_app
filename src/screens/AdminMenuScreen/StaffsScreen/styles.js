@@ -4,6 +4,26 @@ import { colors } from "../../../constants/color";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
+
+export const sliderStyles = StyleSheet.create({
+    labelWrapper: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingHorizontal: 16,
+    },
+    labelText: {
+        fontSize: 20,
+        fontWeight: "bold",
+    },
+    labelTxt: {
+        fontSize: 16,
+        fontWeight: "bold",
+        padding: 16,
+        paddingBottom: 5,
+    },
+});
+
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
