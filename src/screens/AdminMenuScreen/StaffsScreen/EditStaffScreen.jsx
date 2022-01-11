@@ -423,7 +423,7 @@ const EditStaffScreen = ({ navigation, route }) => {
                 <>
                     <View style={sliderStyles.labelWrapper}>
                         <Text style={sliderStyles.labelText}>
-                            Mijoz - @ {client.clientId}
+                            Jamoa - @ {client.clientId}
                         </Text>
                         <TouchableOpacity
                             onPress={() => setDeleteModalVisible(true)}
@@ -605,7 +605,7 @@ const EditStaffScreen = ({ navigation, route }) => {
                         {/* Client comment input --------------------------------------------------------------- */}
                         <View style={styles.phoneTxtWrapper}>
                             <Text style={{ color: "black", fontSize: 16 }}>
-                                Mijoz haqida izoh
+                                Jamoa a'zosi haqida izoh
                             </Text>
                         </View>
                         <View

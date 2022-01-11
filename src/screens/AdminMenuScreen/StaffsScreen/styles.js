@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     },
     horizontalCity: {
         height: "100%",
-        width: 100,
+        width: 110,
         justifyContent: "center",
         alignItems: "center",
     },

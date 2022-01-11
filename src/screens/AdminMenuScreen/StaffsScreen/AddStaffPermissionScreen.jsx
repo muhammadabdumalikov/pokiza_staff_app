@@ -91,16 +91,23 @@ const AddPermissonScreen = ({ navigation }) => {
                     showsHorizontalScrollIndicator={false}
                 >
                     <Pressable style={styles.horizontalCity}>
-                        <Text style={styles.horizontalCityText}>Toshkent</Text>
+                        <Text style={styles.horizontalCityText}>Andijon</Text>
                     </Pressable>
                     <Pressable style={styles.horizontalCity}>
-                        <Text style={styles.horizontalCityText}>Toshkent</Text>
+                        <Text style={styles.horizontalCityText}>Qo'qon</Text>
                     </Pressable>
                     <Pressable style={styles.horizontalCity}>
-                        <Text style={styles.horizontalCityText}>Toshkent</Text>
+                        <Text
+                            style={{
+                                ...styles.horizontalCityText,
+                                color: colors.blue,
+                            }}
+                        >
+                            Toshkent
+                        </Text>
                     </Pressable>
                     <Pressable style={styles.horizontalCity}>
-                        <Text style={styles.horizontalCityText}>Toshkent</Text>
+                        <Text style={styles.horizontalCityText}>Sirdaryo</Text>
                     </Pressable>
                     <Pressable style={styles.horizontalCity}>
                         <Text style={styles.horizontalCityText}>Toshkent</Text>
@@ -135,97 +142,40 @@ const AddPermissonScreen = ({ navigation }) => {
                                     : styles.permissionBtnTxt
                             }
                         >
-                            ModeratorModerator
+                            Moderator
+                        </Text>
+                    </Pressable>
+                    <Pressable style={styles.permissionBtn}>
+                        <Text style={styles.permissionBtnTxt}>
+                            Huquq 1
                         </Text>
                     </Pressable>
                     <Pressable
-                        style={
-                            selected
-                                ? selectedPermission.box
-                                : styles.permissionBtn
-                        }
-                        onPress={() => setSelected(!selected)}
+                        style={styles.permissionBtn}
                     >
-                        <Text
-                            style={
-                                selected
-                                    ? selectedPermission.text
-                                    : styles.permissionBtnTxt
-                            }
-                        >
-                            ModeratorModerator
+                        <Text style={styles.permissionBtnTxt}>
+                            Huquq 2
                         </Text>
                     </Pressable>
                     <Pressable
-                        style={
-                            selected
-                                ? selectedPermission.box
-                                : styles.permissionBtn
-                        }
-                        onPress={() => setSelected(!selected)}
+                        style={styles.permissionBtn}
                     >
-                        <Text
-                            style={
-                                selected
-                                    ? selectedPermission.text
-                                    : styles.permissionBtnTxt
-                            }
-                        >
-                            ModeratorModerator
+                        <Text style={styles.permissionBtnTxt}>
+                            Haydovchi boshlig'i
                         </Text>
                     </Pressable>
                     <Pressable
-                        style={
-                            selected
-                                ? selectedPermission.box
-                                : styles.permissionBtn
-                        }
-                        onPress={() => setSelected(!selected)}
+                        style={styles.permissionBtn}
                     >
-                        <Text
-                            style={
-                                selected
-                                    ? selectedPermission.text
-                                    : styles.permissionBtnTxt
-                            }
-                        >
-                            ModeratorModerator
+                        <Text style={styles.permissionBtnTxt}>
+                            Asosiy operator
                         </Text>
                     </Pressable>
                     <Pressable
-                        style={
-                            selected
-                                ? selectedPermission.box
-                                : styles.permissionBtn
-                        }
-                        onPress={() => setSelected(!selected)}
+                        style={styles.permissionBtn}
                     >
-                        <Text
-                            style={
-                                selected
-                                    ? selectedPermission.text
-                                    : styles.permissionBtnTxt
-                            }
-                        >
-                            ModeratorModerator
-                        </Text>
-                    </Pressable>
-                    <Pressable
-                        style={
-                            selected
-                                ? selectedPermission.box
-                                : styles.permissionBtn
-                        }
-                        onPress={() => setSelected(!selected)}
-                    >
-                        <Text
-                            style={
-                                selected
-                                    ? selectedPermission.text
-                                    : styles.permissionBtnTxt
-                            }
-                        >
-                            ModeratorModerator
+                        <Text style={styles.permissionBtnTxt}>
+                            Bo'lim boshlig'i
                         </Text>
                     </Pressable>
                 </View>
