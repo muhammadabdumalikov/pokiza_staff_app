@@ -251,7 +251,7 @@ const CardComponent = ({ item, elements, setElements }) => {
                             borderBottomWidth: 0,
                         }}
                     >
-                        <TouchableOpacity>
+                        <TouchableOpacity >
                             <Text style={styles.resultFullName}>
                                 {`${item.clientInfo.firstName} ${item.clientInfo.lastName}`}
                             </Text>
