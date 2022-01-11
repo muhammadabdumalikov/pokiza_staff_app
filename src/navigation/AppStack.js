@@ -472,7 +472,6 @@ const MenuStack = ({ navigation, route }) => {
                         elevation: 0,
                         height: height * 0.15,
                     },
-                    // title: route.params.id,
                     headerRight: () => <CallButton />,
                     headerLeft: () => <LogoImage />,
                 })}
@@ -481,19 +480,14 @@ const MenuStack = ({ navigation, route }) => {
                 name="EditStaffScreen"
                 component={EditStaffScreen}
                 options={({ route }) => ({
-                    headerTitle: "Huquqlar qo'shish",
-                    headerTitleAlign: "center",
-                    headerTitleStyle: {
-                        fontSize: 18,
-                        top: 25,
-                        textAlign: "center",
-                    },
+                    headerTitle: "",
                     headerStyle: {
                         shadowColor: "#fff",
                         elevation: 0,
-                        height: height * 0.15,
+                        backgroundColor: "#F5F5F5",
+                        // height: Dimensions.get("window").height / 5.8,
                     },
-                    // title: route.params.id,
+                    height: height * 0.15,
                     headerRight: () => <CallButton />,
                     headerLeft: () => <LogoImage />,
                 })}
