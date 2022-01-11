@@ -438,7 +438,7 @@ const MenuStack = ({ navigation, route }) => {
                 name="StaffIndex"
                 component={StaffIndex}
                 options={({ route }) => ({
-                    headerTitle: "Huquqlar qo'shish",
+                    headerTitle: "",
                     headerTitleAlign: "center",
                     headerTitleStyle: {
                         fontSize: 18,

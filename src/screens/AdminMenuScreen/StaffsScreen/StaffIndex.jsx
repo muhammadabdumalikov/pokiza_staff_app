@@ -13,6 +13,7 @@ const StaffIndex = ({ route }) => {
     return (
         <Tab.Navigator
             screenOptions={{
+                title: "",
                 tabBarActiveTintColor: "black",
                 tabBarInactiveTintColor: "gray",
                 tabBarIndicatorStyle: {
