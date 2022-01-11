@@ -146,34 +146,22 @@ const AddPermissonScreen = ({ navigation }) => {
                         </Text>
                     </Pressable>
                     <Pressable style={styles.permissionBtn}>
-                        <Text style={styles.permissionBtnTxt}>
-                            Huquq 1
-                        </Text>
+                        <Text style={styles.permissionBtnTxt}>Huquq 1</Text>
                     </Pressable>
-                    <Pressable
-                        style={styles.permissionBtn}
-                    >
-                        <Text style={styles.permissionBtnTxt}>
-                            Huquq 2
-                        </Text>
+                    <Pressable style={styles.permissionBtn}>
+                        <Text style={styles.permissionBtnTxt}>Huquq 2</Text>
                     </Pressable>
-                    <Pressable
-                        style={styles.permissionBtn}
-                    >
+                    <Pressable style={styles.permissionBtn}>
                         <Text style={styles.permissionBtnTxt}>
                             Haydovchi boshlig'i
                         </Text>
                     </Pressable>
-                    <Pressable
-                        style={styles.permissionBtn}
-                    >
+                    <Pressable style={styles.permissionBtn}>
                         <Text style={styles.permissionBtnTxt}>
                             Asosiy operator
                         </Text>
                     </Pressable>
-                    <Pressable
-                        style={styles.permissionBtn}
-                    >
+                    <Pressable style={styles.permissionBtn}>
                         <Text style={styles.permissionBtnTxt}>
                             Bo'lim boshlig'i
                         </Text>
