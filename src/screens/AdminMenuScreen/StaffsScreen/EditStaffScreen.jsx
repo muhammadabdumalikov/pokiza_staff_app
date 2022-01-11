@@ -247,15 +247,6 @@ const EditStaffScreen = ({ navigation, route }) => {
         { key: "2", label: "Ayol", value: 2 },
     ];
 
-    const clientStatus = [
-        { key: "1", label: "Normal", value: 1 },
-        { key: "2", label: "Good", value: 2 },
-        { key: "3", label: "Favourites", value: 3 },
-        // etc...
-        // Can also add additional custom keys which are passed to the onChange callback
-        { key: "4", label: "Black-list", value: 4 },
-    ];
-
     const modalStatus = ({ item }) => {
         return (
             <TouchableOpacity
@@ -609,58 +600,6 @@ const EditStaffScreen = ({ navigation, route }) => {
                                 // autoFocus={true}
                                 maxLength={12}
                             />
-                        </View>
-
-                        {/* Status input --------------------------------------------------------- */}
-                        <View style={styles.pickerWrapper}>
-                            <View style={styles.preTextWrapperStyle}>
-                                <Text style={styles.preText}>Holati</Text>
-                            </View>
-                            <Modal
-                                animationType="slide"
-                                transparent={true}
-                                visible={statusModalVisible}
-                                onRequestClose={() => {
-                                    setStatusModalVisible(!statusModalVisible);
-                                }}
-                            >
-                                <View style={styles.centeredView}>
-                                    <View style={styles.modalWrapper}>
-                                        <FlatList
-                                            data={clientStatus}
-                                            renderItem={modalStatus}
-                                            keyExtractor={(item) => item.key}
-                                            contentContainerStyle={
-                                                styles.modalView
-                                            }
-                                            style={styles.contenModalView}
-                                            showsVerticalScrollIndicator={false}
-                                        />
-                                    </View>
-                                    <Pressable
-                                        style={styles.buttonClose}
-                                        onPress={() =>
-                                            setStatusModalVisible(
-                                                !statusModalVisible
-                                            )
-                                        }
-                                    >
-                                        <Text style={styles.hideModalButton}>
-                                            Hide Modal
-                                        </Text>
-                                    </Pressable>
-                                </View>
-                            </Modal>
-                            <Pressable
-                                style={styles.buttonOpen}
-                                onPress={() => setStatusModalVisible(true)}
-                            >
-                                <Text style={styles.textStyle}>
-                                    {selectedStatus != undefined
-                                        ? selectedStatus.label
-                                        : "Holatni kiriting"}
-                                </Text>
-                            </Pressable>
                         </View>
 
                         {/* Client comment input --------------------------------------------------------------- */}
